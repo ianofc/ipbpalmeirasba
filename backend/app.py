@@ -1,47 +1,115 @@
-from flask import Flask, jsonify, send_from_directory
-import requests
+from flask import Flask, render_template, jsonify, send_from_directory
+from flask_cors import CORS  # Importando CORS
+import requests 
+import os 
 from datetime import datetime
-from config import Config
 
 app = Flask(__name__)
-app.config.from_object(Config)
+CORS(app)
 
-# Rota para obter a mensagem do dia
-@app.route('/api/mensagem_do_dia', methods=['GET'])
-def get_mensagem_do_dia():
-    response = requests.get(app.config['BIBLE_API_URL'])
-    if response.status_code == 200:
-        return jsonify(response.json())
-    return jsonify({"error": "Não foi possível obter a mensagem do dia."}), 500
+BIBLE_API_BASE = "https://bible-api.com"
+
+@app.route('/')
+def serve_index():
+    return send_from_directory('../frontend', 'index.html')
+
+@app.route('/<path:path>')
+def serve_static(path):
+    return send_from_directory('../frontend', path)
+
+@app.route('/api/books', methods=['GET'])
+def get_books():
+    books = [
+        "Gênesis", "Êxodo", "Levítico", "Números", "Deuteronômio",
+        "Josué", "Juízes", "Rute", "1 Samuel", "2 Samuel", "1 Reis",
+        "2 Reis", "1 Crônicas", "2 Crônicas", "Esdras", "Neemias",
+        "Ester", "Jó", "Salmos", "Provérbios", "Eclesiastes",
+        "Cânticos", "Isaías", "Jeremias", "Lamentações", "Ezequiel",
+        "Daniel", "Oséias", "Joel", "Amós", "Obadias", "Jonas",
+        "Miquéias", "Naum", "Habacuque", "Sofonias", "Ageu",
+        "Zacarias", "Malaquias", "Mateus", "Marcos", "Lucas", "João",
+        "Atos", "Romanos", "1 Coríntios", "2 Coríntios", "Gálatas",
+        "Efésios", "Filipenses", "Colossenses", "1 Tessalonicenses",
+        "2 Tessalonicenses", "1 Timóteo", "2 Timóteo", "Tito",
+        "Filemom", "Hebreus", "Tiago", "1 Pedro", "2 Pedro",
+        "1 João", "2 João", "3 João", "Judas", "Apocalipse"
+    ]
+    return jsonify(books)
+
+@app.route('/api/chapters/<book>', methods=['GET'])
+def get_chapters(book):
+    chapters = {
+        "Gênesis": 50, "Êxodo": 40, "Levítico": 27, "Números": 36,
+        "Deuteronômio": 34, "Josué": 24, "Juízes": 21, "Rute": 4,
+        "1 Samuel": 31, "2 Samuel": 24, "1 Reis": 22, "2 Reis": 25,
+        "1 Crônicas": 29, "2 Crônicas": 36, "Esdras": 10, "Neemias": 13,
+        "Ester": 10, "Jó": 42, "Salmos": 150, "Provérbios": 31,
+        "Eclesiastes": 12, "Cânticos": 8, "Isaías": 66, "Jeremias": 52,
+        "Lamentações": 5, "Ezequiel": 48, "Daniel": 12, "Oséias": 14,
+        "Joel": 3, "Amós": 9, "Obadias": 1, "Jonas": 4, "Miquéias": 7,
+        "Naum": 3, "Habacuque": 3, "Sofonias": 3, "Ageu": 2,
+        "Zacarias": 14, "Malaquias": 4, "Mateus": 28, "Marcos": 16,
+        "Lucas": 24, "João": 21, "Atos": 28, "Romanos": 16,
+        "1 Coríntios": 16, "2 Coríntios": 13, "Gálatas": 6,
+        "Efésios": 6, "Filipenses": 4, "Colossenses": 4,
+        "1 Tessalonicenses": 5, "2 Tessalonicenses": 3, "1 Timóteo": 6,
+        "2 Timóteo": 4, "Tito": 3, "Filemom": 1, "Hebreus": 13,
+        "Tiago": 5, "1 Pedro": 5, "2 Pedro": 3, "1 João": 5,
+        "2 João": 1, "3 João": 1, "Judas": 1, "Apocalipse": 22
+    }
+    return jsonify(chapters.get(book, 0))
+
+@app.route('/api/verse/<book>/<chapter>', methods=['GET'])
+def get_verse(book, chapter):
+    try:
+        # Converte nome do livro para formato da API
+        book_map = {
+            "Gênesis": "genesis", "Êxodo": "exodus", "João": "john",
+            # Adicione mais mapeamentos conforme necessário
+        }
+        api_book = book_map.get(book, book.lower())
+        
+        response = requests.get(
+            f"{BIBLE_API_BASE}/{api_book}+{chapter}?translation=almeida"
+        )
+        data = response.json()
+        return jsonify({
+            "text": data["text"],
+            "reference": f"{book} {chapter}"
+        })
+    except Exception as e:
+        return jsonify({
+            "error": "Versículo não encontrado",
+            "text": "Erro ao carregar o texto bíblico."
+        }), 404
+
+@app.route('/random_verse', methods=['GET'])
+def random_verse():
+    try:
+        response = requests.get(f"{BIBLE_API_BASE}/random/OT,NT?translation=almeida")
+        data = response.json()
+        return jsonify({
+            "reference": data["reference"],
+            "text": data["text"]
+        })
+    except Exception as e:
+        return jsonify({
+            "reference": "João 3:16",
+            "text": "Porque Deus amou o mundo de tal maneira que deu o seu Filho unigênito, para que todo aquele que nele crê não pereça, mas tenha a vida eterna."
+        })
+
 
 # Rota para obter o endereço da igreja
-@app.route('/api/endereco', methods=['GET'])
-def get_endereco():
-    return jsonify({"endereco": app.config['CHURCH_ADDRESS']})
 
 # Rota para listar documentos
-@app.route('/api/docs/<path:filename>', methods=['GET'])
-def get_document(filename):
-    return send_from_directory('src/docs', filename)
 
 # Rota para obter eventos do calendário
-@app.route('/api/calendario', methods=['GET'])
-def get_calendario():
-    params = {
-        'api_key': app.config['CALENDARIFIC_API_KEY'],
-        'country': 'BR',
-        'year': datetime.now().year
-    }
-    response = requests.get(app.config['CALENDAR_API_URL'], params=params)
-    if response.status_code == 200:
-        return jsonify(response.json())
-    return jsonify({"error": "Não foi possível obter os eventos do calendário."}), 500
+
 
 # Rota para obter a playlist do Spotify
-@app.route('/api/musica', methods=['GET'])
-def get_musica():
-    return jsonify({"playlist_url": "https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M"})
 
+
+    
 if __name__ == '__main__':
     app.run(debug=True)
-
+    

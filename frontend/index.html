@@ -291,6 +291,25 @@
             </div>
         </div>
     </section>
+
+    <!-- Bible Section -->
+    <section>
+        <div class="bg-white p-6 rounded-lg shadow-lg text-center max-w-md w-full">
+            <h2 class="text-2xl font-bold mb-4">Bíblia Completa</h2>
+            <div class="flex flex-col gap-4">
+                <select id="bookSelect" class="w-full p-2 border rounded">
+                    <option value="">Selecione um livro</option>
+                </select>
+                <select id="chapterSelect" class="w-full p-2 border rounded" disabled>
+                    <option value="">Selecione um capítulo</option>
+                </select>
+                <div id="bibleText" class="text-lg text-gray-700 mt-4 text-left">
+                    Selecione um livro e capítulo para ler.
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Sobre Section -->
     <section class="py-12 bg-gray-100">
         <div class="container mx-auto px-6">
@@ -437,6 +456,39 @@
             </div>
         </div>
     </section>
+    <!-- Slideshow Section -->
+  <section class="py-12 bg-gray-200">
+    <div class="container mx-auto px-6">
+     <h2 class="text-3xl font-bold text-center mb-8">
+      Galeria de Fotos
+     </h2>
+     <div class="slideshow-container">
+      <div class="mySlides fade">
+       <img alt="Foto 1 da galeria" class="w-full" height="400" src="https://storage.googleapis.com/a1aa/image/7zhfP-Y7ErMy0wMnLqPPeE706rCnLCxoGwJK87f6Ruc.jpg" width="800"/>
+      </div>
+      <div class="mySlides fade">
+       <img alt="Foto 2 da galeria" class="w-full" height="400" src="https://storage.googleapis.com/a1aa/image/cHSGMRL8cNdVJ-txhDdWJKkR9KiTS6OXscHJcOfQxh0.jpg" width="800"/>
+      </div>
+      <div class="mySlides fade">
+       <img alt="Foto 3 da galeria" class="w-full" height="400" src="https://storage.googleapis.com/a1aa/image/ts51YGVO3rd-crDLyPgyjVNVZQtZcJEK0wSdGtrTto8.jpg" width="800"/>
+      </div>
+      <a class="prev" onclick="plusSlides(-1)">
+       ❮
+      </a>
+      <a class="next" onclick="plusSlides(1)">
+       ❯
+      </a>
+     </div>
+     <div class="text-center mt-4">
+      <span class="dot" onclick="currentSlide(1)">
+      </span>
+      <span class="dot" onclick="currentSlide(2)">
+      </span>
+      <span class="dot" onclick="currentSlide(3)">
+      </span>
+     </div>
+    </div>
+   </section>
     <!-- Footer -->
     <footer class="bg-green-700 text-white py-6">
         <div class="container mx-auto px-6 text-center">
@@ -460,5 +512,8 @@
             </div>
         </div>
     </footer>
+    
+    <script src="src/js/script.js"></script>
+    
 </body>
 </html>
