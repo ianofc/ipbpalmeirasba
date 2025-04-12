@@ -6,13 +6,23 @@ from PIL import Image
 from io import BytesIO
 import sqlite3
 from functools import wraps
+import requests  # Importação do módulo requests
 
 app = Flask(__name__,
             template_folder='../frontend',
             static_folder='../frontend/src')
 CORS(app)
 
+def track_visitors(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if f.__name__ == 'index':
+            increment_visitor_count()  # Incrementa a contagem de visitantes
+        return f(*args, **kwargs)
+    return decorated_function
+
 @app.route('/')
+@track_visitors
 def index():
     return render_template('index.html')
 
@@ -68,7 +78,7 @@ def track_visitors(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if f.__name__ == 'index':
-            increment_visitor_count()
+            increment_visitor_count()  # Incrementa a contagem de visitantes
         return f(*args, **kwargs)
     return decorated_function
 
@@ -88,17 +98,6 @@ def optimize_image(image_path, max_size=800):
     output.seek(0)
     return output
 
-def get_photos():
-    photos_path = os.path.join('frontend', 'src', 'imgs', 'igr')
-    photos = []
-    for file in os.listdir(photos_path):
-        if file.lower().endswith(('.jpg', '.jpeg', '.png')):
-            photos.append({
-                'url': f'/optimized-image/igr/{file}',
-                'description': file.split('.')[0].replace('_', ' ')
-            })
-    return jsonify(photos)
-
 @app.route('/optimized-image/<path:image_path>')
 def serve_optimized_image(image_path):
     full_path = os.path.join('frontend', 'src', 'imgs', image_path)
@@ -109,18 +108,17 @@ def serve_optimized_image(image_path):
         )
     return '', 404
 
-
 @app.route('/random_verse', methods=['GET'])
 def get_random_verse():
     try:
         response = requests.get('https://bible-api.com/random')
-        if response.status_code == 200:
-            data = response.json()
-            return jsonify({
-                "reference": f"{data['reference']}",
-                "text": data['text']
-            })
-    except:
+        response.raise_for_status()  # Levanta um erro para códigos de status HTTP 4xx ou 5xx
+        data = response.json()
+        return jsonify({
+            "reference": f"{data['reference']}",
+            "text": data['text']
+        })
+    except requests.exceptions.RequestException as e:
         # Fallback para versículos locais em caso de erro
         verses = [
             {"reference": "João 3:16", "text": "Porque Deus amou o mundo de tal maneira que deu o seu Filho unigênito, para que todo aquele que nele crê não pereça, mas tenha a vida eterna."},
@@ -133,8 +131,6 @@ def get_random_verse():
 
 @app.route('/api/verse/<book>/<chapter>', methods=['GET'])
 def get_bible_chapter(book, chapter):
-    import requests
-
     try:
         response = requests.get(f'https://bible-api.com/{book}+{chapter}?translation=almeida')
         if response.status_code == 200:
@@ -158,12 +154,13 @@ def get_calendar():
 def get_documents():
     docs_path = os.path.join('frontend', 'src', 'docs')
     documents = []
-    for file in os.listdir(docs_path):
-        if file.lower().endswith(('.pdf', '.docx')):
-            documents.append({
-                'name': file,
-                'path': f'/src/docs/{file}'
-            })
+    if os.path.exists(docs_path):
+        for file in os.listdir(docs_path):
+            if file.lower().endswith(('.pdf', '.docx')):
+                documents.append({
+                    'name': file,
+                    'path': f'/src/docs/{file}'
+                })
     return jsonify(documents)
 
 @app.route('/api/music', methods=['GET'])
