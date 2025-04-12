@@ -1,3 +1,21 @@
+function toggleTheme() {
+    const body = document.body;
+    const themeLabel = document.getElementById('themeLabel');
+    if (body.classList.contains('light-theme')) {
+        body.classList.remove('light-theme');
+        body.classList.add('dark-theme');
+        themeLabel.textContent = 'Dark';
+    } else if (body.classList.contains('dark-theme')) {
+        body.classList.remove('dark-theme');
+        body.classList.add('green-theme');
+        themeLabel.textContent = 'Green';
+    } else {
+        body.classList.remove('green-theme');
+        body.classList.add('light-theme');
+        themeLabel.textContent = 'Light';
+    }
+}
+
 const video = document.getElementById('aboutVideo');
 
 // Adiciona eventos para controlar o áudio do vídeo
@@ -173,15 +191,34 @@ const originalTexts = new Map();
 
 async function translateText(text, targetLang) {
     try {
-        const response = await fetch(`https://api-free.deepl.com/v2/translate?auth_key=${apiKey}&text=${encodeURIComponent(text)}&target_lang=${targetLang}`);
-        if (!response.ok) {
-            throw new Error(`Translation failed: ${response.statusText}`);
-        }
+        const langMap = {
+            'PT-BR': 'pt',
+            'EN': 'en',
+            'ES': 'es',
+            'FR': 'fr',
+            'DE': 'de',
+            'ZH': 'zh',
+            'JA': 'ja'
+        };
+
+        const finalLang = langMap[targetLang] || 'en';
+        const sourceLang = targetLang === 'PT-BR' ? 'en' : 'pt';
+        
+        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sourceLang}&tl=${finalLang}&dt=t&q=${encodeURIComponent(text)}`;
+        
+        const response = await fetch(url);
         const data = await response.json();
-        return data.translations[0].text;
+        
+        if (data && data[0] && data[0][0] && data[0][0][0]) {
+            return data[0][0][0];
+        } else {
+            throw new Error('Falha na tradução');
+        }
     } catch (error) {
-        console.error('Translation error:', error);
-        return text;
+        console.error('Erro na tradução:', error);
+        console.log('Texto original:', text);
+        console.log('Idioma alvo:', targetLang);
+        return text; // Retorna o texto original em caso de erro
     }
 }
 
@@ -189,48 +226,44 @@ async function translatePage(targetLang) {
     try {
         const elementsToTranslate = document.querySelectorAll('[data-translate]');
         const translations = [];
-        
+
         for (const element of elementsToTranslate) {
-            const span = element.querySelector('span');
-            if (span) {
-                // Store original text if not already stored
-                if (!originalTexts.has(span)) {
-                    originalTexts.set(span, span.textContent);
-                }
-                
-                // Get text to translate (original text if PT-BR, current text otherwise)
-                const textToTranslate = targetLang === 'PT-BR' ? 
-                    originalTexts.get(span) : 
-                    span.textContent;
-                
-                translations.push({
-                    span,
-                    translation: translateText(textToTranslate, targetLang)
-                });
+            // Armazena o texto original se ainda não estiver armazenado
+            if (!originalTexts.has(element)) {
+                originalTexts.set(element, element.textContent);
             }
+            
+            // Obtém o texto a ser traduzido
+            const textToTranslate = targetLang === 'PT-BR' ? 
+                originalTexts.get(element) : 
+                element.textContent;
+            
+            translations.push({
+                element,
+                translation: translateText(textToTranslate, targetLang)
+            });
         }
 
-        // Show loading indicator
+        // Mostra o indicador de carregamento
         document.body.style.cursor = 'wait';
 
-        // Wait for all translations to complete
+        // Aguarda todas as traduções serem concluídas
         const results = await Promise.all(translations.map(t => t.translation));
         
-        // Update all elements with their translations
+        // Atualiza todos os elementos com suas traduções
         translations.forEach((item, index) => {
-            item.span.textContent = results[index];
+            item.element.textContent = results[index];
         });
 
-        // Hide loading indicator
+        // Esconde o indicador de carregamento
         document.body.style.cursor = 'default';
         
-        console.log(`Page translated to ${targetLang}`);
+        console.log(`Página traduzida para ${targetLang}`);
     } catch (error) {
-        console.error('Translation failed:', error);
+        console.error('Falha na tradução:', error);
         document.body.style.cursor = 'default';
     }
 }
-
 function translateToPortugues() { translatePage('PT-BR'); }
 function translateToEnglish() { translatePage('EN'); }
 function translateToSpanish() { translatePage('ES'); }
@@ -249,11 +282,11 @@ function handleScroll() {
         const icon = item.querySelector('img');
         
         if (scrollPosition > 100) {
-            textSpan.classList.add('hidden');
-            icon.classList.remove('hidden');
+            if (textSpan) textSpan.classList.add('hidden');
+            if (icon) icon.classList.remove('hidden');
         } else {
-            textSpan.classList.remove('hidden');
-            icon.classList.add('hidden');
+            if (textSpan) textSpan.classList.remove('hidden');
+            if (icon) icon.classList.add('hidden');
         }
     });
 }
@@ -263,6 +296,7 @@ document.addEventListener('DOMContentLoaded', function() {
     scheduleDailyVerse();
     initializePlayer();
     updateVisitorCount();
+    new Sarcinha(); // Inicializa o chatbot
     
     // Add scroll event listener
     window.addEventListener('scroll', handleScroll);
@@ -334,19 +368,19 @@ document.addEventListener('DOMContentLoaded', function() {
         bookSelect.appendChild(option);
     });
 
-    // Atualizar capítulos quando um livro é selecionado
-    bookSelect.addEventListener('change', function() {
-        chapterSelect.innerHTML = '<option value="">Selecione um capítulo</option>';
-        if (this.value) {
-            const numChapters = getNumberOfChapters(this.value);
-            for (let i = 1; i <= numChapters; i++) {
-                const option = document.createElement('option');
-                option.value = i;
-                option.textContent = `Capítulo ${i}`;
-                chapterSelect.appendChild(option);
-            }
+    // Função para atualizar capítulos quando um livro é selecionado
+bookSelect.addEventListener('change', function() {
+    chapterSelect.innerHTML = '<option value="">Selecione um capítulo</option>';
+    if (this.value) {
+        const numChapters = getNumberOfChapters(this.value);
+        for (let i = 1; i <= numChapters; i++) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.textContent = `Capítulo ${i}`;
+            chapterSelect.appendChild(option);
         }
-    });
+    }
+});
 
     // Carregar versículos quando um capítulo é selecionado
     chapterSelect.addEventListener('change', function() {
