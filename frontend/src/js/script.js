@@ -496,7 +496,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     const locationPhoto = document.getElementById('location-photo');
 
     // Busca dados da localização da API
-    const locationResponse = await fetch('/api/location');
+    const locationResponse = await fetch("https://ipbpalmeirasba.onrender.com/api/location");
     const locationData = await locationResponse.json();
     const { latitude, longitude } = locationData.coordinates;
 
@@ -519,7 +519,7 @@ document.addEventListener("DOMContentLoaded", async function() {
 
     // Carrega o calendário
     async function loadCalendar() {
-        const response = await fetch("https://ipbpalmeirasba.onrender.com/api/calendar");
+        const response = await fetch('https://ipbpalmeirasba.onrender.com/api/calendar');
         const data = await response.json();
         const calendarFrame = document.getElementById('google-calendar');
         calendarFrame.src = data.calendar_url;
@@ -529,7 +529,7 @@ document.addEventListener("DOMContentLoaded", async function() {
 });
 
 // Load documents
-fetch('https://ipbpalmeirasba.onrender.com/api/documents')
+fetch("https://ipbpalmeirasba.onrender.com/api/documents")
     .then(response => response.json())
     .then(documents => {
         const container = document.getElementById('documents-container');
