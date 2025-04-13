@@ -410,40 +410,29 @@ bookSelect.addEventListener('change', function() {
     }
 
     // Função para carregar capítulo da Bíblia
-    function loadBibleChapter(book, chapter) {
-    const bibleContent = document.getElementById('bible-content');
-    if (!bibleContent) return;
+function loadBibleChapter(book, chapter) {
+    const bookMap = {
+        "Gênesis": "genesis", "Êxodo": "exodus", "Levítico": "leviticus",
+        // Adicione mais mapeamentos conforme necessário
+    };
 
+    const apiBook = bookMap[book] || book.toLowerCase().replace(/\s+/g, '');
     bibleContent.innerHTML = '<p class="text-center">Carregando...</p>';
 
-    // 1. URL corrigida (encodeURIComponent aplicado corretamente)
-    const apiUrl = `https://ipbpalmeirasba.onrender.com/api/verse/${encodeURIComponent(book)}/${chapter}`;
-    
-    // 2. Debug: verifique a URL no console
-    console.log('Chamando API com URL:', apiUrl);
-
-    fetch(apiUrl)
-        .then(response => {
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            return response.json();
-        })
+    // Corrigindo a URL da API
+    fetch(`https://ipbpalmeirasba.onrender.com/api/verse/${apiBook}/${chapter}`)
+        .then(response => response.json())
         .then(data => {
-            if (!data || !data.text) throw new Error('Dados inválidos da API');
-            
             bibleContent.innerHTML = `
-                <h3 class="text-xl font-bold mb-4">${data.reference || `${book} ${chapter}`}</h3>
+                <h3 class="text-xl font-bold mb-4">${data.reference}</h3>
                 <p class="text-lg">${data.text}</p>
             `;
         })
         .catch(error => {
-            console.error('Erro na API:', error);
-            bibleContent.innerHTML = `
-                <p class="text-red-500 text-center">
-                    Erro: ${error.message || 'Falha ao carregar o capítulo'}
-                </p>
-            `;
+            bibleContent.innerHTML = '<p class="text-red-500 text-center">Erro ao carregar o texto bíblico.</p>';
+            console.error('Erro:', error);
         });
-    }
+}
 
 // JavaScript para o slider de organizações
 const slider = document.getElementById('slider');
@@ -561,50 +550,4 @@ let currentSlideIndex = 0;
 let galleryPhotos = [];
 
 function loadGallery() {
-    fetch("https://ipbpalmeirasba.onrender.com/api/photos")
-        .then(response => response.json())
-        .then(photos => {
-            galleryPhotos = photos;
-            const galleryContainer = document.getElementById('gallery-container');
-            galleryContainer.innerHTML = `
-                <div class="relative w-full h-full">
-                    <div class="gallery-slideshow h-full">
-                        <div class="gallery-item h-full">
-                            <img src="${photos[0].url}" alt="${photos[0].description}" class="w-full h-[70vh] object-cover">
-                            <p class="text-center p-4 text-lg">${photos[0].description}</p>
-                        </div>
-                    </div>
-                    <button onclick="changeSlide(-1)" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-4 rounded-full hover:bg-opacity-75">?</button>
-                    <button onclick="changeSlide(1)" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-4 rounded-full hover:bg-opacity-75">?</button>
-                </div>
-            `;
-            startSlideshow();
-        })
-        .catch(error => {
-            console.error('Error loading gallery:', error);
-        });
-}
-
-function changeSlide(direction) {
-    currentSlideIndex = (currentSlideIndex + direction + galleryPhotos.length) % galleryPhotos.length;
-    updateSlide();
-}
-
-function updateSlide() {
-    const galleryItem = document.querySelector('.gallery-item');
-    const photo = galleryPhotos[currentSlideIndex];
-    galleryItem.innerHTML = `
-        <img src="${photo.url}" alt="Foto da galeria" class="w-full h-[400px] object-cover">
-    `;
-}
-
-function startSlideshow() {
-    setInterval(() => {
-        changeSlide(1);
-    }, 3000);
-}
-
-// Chame a função para carregar a galeria quando o DOM estiver pronto
-document.addEventListener('DOMContentLoaded', function() {
-    loadGallery();
-});
+    fetch("https:
