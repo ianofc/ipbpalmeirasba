@@ -554,3 +554,5 @@ function loadGallery() {
         .then(response => response.json())
         .then(photos => {
             galleryPhotos 
+
+}
