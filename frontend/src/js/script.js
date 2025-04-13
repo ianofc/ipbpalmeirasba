@@ -55,7 +55,7 @@ themeButton.addEventListener('click', () => {
 
 // Funções para o versículo diário
 function fetchVerse() {
-    fetch('/random_verse')
+    fetch('https://ipbpalmeirasba.onrender.com/random_verse')
         .then(response => response.json())
         .then(data => {
             const verse = document.getElementById('verse');
@@ -136,7 +136,7 @@ function updatePlaylist() {
 // Função para inicializar o player
 async function initializePlayer() {
     try {
-        const response = await fetch('/api/music');
+        const response = await fetch('https://ipbpalmeirasba.onrender.com/api/music');
         tracks = await response.json();
 
         if (tracks.length > 0) {
@@ -176,7 +176,7 @@ function loadChristianMusic() {
 
 
 function updateVisitorCount() {
-    fetch('/visitor-count')
+    fetch('https://ipbpalmeirasba.onrender.com/visitor-count')
         .then(response => response.json())
         .then(data => {
             document.getElementById('visitor-count').textContent = data.count;
@@ -419,7 +419,7 @@ bookSelect.addEventListener('change', function() {
         const apiBook = bookMap[book] || book.toLowerCase().replace(/\s+/g, '');
         bibleContent.innerHTML = '<p class="text-center">Carregando...</p>';
 
-        fetch(`/api/verse/${book}/${chapter}`)
+        fetch('https://ipbpalmeirasba.onrender.com/api/verse/${book}/${chapter}`)
             .then(response => response.json())
             .then(data => {
                 bibleContent.innerHTML = `
@@ -519,7 +519,7 @@ document.addEventListener("DOMContentLoaded", async function() {
 
     // Carrega o calendário
     async function loadCalendar() {
-        const response = await fetch('/api/calendar');
+        const response = await fetch('https://ipbpalmeirasba.onrender.com/api/calendar');
         const data = await response.json();
         const calendarFrame = document.getElementById('google-calendar');
         calendarFrame.src = data.calendar_url;
@@ -529,7 +529,7 @@ document.addEventListener("DOMContentLoaded", async function() {
 });
 
 // Load documents
-fetch('/api/documents')
+fetch('https://ipbpalmeirasba.onrender.com/api/documents')
     .then(response => response.json())
     .then(documents => {
         const container = document.getElementById('documents-container');
@@ -550,7 +550,7 @@ let currentSlideIndex = 0;
 let galleryPhotos = [];
 
 function loadGallery() {
-    fetch('/api/photos')
+    fetch('https://ipbpalmeirasba.onrender.com/api/photos')
         .then(response => response.json())
         .then(photos => {
             galleryPhotos = photos;
