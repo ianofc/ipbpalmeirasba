@@ -410,29 +410,39 @@ bookSelect.addEventListener('change', function() {
     }
 
     // Função para carregar capítulo da Bíblia
-    function loadBibleChapter(book, chapter) {
-        const bookMap = {
-            "Gênesis": "genesis", "Êxodo": "exodus", "Levítico": "leviticus",
-            // Adicione mais mapeamentos conforme necessário
-        };
+function loadBibleChapter(book, chapter) {
+    const bookMap = {
+        "Gênesis": "genesis", "Êxodo": "exodus", "Levítico": "leviticus",
+        // Adicione mais mapeamentos conforme necessário
+    };
 
-        const apiBook = bookMap[book] || book.toLowerCase().replace(/\s+/g, '');
-        bibleContent.innerHTML = '<p class="text-center">Carregando...</p>';
+    const apiBook = bookMap[book] || book.toLowerCase().replace(/\s+/g, '');
+    bibleContent.innerHTML = '<p class="text-center">Carregando...</p>';
 
-        fetch('https://ipbpalmeirasba.onrender.com/api/verse/${book}/${chapter}')
-            .then(response => response.json())
-            .then(data => {
+    // Corrigido para usar crase para interpolação
+    fetch(`https://ipbpalmeirasba.onrender.com/api/verse/${apiBook}/${chapter}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro na resposta da API');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Verifica se os dados retornados estão corretos
+            if (data && data.reference && data.text) {
                 bibleContent.innerHTML = `
                     <h3 class="text-xl font-bold mb-4">${data.reference}</h3>
                     <p class="text-lg">${data.text}</p>
                 `;
-            })
-            .catch(error => {
-                bibleContent.innerHTML = '<p class="text-red-500 text-center">Erro ao carregar o texto bíblico.</p>';
-                console.error('Erro:', error);
-            });
-    }
-});
+            } else {
+                bibleContent.innerHTML = '<p class="text-red-500 text-center">Capítulo não encontrado.</p>';
+            }
+        })
+        .catch(error => {
+            bibleContent.innerHTML = '<p class="text-red-500 text-center">Erro ao carregar o texto bíblico.</p>';
+            console.error('Erro:', error);
+        });
+}
 
 // JavaScript para o slider de organizações
 const slider = document.getElementById('slider');
