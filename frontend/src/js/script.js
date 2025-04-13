@@ -55,7 +55,7 @@ themeButton.addEventListener('click', () => {
 
 // Funções para o versículo diário
 function fetchVerse() {
-    fetch("https://ipbpalmeirasba.onrender.com/random_verse")
+    fetch('https://ipbpalmeirasba.onrender.com/random_verse')
         .then(response => response.json())
         .then(data => {
             const verse = document.getElementById('verse');
