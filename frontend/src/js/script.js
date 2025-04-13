@@ -419,7 +419,7 @@ bookSelect.addEventListener('change', function() {
         const apiBook = bookMap[book] || book.toLowerCase().replace(/\s+/g, '');
         bibleContent.innerHTML = '<p class="text-center">Carregando...</p>';
 
-        fetch("https://ipbpalmeirasba.onrender.com/api/verse/${book}/${chapter}")
+        fetch('https://ipbpalmeirasba.onrender.com/api/verse/${book}/${chapter}')
             .then(response => response.json())
             .then(data => {
                 bibleContent.innerHTML = `
