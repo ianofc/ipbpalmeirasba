@@ -411,29 +411,60 @@ bookSelect.addEventListener('change', function() {
 
     // Função para carregar capítulo da Bíblia
     function loadBibleChapter(book, chapter) {
-        const bookMap = {
-            "Gênesis": "genesis", "Êxodo": "exodus", "Levítico": "leviticus",
-            // Adicione mais mapeamentos conforme necessário
-        };
+    const bookMap = {
+        "Gênesis": "genesis", "Êxodo": "exodus", "Levítico": "leviticus",
+        "Números": "numbers", "Deuteronômio": "deuteronomy", "Josué": "joshua",
+        "Juízes": "judges", "Rute": "ruth", "1 Samuel": "1_samuel",
+        "2 Samuel": "2_samuel", "1 Reis": "1_kings", "2 Reis": "2_kings",
+        "1 Crônicas": "1_chronicles", "2 Crônicas": "2_chronicles",
+        "Esdras": "ezra", "Neemias": "nehemiah", "Ester": "esther",
+        "Jó": "job", "Salmos": "psalms", "Provérbios": "proverbs",
+        "Eclesiastes": "ecclesiastes", "Cânticos": "song_of_solomon",
+        "Isaías": "isaiah", "Jeremias": "jeremiah", "Lamentações": "lamentations",
+        "Ezequiel": "ezekiel", "Daniel": "daniel", "Oséias": "hosea",
+        "Joel": "joel", "Amós": "amos", "Obadias": "obadiah",
+        "Jonas": "jonah", "Miquéias": "micah", "Naum": "nahum",
+        "Habacuque": "habakkuk", "Sofonias": "zephaniah", "Ageu": "haggai",
+        "Zacarias": "zechariah", "Malaquias": "malachi", "Mateus": "matthew",
+        "Marcos": "mark", "Lucas": "luke", "João": "john", "Atos": "acts",
+        "Romanos": "romans", "1 Coríntios": "1_corinthians", "2 Coríntios": "2_corinthians",
+        "Gálatas": "galatians", "Efésios": "ephesians", "Filipenses": "philippians",
+        "Colossenses": "colossians", "1 Tessalonicenses": "1_thessalonians",
+        "2 Tessalonicenses": "2_thessalonians", "1 Timóteo": "1_timothy",
+        "2 Timóteo": "2_timothy", "Tito": "titus", "Filemom": "philemon",
+        "Hebreus": "hebrews", "Tiago": "james", "1 Pedro": "1_peter",
+        "2 Pedro": "2_peter", "1 João": "1_john", "2 João": "2_john",
+        "3 João": "3_john", "Judas": "jude", "Apocalipse": "revelation"
+    };
 
-        const apiBook = bookMap[book] || book.toLowerCase().replace(/\s+/g, '');
-        bibleContent.innerHTML = '<p class="text-center">Carregando...</p>';
+    const apiBook = bookMap[book] || book.toLowerCase().replace(/\s+/g, '_');
+    bibleContent.innerHTML = '<p class="text-center">Carregando...</p>';
 
-        fetch("https://ipbpalmeirasba.onrender.com/api/verse/${book}/${chapter}")
-        fetch('https://ipbpalmeirasba.onrender.com/api/verse/${book}/${chapter}')
-            .then(response => response.json())
-            .then(data => {
-                bibleContent.innerHTML = `
-                    <h3 class="text-xl font-bold mb-4">${data.reference}</h3>
-                    <p class="text-lg">${data.text}</p>
-                `;
-            })
-            .catch(error => {
-                bibleContent.innerHTML = '<p class="text-red-500 text-center">Erro ao carregar o texto bíblico.</p>';
-                console.error('Erro:', error);
-            });
-    }
-});
+    fetch(`https://ipbpalmeirasba.onrender.com/api/verse/${apiBook}/${chapter}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Capítulo não encontrado');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.error) {
+                throw new Error(data.error);
+            }
+            bibleContent.innerHTML = `
+                <h3 class="text-xl font-bold mb-4">${data.reference || book + ' ' + chapter}</h3>
+                <p class="text-lg">${data.text || 'Texto não disponível'}</p>
+            `;
+        })
+        .catch(error => {
+            bibleContent.innerHTML = `
+                <p class="text-red-500 text-center">
+                    Erro ao carregar o texto bíblico: ${error.message}
+                </p>
+            `;
+            console.error('Erro:', error);
+        });
+}
 
 // JavaScript para o slider de organizações
 const slider = document.getElementById('slider');
