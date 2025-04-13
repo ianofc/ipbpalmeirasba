@@ -18,14 +18,14 @@ function toggleTheme() {
 
 const video = document.getElementById('aboutVideo');
 
-// Adiciona eventos para controlar o áudio do vídeo
+// Adiciona eventos para controlar o Ã¡udio do vÃ­deo
 if (video) {
     video.addEventListener('mouseover', () => {
-        video.muted = false; // Ativa o áudio
+        video.muted = false; // Ativa o Ã¡udio
     });
 
     video.addEventListener('mouseout', () => {
-        video.muted = true; // Desativa o áudio
+        video.muted = true; // Desativa o Ã¡udio
     });
 }
 
@@ -53,7 +53,7 @@ themeButton.addEventListener('click', () => {
     }
 });
 
-// Funções para o versículo diário
+// FunÃ§Ãµes para o versÃ­culo diÃ¡rio
 function fetchVerse() {
     fetch("https://ipbpalmeirasba.onrender.com/random_verse")
         .then(response => response.json())
@@ -66,7 +66,7 @@ function fetchVerse() {
         .catch(error => {
             const verse = document.getElementById('verse');
             if (verse) {
-                verse.innerText = 'Erro ao carregar versículo.';
+                verse.innerText = 'Erro ao carregar versÃ­culo.';
             }
             console.error('Erro:', error);
         });
@@ -89,11 +89,11 @@ function scheduleDailyVerse() {
     }, timeUntilNext4AM);
 }
 
-// Variáveis globais para o player de música
+// VariÃ¡veis globais para o player de mÃºsica
 let currentTrackIndex = 0;
 let tracks = [];
 
-// Função para carregar e tocar música
+// FunÃ§Ã£o para carregar e tocar mÃºsica
 function loadTrack(index) {
     if (tracks.length === 0) return;
 
@@ -111,7 +111,7 @@ function loadTrack(index) {
     });
 }
 
-// Função para atualizar a playlist
+// FunÃ§Ã£o para atualizar a playlist
 function updatePlaylist() {
     const playlist = document.getElementById('playlist');
     const startIndex = Math.max(0, Math.min(currentTrackIndex - 2, tracks.length - 5));
@@ -133,7 +133,7 @@ function updatePlaylist() {
     }).join('');
 }
 
-// Função para inicializar o player
+// FunÃ§Ã£o para inicializar o player
 async function initializePlayer() {
     try {
         const response = await fetch("https://ipbpalmeirasba.onrender.com/api/music");
@@ -146,7 +146,7 @@ async function initializePlayer() {
             const player = document.getElementById('youtube-player');
             player.src = `https://www.youtube.com/embed/${tracks[0].videoId}?autoplay=1&enablejsapi=1&origin=${window.location.origin}`;
 
-            // Adicionar event listeners para os botões
+            // Adicionar event listeners para os botÃµes
             document.getElementById('prev-track').addEventListener('click', () => {
                 const newIndex = currentTrackIndex > 0 ? currentTrackIndex - 1 : tracks.length - 1;
                 loadTrack(newIndex);
@@ -157,7 +157,7 @@ async function initializePlayer() {
                 loadTrack(newIndex);
             });
 
-            // Tocar próxima música quando a atual terminar
+            // Tocar prÃ³xima mÃºsica quando a atual terminar
             document.getElementById('current-audio').addEventListener('ended', () => {
                 const newIndex = currentTrackIndex < tracks.length - 1 ? currentTrackIndex + 1 : 0;
                 loadTrack(newIndex);
@@ -169,7 +169,7 @@ async function initializePlayer() {
 }
 
 
-// Inicializar versículo do dia
+// Inicializar versÃ­culo do dia
 function loadChristianMusic() {
     // This function is now redundant and should be removed as the new music player handles this functionality.
 }
@@ -212,10 +212,10 @@ async function translateText(text, targetLang) {
         if (data && data[0] && data[0][0] && data[0][0][0]) {
             return data[0][0][0];
         } else {
-            throw new Error('Falha na tradução');
+            throw new Error('Falha na traduÃ§Ã£o');
         }
     } catch (error) {
-        console.error('Erro na tradução:', error);
+        console.error('Erro na traduÃ§Ã£o:', error);
         console.log('Texto original:', text);
         console.log('Idioma alvo:', targetLang);
         return text; // Retorna o texto original em caso de erro
@@ -228,12 +228,12 @@ async function translatePage(targetLang) {
         const translations = [];
 
         for (const element of elementsToTranslate) {
-            // Armazena o texto original se ainda não estiver armazenado
+            // Armazena o texto original se ainda nÃ£o estiver armazenado
             if (!originalTexts.has(element)) {
                 originalTexts.set(element, element.textContent);
             }
             
-            // Obtém o texto a ser traduzido
+            // ObtÃ©m o texto a ser traduzido
             const textToTranslate = targetLang === 'PT-BR' ? 
                 originalTexts.get(element) : 
                 element.textContent;
@@ -247,10 +247,10 @@ async function translatePage(targetLang) {
         // Mostra o indicador de carregamento
         document.body.style.cursor = 'wait';
 
-        // Aguarda todas as traduções serem concluídas
+        // Aguarda todas as traduÃ§Ãµes serem concluÃ­das
         const results = await Promise.all(translations.map(t => t.translation));
         
-        // Atualiza todos os elementos com suas traduções
+        // Atualiza todos os elementos com suas traduÃ§Ãµes
         translations.forEach((item, index) => {
             item.element.textContent = results[index];
         });
@@ -258,9 +258,9 @@ async function translatePage(targetLang) {
         // Esconde o indicador de carregamento
         document.body.style.cursor = 'default';
         
-        console.log(`Página traduzida para ${targetLang}`);
+        console.log(`PÃ¡gina traduzida para ${targetLang}`);
     } catch (error) {
-        console.error('Falha na tradução:', error);
+        console.error('Falha na traduÃ§Ã£o:', error);
         document.body.style.cursor = 'default';
     }
 }
@@ -311,7 +311,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Função para rolagem suave
+// FunÃ§Ã£o para rolagem suave
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -324,7 +324,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Fixar a barra de navegação
+// Fixar a barra de navegaÃ§Ã£o
 const header = document.getElementById('header');
 if (header) {
     const sticky = header.offsetTop;
@@ -341,23 +341,23 @@ if (header) {
 // Volume control removed
 
 
-// Funções para a Bíblia
+// FunÃ§Ãµes para a BÃ­blia
 document.addEventListener('DOMContentLoaded', function() {
     const bookSelect = document.getElementById('book-select');
     const chapterSelect = document.getElementById('chapter-select');
     const bibleContent = document.getElementById('bible-content');
 
-    // Lista de livros da Bíblia
+    // Lista de livros da BÃ­blia
     const books = [
-        "Gênesis", "Êxodo", "Levítico", "Números", "Deuteronômio", "Josué", "Juízes", "Rute",
-        "1 Samuel", "2 Samuel", "1 Reis", "2 Reis", "1 Crônicas", "2 Crônicas", "Esdras",
-        "Neemias", "Ester", "Jó", "Salmos", "Provérbios", "Eclesiastes", "Cânticos", "Isaías",
-        "Jeremias", "Lamentações", "Ezequiel", "Daniel", "Oséias", "Joel", "Amós", "Obadias",
-        "Jonas", "Miquéias", "Naum", "Habacuque", "Sofonias", "Ageu", "Zacarias", "Malaquias",
-        "Mateus", "Marcos", "Lucas", "João", "Atos", "Romanos", "1 Coríntios", "2 Coríntios",
-        "Gálatas", "Efésios", "Filipenses", "Colossenses", "1 Tessalonicenses", "2 Tessalonicenses",
-        "1 Timóteo", "2 Timóteo", "Tito", "Filemom", "Hebreus", "Tiago", "1 Pedro", "2 Pedro",
-        "1 João", "2 João", "3 João", "Judas", "Apocalipse"
+        "GÃªnesis", "ÃŠxodo", "LevÃ­tico", "NÃºmeros", "DeuteronÃ´mio", "JosuÃ©", "JuÃ­zes", "Rute",
+        "1 Samuel", "2 Samuel", "1 Reis", "2 Reis", "1 CrÃ´nicas", "2 CrÃ´nicas", "Esdras",
+        "Neemias", "Ester", "JÃ³", "Salmos", "ProvÃ©rbios", "Eclesiastes", "CÃ¢nticos", "IsaÃ­as",
+        "Jeremias", "LamentaÃ§Ãµes", "Ezequiel", "Daniel", "OsÃ©ias", "Joel", "AmÃ³s", "Obadias",
+        "Jonas", "MiquÃ©ias", "Naum", "Habacuque", "Sofonias", "Ageu", "Zacarias", "Malaquias",
+        "Mateus", "Marcos", "Lucas", "JoÃ£o", "Atos", "Romanos", "1 CorÃ­ntios", "2 CorÃ­ntios",
+        "GÃ¡latas", "EfÃ©sios", "Filipenses", "Colossenses", "1 Tessalonicenses", "2 Tessalonicenses",
+        "1 TimÃ³teo", "2 TimÃ³teo", "Tito", "Filemom", "Hebreus", "Tiago", "1 Pedro", "2 Pedro",
+        "1 JoÃ£o", "2 JoÃ£o", "3 JoÃ£o", "Judas", "Apocalipse"
     ];
 
     // Preencher select de livros
@@ -368,57 +368,58 @@ document.addEventListener('DOMContentLoaded', function() {
         bookSelect.appendChild(option);
     });
 
-    // Função para atualizar capítulos quando um livro é selecionado
+    // FunÃ§Ã£o para atualizar capÃ­tulos quando um livro Ã© selecionado
 bookSelect.addEventListener('change', function() {
-    chapterSelect.innerHTML = '<option value="">Selecione um capítulo</option>';
+    chapterSelect.innerHTML = '<option value="">Selecione um capÃ­tulo</option>';
     if (this.value) {
         const numChapters = getNumberOfChapters(this.value);
         for (let i = 1; i <= numChapters; i++) {
             const option = document.createElement('option');
             option.value = i;
-            option.textContent = `Capítulo ${i}`;
+            option.textContent = `CapÃ­tulo ${i}`;
             chapterSelect.appendChild(option);
         }
     }
 });
 
-    // Carregar versículos quando um capítulo é selecionado
+    // Carregar versÃ­culos quando um capÃ­tulo Ã© selecionado
     chapterSelect.addEventListener('change', function() {
         if (this.value && bookSelect.value) {
             loadBibleChapter(bookSelect.value, this.value);
         }
     });
 
-    // Função para obter número de capítulos por livro
+    // FunÃ§Ã£o para obter nÃºmero de capÃ­tulos por livro
     function getNumberOfChapters(book) {
         const chaptersCount = {
-            "Gênesis": 50, "Êxodo": 40, "Levítico": 27, "Números": 36, "Deuteronômio": 34,
-            "Josué": 24, "Juízes": 21, "Rute": 4, "1 Samuel": 31, "2 Samuel": 24, "1 Reis": 22,
-            "2 Reis": 25, "1 Crônicas": 29, "2 Crônicas": 36, "Esdras": 10, "Neemias": 13,
-            "Ester": 10, "Jó": 42, "Salmos": 150, "Provérbios": 31, "Eclesiastes": 12,
-            "Cânticos": 8, "Isaías": 66, "Jeremias": 52, "Lamentações": 5, "Ezequiel": 48,
-            "Daniel": 12, "Oséias": 14, "Joel": 3, "Amós": 9, "Obadias": 1, "Jonas": 4,
-            "Miquéias": 7, "Naum": 3, "Habacuque": 3, "Sofonias": 3, "Ageu": 2, "Zacarias": 14,
-            "Malaquias": 4, "Mateus": 28, "Marcos": 16, "Lucas": 24, "João": 21, "Atos": 28,
-            "Romanos": 16, "1 Coríntios": 16, "2 Coríntios": 13, "Gálatas": 6, "Efésios": 6,
+            "GÃªnesis": 50, "ÃŠxodo": 40, "LevÃ­tico": 27, "NÃºmeros": 36, "DeuteronÃ´mio": 34,
+            "JosuÃ©": 24, "JuÃ­zes": 21, "Rute": 4, "1 Samuel": 31, "2 Samuel": 24, "1 Reis": 22,
+            "2 Reis": 25, "1 CrÃ´nicas": 29, "2 CrÃ´nicas": 36, "Esdras": 10, "Neemias": 13,
+            "Ester": 10, "JÃ³": 42, "Salmos": 150, "ProvÃ©rbios": 31, "Eclesiastes": 12,
+            "CÃ¢nticos": 8, "IsaÃ­as": 66, "Jeremias": 52, "LamentaÃ§Ãµes": 5, "Ezequiel": 48,
+            "Daniel": 12, "OsÃ©ias": 14, "Joel": 3, "AmÃ³s": 9, "Obadias": 1, "Jonas": 4,
+            "MiquÃ©ias": 7, "Naum": 3, "Habacuque": 3, "Sofonias": 3, "Ageu": 2, "Zacarias": 14,
+            "Malaquias": 4, "Mateus": 28, "Marcos": 16, "Lucas": 24, "JoÃ£o": 21, "Atos": 28,
+            "Romanos": 16, "1 CorÃ­ntios": 16, "2 CorÃ­ntios": 13, "GÃ¡latas": 6, "EfÃ©sios": 6,
             "Filipenses": 4, "Colossenses": 4, "1 Tessalonicenses": 5, "2 Tessalonicenses": 3,
-            "1 Timóteo": 6, "2 Timóteo": 4, "Tito": 3, "Filemom": 1, "Hebreus": 13, "Tiago": 5,
-            "1 Pedro": 5, "2 Pedro": 3, "1 João": 5, "2 João": 1, "3 João": 1, "Judas": 1,
+            "1 TimÃ³teo": 6, "2 TimÃ³teo": 4, "Tito": 3, "Filemom": 1, "Hebreus": 13, "Tiago": 5,
+            "1 Pedro": 5, "2 Pedro": 3, "1 JoÃ£o": 5, "2 JoÃ£o": 1, "3 JoÃ£o": 1, "Judas": 1,
             "Apocalipse": 22
         };
         return chaptersCount[book] || 1;
     }
 
-    // Função para carregar capítulo da Bíblia
+    // FunÃ§Ã£o para carregar capÃ­tulo da BÃ­blia
     function loadBibleChapter(book, chapter) {
         const bookMap = {
-            "Gênesis": "genesis", "Êxodo": "exodus", "Levítico": "leviticus",
-            // Adicione mais mapeamentos conforme necessário
+            "GÃªnesis": "genesis", "ÃŠxodo": "exodus", "LevÃ­tico": "leviticus",
+            // Adicione mais mapeamentos conforme necessÃ¡rio
         };
 
         const apiBook = bookMap[book] || book.toLowerCase().replace(/\s+/g, '');
         bibleContent.innerHTML = '<p class="text-center">Carregando...</p>';
 
+        fetch("https://ipbpalmeirasba.onrender.com/api/verse/${book}/${chapter}")
         fetch('https://ipbpalmeirasba.onrender.com/api/verse/${book}/${chapter}')
             .then(response => response.json())
             .then(data => {
@@ -428,13 +429,13 @@ bookSelect.addEventListener('change', function() {
                 `;
             })
             .catch(error => {
-                bibleContent.innerHTML = '<p class="text-red-500 text-center">Erro ao carregar o texto bíblico.</p>';
+                bibleContent.innerHTML = '<p class="text-red-500 text-center">Erro ao carregar o texto bÃ­blico.</p>';
                 console.error('Erro:', error);
             });
     }
 });
 
-// JavaScript para o slider de organizações
+// JavaScript para o slider de organizaÃ§Ãµes
 const slider = document.getElementById('slider');
 const prevButton = document.getElementById('prev');
 const nextButton = document.getElementById('next');
@@ -495,12 +496,12 @@ document.addEventListener("DOMContentLoaded", async function() {
     const mapElement = document.getElementById('map');
     const locationPhoto = document.getElementById('location-photo');
 
-    // Busca dados da localização da API
+    // Busca dados da localizaÃ§Ã£o da API
     const locationResponse = await fetch("https://ipbpalmeirasba.onrender.com/api/location");
     const locationData = await locationResponse.json();
     const { latitude, longitude } = locationData.coordinates;
 
-    // Cria o mapa e define a visualização inicial
+    // Cria o mapa e define a visualizaÃ§Ã£o inicial
     const map = L.map(mapElement).setView([latitude, longitude], 15);
 
     // Adiciona a camada de tiles do OpenStreetMap
@@ -514,10 +515,10 @@ document.addEventListener("DOMContentLoaded", async function() {
         .bindPopup('Igreja Presbiteriana em Palmeiras-BA')
         .openPopup();
 
-    // Define uma foto da localização
+    // Define uma foto da localizaÃ§Ã£o
     locationPhoto.src = "/src/imgs/acs/igreja.png";
 
-    // Carrega o calendário
+    // Carrega o calendÃ¡rio
     async function loadCalendar() {
         const response = await fetch('https://ipbpalmeirasba.onrender.com/api/calendar');
         const data = await response.json();
@@ -593,7 +594,7 @@ function startSlideshow() {
     }, 3000);
 }
 
-// Chame a função para carregar a galeria quando o DOM estiver pronto
+// Chame a funÃ§Ã£o para carregar a galeria quando o DOM estiver pronto
 document.addEventListener('DOMContentLoaded', function() {
     loadGallery();
 });
