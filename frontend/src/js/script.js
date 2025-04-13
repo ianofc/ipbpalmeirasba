@@ -17,25 +17,6 @@ function toggleTheme() {
 }
 
 const video = document.getElementById('aboutVideo');
-corrigir os erros de API, corrigindo o script apenas. pfvr verifique pq ao selecionar um livro da biblia e o capitulo retornar undefined. function toggleTheme() {
-    const body = document.body;
-    const themeLabel = document.getElementById('themeLabel');
-    if (body.classList.contains('light-theme')) {
-        body.classList.remove('light-theme');
-        body.classList.add('dark-theme');
-        themeLabel.textContent = 'Dark';
-    } else if (body.classList.contains('dark-theme')) {
-        body.classList.remove('dark-theme');
-        body.classList.add('green-theme');
-        themeLabel.textContent = 'Green';
-    } else {
-        body.classList.remove('green-theme');
-        body.classList.add('light-theme');
-        themeLabel.textContent = 'Light';
-    }
-}
-
-const video = document.getElementById('aboutVideo');
 
 // Adiciona eventos para controlar o áudio do vídeo
 if (video) {
