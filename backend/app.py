@@ -198,9 +198,11 @@ def get_music():
     }])
 
 if __name__ == '__main__':
+    import os
+    port = int(os.environ.get('PORT', 5000)) 
     try:
-        app.run(host='0.0.0.0', port=5000, debug=True)
+        app.run(host='0.0.0.0', port=port)
     except OSError as e:
         if "Address already in use" in str(e):
             print("Trying alternate port...")
-            app.run(host='0.0.0.0', port=5001, debug=True)
+            app.run(host='0.0.0.0', port=port + 1)
