@@ -11,7 +11,10 @@ import requests  # Importação do módulo requests
 app = Flask(__name__,
             template_folder='../frontend',
             static_folder='../frontend/src')
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "https://ipbpalmeirasba.netlify.app"}})
+
+# Atualize o caminho do banco de dados
+DB_PATH = os.path.join('data', 'visitors.db')
 
 def track_visitors(f):
     @wraps(f)
@@ -51,7 +54,9 @@ def get_photos():
     return jsonify(photos)
 
 def init_db():
-    conn = sqlite3.connect('visitors.db')
+    """Inicializa o banco de dados e garante que a tabela de visitantes exista."""
+    os.makedirs('data', exist_ok=True)  # Garante que o diretório 'data' exista
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS visitors
                  (id INTEGER PRIMARY KEY AUTOINCREMENT, count INTEGER)''')
@@ -60,33 +65,29 @@ def init_db():
     conn.close()
 
 def get_visitor_count():
-    conn = sqlite3.connect('visitors.db')
+    """Obtém o número atual de visitantes."""
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute('SELECT count FROM visitors WHERE id = 1')
-    count = c.fetchone()[0]
+    result = c.fetchone()
     conn.close()
-    return count
+    return result[0] if result else 0
 
 def increment_visitor_count():
-    conn = sqlite3.connect('visitors.db')
+    """Incrementa o contador de visitantes."""
+    conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute('UPDATE visitors SET count = count + 1 WHERE id = 1')
     conn.commit()
     conn.close()
 
-def track_visitors(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if f.__name__ == 'index':
-            increment_visitor_count()  # Incrementa a contagem de visitantes
-        return f(*args, **kwargs)
-    return decorated_function
-
-@app.route('/visitor-count')
+@app.route('/visitor-count', methods=['GET'])
 def visitor_count():
+    """Retorna o número atual de visitantes."""
     return jsonify({'count': get_visitor_count()})
 
 def optimize_image(image_path, max_size=800):
+    """Reduz o tamanho da imagem para otimizar o carregamento."""
     img = Image.open(image_path)
     if max(img.size) > max_size:
         ratio = max_size / max(img.size)
@@ -104,7 +105,8 @@ def serve_optimized_image(image_path):
     if os.path.exists(full_path):
         return send_file(
             optimize_image(full_path),
-            mimetype='image/jpeg'
+            mimetype='image/jpeg',
+            cache_timeout=31536000  # Cache de 1 ano
         )
     return '', 404
 
@@ -206,3 +208,6 @@ if __name__ == '__main__':
         if "Address already in use" in str(e):
             print("Trying alternate port...")
             app.run(host='0.0.0.0', port=port + 1)
+
+# Inicializa o banco de dados ao iniciar o servidor
+init_db()
