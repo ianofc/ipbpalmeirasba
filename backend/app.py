@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, send_file
+from flask import Flask, jsonify, render_template, send_file, send_from_directory
 from flask_cors import CORS
 import random
 import os
@@ -13,8 +13,8 @@ app = Flask(__name__,
             static_folder='../frontend/src')
 CORS(app, resources={r"/*": {"origins": "https://ipbpalmeirasba.netlify.app"}})
 
-# Atualize o caminho do banco de dados
-DB_PATH = os.path.join('data', 'visitors.db')
+# Atualize o caminho do banco de dados para a pasta 'data' dentro de 'backend'
+DB_PATH = os.path.join(os.path.dirname(__file__), 'data', 'visitors.db')
 
 def track_visitors(f):
     @wraps(f)
@@ -55,7 +55,7 @@ def get_photos():
 
 def init_db():
     """Inicializa o banco de dados e garante que a tabela de visitantes exista."""
-    os.makedirs('data', exist_ok=True)  # Garante que o diretório 'data' exista
+    os.makedirs(os.path.join(os.path.dirname(__file__), 'data'), exist_ok=True)  # Garante que o diretório 'data' exista
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS visitors
@@ -93,7 +93,6 @@ def optimize_image(image_path, max_size=800):
         ratio = max_size / max(img.size)
         new_size = tuple(int(dim * ratio) for dim in img.size)
         img = img.resize(new_size, Image.Resampling.LANCZOS)
-    
     output = BytesIO()
     img.save(output, format='JPEG', quality=85, optimize=True)
     output.seek(0)
@@ -190,24 +189,24 @@ def get_music():
         return jsonify(playlist)
     except Exception as e:
         print(f"Error fetching music: {e}")
+        return jsonify([{
+            "title": "Erro ao carregar músicas",
+            "artist": "Tente novamente mais tarde",
+            "cover": "/src/imgs/acs/logo_ipp.png",
+            "audio": ""
+        }])
 
-    # Fallback em caso de erro
-    return jsonify([{
-        "title": "Erro ao carregar músicas",
-        "artist": "Tente novamente mais tarde",
-        "cover": "/src/imgs/acs/logo_ipp.png",
-        "audio": ""
-    }])
+@app.route('/<path:path>')
+def serve_static(path):
+    return send_from_directory(app.static_folder, path)
 
 if __name__ == '__main__':
     import os
     port = int(os.environ.get('PORT', 5000)) 
+    init_db()  # Inicializa o banco de dados ao iniciar o servidor
     try:
-        app.run(host='0.0.0.0', port=port)
+        app.run(host='0.0.0.0', port=port, debug=True)  # Ativa o modo de depuração
     except OSError as e:
         if "Address already in use" in str(e):
             print("Trying alternate port...")
-            app.run(host='0.0.0.0', port=port + 1)
-
-# Inicializa o banco de dados ao iniciar o servidor
-init_db()
+            app.run(host='0.0.0.0', port=port + 1, debug=True)
