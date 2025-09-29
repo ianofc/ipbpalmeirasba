@@ -4,5 +4,6 @@ requests==2.31.0
 waitress==3.0.2
 werkzeug==2.3.7
 Pillow
-gunicorn
+gunicorn==21.2.0
+
 
