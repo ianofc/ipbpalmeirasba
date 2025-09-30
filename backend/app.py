@@ -8,10 +8,16 @@ import sqlite3
 from functools import wraps
 import requests  # Importação do módulo requests
 
-app = Flask(__name__,
-            template_folder='../frontend',
-            static_folder='../frontend/src')
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+app = Flask(
+    __name__,
+    template_folder=os.path.join(BASE_DIR, '../frontend'),
+    static_folder=os.path.join(BASE_DIR, '../frontend/src')
+)
+
 CORS(app, resources={r"/*": {"origins": "https://ipbpalmeirasba.netlify.app"}})
+
 
 # Atualize o caminho do banco de dados para a pasta 'data' dentro de 'backend'
 DB_PATH = os.path.join(os.path.dirname(__file__), 'data', 'visitors.db')
