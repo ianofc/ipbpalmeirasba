@@ -1,5 +1,7 @@
 import { fallbackData } from './fallback-data.js';
 
+const API_BASE_URL = "https://clownfish-app-suiwz.ondigitalocean.app";
+
 /* ===========================
    ## Inicialização do Vídeo
    =========================== */
@@ -44,7 +46,7 @@ themeButton?.addEventListener('click', () => {
    ## Versículo Diário
    =========================== */
 function fetchVerse() {
-    fetch("https://ipbpalmeirasba.onrender.com/random_verse")
+    fetch(`${API_BASE_URL}/random_verse`)
         .then(response => response.json())
         .then(data => {
             const verse = document.getElementById('verse');
@@ -113,7 +115,7 @@ function updatePlaylist() {
 
 async function initializePlayer() {
     try {
-        const response = await fetch("https://ipbpalmeirasba.onrender.com/api/music");
+        const response = await fetch(`${API_BASE_URL}/api/music`);
         tracks = await response.json();
     } catch (error) {
         console.error('Erro ao carregar músicas:', error);
@@ -140,7 +142,7 @@ async function initializePlayer() {
    ## Galeria de Fotos
    =========================== */
 function loadGallery() {
-    fetch("https://ipbpalmeirasba.onrender.com/api/photos")
+    fetch(`${API_BASE_URL}/api/photos`)
         .then(response => response.json())
         .then(photos => {
             const galleryContainer = document.getElementById('gallery-container');
@@ -165,7 +167,7 @@ function loadGallery() {
    ## Documentos
    =========================== */
 function loadDocuments() {
-    fetch("https://ipbpalmeirasba.onrender.com/api/documents")
+    fetch(`${API_BASE_URL}/api/documents`)
         .then(response => response.json())
         .then(documents => {
             const container = document.getElementById('documents-container');
@@ -196,7 +198,7 @@ function loadDocuments() {
    ## Contagem de Visitantes
    =========================== */
 function updateVisitorCount() {
-    fetch("https://ipbpalmeirasba.onrender.com/visitor-count")
+    fetch(`${API_BASE_URL}/visitor-count`)
         .then(response => response.json())
         .then(data => {
             document.getElementById('visitor-count').textContent = data.count;
