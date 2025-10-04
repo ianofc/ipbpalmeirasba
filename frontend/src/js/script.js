@@ -116,10 +116,11 @@ function updatePlaylist() {
 async function initializePlayer() {
     try {
         const response = await fetch(`${API_BASE_URL}/api/music`);
+        if (!response.ok) throw new Error("Músicas não encontradas");
         tracks = await response.json();
     } catch (error) {
         console.error('Erro ao carregar músicas:', error);
-        tracks = fallbackData.music; // Usa o fallback local
+        tracks = fallbackData.music; // fallback local apenas para músicas
     }
 
     if (tracks.length > 0) {
@@ -137,6 +138,7 @@ async function initializePlayer() {
         });
     }
 }
+
 
 /* ===========================
    ## Galeria de Fotos
@@ -163,12 +165,16 @@ function loadGallery() {
         });
 }
 
+
 /* ===========================
    ## Documentos
    =========================== */
 function loadDocuments() {
     fetch(`${API_BASE_URL}/api/documents`)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) throw new Error("Documentos não encontrados");
+            return response.json();
+        })
         .then(documents => {
             const container = document.getElementById('documents-container');
             container.innerHTML = documents.map(doc => `
@@ -194,17 +200,25 @@ function loadDocuments() {
         });
 }
 
+
 /* ===========================
    ## Contagem de Visitantes
    =========================== */
 function updateVisitorCount() {
     fetch(`${API_BASE_URL}/visitor-count`)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) throw new Error("Contagem de visitantes não encontrada");
+            return response.json();
+        })
         .then(data => {
             document.getElementById('visitor-count').textContent = data.count;
         })
-        .catch(error => console.error('Erro ao atualizar contagem de visitantes:', error));
+        .catch(error => {
+            console.error('Erro ao atualizar contagem de visitantes:', error);
+            document.getElementById('visitor-count').textContent = 0; // fallback simples
+        });
 }
+
 
 /* ===========================
    ## Inicialização do DOM
