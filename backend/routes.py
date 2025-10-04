@@ -148,6 +148,25 @@ def register_routes(app):
             "calendar_url": "https://calendar.google.com/calendar/embed?src=pt.brazilian%23holiday%40group.v.calendar.google.com"
         })
 
+    @app.route('/api/documents', methods=['GET'])
+    
+    def get_documents():
+        documents_path = os.path.join(BASE_DIR, 'data', 'documents')
+        documents = []
+        if os.path.exists(documents_path):
+            for file in os.listdir(documents_path):
+                if file.lower().endswith(('.pdf', '.docx', '.txt')):
+                    documents.append({
+                        'name': file.split('.')[0].replace('_', ' '),
+                        'path': f'/data/documents/{file}'
+                    })
+        return jsonify(documents)
+
+    @app.route('/data/documents/<path:filename>')
+    def serve_document(filename):
+        return send_from_directory(os.path.join(BASE_DIR, 'data', 'documents'), filename)
+
+    
     @app.route('/api/music', methods=['GET'])
     def get_music():
         playlist = [
