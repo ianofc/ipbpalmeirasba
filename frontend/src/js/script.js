@@ -46,7 +46,7 @@ themeButton?.addEventListener('click', () => {
    ## Versículo Diário
    =========================== */
 function fetchVerse() {
-    fetch(`${API_BASE_URL}/random_verse`)
+    fetch(`${API_BASE_URL}/api/random-verse`)
         .then(response => response.json())
         .then(data => {
             const verse = document.getElementById('verse');
