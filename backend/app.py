@@ -1,31 +1,40 @@
-from flask import Flask
-from flask_cors import CORS
-import os
-from routes import register_routes
-from config import Config
+   from flask import Flask
+   from flask_cors import CORS
+   import os
+   from routes import register_routes
+   from config import Config
 
-def create_app():
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+   def create_app():
+       BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # backend/
+       FRONTEND_DIR = os.path.abspath(os.path.join(BASE_DIR, '../frontend'))  # ../frontend
+       STATIC_DIR = os.path.join(FRONTEND_DIR, 'src')  # ../frontend/src
 
-    app = Flask(
-        __name__,
-        template_folder=os.path.join(BASE_DIR, '../frontend'),
-        static_folder=os.path.join(BASE_DIR, '../frontend/src')
-    )
+       # Verifique se diretórios existem (log erro se não)
+       if not os.path.exists(FRONTEND_DIR):
+           print(f"ERRO: Frontend dir não encontrado: {FRONTEND_DIR}")
+           # Fallback: sirva um erro simples
+           from flask import render_template_string
+           return Flask(__name__), render_template_string("<h1>Erro: Frontend não encontrado</h1>")
 
-    app.config.from_object(Config)
+       app = Flask(
+           __name__,
+           template_folder=FRONTEND_DIR,  # Agora absoluto
+           static_folder=STATIC_DIR
+       )
 
-    # Permitir requisições de qualquer origem (ajuste se quiser limitar depois)
-    CORS(app, resources={r"/*": {"origins": "*"}})
+       app.config.from_object(Config)
 
-    # Registrar rotas
-    register_routes(app)
+       # CORS: Restrinja para seu domínio em prod
+       CORS(app, resources={r"/*": {"origins": ["https://clownfish-app-suiwz.ondigitalocean.app", "http://localhost:3000"]}})
 
-    return app
+       # Registrar rotas
+       register_routes(app)
 
+       return app
 
-app = create_app()
+   app = create_app()
 
-if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host="0.0.0.0", port=port)
+   if __name__ == "__main__":
+       port = int(os.environ.get('PORT', 5000))
+       app.run(host="0.0.0.0", port=port, debug=True)  # debug só local
+   
