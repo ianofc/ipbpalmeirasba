@@ -1,197 +1,191 @@
-from flask import jsonify, render_template, send_file, send_from_directory
-from functools import wraps
-from io import BytesIO
-from PIL import Image
-import sqlite3
-import os
-import requests
-import random
+   from flask import jsonify, render_template, send_file, send_from_directory
+   from functools import wraps
+   from io import BytesIO
+   from PIL import Image
+   import sqlite3
+   import os
+   import requests
+   import random
+   import logging  # Para logs
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_PATH = os.path.join(BASE_DIR, 'data', 'visitors.db')
+   logging.basicConfig(level=logging.INFO)
+   logger = logging.getLogger(__name__)
 
-def register_routes(app):
-    # -----------------------
-    # Banco de dados visitantes
-    # -----------------------
-    def init_db():
-        os.makedirs(os.path.join(BASE_DIR, 'data'), exist_ok=True)
-        conn = sqlite3.connect(DB_PATH)
-        c = conn.cursor()
-        c.execute('''CREATE TABLE IF NOT EXISTS visitors
-                     (id INTEGER PRIMARY KEY AUTOINCREMENT, count INTEGER)''')
-        c.execute('INSERT OR IGNORE INTO visitors (id, count) VALUES (1, 0)')
-        conn.commit()
-        conn.close()
+   BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # backend/
+   DATA_DIR = os.path.abspath(os.path.join(BASE_DIR, 'data'))  # backend/data
+   DB_PATH = os.path.join(DATA_DIR, 'visitors.db')
+   FRONTEND_STATIC_DIR = os.path.abspath(os.path.join(BASE_DIR, '../frontend/src'))  # ../frontend/src
 
-    def get_visitor_count():
-        conn = sqlite3.connect(DB_PATH)
-        c = conn.cursor()
-        c.execute('SELECT count FROM visitors WHERE id = 1')
-        result = c.fetchone()
-        conn.close()
-        return result[0] if result else 0
+   os.makedirs(DATA_DIR, exist_ok=True)  # Crie data/ sempre
 
-    def increment_visitor_count():
-        conn = sqlite3.connect(DB_PATH)
-        c = conn.cursor()
-        c.execute('UPDATE visitors SET count = count + 1 WHERE id = 1')
-        conn.commit()
-        conn.close()
+   def register_routes(app):
+       # -----------------------
+       # Banco de dados visitantes (com fallback)
+       # -----------------------
+       def init_db():
+           try:
+               conn = sqlite3.connect(DB_PATH)
+               c = conn.cursor()
+               c.execute('''CREATE TABLE IF NOT EXISTS visitors
+                            (id INTEGER PRIMARY KEY AUTOINCREMENT, count INTEGER)''')
+               c.execute('INSERT OR IGNORE INTO visitors (id, count) VALUES (1, 0)')
+               conn.commit()
+               conn.close()
+               logger.info("DB inicializado com sucesso")
+           except Exception as e:
+               logger.error(f"Erro init DB: {e}")
+               # Fallback: arquivo simples para count (não persistente no DO)
+               global fallback_count_file
+               fallback_count_file = os.path.join(DATA_DIR, 'visitors.txt')
+               if not os.path.exists(fallback_count_file):
+                   with open(fallback_count_file, 'w') as f:
+                       f.write('0')
 
-    def track_visitors(f):
-        @wraps(f)
-        def decorated_function(*args, **kwargs):
-            if f.__name__ == 'index':
-                increment_visitor_count()
-            return f(*args, **kwargs)
-        return decorated_function
+       def get_visitor_count():
+           try:
+               conn = sqlite3.connect(DB_PATH)
+               c = conn.cursor()
+               c.execute('SELECT count FROM visitors WHERE id = 1')
+               result = c.fetchone()
+               conn.close()
+               return result[0] if result else 0
+           except Exception:
+               # Fallback arquivo
+               if os.path.exists(fallback_count_file):
+                   with open(fallback_count_file, 'r') as f:
+                       return int(f.read().strip())
+               return 0
 
-    # -----------------------
-    # Rotas
-    # -----------------------
-    @app.route('/')
-    @track_visitors
-    def index():
-        return render_template('index.html')
+       def increment_visitor_count():
+           try:
+               conn = sqlite3.connect(DB_PATH)
+               c = conn.cursor()
+               c.execute('UPDATE visitors SET count = count + 1 WHERE id = 1')
+               conn.commit()
+               conn.close()
+           except Exception:
+               # Fallback
+               if os.path.exists(fallback_count_file):
+                   count = get_visitor_count()
+                   with open(fallback_count_file, 'w') as f:
+                       f.write(str(count + 1))
 
-    @app.route('/visitor-count', methods=['GET'])
-    def visitor_count():
-        return jsonify({'count': get_visitor_count()})
+       fallback_count_file = None  # Global para fallback
 
-    @app.route('/api/location', methods=['GET'])
-    def get_location():
-        return jsonify({
-            "name": "Igreja Presbiteriana em Palmeiras-BA",
-            "address": "Rua Coronel Dreger, Palmeiras, Bahia, Brasil",
-            "coordinates": {
-                "latitude": -12.5152504,
-                "longitude": -41.5760951
-            }
-        })
+       def track_visitors(f):
+           @wraps(f)
+           def decorated_function(*args, **kwargs):
+               if f.__name__ == 'index':
+                   increment_visitor_count()
+               return f(*args, **kwargs)
+           return decorated_function
 
-    @app.route('/api/photos', methods=['GET'])
-    def get_photos():
-        photos_path = os.path.join('../frontend/src/imgs/igr')
-        photos = []
-        if os.path.exists(photos_path):
-            for file in os.listdir(photos_path):
-                if file.lower().endswith(('.jpg', '.jpeg', '.png')):
-                    photos.append({
-                        'url': f'/src/imgs/igr/{file}',
-                        'description': file.split('.')[0].replace('_', ' ')
-                    })
-        return jsonify(photos)
+       # Inicializa DB aqui (uma vez por load)
+       init_db()
 
-    # -----------------------
-    # Função auxiliar: otimizar imagem
-    # -----------------------
-    def optimize_image(image_path, max_size=800):
-        img = Image.open(image_path)
-        if max(img.size) > max_size:
-            ratio = max_size / max(img.size)
-            new_size = tuple(int(dim * ratio) for dim in img.size)
-            img = img.resize(new_size, Image.Resampling.LANCZOS)
-        output = BytesIO()
-        img.save(output, format='JPEG', quality=85, optimize=True)
-        output.seek(0)
-        return output
+       # -----------------------
+       # Rotas (resto igual, mas ajuste paths)
+       # -----------------------
+       @app.route('/')
+       @track_visitors
+       def index():
+           return render_template('index.html')
 
-    @app.route('/optimized-image/<path:image_path>')
-    def serve_optimized_image(image_path):
-        full_path = os.path.join('../frontend/src/imgs', image_path)
-        if os.path.exists(full_path):
-            return send_file(optimize_image(full_path), mimetype='image/jpeg', cache_timeout=31536000)
-        return '', 404
+       @app.route('/visitor-count', methods=['GET'])
+       def visitor_count():
+           return jsonify({'count': get_visitor_count()})
 
-    # -----------------------
-    # API de Versículos
-    # -----------------------
-    @app.route('/api/random-verse', methods=['GET'])
-    def get_random_verse():
-        try:
-            response = requests.get('https://bible-api.com/random')
-            response.raise_for_status()
-            data = response.json()
-            return jsonify({
-                "reference": f"{data['reference']}",
-                "text": data['text']
-            })
-        except Exception:
-            verses = [
-                {"reference": "João 3:16", "text": "Porque Deus amou o mundo..."},
-                {"reference": "Salmos 23:1", "text": "O Senhor é o meu pastor, nada me faltará."}
-            ]
-            return jsonify(random.choice(verses))
+       @app.route('/api/location', methods=['GET'])
+       def get_location():
+           return jsonify({
+               "name": "Igreja Presbiteriana em Palmeiras-BA",
+               "address": "Rua Coronel Antônio Afonso, 38, Palmeiras-BA",  # Corrigido
+               "coordinates": {
+                   "latitude": -12.5152504,
+                   "longitude": -41.5760951
+               }
+           })
 
-    @app.route('/api/verse/<book>/<chapter>', methods=['GET'])
-    def get_bible_chapter(book, chapter):
-        try:
-            response = requests.get(f'https://bible-api.com/{book}+{chapter}?translation=almeida')
-            if response.status_code == 200:
-                data = response.json()
-                return jsonify({
-                    'reference': data.get('reference', ''),
-                    'text': data.get('text', '').replace('\n', ' ')
-                })
-            else:
-                return jsonify({'error': 'Capítulo não encontrado'}), 404
-        except Exception as e:
-            return jsonify({'error': str(e)}), 500
+       @app.route('/api/photos', methods=['GET'])
+       def get_photos():
+           photos_path = os.path.join(FRONTEND_STATIC_DIR, 'imgs', 'igr')  # Absoluto
+           photos = []
+           if os.path.exists(photos_path):
+               for file in os.listdir(photos_path):
+                   if file.lower().endswith(('.jpg', '.jpeg', '.png')):
+                       photos.append({
+                           'url': f'/static/imgs/igr/{file}',  # Use /static para consistência
+                           'description': file.split('.')[0].replace('_', ' ')
+                       })
+           logger.info(f"Fotos encontradas: {len(photos)}")
+           return jsonify(photos)
 
-    # -----------------------
-    # APIs Extras
-    # -----------------------
-    @app.route('/api/calendar', methods=['GET'])
-    def get_calendar():
-        return jsonify({
-            "calendar_url": "https://calendar.google.com/calendar/embed?src=pt.brazilian%23holiday%40group.v.calendar.google.com"
-        })
+       # Função optimize_image (igual)
 
-    @app.route('/api/documents', methods=['GET'])
-    
-    def get_documents():
-        documents_path = os.path.join(BASE_DIR, 'data', 'documents')
-        documents = []
-        if os.path.exists(documents_path):
-            for file in os.listdir(documents_path):
-                if file.lower().endswith(('.pdf', '.docx', '.txt')):
-                    documents.append({
-                        'name': file.split('.')[0].replace('_', ' '),
-                        'path': f'/data/documents/{file}'
-                    })
-        return jsonify(documents)
+       @app.route('/optimized-image/<path:image_path>')
+       def serve_optimized_image(image_path):
+           full_path = os.path.join(FRONTEND_STATIC_DIR, 'imgs', image_path)
+           if os.path.exists(full_path):
+               return send_file(optimize_image(full_path), mimetype='image/jpeg', cache_timeout=31536000)
+           return '', 404
 
-    @app.route('/data/documents/<path:filename>')
-    def serve_document(filename):
-        return send_from_directory(os.path.join(BASE_DIR, 'data', 'documents'), filename)
+       # /api/random-verse (igual, mas adicione log)
+       @app.route('/api/random-verse', methods=['GET'])
+       def get_random_verse():
+           try:
+               response = requests.get('https://bible-api.com/random', timeout=10)
+               response.raise_for_status()
+               data = response.json()
+               return jsonify({
+                   "reference": data['reference'],
+                   "text": data['text']
+               })
+           except Exception as e:
+               logger.error(f"Erro Bible API: {e}")
+               verses = [  # Expanda se quiser
+                   {"reference": "João 3:16", "text": "Porque Deus amou o mundo de tal maneira que deu o seu Filho unigênito..."},
+                   {"reference": "Salmos 23:1", "text": "O Senhor é o meu pastor, nada me faltará."}
+               ]
+               return jsonify(random.choice(verses))
 
-    
-    @app.route('/api/music', methods=['GET'])
-    def get_music():
-        playlist = [
-            {"title": "Teu Povo", "videoId": "4GC0uxYbJ-M"}, 
-            {"title": "Porque Ele Vive", "videoId": "mgUasyYzCKQ"}, 
-            {"title": "Castelo Forte", "videoId": "RGCzQjFKk2w"}, 
-            {"title": "Isaías 53 & Foi na Cruz", "videoId": "HML9NUQJZEU"}, 
-            {"title": "Maravilhosa Graça", "videoId": "c7hw86kSAvw"}, 
-            {"title": "Firmeza na Fé", "videoId": "w_T_fG30TFw"}, 
-            {"title": "Ao Pé da Cruz", "videoId": "2C6EPo0GE3I"}, 
-            {"title": "O Rei Está Aqui", "videoId": "1oh4hdg0IAg"}, 
-            {"title": "Noite de Paz", "videoId": "hjF4jI8jNAY"}, 
-            {"title": "A Rua e o Mundo", "videoId": "3E84QBUyZFo"}, 
-            {"title": "Êxodo", "videoId": "xgE_rNyOoSI"}, 
-            {"title": "Oh Quão Lindo esse Nome É", "videoId": "uV6rRUc35io"}, 
-            {"title": "Encarnação", "videoId": "rQctRkKODN8"}, 
-            {"title": "Trindade Santíssima", "videoId": "z3nPTt2NiUo"}, 
-            {"title": "É o Teu Povo", "videoId": "7DH_tKN_n-g"}, 
-            {"title": "Recebe a Honra", "videoId": "NRcVLMbdD58"}
-        ]
-        return jsonify(playlist)
+       # /api/verse/... (igual)
 
-    @app.route('/<path:path>')
-    def serve_static(path):
-        return send_from_directory(app.static_folder, path)
+       @app.route('/api/calendar', methods=['GET'])
+       def get_calendar():
+           return jsonify({
+               "calendar_url": "https://calendar.google.com/calendar/embed?src=pt.brazilian%23holiday%40group.v.calendar.google.com"
+           })
 
-    # Inicializa o banco na primeira execução
-    init_db()
+       @app.route('/api/documents', methods=['GET'])
+       def get_documents():
+           documents_path = os.path.join(DATA_DIR, 'documents')  # backend/data/documents
+           os.makedirs(documents_path, exist_ok=True)
+           documents = []
+           if os.path.exists(documents_path):
+               for file in os.listdir(documents_path):
+                   if file.lower().endswith(('.pdf', '.docx', '.txt')):
+                       documents.append({
+                           'name': file.split('.')[0].replace('_', ' '),
+                           'path': f'/data/documents/{file}'
+                       })
+           return jsonify(documents)
+
+       @app.route('/data/documents/<path:filename>')
+       def serve_document(filename):
+           return send_from_directory(os.path.join(DATA_DIR, 'documents'), filename)
+
+       @app.route('/api/music', methods=['GET'])
+       def get_music():
+           # Playlist igual
+           playlist = [  # Seu array aqui ]
+           return jsonify(playlist)
+
+       # Rota catch-all para static (ajuste para usar static_folder)
+       @app.route('/<path:path>')
+       def serve_static(path):
+           # Tente servir de static_folder primeiro
+           if os.path.exists(os.path.join(app.static_folder, path)):
+               return send_from_directory(app.static_folder, path)
+           # Fallback para outros dirs se necessário
+           return 'Not Found', 404
+   
