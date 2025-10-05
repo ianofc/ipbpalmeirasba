@@ -1,6 +1,8 @@
 import { fallbackData } from './fallback-data.js';
 
-const API_BASE_URL = "https://clownfish-app-suiwz.ondigitalocean.app";
+const API_BASE_URL = window.location.hostname.includes('localhost')
+    ? 'http://localhost:5000'
+    : 'https://clownfish-app-suiwz.ondigitalocean.app';
 
 /* ===========================
    ## Inicialização do Vídeo
@@ -114,29 +116,18 @@ function updatePlaylist() {
 }
 
 async function initializePlayer() {
-    try {
-        const response = await fetch(`${API_BASE_URL}/api/music`);
-        if (!response.ok) throw new Error("Músicas não encontradas");
-        tracks = await response.json();
-    } catch (error) {
-        console.error('Erro ao carregar músicas:', error);
-        tracks = fallbackData.music; // fallback local apenas para músicas
-    }
+    if (!tracks || tracks.length === 0) return;
 
-    if (tracks.length > 0) {
-        updatePlaylist();
-        loadTrack(0);
+    if (window.playerInitialized) return; // evita duplicação
+    window.playerInitialized = true;
 
-        document.getElementById('prev-track').addEventListener('click', () => {
-            const newIndex = currentTrackIndex > 0 ? currentTrackIndex - 1 : tracks.length - 1;
-            loadTrack(newIndex);
-        });
+    updatePlaylist();
+    loadTrack(0);
 
-        document.getElementById('next-track').addEventListener('click', () => {
-            const newIndex = currentTrackIndex < tracks.length - 1 ? currentTrackIndex + 1 : 0;
-            loadTrack(newIndex);
-        });
-    }
+    const prevBtn = document.getElementById('prev-track');
+    const nextBtn = document.getElementById('next-track');
+    if (prevBtn) prevBtn.addEventListener('click', () => loadTrack((currentTrackIndex - 1 + tracks.length) % tracks.length));
+    if (nextBtn) nextBtn.addEventListener('click', () => loadTrack((currentTrackIndex + 1) % tracks.length));
 }
 
 
