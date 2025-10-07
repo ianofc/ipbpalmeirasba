@@ -50,7 +50,7 @@ class Sarcinha {
             <div class="fixed bottom-2 right-4 z-50">
                 <div id="chat-window" class="hidden bg-white rounded-lg shadow-xl w-80">
                     <div class="bg-green-700 text-white p-4 rounded-t-lg flex items-center">
-                        <img src="/src/imgs/acs/sarcinha.png" alt="Sarcinha" class="w-10 h-10 rounded-full mr-3">
+                        <img static="/static/imgs/acs/sarcinha.png" alt="Sarcinha" class="w-10 h-10 rounded-full mr-3">
                         <span class="flex-grow">Sarcinha - Assistente Virtual</span>
                         <button id="close-chat" class="text-white hover:text-gray-300">×</button>
                     </div>
@@ -62,7 +62,7 @@ class Sarcinha {
                     </div>
                 </div>
                 <button id="chat-button" class="bg-yellow-600 text-white rounded-full p-2 shadow-lg hover:bg-green-600 flex items-center">
-                    <img src="/src/imgs/acs/sarcinha.png" alt="Sarcinha" class="w-6 h-6 rounded-full">
+                    <img static="/static/imgs/acs/sarcinha.png" alt="Sarcinha" class="w-6 h-6 rounded-full">
                 </button>
             </div>
         `;
@@ -101,7 +101,7 @@ class Sarcinha {
         messageDiv.className = `mb-4 ${type === 'bot' ? 'text-left' : 'text-right'}`;
         messageDiv.innerHTML = `
             <div class="${type === 'bot' ? 'bg-gray-100 flex items-start' : 'bg-green-100'} inline-block rounded-lg p-2 max-w-[80%]">
-                ${type === 'bot' ? '<img src="/src/imgs/acs/sarcinha.png" alt="Sarcinha" class="w-8 h-8 rounded-full mr-2">' : ''}
+                ${type === 'bot' ? '<img static="/static/imgs/acs/sarcinha.png" alt="Sarcinha" class="w-8 h-8 rounded-full mr-2">' : ''}
                 <div>${text.replace(/\n/g, '<br>')}</div>
             </div>
         `;
