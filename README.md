@@ -133,7 +133,7 @@ ipbpalmeirasba/
 │       └── style.css       # Estilos e assets
 │
 ├── frontend/
-│   ├── src/                # Imagens, scripts e vídeos
+│   ├── static/                # Imagens, scripts e vídeos
 │   └── imgs/               # Galeria
 │
 ├── requirements.txt
