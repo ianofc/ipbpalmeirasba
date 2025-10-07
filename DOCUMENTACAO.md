@@ -18,7 +18,7 @@ Portal web para divulgação institucional, conteúdos cristãos, interação e 
 - **Estrutura de pastas:**
   ```
   frontend/
-    src/
+    static/
       css/
       js/
       imgs/
@@ -47,8 +47,8 @@ Portal web para divulgação institucional, conteúdos cristãos, interação e 
 - Clone o repositório.
 - Instale dependências com `npm install`.
 - Rode o backend com `npm start` (ou `node backend/index.js`).
-- Edite arquivos em `frontend/src/` para customizações.
-- Scripts principais: `frontend/src/js/script.js`, `frontend/src/js/chatbot.js`.
+- Edite arquivos em `frontend/static/` para customizações.
+- Scripts principais: `frontend/static/js/script.js`, `frontend/static/js/chatbot.js`.
 
 ---
 
