@@ -13,7 +13,7 @@ Portal web para divulgação institucional, conteúdos cristãos, interação e 
 ## 2. Arquitetura do Sistema
 
 - **Frontend:** HTML, CSS (Tailwind), JS (ES6)
-- **Backend:** Node.js (API REST)
+- **Backend:** Python (API REST)
 - **APIs externas:** Bible API, YouTube, Google Calendar, Leaflet
 - **Estrutura de pastas:**
   ```
