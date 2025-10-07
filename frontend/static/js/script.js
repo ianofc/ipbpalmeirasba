@@ -1,7 +1,6 @@
 import { fallbackData } from './fallback-data.js';
 
 // Define a URL base para as chamadas de API.
-// Usa 'http://localhost:5000' para desenvolvimento e caminho relativo ('') para produção (DigitalOcean).
 const API_BASE_URL = window.location.hostname.includes('localhost')
     ? 'http://localhost:5000'
     : '';
@@ -10,15 +9,14 @@ const API_BASE_URL = window.location.hostname.includes('localhost')
    ## Variáveis e Inicialização do Vídeo
    ================================= */
 let currentTrackIndex = 0;
-let tracks = []; // Array global para armazenar a playlist
+// CORREÇÃO: Garante que a lista de músicas seja carregada com o fallback
+let tracks = fallbackData.music || []; 
 
 const video = document.getElementById('aboutVideo');
 if (video) {
-    // Liga o som no hover (mouse sobre)
     video.addEventListener('mouseover', () => {
         video.muted = false; 
     });
-    // Desliga o som no mouse out (mouse fora)
     video.addEventListener('mouseout', () => {
         video.muted = true;
     });
@@ -27,7 +25,6 @@ if (video) {
 /* ===========================
    ## Controle de Tema
    =========================== */
-// Este bloco está semanticamente correto, mantive.
 const themeButton = document.getElementById('themeButton');
 const themeLabel = document.getElementById('themeLabel');
 const body = document.body;
@@ -53,15 +50,15 @@ themeButton?.addEventListener('click', () => {
 });
 
 /* ===========================
-   ## Versículo Diário (Refatorado para async/await)
+   ## Versículo Diário (Async/Await)
    =========================== */
 async function fetchVerse() {
     const verse = document.getElementById('verse');
-    if (!verse) return; // Sai se o elemento não existir
+    if (!verse) return; 
     
     try {
         const response = await fetch(`${API_BASE_URL}/api/random-verse`);
-        if (!response.ok) throw new Error("Falha ao buscar versículo.");
+        if (!response.ok) throw new Error(`Falha ao buscar versículo. Status: ${response.status}`);
         
         const data = await response.json();
         verse.innerText = `${data.reference} - "${data.text}"`;
@@ -69,14 +66,12 @@ async function fetchVerse() {
     } catch (error) {
         console.error('Erro ao carregar versículo:', error);
         
-        // Uso de fallback em caso de erro da API
         const fallbackVerse = fallbackData.verses[Math.floor(Math.random() * fallbackData.verses.length)];
         verse.innerText = `${fallbackVerse.reference} - "${fallbackVerse.text}"`;
     }
 }
 
 function scheduleDailyVerse() {
-    // Mantido como estava, pois usa setTimeout/setInterval nativos
     const now = new Date();
     const next4AM = new Date();
     next4AM.setHours(4, 0, 0, 0);
@@ -98,11 +93,10 @@ function loadTrack(index) {
 
     currentTrackIndex = index;
     const track = tracks[currentTrackIndex];
-    document.getElementById('current-title').textContent = track.title;
     
+    document.getElementById('current-title').textContent = track.title;
     const player = document.getElementById('youtube-player');
     
-    // CORREÇÃO CRÍTICA (1): player.src está correto
     player.src = `https://www.youtube.com/embed/${track.videoId}?autoplay=1&enablejsapi=1&origin=${window.location.origin}`;
 
     document.querySelectorAll('.playlist-item').forEach((item, i) => {
@@ -114,7 +108,6 @@ function updatePlaylist() {
     const playlist = document.getElementById('playlist');
     if (!playlist) return;
 
-    // Garante que o loadTrack funcione, tornando-o acessível globalmente
     window.loadTrack = loadTrack; 
     
     playlist.innerHTML = tracks.map((track, index) => `
@@ -130,8 +123,12 @@ function updatePlaylist() {
     `).join('');
 }
 
-async function initializePlayer() {
-    if (!tracks || tracks.length === 0) return;
+function initializePlayer() {
+    // Agora, tracks terá dados se o fallback-data.js for carregado corretamente.
+    if (!tracks || tracks.length === 0) {
+        console.error("Player Error: Nenhuma faixa de música disponível no fallbackData.");
+        return;
+    }
     if (window.playerInitialized) return; 
     
     window.playerInitialized = true;
@@ -145,27 +142,9 @@ async function initializePlayer() {
     if (nextBtn) nextBtn.addEventListener('click', () => loadTrack((currentTrackIndex + 1) % tracks.length));
 }
 
-// CORREÇÃO CRÍTICA (2): Função para buscar a playlist da API
-function fetchMusic() {
-    fetch(`${API_BASE_URL}/api/music`) // Assuma que o endpoint é /api/music
-        .then(response => {
-            if (!response.ok) throw new Error("Playlist não encontrada");
-            return response.json();
-        })
-        .then(data => {
-            tracks = data; // Popula o array global
-            initializePlayer();
-        })
-        .catch(error => {
-            console.error('Erro ao carregar músicas:', error);
-            tracks = fallbackData.music; // Usa fallback se a API falhar
-            initializePlayer();
-        });
-}
-
 
 /* ===========================
-   ## Galeria de Fotos (Refatorado para async/await)
+   ## Galeria de Fotos (Async/Await)
    =========================== */
 async function loadGallery() {
     const galleryContainer = document.getElementById('gallery-container');
@@ -182,10 +161,8 @@ async function loadGallery() {
         }
     } catch (error) {
         console.error('Erro ao carregar galeria, usando fallback:', error);
-        // photosToDisplay já é o fallback
     }
 
-    // CRÍTICA (3): Injeção do HTML com 'src' corrigido.
     galleryContainer.innerHTML = photosToDisplay.map(photo => `
         <div class="gallery-item">
             <img src="${photo.url}" alt="${photo.description}" loading="lazy" decoding="async" />
@@ -195,7 +172,7 @@ async function loadGallery() {
 
 
 /* ===========================
-   ## Documentos (Refatorado para async/await)
+   ## Documentos (Async/Await)
    =========================== */
 async function loadDocuments() {
     const container = document.getElementById('documents-container');
@@ -212,7 +189,6 @@ async function loadDocuments() {
         }
     } catch (error) {
         console.error('Erro ao carregar documentos, usando fallback:', error);
-        // documentsToDisplay já é o fallback
     }
     
     container.innerHTML = documentsToDisplay.map(doc => `
@@ -227,7 +203,7 @@ async function loadDocuments() {
 
 
 /* ===========================
-   ## Contagem de Visitantes (Refatorado para async/await)
+   ## Contagem de Visitantes (Async/Await)
    =========================== */
 async function updateVisitorCount() {
     const visitorCountElement = document.getElementById('visitor-count');
@@ -238,7 +214,6 @@ async function updateVisitorCount() {
         if (!response.ok) throw new Error("Contagem de visitantes não encontrada");
         
         const data = await response.json();
-        // Assume que o Flask retorna { "count": 123 }
         visitorCountElement.textContent = data.count; 
 
     } catch (error) {
@@ -254,14 +229,15 @@ async function updateVisitorCount() {
 document.addEventListener('DOMContentLoaded', () => {
     fetchVerse();
     scheduleDailyVerse();
-    fetchMusic(); // ✅ CORRIGIDO: Agora carrega as músicas e só depois inicializa o player
+    
+    // Agora, initializePlayer é chamado diretamente com dados estáticos garantidos.
+    initializePlayer(); 
+    
     updateVisitorCount();
     loadGallery();
     loadDocuments();
 
-    // Otimização: Remoção de código redundante de lazy loading, pois já está nos componentes
-    
-    // Rolagem suave para âncoras (Mantido)
+    // Rolagem suave para âncoras
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
