@@ -2,9 +2,9 @@ const CACHE_NAME = 'ipbpalmeirasba-cache-v1';
 const urlsToCache = [
     '/',
     '/index.html',
-    '/src/css/style.css',
-    '/src/js/script.js',
-    '/src/imgs/acs/logo_ipp.png'
+    '/static/css/style.css',
+    '/static/js/script.js',
+    '/static/imgs/acs/logo_ipp.png'
 ];
 
 self.addEventListener('install', event => {
