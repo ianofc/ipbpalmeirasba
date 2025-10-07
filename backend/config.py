@@ -13,6 +13,6 @@ class Config:
     DATA_DIR = os.path.join(BASE_DIR, 'data')
     DOCUMENTS_DIR = os.path.join(DATA_DIR, 'documents')
     FRONTEND_DIR = os.path.abspath(os.path.join(BASE_DIR, '../frontend'))
-    STATIC_DIR = os.path.join(FRONTEND_DIR, 'src')
+    STATIC_DIR = os.path.join(FRONTEND_DIR, 'static')
     PHOTOS_DIR = os.path.join(STATIC_DIR, 'imgs', 'igr')
     VISITORS_DB = os.path.join(DATA_DIR, 'visitors.db')
