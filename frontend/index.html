@@ -10,10 +10,10 @@
     <title>Igreja Presbiteriana em Palmeiras</title>
     <meta http-equiv="Cache-Control" content="max-age=31536000"> <!-- Cache para recursos -->
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script static="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script static="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -78,19 +78,19 @@
 <body id="body" class="light-theme">
     <header class="bg-cinza-escuro p-4 fixed top-0 w-full z-50" id="header">
         <div class="container mx-auto flex justify-between items-center">
-            <img alt="Logo da Igreja Presbiteriana em Palmeiras" class="h-10" loading="lazy" src="src/imgs/acs/logo_ipp.png" />
+            <img alt="Logo da Igreja Presbiteriana em Palmeiras" class="h-10" loading="lazy" static="static/imgs/acs/logo_ipp.png" />
             <nav>
                 <ul class="flex space-x-4" id="main-nav">
-                    <li><a class="hover:text-green-500" href="#body" data-translate="Home"><span>Home</span><img src="src/imgs/icons/home.png" class="hidden h-6" alt="Home"></a></li>
-                    <li><a class="hover:text-green-500" href="#mensagem-pastor" data-translate="Editorial"><span>Editorial</span><img src="src/imgs/icons/book.png" class="hidden h-6" alt="Editorial"></a></li>
-                    <li><a class="hover:text-green-500" href="#organization-slider" data-translate="Organizações"><span>Organizações</span><img src="src/imgs/icons/organ.png" class="hidden h-6" alt="Organizações"></a></li>
-                    <li><a class="hover:text-green-500" href="#documents-container" data-translate="Download"><span>Download</span><img src="src/imgs/icons/down.png" class="hidden h-6" alt="Download"></a></li>
-                    <li><a class="hover:text-green-500" href="#sobre" data-translate="Sobre"><span>Sobre</span><img src="src/imgs/icons/about.png" class="hidden h-6" alt="Sobre"></a></li>
-                    <li><a class="hover:text-green-500" href="#conversa-pastor" data-translate="Contato"><span>Contato</span><img src="src/imgs/icons/contat.png" class="hidden h-6" alt="Contato"></a></li>
+                    <li><a class="hover:text-green-500" href="#body" data-translate="Home"><span>Home</span><img static="static/imgs/icons/home.png" class="hidden h-6" alt="Home"></a></li>
+                    <li><a class="hover:text-green-500" href="#mensagem-pastor" data-translate="Editorial"><span>Editorial</span><img static="static/imgs/icons/book.png" class="hidden h-6" alt="Editorial"></a></li>
+                    <li><a class="hover:text-green-500" href="#organization-slider" data-translate="Organizações"><span>Organizações</span><img static="static/imgs/icons/organ.png" class="hidden h-6" alt="Organizações"></a></li>
+                    <li><a class="hover:text-green-500" href="#documents-container" data-translate="Download"><span>Download</span><img static="static/imgs/icons/down.png" class="hidden h-6" alt="Download"></a></li>
+                    <li><a class="hover:text-green-500" href="#sobre" data-translate="Sobre"><span>Sobre</span><img static="static/imgs/icons/about.png" class="hidden h-6" alt="Sobre"></a></li>
+                    <li><a class="hover:text-green-500" href="#conversa-pastor" data-translate="Contato"><span>Contato</span><img static="static/imgs/icons/contat.png" class="hidden h-6" alt="Contato"></a></li>
                 </ul>
             </nav>
             <div class="flex items-center">
-                <img id="themeButton" loading="lazy" src="src/imgs/acs/paint.png" alt="Mudar Tema" class="h-5 cursor-pointer" onclick="toggleTheme()" />
+                <img id="themeButton" loading="lazy" static="static/imgs/acs/paint.png" alt="Mudar Tema" class="h-5 cursor-pointer" onclick="toggleTheme()" />
                     <span class="ml-2 text-sm" id="themeLabel">Light</span>
                 </div>
             </div>
@@ -99,7 +99,7 @@
 
     <!-- Hero Section -->
     <section class="h-screen flex items-center justify-center bg-cover bg-center"
-        style="background-image: url('src/imgs/acs/banner_ipp.png');">
+        style="background-image: url('static/imgs/acs/banner_ipp.png');">
         <div class="text-center text-white">
             <h1 class="text-4xl md:text-6xl font-bold" data-translate="Bem-vindo à IPP">Bem-vindo à IPP</h1>
             <p class="mt-4 text-lg md:text-2xl" data-translate="Uma comunidade de fé e amor em Palmeiras-BA">Uma comunidade de fé e amor em Palmeiras-BA</p>
@@ -111,13 +111,13 @@
         <div class="container mx-auto px-4">
 
                 <div class="container mx-auto px-6 flex justify-center space-x-4">
-                    <img alt="Brasil" class="flag w-6 h-6 cursor-pointer hover:scale-110 transition-transform" onclick="translateToPortugues()" src="src/imgs/flags/brasil.png">
-                    <img alt="USA" class="flag w-6 h-6 cursor-pointer hover:scale-110 transition-transform" onclick="translateToEnglish()" src="src/imgs/flags/usa.png">
-                    <img alt="España" class="flag w-6 h-6 cursor-pointer hover:scale-110 transition-transform" onclick="translateToSpanish()" src="src/imgs/flags/espanha.png">
-                    <img alt="France" class="flag w-6 h-6 cursor-pointer hover:scale-110 transition-transform" onclick="translateToFrench()" src="src/imgs/flags/franca.png">
-                    <img alt="Deutschland" class="flag w-6 h-6 cursor-pointer hover:scale-110 transition-transform" onclick="translateToGerman()" src="src/imgs/flags/alemanha.png">
-                    <img alt="中国" class="flag w-6 h-6 cursor-pointer hover:scale-110 transition-transform" onclick="translateToMandarin()" src="src/imgs/flags/china.png">
-                    <img alt="日本" class="flag w-6 h-6 cursor-pointer hover:scale-110 transition-transform" onclick="translateToJapanese()" src="src/imgs/flags/japao.png">
+                    <img alt="Brasil" class="flag w-6 h-6 cursor-pointer hover:scale-110 transition-transform" onclick="translateToPortugues()" static="static/imgs/flags/brasil.png">
+                    <img alt="USA" class="flag w-6 h-6 cursor-pointer hover:scale-110 transition-transform" onclick="translateToEnglish()" static="static/imgs/flags/usa.png">
+                    <img alt="España" class="flag w-6 h-6 cursor-pointer hover:scale-110 transition-transform" onclick="translateToSpanish()" static="static/imgs/flags/espanha.png">
+                    <img alt="France" class="flag w-6 h-6 cursor-pointer hover:scale-110 transition-transform" onclick="translateToFrench()" static="static/imgs/flags/franca.png">
+                    <img alt="Deutschland" class="flag w-6 h-6 cursor-pointer hover:scale-110 transition-transform" onclick="translateToGerman()" static="static/imgs/flags/alemanha.png">
+                    <img alt="中国" class="flag w-6 h-6 cursor-pointer hover:scale-110 transition-transform" onclick="translateToMandarin()" static="static/imgs/flags/china.png">
+                    <img alt="日本" class="flag w-6 h-6 cursor-pointer hover:scale-110 transition-transform" onclick="translateToJapanese()" static="static/imgs/flags/japao.png">
                 </div> </div>
 </section>
 
@@ -144,7 +144,7 @@
                 <div class="w-full md:w-1/2 bg-white p-6 rounded-lg shadow-lg">
                     <div id="current-track" class="text-center">
                         <h3 id="current-title" class="text-xl font-bold mb-4" data-translate="Selecione uma Música">Selecione uma Música</h3>
-                        <iframe id="youtube-player" class="w-full aspect-video mb-4" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe id="youtube-player" class="w-full aspect-video mb-4" static="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                         <div class="flex justify-center gap-4 mt-4">
                                 <button id="prev-track" class="bg-green-700 text-white px-4 py-2 rounded">
                                     <i class="fas fa-step-backward"></i>
@@ -173,7 +173,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="bg-white p-6 rounded-lg shadow-lg">
                     <h3 class="text-xl font-bold mb-4" data-translate="Nossa Sede">Nossa Sede</h3>
-                    <img id="location-photo" loading="lazy" src="" alt="Foto da localização" class="w-full h-64 object-cover rounded-lg">
+                    <img id="location-photo" loading="lazy" static="" alt="Foto da localização" class="w-full h-64 object-cover rounded-lg">
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-lg">
                     <h3 class="text-xl font-bold mb-4" data-translate="Localização">Localização</h3>
@@ -251,7 +251,7 @@
             <h2 class="text-3xl font-bold text-center mb-8" data-translate="Nossos Cultos">Nossos Cultos</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                    <img loading="lazy" src="src/imgs/cult/Culto1.png"
+                    <img loading="lazy" static="static/imgs/cult/Culto1.png"
                         alt="Imagem de um culto na congregação Vila Jason Alves" class="w-full h-48 object-cover"
                         width="400" height="300">
                     <div class="p-6">
@@ -260,7 +260,7 @@
                     </div>
                 </div>
                 <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                    <img loading="lazy" src="src/imgs/cult/Cutlo2.png"
+                    <img loading="lazy" static="static/imgs/cult/Cutlo2.png"
                         alt="Imagem de um culto de oração" class="w-full h-48 object-cover" width="400" height="300">
                     <div class="p-6">
                         <h3 class="text-xl font-bold mb-2" data-translate="Quarta-feira">Quarta-feira</h3>
@@ -268,7 +268,7 @@
                     </div>   
                    </div>
                 <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                    <img loading="lazy" src="src/imgs/cult/Culto3.png"
+                    <img loading="lazy" static="static/imgs/cult/Culto3.png"
                         alt="Imagem de um culto de doutrina" class="w-full h-48 object-cover" width="400" height="300">
                     <div class="p-6">
                         <h3 class="text-xl font-bold mb-2" data-translate="Sexta-feira">Sexta-feira</h3>
@@ -276,7 +276,7 @@
                     </div>
                 </div>
                 <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-                    <img loading="lazy" src="src/imgs/cult/Culto4.png"
+                    <img loading="lazy" static="static/imgs/cult/Culto4.png"
                         alt="Imagem de uma escola dominical" class="w-full h-48 object-cover" width="400" height="300">
                     <div class="p-6">
                         <h3 class="text-xl font-bold mb-2" data-translate="Domingo">Domingo</h3>
@@ -292,19 +292,19 @@
                                 <h2 class="text-3xl font-bold text-center mb-8" data-translate="Eventos">Eventos</h2>
                                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                                     <div class="bg-white p-4 rounded-lg shadow-lg text-center">
-                                        <img loading="lazy" src="src/imgs/evnts/Evento1.png" alt="Dia das Mães" class="w-24 h-24 rounded-full mx-auto mb-2">
+                                        <img loading="lazy" static="static/imgs/evnts/Evento1.png" alt="Dia das Mães" class="w-24 h-24 rounded-full mx-auto mb-2">
                                         <p data-translate="Dia das Mães<br>2º Domingo de Maio">Dia das Mães<br>2º Domingo de Maio</p>
                                     </div>
                                     <div class="bg-white p-4 rounded-lg shadow-lg text-center">
-                                        <img loading="lazy" src="src/imgs/evnts/Evento2.png" alt="Dia do Jovem Presbiteriano" class="w-24 h-24 rounded-full mx-auto mb-2">
+                                        <img loading="lazy" static="static/imgs/evnts/Evento2.png" alt="Dia do Jovem Presbiteriano" class="w-24 h-24 rounded-full mx-auto mb-2">
                                         <p data-translate="Dia do Jovem Presbiteriano<br>3º Domingo de Maio">Dia do Jovem Presbiteriano<br>3º Domingo de Maio</p>
                                     </div>
                                     <div class="bg-white p-4 rounded-lg shadow-lg text-center">
-                                        <img loading="lazy" src="src/imgs/evnts/Evento3.png" alt="Dia da Escola Dominical" class="w-24 h-24 rounded-full mx-auto mb-2">
+                                        <img loading="lazy" static="static/imgs/evnts/Evento3.png" alt="Dia da Escola Dominical" class="w-24 h-24 rounded-full mx-auto mb-2">
                                         <p data-translate="Dia da Escola Dominical<br>3º Domingo de Setembro">Dia da Escola Dominical<br>3º Domingo de Setembro</p>
                                     </div>
                                     <div class="bg-white p-4 rounded-lg shadow-lg text-center">
-                                        <img loading="lazy" src="src/imgs/evnts/Evento4.png" alt="Dia das Crianças" class="w-24 h-24 rounded-full mx-auto mb-2">
+                                        <img loading="lazy" static="static/imgs/evnts/Evento4.png" alt="Dia das Crianças" class="w-24 h-24 rounded-full mx-auto mb-2">
                                         <p data-translate="Dia das Crianças<br>12 de Outubro">Dia das Crianças<br>12 de Outubro</p>
                                     </div>
                                     <!-- Adicione mais eventos conforme necessário -->
@@ -325,7 +325,7 @@
                 <div id="organization-slider" class="w-full overflow-hidden">
                     <div class="flex transition-transform duration-500 ease-in-out" id="slider">
                         <div class="flex flex-col items-center justify-center w-full text-center">
-                            <img loading="lazy" src="src/imgs/orgs/logo_ucp.png"
+                            <img loading="lazy" static="static/imgs/orgs/logo_ucp.png"
                                 alt="Imagem de uma reunião da UCP – União de Crianças Presbiterianas"
                                 class="w-32 h-32 object-contain" width="400" height="300">
                             <div class="w-full md:w-1/2 md:pl-8 mt-6 md:mt-0"> 
@@ -335,7 +335,7 @@
                             </div>
                         </div>
                         <div class="flex flex-col items-center justify-center w-full text-center hidden">
-                            <img loading="lazy" src="src/imgs/orgs/logo_upa.png"
+                            <img loading="lazy" static="static/imgs/orgs/logo_upa.png"
                                 alt="Imagem de uma reunião da UPA – União de Adolescentes Presbiterianos"
                                 class="w-32 h-32 object-contain" width="400" height="300">
                             <div class="w-full md:w-1/2 mt-6">
@@ -345,7 +345,7 @@
                             </div>
                         </div>
                         <div class="flex flex-col items-center justify-center w-full text-center hidden">
-                            <img loading="lazy" src="src/imgs/orgs/logo_ump.png"
+                            <img loading="lazy" static="static/imgs/orgs/logo_ump.png"
                                 alt="Imagem de uma reunião da UMP – União de Mocidade Presbiteriana"
                                 class="w-32 h-32 object-contain" width="400" height="300">
                             <div class="w-full md:w-1/2 mt-6">
@@ -355,7 +355,7 @@
                             </div>
                         </div>
                         <div class="flex flex-col items-center justify-center w-full text-center hidden">
-                            <img loading="lazy" src="src/imgs/orgs/logo_uph.png"
+                            <img loading="lazy" static="static/imgs/orgs/logo_uph.png"
                                 alt="Imagem de uma reunião da UPH – União Presbiteriana de Homens"
                                 class="w-32 h-32 object-contain" width="400" height="300">
                             <div class="w-full md:w-1/2 mt-6">
@@ -365,7 +365,7 @@
                             </div>
                         </div>
                         <div class="flex flex-col items-center justify-center w-full text-center hidden">
-                            <img loading="lazy" src="src/imgs/orgs/logo_saf.png"
+                            <img loading="lazy" static="static/imgs/orgs/logo_saf.png"
                                 alt="Imagem de uma reunião da SAF – Sociedade Auxiliadora Feminina"
                                 class="w-32 h-32 object-contain" width="400" height="300">
                             <div class="w-full md:w-1/2 mt-6">
@@ -492,21 +492,21 @@
             <h2 class="text-3xl font-bold text-center mb-8" data-translate="Conheça a Organização da IPPalmeiras">Conheça a Organização da IPPalmeiras</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="bg-white shadow-lg rounded-lg p-6 text-center">
-                    <img loading="lazy" src="src/imgs/lids/Pastor.png"
+                    <img loading="lazy" static="static/imgs/lids/Pastor.png"
                         alt="Foto do Pastor" class="w-24 h-24 rounded-full mx-auto mb-4" width="90" height="90">
                     <h3 class="text-xl font-bold mb-2" data-translate="Rev. Josué Nunes de Oliveira">Rev. Josué Nunes de Oliveira</h3>
                     <p class="text-gray-700" data-translate="Pastor">Pastor</p>
                     <p class="text-gray-700">(75) 99143-7628</p>
                 </div>
                 <div class="bg-white shadow-lg rounded-lg p-6 text-center">
-                    <img loading="lazy" src="src/imgs/lids/MarcosCruz.png"
+                    <img loading="lazy" static="static/imgs/lids/MarcosCruz.png"
                         alt="Foto do Presbítero 1" class="w-24 h-24 rounded-full mx-auto mb-4" width="90" height="90">
                     <h3 class="text-xl font-bold mb-2" data-translate="Antonio Marcos Ramos Cruz">Antonio Marcos Ramos Cruz</h3>
                     <p class="text-gray-700" data-translate="Presbítero">Presbítero</p>
                     <p class="text-gray-700">(75) 99877-0823</p>
                 </div>
                 <div class="bg-white shadow-lg rounded-lg p-6 text-center">
-                    <img loading="lazy" src="src/imgs/lids/Davi.png"
+                    <img loading="lazy" static="static/imgs/lids/Davi.png"
                         alt="Foto do Presbítero 2" class="w-24 h-24 rounded-full mx-auto mb-4" width="90" height="90">
                     <h3 class="text-xl font-bold mb-2" data-translate="David de Araújo Brandão">David de Araújo Brandão</h3>
                     <p class="text-gray-700" data-translate="Presbítero">Presbítero</p>
@@ -515,7 +515,7 @@
 
                 <div class="bg-white shadow-lg rounded-lg p-6 text-center">
                     <img loading="lazy" alt="Foto do Diácono 1" class="w-24 h-24 rounded-full mx-auto mb-4" height="100"
-                        src="src/imgs/lids/Bruno.png"
+                        static="static/imgs/lids/Bruno.png"
                         width="100" />
                     <h3 class="text-xl font-bold mb-2" data-translate="Bruno de Credico Taubert Libório">
                         Bruno de Credico Taubert Libório
@@ -525,7 +525,7 @@
                 </div>
                 <div class="bg-white shadow-lg rounded-lg p-6 text-center">
                     <img loading="lazy" alt="Foto do Diácono 2" class="w-24 h-24 rounded-full mx-auto mb-4" height="100"
-                        src="src/imgs/lids/Soares.png"
+                        static="static/imgs/lids/Soares.png"
                         width="100" />
                     <h3 class="text-xl font-bold mb-2" data-translate="Elvis da Silva Soares">
                         Elvis da Silva Soares
@@ -535,7 +535,7 @@
                 </div>
                 <div class="bg-white shadow-lg rounded-lg p-6 text-center">
                     <img loading="lazy" alt="Foto do Diácono 3" class="w-24 h-24 rounded-full mx-auto mb-4" height="100"
-                        src="src/imgs/lids/MarcosSouza.png"
+                        static="static/imgs/lids/MarcosSouza.png"
                         width="100" />
                     <h3 class="text-xl font-bold mb-2" data-translate="Marcos dos Santos Souza">
                         Marcos dos Santos Souza
@@ -584,8 +584,8 @@
         </div>
     </footer>
 
-    <script src="src/js/chatbot.js"></script>
-    <script src="src/js/script.js"></script>
+    <script static="static/js/chatbot.js"></script>
+    <script static="static/js/script.js"></script>
 </body>
 
 </html>
