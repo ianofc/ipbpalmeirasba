@@ -10,11 +10,11 @@ export const fallbackData = {
         { title: "Castelo Forte", videoId: "RGCzQjFKk2w" }
     ],
     photos: [
-        { url: "/src/imgs/igr/photo1.jpg", description: "Foto 1" },
-        { url: "/src/imgs/igr/photo2.jpg", description: "Foto 2" }
+        { url: "/static/imgs/igr/photo1.jpg", description: "Foto 1" },
+        { url: "/static/imgs/igr/photo2.jpg", description: "Foto 2" }
     ],
     documents: [
-        { name: "Documento 1", path: "/src/docs/doc1.pdf" },
-        { name: "Documento 2", path: "/src/docs/doc2.pdf" }
+        { name: "Documento 1", path: "/static/docs/doc1.pdf" },
+        { name: "Documento 2", path: "/static/docs/doc2.pdf" }
     ]
 };
