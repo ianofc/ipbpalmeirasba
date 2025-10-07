@@ -93,7 +93,7 @@ function loadTrack(index) {
     const track = tracks[currentTrackIndex];
     document.getElementById('current-title').textContent = track.title;
     const player = document.getElementById('youtube-player');
-    player.src = `https://www.youtube.com/embed/${track.videoId}?autoplay=1&enablejsapi=1&origin=${window.location.origin}`;
+    player.static = `https://www.youtube.com/embed/${track.videoId}?autoplay=1&enablejsapi=1&origin=${window.location.origin}`;
 
     document.querySelectorAll('.playlist-item').forEach((item, i) => {
         item.classList.toggle('bg-green-100', i === currentTrackIndex);
@@ -141,7 +141,7 @@ function loadGallery() {
             const galleryContainer = document.getElementById('gallery-container');
             galleryContainer.innerHTML = photos.map(photo => `
                 <div class="gallery-item">
-                    <img src="${photo.url}" alt="${photo.description}" />
+                    <img static="${photo.url}" alt="${photo.description}" />
                 </div>
             `).join('');
         })
@@ -150,7 +150,7 @@ function loadGallery() {
             const galleryContainer = document.getElementById('gallery-container');
             galleryContainer.innerHTML = fallbackData.photos.map(photo => `
                 <div class="gallery-item">
-                    <img src="${photo.url}" alt="${photo.description}" />
+                    <img static="${photo.url}" alt="${photo.description}" />
                 </div>
             `).join('');
         });
