@@ -2,6 +2,7 @@ from flask import jsonify, render_template, send_from_directory, send_file
 from functools import wraps
 from werkzeug.utils import secure_filename
 from PIL import Image
+from io import BytesIO # IMPORT ADICIONADO para a função optimize_image
 import sqlite3, os, requests, random, logging
 from config import Config
 
@@ -97,7 +98,8 @@ def register_routes(app):
             for file in os.listdir(Config.PHOTOS_DIR):
                 if file.lower().endswith(('.jpg', '.jpeg', '.png')):
                     photos.append({
-                        'url': f'/static/imgs/igr/{file}',
+                        # Verifique se o caminho '/static/imgs/igr/' está correto
+                        'url': f'/static/imgs/igr/{file}', 
                         'description': file.split('.')[0].replace('_', ' ')
                     })
         logger.info(f"Fotos encontradas: {len(photos)}")
@@ -123,10 +125,46 @@ def register_routes(app):
                 return send_file(optimized, mimetype='image/jpeg', cache_timeout=31536000)
         return '', 404
 
+    # -----------------------
+    # API da Bíblia (CORRIGIDA - Endpoint Principal)
+    # -----------------------
+    @app.route('/api/bible/<book>/<chapter>', defaults={'verse': ''})
+    @app.route('/api/bible/<book>/<chapter>/<verse>')
+    def get_bible_chapter(book, chapter, verse):
+        # Usando a tradução Almeida (almeida) conforme indicado no apibible.txt
+        reference = f"{book.strip()} {chapter.strip()}"
+        if verse:
+            reference += f":{verse.strip()}"
+
+        # Usando o URL da API da Bíblia
+        url = f"https://bible-api.com/{reference}?translation=almeida"
+
+        try:
+            response = requests.get(url, timeout=10)
+            response.raise_for_status()
+            data = response.json()
+
+            if 'verses' not in data or not data['verses']:
+                return jsonify({"reference": "Erro", "text": "Versículo não encontrado. Verifique o livro/capítulo/versículo."}), 404
+
+            # Formata a resposta
+            formatted_verses = [f"(${v['verse']}) {v['text']}" for v in data['verses']]
+            text = " ".join(formatted_verses)
+
+            return jsonify({
+                "reference": data.get('reference', f"{book} {chapter}{':'+verse if verse else ''}"),
+                "text": text
+            })
+
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Erro ao buscar na Bible-API: {e}")
+            return jsonify({"reference": "Erro", "text": "Falha ao carregar o texto bíblico. API indisponível."}), 503
+
     @app.route('/api/random-verse')
     def get_random_verse():
         try:
-            response = requests.get(f"{Config.BIBLE_API_URL}/random", timeout=10)
+            # CORRIGIDO para incluir a tradução Almeida
+            response = requests.get(f"{Config.BIBLE_API_URL}/random?translation=almeida", timeout=10)
             response.raise_for_status()
             data = response.json()
             return jsonify({"reference": data['reference'], "text": data['text']})
@@ -137,6 +175,19 @@ def register_routes(app):
                 {"reference": "Salmos 23:1", "text": "O Senhor é o meu pastor, nada me faltará."}
             ]
             return jsonify(random.choice(fallback))
+
+    # -----------------------
+    # API de Eventos (NOVA ROTA)
+    # -----------------------
+    @app.route('/api/events')
+    def get_events():
+        # Dados placeholder para exibição
+        events = [
+            {"title": "Culto de Aniversário da IPP", "date": "10 de Dezembro, 19:30", "description": "Celebração especial pelos 100 anos da igreja com preletor convidado."},
+            {"title": "Reunião de Oração da UMP", "date": "Toda Quarta-feira, 19:30", "description": "Reunião para os jovens e adolescentes da igreja no templo."},
+            {"title": "Passeio Missionário", "date": "25 de Dezembro, 08:00", "description": "Saída para comunidades rurais com entrega de cestas básicas e evangelismo."}
+        ]
+        return jsonify(events)
 
     @app.route('/api/documents')
     def get_documents():
