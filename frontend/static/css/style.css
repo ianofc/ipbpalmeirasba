@@ -22,171 +22,230 @@
 
 /* Estilo geral do corpo */
 body {
-    font-family: 'Roboto', sans-serif; /* Define a fonte padrão */
-    transition: var(--transition-default); /* Transição suave para mudanças de estilo */
+    font-family: 'Roboto', sans-serif;
+    transition: var(--transition-default);
+    min-height: 100vh;
+    margin: 0;
 }
 
 /* Tema Claro */
 .light-theme {
-    background-color: var(--color-light-bg); /* Fundo branco */
-    color: var(--color-light-text); /* Texto verde */
+    background-color: var(--color-light-bg);
+    color: var(--color-light-text);
 }
 
 /* Tema Escuro */
 .dark-theme {
-    background-color: var(--color-dark-bg); /* Fundo preto */
-    color: var(--color-dark-text); /* Texto verde claro */
+    background-color: var(--color-dark-bg);
+    color: var(--color-dark-text);
 }
 
 /* Ajustes para elementos específicos no tema escuro */
 .dark-theme .bg-gray-100 {
-    background-color: var(--color-gray-dark); /* Fundo cinza escuro */
+    background-color: var(--color-gray-dark);
 }
 .dark-theme .bg-white {
-    background-color: var(--color-gray-medium); /* Fundo cinza médio */
+    background-color: var(--color-gray-medium);
 }
 .dark-theme .text-gray-700 {
-    color: var(--color-gray-light); /* Texto cinza claro */
+    color: var(--color-gray-light);
 }
 
 /* Tema Verde */
 .green-theme {
-    background-color: var(--color-green-bg); /* Fundo verde escuro */
-    color: var(--color-green-text); /* Texto branco */
+    background-color: var(--color-green-bg);
+    color: var(--color-green-text);
 }
 
 /* Ajustes para elementos específicos no tema verde */
 .green-theme .bg-gray-100 {
-    background-color: #064e3b; /* Fundo verde mais escuro */
+    background-color: #064e3b;
 }
 .green-theme .bg-white {
-    background-color: #065f46; /* Fundo verde médio */
+    background-color: #065f46;
 }
 .green-theme .text-gray-700 {
-    color: #a7f3d0; /* Texto verde claro */
-}
-
-/* Ajustes para o cabeçalho nos temas escuro e verde */
-.dark-theme header, .green-theme header {
-    background-color: #2d2d2d; /* Fundo cinza escuro */
+    color: #a7f3d0;
 }
 
 /* ===========================
    ## Cabeçalho
    =========================== */
 
-/* Estilo do cabeçalho */
+/* Estilo do cabeçalho fixo */
 header {
-    transition: var(--transition-default); /* Transição suave para mudanças no cabeçalho */
-    position: fixed; /* Fixa o cabeçalho no topo */
+    transition: var(--transition-default);
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    width: 100%; /* Largura total */
-    z-index: 1000; /* Garante que o cabeçalho fique acima de outros elementos */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para destacar o cabeçalho */
-    background-color: var(--color-light-bg); /* Fundo branco */
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* Estilo do cabeçalho no tema escuro */
-.dark-theme header {
-    background-color: var(--color-dark-bg); /* Fundo preto */
+/* CORREÇÃO PRINCIPAL: Garante o fundo do header branco no tema light-theme */
+.light-theme header {
+    background-color: var(--color-light-bg);
+    color: var(--color-light-text);
 }
 
-/* Estilo do cabeçalho no tema verde */
-.green-theme header {
-    background-color: var(--color-green-bg); /* Fundo verde escuro */
+/* Ajustes para o cabeçalho nos temas escuro e verde */
+.dark-theme header, .green-theme header {
+    background-color: #2d2d2d;
+    color: #ffffff;
 }
 
 /* Container do cabeçalho */
 header .container {
-    max-width: 1280px; /* Largura máxima do conteúdo */
-    margin: 0 auto; /* Centraliza o conteúdo */
-    padding: 0 1.5rem; /* Espaçamento lateral */
-}
-
-/* Cabeçalho fixo */
-header.fixed {
-    position: fixed; /* Fixa o cabeçalho no topo */
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%; /* Largura total */
-    z-index: 1000; /* Garante que o cabeçalho fique acima de outros elementos */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para destacar o cabeçalho */
-}
-
-/* Ajustes para o container do cabeçalho fixo */
-header.fixed .container {
-    width: 100%; /* Largura total */
-    max-width: 1280px; /* Largura máxima */
-    margin: 0 auto; /* Centraliza o conteúdo */
-    padding: 0 1.5rem; /* Espaçamento lateral */
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
 }
 
 /* ===========================
-   ## Galeria
+   ## Galeria (Carrossel Slideshow)
    =========================== */
 
-/* Estilo para a galeria de imagens */
+/* Contêiner principal para o carrossel */
+.slideshow-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+    overflow: hidden; /* CRUCIAL: Esconde slides fora de vista */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* O contêiner de slides. O JS aplicará o 'transform' nele para a animação */
 #gallery-container {
-    display: grid; /* Usa CSS Grid para layout */
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Ajusta o número de colunas automaticamente */
-    gap: 1rem; /* Espaçamento entre os itens */
-    max-width: 1000px; /* Largura máxima */
-    margin: auto; /* Centraliza a galeria */
-    padding-bottom: 60px; /* Espaço para a descrição */
+    display: flex; /* CRUCIAL: Coloca slides lado a lado */
+    transition: transform 0.5s ease-in-out; /* Suaviza a transição de slide */
+    height: 400px; /* Altura fixa para todos os slides */
+    min-height: 400px;
 }
 
-/* Estilo para itens da galeria */
-.gallery-item {
-    position: relative; /* Posicionamento relativo para elementos internos */
-    width: 100%; /* Largura total */
-    height: 100%; /* Altura total */
-    overflow: hidden; /* Esconde conteúdo que ultrapassa o limite */
-    border-radius: 8px; /* Bordas arredondadas */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra leve */
+/* Cada slide individual (mySlides) */
+.mySlides {
+    flex-shrink: 0; /* Impede que o slide diminua */
+    width: 100%; /* Ocupa 100% da largura do slideshow-container */
+    height: 100%;
+    display: block; 
 }
 
-/* Estilo para imagens da galeria */
-.gallery-item img {
-    width: 100%; /* Largura total */
-    height: auto; /* Altura automática */
-    aspect-ratio: 16 / 9; /* Define proporção de 16:9 */
+.mySlides img {
+    width: 100%;
+    height: 100%;
     object-fit: cover; /* Ajusta a imagem para preencher o container */
-    transition: opacity 0.5s ease-in-out; /* Transição de opacidade */
+    border-radius: 8px;
 }
 
-/* Estilo para descrições das imagens */
-.gallery-item p {
-    position: absolute; /* Posicionamento absoluto */
-    bottom: -60px; /* Posiciona abaixo da imagem */
-    left: 0;
+/* Estilo de navegação (next/prev) */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.3s ease;
+    user-select: none;
+    background-color: rgba(0,0,0,0.5);
+    border: none;
+    z-index: 10;
+}
+
+.next {
     right: 0;
-    background-color: rgba(255, 255, 255, 0.9); /* Fundo branco semi-transparente */
-    padding: 10px; /* Espaçamento interno */
-    margin: 0; /* Remove margens */
+    border-radius: 3px 0 0 3px;
+}
+.prev {
+    left: 0;
+    border-radius: 0 3px 3px 0;
+}
+
+.prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
 }
 
 /* ===========================
    ## Dots (Indicadores de Navegação)
    =========================== */
 
-/* Estilo para dots (indicadores de navegação) */
+.dots {
+    text-align: center;
+    padding-top: 20px;
+}
 .dot {
-    display: inline-block; /* Exibe como bloco inline */
-    width: 12px; /* Largura do dot */
-    height: 12px; /* Altura do dot */
-    margin: 0 5px; /* Espaçamento entre os dots */
-    border-radius: 50%; /* Formato circular */
-    background-color: #bbb; /* Cor padrão */
-    cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin: 0 5px;
+    border-radius: 50%;
+    background-color: #bbb;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-/* Estilo para o dot ativo */
 .dot.active {
-    background-color: #333; /* Cor do dot ativo */
+    background-color: #10b981; /* Verde esmeralda */
 }
+
+
+/* ===========================
+   ## Widget Flutuante (Chatbot)
+   =========================== */
+   
+/* Posicionamento do widget (já definido por Tailwind em index.html, mas reforçando) */
+#chat-widget {
+    position: fixed;
+    z-index: 100; 
+}
+
+/* Caixa de Chat */
+#chat-box {
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    transform-origin: bottom right;
+    border: 1px solid #e5e7eb;
+}
+
+/* Ajustes de Tema para o Chatbox */
+.dark-theme #chat-box {
+    background-color: var(--color-gray-medium);
+    border-color: var(--color-dark-bg);
+}
+.dark-theme #chat-messages {
+    background-color: #1a1a1a;
+}
+/* Balão do Bot */
+.dark-theme .bg-gray-100 {
+    background-color: #374151 !important;
+    color: white;
+}
+/* Balão do Usuário */
+.dark-theme .bg-green-100 {
+    background-color: #047857 !important;
+    color: white;
+}
+/* Input de texto */
+.dark-theme #chat-input {
+    background-color: var(--color-dark-bg);
+    color: white;
+    border-color: #374151;
+}
+
+/* Estilos de Mensagens */
+#chat-messages .inline-block {
+    max-width: 80%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.text-right .inline-block {
+    background-color: #d1fae5; /* Verde bem claro para o usuário no light-theme */
+}
+
 
 /* ===========================
    ## Responsividade
@@ -195,22 +254,12 @@ header.fixed .container {
 /* Ajustes para telas menores */
 @media (max-width: 768px) {
     header .container {
-        padding: 0 1rem; /* Reduz o espaçamento lateral em telas menores */
+        padding: 0 1rem;
     }
 
+    /* Ajusta a altura do carrossel em mobile */
     #gallery-container {
-        grid-template-columns: 1fr; /* Uma coluna em telas menores */
+        height: 250px;
+        min-height: 250px;
     }
-}
-
-/* ===========================
-   ## Conteúdo da Bíblia
-   =========================== */
-
-#bible-content {
-    width: auto; /* Permite que o conteúdo ocupe a largura necessária */
-    max-width: none; /* Remove qualquer limite de largura */
-    margin: 0 auto; /* Centraliza o conteúdo */
-    padding: 1rem; /* Adiciona espaçamento interno */
-    box-sizing: border-box; /* Inclui padding e border no cálculo da largura */
 }
