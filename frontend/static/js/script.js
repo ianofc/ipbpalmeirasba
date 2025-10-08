@@ -1,4 +1,6 @@
 import { fallbackData } from './fallback-data.js';
+// Importa o chatbot (é necessário garantir que 'Sarcinha' seja exportado em chatbot.js)
+import { Sarcinha } from './chatbot.js'; 
 
 // Define a URL base para as chamadas de API.
 const API_BASE_URL = window.location.hostname.includes('localhost')
@@ -20,25 +22,26 @@ if (video) {
 
 const themeButton = document.getElementById('themeButton');
 const themeLabel = document.getElementById('themeLabel');
-const body = document.body; // Acessando o body diretamente, sem ID
-let currentTheme = 'clean';
+const body = document.body;
+// Define o tema inicial como 'light-theme' (ou o tema padrão)
+let currentTheme = 'light-theme'; 
 
 themeButton?.addEventListener('click', () => {
-    if (currentTheme === 'clean') {
-        body.classList.remove('bg-cinza-claro');
-        body.classList.add('theme-dark');
+    // Remove todas as classes de tema para garantir a troca correta
+    body.classList.remove('light-theme', 'dark-theme', 'green-theme');
+
+    if (currentTheme === 'light-theme') {
+        body.classList.add('dark-theme');
         themeLabel.textContent = 'Dark';
-        currentTheme = 'dark';
-    } else if (currentTheme === 'dark') {
-        body.classList.remove('theme-dark');
-        body.classList.add('theme-green');
+        currentTheme = 'dark-theme';
+    } else if (currentTheme === 'dark-theme') {
+        body.classList.add('green-theme');
         themeLabel.textContent = 'Green';
-        currentTheme = 'green';
+        currentTheme = 'green-theme';
     } else {
-        body.classList.remove('theme-green');
-        body.classList.add('bg-cinza-claro');
-        themeLabel.textContent = 'Clean';
-        currentTheme = 'clean';
+        body.classList.add('light-theme');
+        themeLabel.textContent = 'Light';
+        currentTheme = 'light-theme';
     }
 });
 
@@ -48,10 +51,10 @@ themeButton?.addEventListener('click', () => {
    =========================== */
 async function fetchVerse() {
     const verse = document.getElementById('verse');
-    if (!verse) return; 
+    if (!verse) return;
     
     try {
-        const response = await fetch(`${API_BASE_URL}/api/random-verse`); // Ajuste de API_BASE_URL
+        const response = await fetch(`${API_BASE_URL}/api/random-verse`);
         if (!response.ok) throw new Error("Falha ao buscar versículo.");
         
         const data = await response.json();
@@ -94,7 +97,7 @@ function loadTrack(index) {
     document.getElementById('current-title').textContent = track.title;
     
     const player = document.getElementById('youtube-player');
-    // player.src ajustado e simplificado para autoplay
+    // Ajustado para usar o iframe do YouTube
     player.src = `https://www.youtube.com/embed/${track.videoId}?autoplay=1&enablejsapi=1&origin=${window.location.origin}`;
 
     document.querySelectorAll('.playlist-item').forEach((item, i) => {
@@ -132,13 +135,11 @@ function initializePlayer() {
 
     const prevBtn = document.getElementById('prev-track');
     const nextBtn = document.getElementById('next-track');
-    // Adiciona event listeners para botões de controle
+    
     if (prevBtn) prevBtn.addEventListener('click', () => loadTrack((currentTrackIndex - 1 + tracks.length) % tracks.length));
     if (nextBtn) nextBtn.addEventListener('click', () => loadTrack((currentTrackIndex + 1) % tracks.length));
     
-    // NOTA: A lógica para 'ended' de um iframe YouTube é mais complexa e
-    // requer a API JavaScript do YouTube. O evento 'ended' só funciona 
-    // com <audio> ou <video> nativo, não iframe. Mantemos por enquanto.
+    // A lógica para 'ended' de iframe é mantida, mas ineficaz sem a API JS do YouTube.
     const currentAudio = document.getElementById('current-audio');
     if (currentAudio) {
          currentAudio.addEventListener('ended', () => {
@@ -150,42 +151,21 @@ function initializePlayer() {
 
 
 /* ===========================
-   ## Rolagem e Header Fixo
+   ## Carrossel/Galeria de Fotos (NOVA IMPLEMENTAÇÃO)
    =========================== */
-// Rolagem suave para âncoras (Mantido)
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const element = document.querySelector(this.getAttribute('href'));
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-        }
-    });
-});
+let carouselIndex = 0;
+let carouselPhotos = [];
+let carouselInterval;
 
-// Fixar a barra de navegação (Mantido)
-const header = document.getElementById('header');
-if (header) {
-    const sticky = header.offsetTop;
-
-    window.onscroll = function() {
-        if (window.pageYOffset > sticky) {
-            header.classList.add('fixed', 'shadow-md');
-        } else {
-            header.classList.remove('fixed', 'shadow-md');
-        }
-    };
-}
-
-
-/* ===========================
-   ## Funcionalidades de Conteúdo (Galerias, Docs, Contagem)
-   =========================== */
-// Função loadGallery (mantida a estrutura Async/Await anterior)
-async function loadGallery() {
+async function setupGalleryCarousel() {
     const galleryContainer = document.getElementById('gallery-container');
-    if (!galleryContainer) return;
+    const dotsContainer = document.querySelector('.dots');
+    const prevButton = document.querySelector('.slideshow-container .prev');
+    const nextButton = document.querySelector('.slideshow-container .next');
 
+    if (!galleryContainer || !dotsContainer) return;
+    
+    // 1. Carregar Dados
     let photosToDisplay = fallbackData.photos;
     
     try {
@@ -199,14 +179,75 @@ async function loadGallery() {
         console.error('Erro ao carregar galeria, usando fallback:', error);
     }
 
-    galleryContainer.innerHTML = photosToDisplay.map(photo => `
-        <div class="gallery-item">
+    if (photosToDisplay.length === 0) return;
+    carouselPhotos = photosToDisplay;
+
+    // 2. Renderizar Slides e Dots
+    galleryContainer.innerHTML = carouselPhotos.map((photo, index) => `
+        <div class="mySlides">
             <img src="${photo.url}" alt="${photo.description}" loading="lazy" decoding="async" />
         </div>
     `).join('');
+
+    dotsContainer.innerHTML = carouselPhotos.map((_, index) => 
+        `<span class="dot" data-index="${index}"></span>`
+    ).join('');
+
+    // 3. Funções de Controle
+    function moveCarousel(n) {
+        carouselIndex = (n + carouselPhotos.length) % carouselPhotos.length;
+        const offset = -carouselIndex * 100;
+        
+        galleryContainer.style.transform = `translateX(${offset}%)`;
+        
+        document.querySelectorAll('.dot').forEach((dot, i) => {
+            dot.classList.toggle('active', i === carouselIndex);
+        });
+    }
+
+    function autoSlide() {
+        moveCarousel(carouselIndex + 1);
+    }
+    
+    // Iniciar auto-slide
+    clearInterval(carouselInterval);
+    carouselInterval = setInterval(autoSlide, 5000); // Muda a cada 5 segundos
+
+    // 4. Configurar Event Listeners
+    prevButton?.addEventListener('click', () => {
+        clearInterval(carouselInterval);
+        moveCarousel(carouselIndex - 1);
+        carouselInterval = setInterval(autoSlide, 5000);
+    });
+
+    nextButton?.addEventListener('click', () => {
+        clearInterval(carouselInterval);
+        moveCarousel(carouselIndex + 1);
+        carouselInterval = setInterval(autoSlide, 5000);
+    });
+
+    document.querySelectorAll('.dot').forEach(dot => {
+        dot.addEventListener('click', (e) => {
+            clearInterval(carouselInterval);
+            const index = parseInt(e.target.dataset.index, 10);
+            moveCarousel(index);
+            carouselInterval = setInterval(autoSlide, 5000);
+        });
+    });
+
+    // Inicializa o primeiro slide
+    moveCarousel(0);
 }
 
-// Função loadDocuments (mantida a estrutura Async/Await anterior)
+
+/* ===========================
+   ## Funcionalidades de Conteúdo (Docs, Contagem)
+   =========================== */
+
+// A função loadGallery foi substituída por setupGalleryCarousel()
+// O código abaixo atualiza loadDocuments e updateVisitorCount
+
+// Função loadDocuments
 async function loadDocuments() {
     const container = document.getElementById('documents-container');
     if (!container) return;
@@ -234,7 +275,7 @@ async function loadDocuments() {
     `).join('');
 }
 
-// Função updateVisitorCount (mantida a estrutura Async/Await anterior)
+// Função updateVisitorCount
 async function updateVisitorCount() {
     const visitorCountElement = document.getElementById('visitor-count');
     if (!visitorCountElement) return;
@@ -244,7 +285,7 @@ async function updateVisitorCount() {
         if (!response.ok) throw new Error("Contagem de visitantes não encontrada");
         
         const data = await response.json();
-        visitorCountElement.textContent = data.count; 
+        visitorCountElement.textContent = data.count;
 
     } catch (error) {
         console.error('Erro ao atualizar contagem de visitantes:', error);
@@ -254,8 +295,9 @@ async function updateVisitorCount() {
 
 
 /* ===========================
-   ## Funções da Bíblia (Integração da versão antiga)
+   ## Funções da Bíblia, Slider de Organizações e Mapa
    =========================== */
+
 function setupBibleSelector() {
     const bookSelect = document.getElementById('book-select');
     const chapterSelect = document.getElementById('chapter-select');
@@ -340,10 +382,6 @@ function setupBibleSelector() {
     }
 }
 
-
-/* ===========================
-   ## Slider de Organizações (Integração da versão antiga)
-   =========================== */
 function setupOrganizationSlider() {
     const slider = document.getElementById('slider');
     const prevButton = document.getElementById('prev');
@@ -375,37 +413,9 @@ function setupOrganizationSlider() {
         updateSlider();
     });
     
-    // Inicializa o slider
     updateSlider();
 }
 
-/* ===========================
-   ## Slider de Fotos (showSlides da versão antiga)
-   =========================== */
-let slideIndex = 0; 
-function showSlides() {
-    const slides = document.getElementsByClassName("mySlides");
-    const dots = document.getElementsByClassName("dot");
-    if (!slides.length || !dots.length) return;
-
-    for (let i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-    }
-    slideIndex++;
-    if (slideIndex > slides.length) { slideIndex = 1 }
-    for (let i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace(" active", "");
-    }
-    slides[slideIndex - 1].style.display = "block";
-    dots[slideIndex - 1].className += " active";
-    // Chama a si mesma para o loop
-    setTimeout(showSlides, 2000);
-}
-
-
-/* ===========================
-   ## Mapa e Calendário (Integração da versão antiga)
-   =========================== */
 async function setupMapAndCalendar() {
     const mapElement = document.getElementById('map');
     const locationPhoto = document.getElementById('location-photo');
@@ -434,7 +444,7 @@ async function setupMapAndCalendar() {
             .openPopup();
 
         // Define uma foto da localização
-        locationPhoto.src = "/src/imgs/acs/igreja.png"; 
+        locationPhoto.src = "/src/imgs/acs/igreja.png";
 
     } catch (error) {
         console.error('Erro ao configurar mapa:', error);
@@ -459,33 +469,56 @@ async function setupMapAndCalendar() {
 
 
 /* ===========================
+   ## Rolagem e Header Fixo
+   =========================== */
+// Rolagem suave para âncoras (Mantido)
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const element = document.querySelector(this.getAttribute('href'));
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});
+
+// Fixar a barra de navegação (Mantido)
+const header = document.getElementById('header');
+if (header) {
+    const sticky = header.offsetTop;
+
+    window.onscroll = function() {
+        if (window.pageYOffset > sticky) {
+            header.classList.add('fixed', 'shadow-md');
+        } else {
+            header.classList.remove('fixed', 'shadow-md');
+        }
+    };
+}
+
+
+/* ===========================
    ## Inicialização do DOM
    =========================== */
 document.addEventListener('DOMContentLoaded', function() {
-    // Funções Antigas
+    // Funções Antigas e atualizadas
     fetchVerse();
     scheduleDailyVerse();
-    initializePlayer(); 
+    initializePlayer();
     
     // Funções de Conteúdo
     updateVisitorCount();
-    loadGallery();
-    loadDocuments();
-    
+    loadDocuments(); // Não confunda com setupGalleryCarousel
+
     // Novas Funções
-    setupBibleSelector(); 
+    setupGalleryCarousel(); // NOVO: Gerencia o carrossel de fotos (galeria)
+    setupBibleSelector();
     setupOrganizationSlider();
     setupMapAndCalendar();
-    
-    // Inicializa o slider de fotos. NOTA: É recursivo (usa setTimeout).
-    showSlides();
+
+    // Inicializa o Chatbot Sarcinha
+    new Sarcinha();
 });
 
-// Funções globais (plusSlides, currentSlide) deixadas fora do DOMContentLoaded
-// para serem acessíveis pelo HTML (caso ainda sejam usadas).
-function plusSlides(n) {
-    // A função original showSlides é chamada por um loop de setTimeout, não por esta.
-}
-function currentSlide(n) {
-    // A função original showSlides é chamada por um loop de setTimeout, não por esta.
-}
+// NOTA: As funções globais plusSlides e currentSlide da versão antiga foram removidas
+// pois a nova lógica do carrossel as substitui com setupGalleryCarousel e seus listeners.
