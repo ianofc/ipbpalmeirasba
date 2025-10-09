@@ -8,67 +8,29 @@
     <meta name="author" content="Ian S. A. Santos">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Igreja Presbiteriana em Palmeiras</title>
-    <meta http-equiv="Cache-Control" content="max-age=31536000"> <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
-    <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css)">
-    <link rel="stylesheet" href="[https://unpkg.com/leaflet/dist/leaflet.css](https://unpkg.com/leaflet/dist/leaflet.css)" />
-    <script src="[https://unpkg.com/leaflet/dist/leaflet.js](https://unpkg.com/leaflet/dist/leaflet.js)"></script>
-    <link href="[https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap](https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap)" rel="stylesheet">
-    <link rel="stylesheet" href="style.css"> <style>
+    <meta http-equiv="Cache-Control" content="max-age=31536000">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> 
+    <style>
         /* Estilos inline mantidos para garantir a funcionalidade de temas com Tailwind */
         body {
             font-family: 'Roboto', sans-serif;
             transition: all 0.3s ease;
+            /* Adiciona o padding top para acomodar o header fixo */
+            padding-top: 5rem; 
         }
-        .light-theme {
-            background-color: #ffffff;
-            color: #15803d;
-        }
-        .dark-theme {
-            background-color: #1a1a1a;
-            color: #4ade80;
-        }
-        .dark-theme .bg-gray-100 {
-            background-color: #111827;
-        }
-        .dark-theme .bg-white {
-            background-color: #1f2937;
-        }
-        .dark-theme .text-gray-700 {
-            color: #9ca3af;
-        }
-        .green-theme {
-            background-color: #14532d;
-            color: #ffffff;
-        }
-        .green-theme .bg-gray-100 {
-            background-color: #064e3b;
-        }
-        .green-theme .bg-white {
-            background-color: #065f46;
-        }
-        .green-theme .text-gray-700 {
-            color: #a7f3d0;
-        }
-        .dark-theme header, .green-theme header {
-            /* Fundo do header no tema escuro/verde - cor para simular a imagem */
-            background-color: #0c4a6e; /* Azul Escuro */ 
-        }
-        .light-theme header {
-            background-color: #1e3a8a; /* Azul Escuro no tema claro também */
-        }
-        /* Cor de hover para links no header */
-        .light-theme a:hover, .dark-theme a:hover, .green-theme a:hover {
-            color: #f59e0b; /* Âmbar */
-        }
-        
     </style>
     <script>
-        // Função original de toggleTheme (do arquivo index.html original)
+        // Funções de controle de tema e sidebar (mantidas do seu código)
         function toggleTheme() {
             const body = document.body;
-            const themeLabel = document.getElementById('themeLabelSidebar'); // Alterado para o novo ID
-            const themeIcon = document.getElementById('theme-icon'); // Novo
-
+            const themeLabel = document.getElementById('themeLabelSidebar'); 
+            const themeIcon = document.getElementById('theme-icon'); 
             let newTheme = '';
 
             if (body.classList.contains('light-theme')) {
@@ -85,7 +47,6 @@
                 newTheme = 'light';
             }
             
-            // Atualiza o label e o ícone
             if (themeLabel) {
                 themeLabel.textContent = newTheme.charAt(0).toUpperCase() + newTheme.slice(1);
             }
@@ -94,20 +55,16 @@
             }
         }
         
-        // Inicializa o label e o ícone na carga da página
         document.addEventListener('DOMContentLoaded', () => {
-            // Configurações para a sidebar e tradução
             const translationButton = document.getElementById('translationButton');
             const tooltipFlags = document.getElementById('tooltip-flags');
 
-            // Adiciona listener para mostrar/esconder flags
             if (translationButton && tooltipFlags) {
                 translationButton.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Evita que o clique feche imediatamente
+                    e.stopPropagation();
                     tooltipFlags.classList.toggle('hidden');
                 });
                 
-                // Fecha as flags se clicar fora
                 document.addEventListener('click', (e) => {
                     if (!translationButton.contains(e.target) && !tooltipFlags.contains(e.target)) {
                          tooltipFlags.classList.add('hidden');
@@ -115,78 +72,88 @@
                 });
             }
         });
+        
+        function toggleChatbot() {
+            // Função para o botão do Chatbot Sarça
+            console.log("Chatbot Sarça será aberto (implementação em chatbot.js)");
+        }
     </script>
 </head>
 
 <body id="body" class="light-theme">
 
-    <div id="floating-sidebar" class="fixed left-0 top-1/2 transform -translate-y-1/2 z-[100] p-2 space-y-3 bg-gray-900 bg-opacity-80 rounded-r-lg shadow-xl">
+    <div id="floating-sidebar" class="sidebar-custom fixed left-0 top-1/2 transform -translate-y-1/2 z-[100] p-2 space-y-3 shadow-xl">
         
-        <button id="themeButtonSidebar" onclick="toggleTheme()" class="sidebar-button text-white hover:text-amber-400 p-2 rounded-full transition duration-300 block relative group" title="Mudar Tema">
+        <button id="themeButtonSidebar" onclick="toggleTheme()" class="sidebar-button-custom p-2 rounded-full transition duration-300 block relative group" title="Mudar Tema">
             <i class="fas fa-sun text-xl" id="theme-icon"></i>
-            <span class="tooltip">Tema: <span id="themeLabelSidebar">Light</span></span>
+            <span class="tooltip-custom">Tema: <span id="themeLabelSidebar">Light</span></span>
         </button>
 
         <div class="relative">
-            <button id="translationButton" class="sidebar-button text-white hover:text-amber-400 p-2 rounded-full transition duration-300 block" title="Tradução">
+            <button id="translationButton" class="sidebar-button-custom p-2 rounded-full transition duration-300 block" title="Tradução">
                 <i class="fas fa-globe text-xl"></i>
             </button>
             <div id="tooltip-flags" class="hidden absolute left-12 top-0 bg-gray-700 p-2 rounded-lg shadow-lg">
-                <img alt="Brasil" class="flag w-6 h-6 cursor-pointer mb-1 hover:scale-110 transition-transform" onclick="translateToPortugues()" src="static/imgs/flags/brasil.png">
-                <img alt="USA" class="flag w-6 h-6 cursor-pointer mb-1 hover:scale-110 transition-transform" onclick="translateToEnglish()" src="static/imgs/flags/usa.png">
-                <img alt="España" class="flag w-6 h-6 cursor-pointer mb-1 hover:scale-110 transition-transform" onclick="translateToSpanish()" src="static/imgs/flags/espanha.png">
-                <img alt="France" class="flag w-6 h-6 cursor-pointer mb-1 hover:scale-110 transition-transform" onclick="translateToFrench()" src="static/imgs/flags/franca.png">
-                <img alt="Deutschland" class="flag w-6 h-6 cursor-pointer mb-1 hover:scale-110 transition-transform" onclick="translateToGerman()" src="static/imgs/flags/alemanha.png">
-                <img alt="中国" class="flag w-6 h-6 cursor-pointer mb-1 hover:scale-110 transition-transform" onclick="translateToMandarin()" src="static/imgs/flags/china.png">
-                <img alt="日本" class="flag w-6 h-6 cursor-pointer mb-1 hover:scale-110 transition-transform" onclick="translateToJapanese()" src="static/imgs/flags/japao.png">
+                <img alt="Brasil" class="flag w-6 h-6 cursor-pointer mb-1 hover:scale-110 transition-transform" onclick="translateToPortugues()" src="{{ url_for('static', filename='imgs/flags/brasil.png') }}">
+                <img alt="USA" class="flag w-6 h-6 cursor-pointer mb-1 hover:scale-110 transition-transform" onclick="translateToEnglish()" src="{{ url_for('static', filename='imgs/flags/usa.png') }}">
+                <img alt="España" class="flag w-6 h-6 cursor-pointer mb-1 hover:scale-110 transition-transform" onclick="translateToSpanish()" src="{{ url_for('static', filename='imgs/flags/espanha.png') }}">
+                <img alt="France" class="flag w-6 h-6 cursor-pointer mb-1 hover:scale-110 transition-transform" onclick="translateToFrench()" src="{{ url_for('static', filename='imgs/flags/franca.png') }}">
+                <img alt="Deutschland" class="flag w-6 h-6 cursor-pointer mb-1 hover:scale-110 transition-transform" onclick="translateToGerman()" src="{{ url_for('static', filename='imgs/flags/alemanha.png') }}">
+                <img alt="中国" class="flag w-6 h-6 cursor-pointer mb-1 hover:scale-110 transition-transform" onclick="translateToMandarin()" src="{{ url_for('static', filename='imgs/flags/china.png') }}">
+                <img alt="日本" class="flag w-6 h-6 cursor-pointer mb-1 hover:scale-110 transition-transform" onclick="translateToJapanese()" src="{{ url_for('static', filename='imgs/flags/japao.png') }}">
             </div>
         </div>
         
-        <button id="accessibilityButton" class="sidebar-button text-white hover:text-amber-400 p-2 rounded-full transition duration-300 block relative group" title="Acessibilidade">
+        <button id="accessibilityButton" class="sidebar-button-custom p-2 rounded-full transition duration-300 block relative group" title="Acessibilidade">
             <i class="fas fa-universal-access text-xl"></i>
-            <span class="tooltip">Acessibilidade</span>
+            <span class="tooltip-custom">Acessibilidade</span>
         </button>
 
-        <button id="chatbotToggle" class="sidebar-button text-white hover:text-amber-400 p-2 rounded-full transition duration-300 block relative group" title="Chatbot" onclick="toggleChatbot()">
-            <i class="fas fa-comments text-xl sarcinha-icon"></i> 
-            <span class="tooltip">Chatbot (Sarcinha)</span>
+        <button id="chatbotToggle" class="sidebar-button-custom p-2 rounded-full transition duration-300 block relative group" title="Chatbot - Sarça" onclick="toggleChatbot()">
+            <i class="sarcinha-icon text-xl"></i> 
+            <span class="tooltip-custom">Chatbot (Sarça)</span>
         </button>
     </div>
-    <header class="bg-cinza-escuro p-4 fixed top-0 w-full z-50 shadow-lg" id="header">
-        <div class="container mx-auto flex justify-between items-center h-16">
-            <img alt="Logo da Igreja Presbiteriana em Palmeiras" class="h-10 md:h-12" loading="lazy" src="static/imgs/acs/logo_ipp.png" />
+
+    <header class="navbar-custom bg-white fixed top-0 w-full z-50 shadow-lg h-20 flex items-center" id="header">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <div class="flex items-center space-x-2">
+                <img alt="Logo da Igreja Presbiteriana em Palmeiras" class="h-10 md:h-12" loading="lazy" 
+                    src="{{ url_for('static', filename='imgs/acs/logo_ipp.png') }}" />
+                <span class="text-lg font-bold text-[#3b3f35] hidden sm:block">Igreja Presbiteriana em Palmeiras</span>
+            </div>
 
             <nav class="hidden md:block">
-                <ul class="flex space-x-6 text-white" id="main-nav">
-                    <li><a class="hover:text-amber-400 transition duration-300" href="#body" data-translate="Home">Home</a></li>
-                    <li><a class="hover:text-amber-400 transition duration-300" href="#mensagem-pastor" data-translate="Editorial">Editorial</a></li>
-                    <li><a class="hover:text-amber-400 transition duration-300" href="#organization-slider" data-translate="Organizações">Organizações</a></li>
-                    <li><a class="hover:text-amber-400 transition duration-300" href="#documents-container" data-translate="Download">Download</a></li>
-                    <li><a class="hover:text-amber-400 transition duration-300" href="#sobre" data-translate="Sobre">Sobre</a></li>
-                    <li><a class="hover:text-amber-400 transition duration-300" href="#conversa-pastor" data-translate="Contato">Contato</a></li>
+                <ul class="flex space-x-6" id="main-nav">
+                    <li><a class="nav-link-custom active" href="#body" data-translate="Home">Home</a></li>
+                    <li><a class="nav-link-custom" href="#mensagem-pastor" data-translate="Editorial">Editorial</a></li>
+                    <li><a class="nav-link-custom" href="#organization-slider" data-translate="Organizações">Organizações</a></li>
+                    <li><a class="nav-link-custom" href="#documents-container" data-translate="Download">Download</a></li>
+                    <li><a class="nav-link-custom" href="#sobre" data-translate="Sobre">Sobre</a></li>
+                    <li><a class="nav-link-custom" href="#conversa-pastor" data-translate="Contato">Contato</a></li>
                 </ul>
             </nav>
-            <button class="md:hidden text-white text-2xl" id="menu-button">
+            <button class="md:hidden text-[#2d3a34] text-2xl" id="menu-button">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
     </header>
 
-    <section id="hero-section" class="h-screen flex items-center justify-center bg-cover bg-center relative"
-        style="background-image: url('static/imgs/acs/1igreja.jpg');">
+    <section id="hero-section" class="banner-custom h-screen flex items-center justify-center bg-cover bg-center relative"
+        style="background-image: url('{{ url_for('static', filename='imgs/acs/1igreja.jpg') }}');">
         
-        <div class="absolute inset-0 bg-black opacity-50" id="hero-overlay"></div>
+        <div class="dark-overlay absolute inset-0"></div>
         
-        <div class="text-center text-white relative z-10 p-4">
-            <img alt="Logo da Igreja Presbiteriana em Palmeiras" class="h-24 md:h-32 mx-auto mb-4" 
-                loading="lazy" src="static/imgs/acs/logo_ipp.png" id="hero-logo" />
+        <div class="text-center relative z-10 p-4">
+            <img alt="Escudo IPB" class="escudo-custom h-36 md:h-40 mx-auto mb-4" 
+                loading="lazy" src="{{ url_for('static', filename='imgs/acs/escudo_ipp.png') }}" id="hero-escudo" />
                 
-            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight drop-shadow-lg" data-translate="IGREJA PRESBITERIANA em Palmeiras">
-                IGREJA PRESBITERIANA em Palmeiras
+            <h2 class="text-2xl md:text-3xl font-normal text-[#de8737] tracking-wider" data-translate="IGREJA PRESBITERIANA em">
+                IGREJA<br>PRESBITERIANA em
+            </h2>
+            <h1 class="text-6xl md:text-8xl font-extrabold text-[#de8737] tracking-tight drop-shadow-lg" data-translate="Palmeiras">
+                Palmeiras
             </h1>
-            <p class="mt-4 text-xl md:text-3xl font-medium drop-shadow-md" data-translate="Uma comunidade de fé e amor em Palmeiras-BA">
-                Uma comunidade de fé e amor em Palmeiras-BA
-            </p>
         </div>
     </section>
 
@@ -198,7 +165,7 @@
                 </div>
             </div>
     </section>
-
+    
     <section class="py-12">
         <div class="container mx-auto px-6">
             <h2 class="text-3xl font-bold text-center mb-8" data-translate="Música">Música</h2>
@@ -291,7 +258,7 @@
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-lg">
                     <h3 class="text-xl font-bold mb-4" data-translate="Nossa Agenda">Nossa Agenda</h3>
-                    <iframe id="google-calendar" class="w-full h-96 rounded-lg" src="[https://calendar.google.com/calendar/embed?src=seuemail%40gmail.com&ctz=America%2FSao_Paulo](https://calendar.google.com/calendar/embed?src=seuemail%40gmail.com&ctz=America%2FSao_Paulo)" style="border: 0" width="100%" height="100%" frameborder="0" scrolling="no"></iframe>
+                    <iframe id="google-calendar" class="w-full h-96 rounded-lg" src="https://calendar.google.com/calendar/embed?src=seuemail%40gmail.com&ctz=America%2FSao_Paulo" style="border: 0" width="100%" height="100%" frameborder="0" scrolling="no"></iframe>
                 </div>
             </div>
         </div>
@@ -319,8 +286,8 @@
         </div>
     </footer>
 
-    <script src="chatbot.js"></script>
-    <script src="script.js"></script>
+    <script src="{{ url_for('static', filename='chatbot.js') }}"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 
 </html>
