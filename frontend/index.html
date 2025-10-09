@@ -23,7 +23,7 @@
         body {
             font-family: 'Roboto', sans-serif;
             transition: all 0.3s ease;
-            /* Adiciona o padding top para acomodar o header fixo */
+            /* Padding top para acomodar o header fixo de 5rem (80px) */
             padding-top: 5rem; 
         }
     </style>
@@ -56,7 +56,6 @@
             if (themeIcon) {
                 themeIcon.className = newTheme === 'light' ? 'fas fa-sun text-xl' : 'fas fa-moon text-xl';
             }
-            // Mantém compatibilidade com o ID 'themeLabel' caso ainda seja usado no script.js
             const oldThemeLabel = document.getElementById('themeLabel');
              if (oldThemeLabel) {
                 oldThemeLabel.textContent = newTheme.charAt(0).toUpperCase() + newTheme.slice(1);
@@ -158,24 +157,6 @@
             </button>
         </div>
     </header>
-
-    <section id="hero-section" class="banner-custom h-screen flex items-center justify-center bg-cover bg-center relative"
-        style="background-image: url('{{ url_for('static', filename='imgs/acs/1igreja.jpg') }}');">
-        
-        <div class="dark-overlay absolute inset-0"></div>
-        
-        <div class="text-center relative z-10 p-4">
-            <img alt="Escudo IPB" class="escudo-custom h-36 md:h-40 mx-auto mb-4" 
-                loading="lazy" src="{{ url_for('static', filename='imgs/acs/escudo_ipp.png') }}" id="hero-escudo" />
-                
-            <h2 class="text-2xl md:text-3xl font-normal text-[#de8737] tracking-wider" data-translate="IGREJA PRESBITERIANA em">
-                IGREJA<br>PRESBITERIANA em
-            </h2>
-            <h1 class="text-6xl md:text-8xl font-extrabold text-[#de8737] tracking-tight drop-shadow-lg" data-translate="Palmeiras">
-                Palmeiras
-            </h1>
-        </div>
-    </section>
 
     <section class="py-12 bg-gray-100">
             <h2 class="text-3xl font-bold text-center mb-8" data-translate="Versículo para Meditar">Versículo para Meditar</h2>
