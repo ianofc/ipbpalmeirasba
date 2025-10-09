@@ -15,9 +15,11 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> 
+    
     <style>
-        /* Estilos inline mantidos para garantir a funcionalidade de temas com Tailwind */
+        /* Estilos inline necessários para o body e padding fixo */
         body {
             font-family: 'Roboto', sans-serif;
             transition: all 0.3s ease;
@@ -25,8 +27,9 @@
             padding-top: 5rem; 
         }
     </style>
+    
     <script>
-        // Funções de controle de tema e sidebar (mantidas do seu código)
+        // Funções de controle de tema (adaptadas para o novo sidebar)
         function toggleTheme() {
             const body = document.body;
             const themeLabel = document.getElementById('themeLabelSidebar'); 
@@ -53,6 +56,11 @@
             if (themeIcon) {
                 themeIcon.className = newTheme === 'light' ? 'fas fa-sun text-xl' : 'fas fa-moon text-xl';
             }
+            // Mantém compatibilidade com o ID 'themeLabel' caso ainda seja usado no script.js
+            const oldThemeLabel = document.getElementById('themeLabel');
+             if (oldThemeLabel) {
+                oldThemeLabel.textContent = newTheme.charAt(0).toUpperCase() + newTheme.slice(1);
+            }
         }
         
         document.addEventListener('DOMContentLoaded', () => {
@@ -71,11 +79,23 @@
                     }
                 });
             }
+            
+            // Funções de tradução (placeholders do original)
+            window.translateToPortugues = () => console.log('Traduzir para Português');
+            window.translateToEnglish = () => console.log('Traduzir para Inglês');
+            window.translateToSpanish = () => console.log('Traduzir para Espanhol');
+            window.translateToFrench = () => console.log('Traduzir para Francês');
+            window.translateToGerman = () => console.log('Traduzir para Alemão');
+            window.translateToMandarin = () => console.log('Traduzir para Mandarim');
+            window.translateToJapanese = () => console.log('Traduzir para Japonês');
         });
         
         function toggleChatbot() {
-            // Função para o botão do Chatbot Sarça
             console.log("Chatbot Sarça será aberto (implementação em chatbot.js)");
+        }
+        
+        function changeOrganization(n) {
+            console.log("Mudar organização:", n);
         }
     </script>
 </head>
@@ -269,6 +289,13 @@
             <h2 class="text-3xl font-bold text-center mb-8" data-translate="Galeria de Fotos">Galeria de Fotos</h2>
             <div id="gallery-container" class="min-h-[500px] flex items-center justify-center">
                 </div>
+            <div class="slideshow-container">
+                <div id="gallery-container"></div>
+            <div class="dots">
+                <span class="dot" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                </div>
+            </div>
         </div>
     </section>
 
