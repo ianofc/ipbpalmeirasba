@@ -13,51 +13,96 @@
     --color-gray-dark: #111827;
     --color-gray-light: #9ca3af;
     --color-gray-medium: #1f2937;
-    
-    /* Cores do Novo Design (Baseado na sua última sugestão) */
+    --transition-default: all 0.3s ease;
+
+    /* Novas Cores Personalizadas para a Interface */
     --color-navbar-bg: #ffffff;
     --color-navbar-text: #2d3a34; /* Azul/Verde escuro */
     --color-link-active: #de8737; /* Laranja/Cobre para links ativos/hover */
     --color-sidebar-bg: #2d3a34; /* Fundo escuro da barra lateral */
     --color-sidebar-button: #f8c045; /* Amarelo/Ouro dos botões */
     --color-banner-overlay: rgba(0, 50, 40, 0.7); /* Overlay do Banner */
-
-    --transition-default: all 0.3s ease;
 }
 
 /* ===========================
-   ## Temas Globais
+   ## Temas Globais (Original)
    =========================== */
 
+/* Estilo geral do corpo */
 body {
-    font-family: 'Roboto', sans-serif;
-    transition: var(--transition-default);
-    /* O padding-top foi movido para o HTML para funcionar com a navbar fixa */
+    font-family: 'Roboto', sans-serif; /* Define a fonte padrão */
+    transition: var(--transition-default); /* Transição suave para mudanças de estilo */
 }
 
-/* Temas base (mantidos para as funções JS de troca) */
+/* Tema Claro */
 .light-theme {
-    background-color: var(--color-light-bg);
-    color: var(--color-light-text);
+    background-color: var(--color-light-bg); /* Fundo branco */
+    color: var(--color-light-text); /* Texto verde */
 }
 
+/* Tema Escuro */
 .dark-theme {
-    background-color: var(--color-dark-bg);
-    color: var(--color-dark-text);
+    background-color: var(--color-dark-bg); /* Fundo preto */
+    color: var(--color-dark-text); /* Texto verde claro */
 }
 
+.dark-theme .bg-gray-100 {
+    background-color: var(--color-gray-dark);
+}
+
+.dark-theme .bg-white {
+    background-color: var(--color-gray-medium);
+}
+
+.dark-theme .text-gray-700 {
+    color: var(--color-gray-light);
+}
+
+.dark-theme header, .green-theme header {
+    background-color: #2d2d2d;
+}
+
+/* Tema Verde */
 .green-theme {
-    background-color: var(--color-green-bg);
-    color: var(--color-green-text);
+    background-color: var(--color-green-bg); /* Fundo verde escuro */
+    color: var(--color-green-text); /* Texto branco */
 }
 
-/* Ajustes de Tema: Garantindo que o conteúdo abaixo do banner se adapte */
-.dark-theme .bg-gray-100 { background-color: var(--color-gray-dark); }
-.dark-theme .bg-white { background-color: var(--color-gray-medium); }
-.dark-theme .text-gray-700 { color: var(--color-gray-light); }
-.green-theme .bg-gray-100 { background-color: #064e3b; }
-.green-theme .bg-white { background-color: #065f46; }
-.green-theme .text-gray-700 { color: #a7f3d0; }
+.green-theme .bg-gray-100 {
+    background-color: #064e3b;
+}
+
+.green-theme .bg-white {
+    background-color: #065f46;
+}
+
+.green-theme .text-gray-700 {
+    color: #a7f3d0;
+}
+
+/* ===========================
+   ## Dots (Indicadores de Navegação) - Original
+   =========================== */
+
+/* Estilo para dots (indicadores de navegação) */
+.dot {
+    display: inline-block; /* Exibe como bloco inline */
+    width: 12px; /* Largura do dot */
+    height: 12px; /* Altura do dot */
+    margin: 0 5px; /* Espaçamento entre os dots */
+    border-radius: 50%; /* Formato circular */
+    background-color: #bbb; /* Cor padrão */
+    cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
+}
+
+/* Estilo para o dot ativo */
+.dot.active {
+    background-color: #333; /* Cor do dot ativo */
+}
+
+/* =========================================================
+   ## Estilos Personalizados para o NOVO LAYOUT (Adições)
+   ========================================================= */
 
 
 /* ===========================
@@ -65,7 +110,6 @@ body {
    =========================== */
 
 .navbar-custom {
-    /* Base do seu último design */
     background-color: var(--color-navbar-bg) !important; 
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     height: 5rem; /* Altura fixa de 80px */
@@ -84,7 +128,6 @@ body {
 .nav-link-custom.active {
     color: var(--color-link-active) !important;
 }
-
 
 /* ===========================
    ## Floating Sidebar (sidebar-custom)
@@ -133,7 +176,7 @@ body {
     opacity: 0;
     transition: opacity 0.3s;
     white-space: nowrap;
-    pointer-events: none; /* Não bloqueia o clique */
+    pointer-events: none;
 }
 
 .sidebar-button-custom:hover .tooltip-custom {
@@ -143,7 +186,7 @@ body {
 
 /* Estilo especial para o ícone Sarcinha (Chatbot) */
 .sarcinha-icon::before {
-    content: "\f075"; /* Código Unicode para o ícone fa-comments (melhor fallback) */
+    content: "\f075"; /* Código Unicode para o ícone fa-comments */
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
     font-size: 1.25rem; 
@@ -170,7 +213,7 @@ body {
 
 
 /* ===========================
-   ## Responsividade
+   ## Responsividade (Ajustes para o novo layout)
    =========================== */
 
 @media (max-width: 768px) {
@@ -183,20 +226,17 @@ body {
         align-items: flex-start;
     }
     
-    body {
-        padding-top: 6rem; /* Aumenta o padding para o header móvel */
-    }
-
     /* Oculta a barra flutuante em telas muito pequenas */
     #floating-sidebar {
         display: none;
     }
-
-    /* Ajuste de fonte para o banner em telas menores */
-    .banner-custom h1 {
-        font-size: 4rem !important;
+    
+    /* Ajustes para telas menores - Mantendo o original */
+    header .container {
+        padding: 0 1rem;
     }
-    .banner-custom h2 {
-        font-size: 1.5rem !important;
+
+    #gallery-container {
+        grid-template-columns: 1fr;
     }
 }
