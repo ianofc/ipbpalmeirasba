@@ -13,8 +13,15 @@
     --color-gray-dark: #111827;
     --color-gray-light: #9ca3af;
     --color-gray-medium: #1f2937;
-    --color-header-bg: #1e3a8a; /* Azul escuro - Cor de fundo do novo header (revertido para o original) */
-    --color-link-hover: #f59e0b; /* Amarelo/Âmbar para hover */
+    
+    /* Cores do Novo Design (Baseado na sua última sugestão) */
+    --color-navbar-bg: #ffffff;
+    --color-navbar-text: #2d3a34; /* Azul/Verde escuro */
+    --color-link-active: #de8737; /* Laranja/Cobre para links ativos/hover */
+    --color-sidebar-bg: #2d3a34; /* Fundo escuro da barra lateral */
+    --color-sidebar-button: #f8c045; /* Amarelo/Ouro dos botões */
+    --color-banner-overlay: rgba(0, 50, 40, 0.7); /* Overlay do Banner */
+
     --transition-default: all 0.3s ease;
 }
 
@@ -22,242 +29,174 @@
    ## Temas Globais
    =========================== */
 
-/* Estilo geral do corpo */
 body {
-    font-family: 'Roboto', sans-serif; /* Define a fonte padrão */
-    transition: var(--transition-default); /* Transição suave para mudanças de estilo */
-    padding-top: 4rem; /* Garante que o conteúdo não fique escondido sob o header fixo de 4rem (h-16) */
-}
-
-/* Tema Claro */
-.light-theme {
-    background-color: var(--color-light-bg); /* Fundo branco */
-    color: var(--color-light-text); /* Texto verde */
-}
-
-/* Tema Escuro */
-.dark-theme {
-    background-color: var(--color-dark-bg); /* Fundo preto */
-    color: var(--color-dark-text); /* Texto verde claro */
-}
-
-/* Ajustes para elementos específicos no tema escuro */
-.dark-theme .bg-gray-100 {
-    background-color: var(--color-gray-dark); /* Fundo cinza escuro */
-}
-
-.dark-theme .bg-white {
-    background-color: var(--color-gray-medium); /* Fundo cinza escuro/médio */
-}
-
-.dark-theme .text-gray-700 {
-    color: var(--color-gray-light); /* Texto cinza claro */
-}
-
-/* Tema Verde */
-.green-theme {
-    background-color: var(--color-green-bg); /* Fundo verde escuro */
-    color: var(--color-green-text); /* Texto branco */
-}
-
-/* Ajustes para elementos específicos no tema verde */
-.green-theme .bg-gray-100 {
-    background-color: #064e3b; /* Verde mais escuro para áreas secundárias */
-}
-
-.green-theme .bg-white {
-    background-color: #065f46; /* Verde médio para blocos brancos */
-}
-
-.green-theme .text-gray-700 {
-    color: #a7f3d0; /* Verde claro para textos secundários */
-}
-
-/* Estilo do Header (aplicado em todos os temas) */
-header {
-    /* Usando a cor escura de destaque da imagem modelo */
-    background-color: #1e3a8a; /* Azul Escuro (Tailwind blue-800) */
+    font-family: 'Roboto', sans-serif;
     transition: var(--transition-default);
+    /* O padding-top foi movido para o HTML para funcionar com a navbar fixa */
 }
 
-header a {
-    color: white; /* Cor do link branco */
+/* Temas base (mantidos para as funções JS de troca) */
+.light-theme {
+    background-color: var(--color-light-bg);
+    color: var(--color-light-text);
 }
 
-header a:hover {
-    color: var(--color-link-hover); /* Cor do link âmbar no hover */
+.dark-theme {
+    background-color: var(--color-dark-bg);
+    color: var(--color-dark-text);
+}
+
+.green-theme {
+    background-color: var(--color-green-bg);
+    color: var(--color-green-text);
+}
+
+/* Ajustes de Tema: Garantindo que o conteúdo abaixo do banner se adapte */
+.dark-theme .bg-gray-100 { background-color: var(--color-gray-dark); }
+.dark-theme .bg-white { background-color: var(--color-gray-medium); }
+.dark-theme .text-gray-700 { color: var(--color-gray-light); }
+.green-theme .bg-gray-100 { background-color: #064e3b; }
+.green-theme .bg-white { background-color: #065f46; }
+.green-theme .text-gray-700 { color: #a7f3d0; }
+
+
+/* ===========================
+   ## Header Personalizado (navbar-custom)
+   =========================== */
+
+.navbar-custom {
+    /* Base do seu último design */
+    background-color: var(--color-navbar-bg) !important; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    height: 5rem; /* Altura fixa de 80px */
+}
+
+/* Links de Navegação */
+.nav-link-custom {
+    text-decoration: none;
+    color: var(--color-navbar-text) !important; 
+    font-weight: bold;
+    transition: color 0.3s;
+    padding: 0.5rem 0;
+}
+
+.nav-link-custom:hover,
+.nav-link-custom.active {
+    color: var(--color-link-active) !important;
 }
 
 
 /* ===========================
-   ## Floating Sidebar (Barra Lateral Flutuante)
+   ## Floating Sidebar (sidebar-custom)
    =========================== */
 
-#floating-sidebar {
-    /* Estilos definidos principalmente no index.html (Tailwind) */
+.sidebar-custom {
+    background-color: var(--color-sidebar-bg);
+    padding: 10px;
+    border-radius: 0 10px 10px 0;
+}
+
+.sidebar-button-custom {
+    background: var(--color-sidebar-button);
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-}
-
-.sidebar-button {
-    /* Botões da barra lateral */
-    display: flex;
     align-items: center;
-    justify-content: center;
-    width: 44px; /* Tamanho fixo para circular */
-    height: 44px; /* Tamanho fixo para circular */
-    background-color: #374151; /* Cor de fundo escura dos botões */
-    border-radius: 50%; /* Torna-o circular */
-    transition: var(--transition-default);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    /* Garante que o background-color customizado seja o principal */
+    background-color: var(--color-sidebar-button) !important;
+    color: var(--color-sidebar-bg) !important; /* Cor escura do ícone */
 }
 
-.sidebar-button:hover {
-    background-color: #f59e0b; /* Cor de hover âmbar */
-    color: white;
+.sidebar-button-custom:hover {
+    transform: scale(1.1);
 }
 
-/* Tooltip básico para os botões */
-.sidebar-button .tooltip {
+/* Tooltip (adaptado para a barra lateral) */
+.tooltip-custom {
     visibility: hidden;
     width: auto;
-    background-color: #374151;
+    background-color: var(--color-sidebar-bg);
     color: #fff;
     text-align: center;
     border-radius: 6px;
     padding: 5px 10px;
     position: absolute;
     z-index: 1;
-    left: 120%; /* Posição à direita do botão */
+    left: 120%;
+    top: 50%;
+    transform: translateY(-50%);
     opacity: 0;
     transition: opacity 0.3s;
     white-space: nowrap;
+    pointer-events: none; /* Não bloqueia o clique */
 }
 
-.sidebar-button:hover .tooltip {
+.sidebar-button-custom:hover .tooltip-custom {
     visibility: visible;
     opacity: 1;
 }
 
 /* Estilo especial para o ícone Sarcinha (Chatbot) */
-.sarcinha-icon {
-    /* Se a imagem 'sarcinha.png' estiver na pasta correta, ela será usada */
-    background-image: url('static/imgs/acs/sarcinha.png'); 
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 24px;
-    height: 24px;
-    display: inline-block;
-    color: transparent; /* Esconde o ícone Font Awesome se a imagem for carregada */
-}
-/* Fallback para sarcinha-icon caso a imagem não carregue, mantendo o ícone de chat */
-.sarcinha-icon:before {
-    content: "\f075"; /* Código Unicode para o ícone fa-comments */
+.sarcinha-icon::before {
+    content: "\f075"; /* Código Unicode para o ícone fa-comments (melhor fallback) */
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
-    font-size: 1.25rem; /* text-xl */
-    color: white; /* Volta a cor se a imagem falhar */
+    font-size: 1.25rem; 
+    color: var(--color-sidebar-bg); 
     display: block;
 }
-.sarcinha-icon {
-    /* Ajuste para garantir que o Font Awesome seja usado como fallback */
-    background-image: none;
+
+
+/* ===========================
+   ## Banner Personalizado (banner-custom)
+   =========================== */
+
+.banner-custom {
+    color: var(--color-link-active);
 }
 
-
-/* Estilo para o mapa */
-#map {
-    border-radius: 0.5rem; /* Arredondamento de bordas */
+.dark-overlay {
+    background-color: var(--color-banner-overlay);
 }
 
-/* Estilo para a galeria de fotos */
-#gallery-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Layout responsivo de galeria */
-    gap: 1.5rem;
-}
-
-#gallery-container img {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 0.5rem;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-}
-
-#gallery-container img:hover {
-    transform: scale(1.03); /* Efeito de zoom no hover */
-}
-
-/* Estilo para o slider de organizações */
-.organization-slide {
-    padding: 1rem;
-    background-color: white;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.organization-slide img {
-    width: 100%;
-    max-height: 200px;
-    object-fit: contain;
+.escudo-custom {
     margin-bottom: 1rem;
 }
 
-/* ===========================
-   ## Dots (Indicadores de Navegação)
-   =========================== */
-
-/* Estilo para dots (indicadores de navegação) */
-.dot {
-    display: inline-block; /* Exibe como bloco inline */
-    width: 12px; /* Largura do dot */
-    height: 12px; /* Altura do dot */
-    margin: 0 5px; /* Espaçamento entre os dots */
-    border-radius: 50%; /* Formato circular */
-    background-color: #bbb; /* Cor padrão */
-    cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
-}
-
-/* Estilo para o dot ativo */
-.dot.active {
-    background-color: #333; /* Cor do dot ativo */
-}
 
 /* ===========================
    ## Responsividade
    =========================== */
 
-/* Ajustes para telas menores */
 @media (max-width: 768px) {
+    /* Reduz a altura do header no mobile */
+    .navbar-custom {
+        height: auto;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
     body {
-        padding-top: 5rem; /* Mais padding para o header mobile */
+        padding-top: 6rem; /* Aumenta o padding para o header móvel */
     }
 
-    header .container {
-        padding: 0 1rem; /* Reduz o espaçamento lateral em telas menores */
-    }
-
-    #gallery-container {
-        grid-template-columns: 1fr; /* Uma coluna em telas menores */
-    }
-
-    /* Oculta a barra flutuante em telas muito pequenas para liberar espaço, 
-       ou a move para o topo se preferir, mas ocultei para simplificar. */
+    /* Oculta a barra flutuante em telas muito pequenas */
     #floating-sidebar {
         display: none;
     }
-}
 
-/* ===========================
-   ## Conteúdo da Bíblia
-   =========================== */
-
-#bible-content {
-    width: 100%;
+    /* Ajuste de fonte para o banner em telas menores */
+    .banner-custom h1 {
+        font-size: 4rem !important;
+    }
+    .banner-custom h2 {
+        font-size: 1.5rem !important;
+    }
 }
