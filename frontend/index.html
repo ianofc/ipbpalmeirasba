@@ -16,10 +16,12 @@
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* Ajusta o padding superior e o padding inferior para o player fixo */
         body {
-            /* Adicione padding superior para não ser coberto pelo fixed header */
             padding-top: 4rem;
             /* h-16 (4rem) do header */
+            padding-bottom: 0;
+            /* Remove o padding inferior, a barra do player vai empurrar o footer */
         }
 
         /* Estilo para a barra lateral flutuante e centralizada */
@@ -45,7 +47,7 @@
             height: auto;
             margin-right: 0.5rem;
         }
-        
+
         .sidebar-icon-size {
             width: 24px;
             height: 24px;
@@ -55,20 +57,40 @@
             width: 32px;
             height: 32px;
         }
+
+        /* Estilo para a barra do Player de Música (Escondida por padrão) */
+        #musicPlayerBar {
+            height: 5rem;
+            /* h-20 */
+            transition: transform 0.3s ease-in-out;
+            transform: translateY(100%);
+            /* Esconde por padrão */
+            z-index: 40;
+            /* Abaixo do chatbot (z-50) */
+        }
+
+        #musicPlayerBar.active {
+            transform: translateY(0);
+            /* Mostra quando ativo */
+        }
+
+        /* Garante que o conteúdo não seja cortado pelo player quando ele estiver ativo */
+        .content-padding-active {
+            padding-bottom: 5rem;
+            /* Altura do player (h-20) */
+        }
     </style>
     <script>
         // Funções para a nova Barra Lateral
         function toggleAccessibilityMenu() {
             const menu = document.getElementById('accessibility-menu');
             menu.classList.toggle('hidden');
-            // Fechar o outro menu para não sobrepor
             document.getElementById('translation-menu').classList.add('hidden');
         }
 
         function toggleTranslationMenu() {
             const menu = document.getElementById('translation-menu');
             menu.classList.toggle('hidden');
-            // Fechar o outro menu para não sobrepor
             document.getElementById('accessibility-menu').classList.add('hidden');
         }
 
@@ -90,11 +112,33 @@
             alert('Traduzindo para: ' + lang.toUpperCase());
         }
 
-        // Função para o Chatbot (ajustada para usar o ID do botão correto)
+        // Função para o Chatbot
         function toggleChatbot() {
             const chatbotWindow = document.getElementById('chatbotWindow');
             chatbotWindow.classList.toggle('hidden');
         }
+
+        // RE-IMPLEMENTADO: Função para alternar o Player de Música
+        function toggleMusicPlayer() {
+            const playerBar = document.getElementById('musicPlayerBar');
+            const mainContent = document.querySelector('main');
+            
+            playerBar.classList.toggle('active');
+            mainContent.classList.toggle('content-padding-active'); // Adiciona padding ao main
+
+            if (playerBar.classList.contains('active')) {
+                // Inicia o player (simulação)
+                const youtubePlayer = document.getElementById('youtube-player');
+                youtubePlayer.src = youtubePlayer.src.replace('autoplay=0', 'autoplay=1').replace('mute=1', 'mute=0');
+                console.log('Player Ativo. Música pode começar a tocar.');
+            } else {
+                // Para o player (simulação)
+                const youtubePlayer = document.getElementById('youtube-player');
+                youtubePlayer.src = youtubePlayer.src.replace('autoplay=1', 'autoplay=0').replace('mute=0', 'mute=1');
+                console.log('Player Inativo.');
+            }
+        }
+
 
         // Funções Originais (mantidas para o resto do conteúdo)
         function toggleBiblePanel() {
@@ -149,21 +193,30 @@
                     <li><a class="hover:opacity-75 transition duration-300" href="#conversa-pastor" data-translate="Contato">Contato</a></li>
                 </ul>
             </nav>
+
             <button class="md:hidden text-2xl" onclick="toggleMobileMenu()">
                 <i class="fas fa-bars"></i>
             </button>
+            <div id="mobile-icons-reference" class="hidden">
+                 <img src="static/imgs/icons/home.png" alt="Home Icon">
+                 <img src="static/imgs/icons/book.png" alt="Editorial Icon">
+                 <img src="static/imgs/icons/organ.png" alt="Organizações Icon">
+                 <img src="static/imgs/icons/down.png" alt="Download Icon">
+                 <img src="static/imgs/icons/about.png" alt="Sobre Icon">
+                 <img src="static/imgs/icons/contat.png" alt="Contato Icon">
+            </div>
         </div>
     </header>
 
     <aside class="floating-sidebar p-2 space-y-4 flex flex-col items-center">
 
-        <button id="themeButton" onclick="toggleTheme()" title="Trocar Tema" class="text-xl p-2 rounded-full hover:opacity-75 transition duration-300">
-            <img src="static/images/icons/PINCEL.png" alt="Ícone de Tema" class="sidebar-icon-size">
+        <button id="themeButton" onclick="toggleTheme()" title="Trocar Tema" class="p-2 rounded-full hover:opacity-75 transition duration-300">
+            <img src="static/imgs/icons/PINCEL.png" alt="Ícone de Tema (PINCEL)" class="sidebar-icon-size">
         </button>
 
         <div class="relative">
-            <button title="Acessibilidade" class="text-xl p-2 rounded-full hover:opacity-75 transition duration-300" onclick="toggleAccessibilityMenu()">
-                <img src="static/images/icons/ACESSIBILIDADE.png" alt="Ícone de Acessibilidade" class="sidebar-icon-size">
+            <button title="Acessibilidade" class="p-2 rounded-full hover:opacity-75 transition duration-300" onclick="toggleAccessibilityMenu()">
+                <img src="static/imgs/icons/ACESSIBILIDADE.png" alt="Ícone de Acessibilidade (ACESSIBILIDADE)" class="sidebar-icon-size">
             </button>
             <div id="accessibility-menu" class="hidden absolute left-full top-0 w-52 p-2 shadow-lg rounded-r-lg border border-gray-300 text-sm bg-white dark:bg-gray-800 dark:text-white">
                 <button onclick="setContrast()" class="flex items-center w-full p-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md"><i class="fas fa-adjust w-5 mr-3"></i> Alto Contraste</button>
@@ -173,8 +226,8 @@
         </div>
 
         <div class="relative">
-            <button title="Traduzir Página" class="text-xl p-2 rounded-full hover:opacity-75 transition duration-300" onclick="toggleTranslationMenu()">
-                <img src="static/images/icons/GLOBO.png" alt="Ícone de Tradução" class="sidebar-icon-size">
+            <button title="Traduzir Página" class="p-2 rounded-full hover:opacity-75 transition duration-300" onclick="toggleTranslationMenu()">
+                <img src="static/imgs/icons/GLOBO.png" alt="Ícone de Tradução (GLOBO)" class="sidebar-icon-size">
             </button>
             <div id="translation-menu" class="hidden absolute left-full top-0 w-40 p-2 shadow-lg rounded-r-lg border border-gray-300 text-sm bg-white dark:bg-gray-800 dark:text-white">
                 <button onclick="translate('en')" class="flex items-center w-full p-1 text-left hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">
@@ -188,9 +241,9 @@
                 </button>
             </div>
         </div>
-        
-        <button id="chatbot-toggle" title="Chatbot Sarcinha" onclick="toggleChatbot()" class="text-xl p-2 rounded-full bg-red-600 text-white hover:bg-red-700 transition duration-300 shadow-md">
-            <img src="static/images/icons/SARCA.png" alt="Ícone do Chatbot Sarcinha" class="chatbot-icon-size">
+
+        <button id="chatbot-toggle" title="Chatbot Sarcinha" onclick="toggleChatbot()" class="p-2 rounded-full bg-red-600 text-white hover:bg-red-700 transition duration-300 shadow-md">
+            <img src="static/imgs/icons/SARCAIPB.png" alt="Ícone do Chatbot Sarcinha (SARCAIPB)" class="chatbot-icon-size">
         </button>
 
     </aside>
@@ -265,14 +318,19 @@
             </div>
         </section>
 
-        <section id="music-player" class="py-16">
+        <section id="music-player-section" class="py-16">
             <div class="container mx-auto px-6 text-center">
                 <h2 class="text-3xl font-bold mb-8">Músicas para Edificação</h2>
-                <div id="player-container" class="max-w-2xl mx-auto bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-                    <p class="text-gray-500 dark:text-gray-400">Carregando player...</p>
-                    </div>
+                <div class="max-w-2xl mx-auto bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+                    <p class="text-gray-500 dark:text-gray-400 mb-4">Inicie nossa playlist de hinos e louvores em segundo plano:</p>
+                    <button onclick="toggleMusicPlayer()" class="bg-green-700 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-800 transition-colors">
+                        <i class="fas fa-play mr-2"></i> Iniciar Player Fixo (Estilo Spotify)
+                    </button>
+                    <p class="text-sm text-gray-400 mt-2">O player aparecerá na parte inferior da tela.</p>
+                </div>
             </div>
         </section>
+
 
         <section id="gallery" class="py-16 bg-gray-100 dark:bg-gray-800">
             <div class="container mx-auto px-6">
@@ -351,6 +409,39 @@
             </div>
         </div>
     </main>
+
+    <div id="musicPlayerBar" class="fixed bottom-0 w-full bg-gray-900 text-white shadow-2xl transition transform translate-y-full">
+        <div class="container mx-auto h-20 flex items-center justify-between px-6">
+            <iframe id="youtube-player" 
+                class="absolute -left-full w-1 h-1" 
+                src="https://www.youtube.com/embed/videoseries?list=PLKjD9s30bT5vXvR6z8oGf3lX8E4A0w1N8&autoplay=0&controls=0&mute=1&loop=1" 
+                frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+            </iframe>
+
+            <div class="flex items-center space-x-3 w-1/4">
+                <img src="/static/imgs/acs/hino_cover.png" alt="Capa da Música" class="w-12 h-12 rounded">
+                <div class="truncate">
+                    <p class="text-sm font-semibold">Hino Congregacional</p>
+                    <p class="text-xs text-gray-400 truncate">Título da Música Atual</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center justify-center space-x-6 text-xl w-1/2">
+                <button title="Anterior" class="text-gray-400 hover:text-white transition"><i class="fas fa-step-backward"></i></button>
+                <button title="Play/Pause" class="text-3xl"><i class="fas fa-play"></i></button>
+                <button title="Próximo" class="text-gray-400 hover:text-white transition"><i class="fas fa-step-forward"></i></button>
+            </div>
+            
+            <div class="flex items-center space-x-4 w-1/4 justify-end">
+                <div class="flex items-center space-x-2 hidden sm:flex">
+                    <i class="fas fa-volume-up"></i>
+                    <input type="range" min="0" max="100" value="50" class="w-20 h-1 appearance-none bg-gray-600 rounded-full">
+                </div>
+                <button title="Ocultar Player" onclick="toggleMusicPlayer()" class="text-gray-400 hover:text-white text-2xl transition">&times;</button>
+            </div>
+        </div>
+    </div>
+
 
     <footer class="bg-green-700 text-white py-6">
         <div class="container mx-auto px-6 text-center">
