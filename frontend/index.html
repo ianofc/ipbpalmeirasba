@@ -17,8 +17,11 @@
         body {
             font-family: 'Roboto', sans-serif;
             transition: all 0.3s ease;
-            /* ADICIONADO: Garante que o conteúdo não fique sob o header fixo */
-            padding-top: 6rem; /* Ajustado para acomodar o header de 4rem (h-16) + margem */
+        }
+        /* Ajuste do padding para que o corpo do site não fique atrás das barras fixas */
+        .content-padding {
+            padding-top: 4rem; /* h-16 do header */
+            padding-left: 4rem; /* largura do sidebar */
         }
         .light-theme {
             background-color: #ffffff;
@@ -50,7 +53,7 @@
         .green-theme .text-gray-700 {
             color: #a7f3d0;
         }
-        /* Cor de fundo para o header em diferentes temas */
+        /* Estilos específicos para o Header e Sidebar */
         .light-theme header, .light-theme aside {
             background-color: #f7f7f7;
             color: #15803d;
@@ -60,12 +63,29 @@
             color: #4ade80;
         }
         .green-theme header, .green-theme aside {
-            background-color: #0c4a6e; /* Azul Escuro */
+            background-color: #0c4a6e;
             color: #ffffff;
+        }
+        /* Estilo para a barra lateral flutuante e centralizada */
+        .floating-sidebar {
+            /* left-0 para o lado esquerdo, top-1/2 e -translate-y-1/2 para centralizar */
+            position: fixed;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 50;
+            padding: 0.5rem;
+            border-radius: 0 0.5rem 0.5rem 0; /* Arredondado só na lateral visível */
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+        /* Classes para as bandeiras no submenu */
+        .flag-icon {
+            width: 20px;
+            height: auto;
+            margin-right: 0.5rem;
         }
     </style>
     <script>
-        // Função de troca de tema (EXISTENTE NO PROJETO)
         function toggleTheme() {
             const body = document.body;
             const themeLabel = document.getElementById('themeLabel');
@@ -84,69 +104,71 @@
             }
         }
         
-        // --- FUNÇÕES DA NOVA BARRA LATERAL ---
-
-        // Função para alternar o submenu de acessibilidade
+        // Funções para a nova Barra Lateral
         function toggleAccessibilityMenu() {
             const menu = document.getElementById('accessibility-menu');
             menu.classList.toggle('hidden');
+            // Fechar o outro menu para não sobrepor
+            document.getElementById('translation-menu').classList.add('hidden');
         }
 
-        // Função para alternar o submenu de tradução
         function toggleTranslationMenu() {
             const menu = document.getElementById('translation-menu');
             menu.classList.toggle('hidden');
+            // Fechar o outro menu para não sobrepor
+            document.getElementById('accessibility-menu').classList.add('hidden');
         }
 
-        // Função Placeholder para Contraste
-        function setContrast() {
-            alert('Ajuste de Alto Contraste ativado/desativado!');
-            // Implementação real para mudar classes de contraste
-        }
+        // Funções Placeholder de Acessibilidade
+        function setContrast() { alert('Ajuste de Alto Contraste ativado/desativado!'); }
+        function setZoom(factor) { alert('Ajuste de Zoom aplicado: ' + factor); }
+        function screenReaderToggle() { alert('Modo Leitura de Tela ativado/desativado!'); }
 
-        // Função Placeholder para Zoom
-        function setZoom(factor) {
-            alert('Ajuste de Zoom aplicado!');
-            // Implementação real para mudar o tamanho da fonte (document.body.style.fontSize)
-        }
-
-        // Função Placeholder para Leitura de Tela
-        function screenReaderToggle() {
-            alert('Modo Leitura de Tela ativado/desativado!');
-            // Implementação real para ativar/desativar leitor de tela (ARIA live regions)
-        }
-
-        // Função Placeholder para Tradução
-        function translate(lang) {
-            alert('Traduzindo para: ' + lang.toUpperCase());
-            // Implementação real (e.g., Google Translate API ou JS nativo)
-        }
+        // Função Placeholder de Tradução
+        function translate(lang) { alert('Traduzindo para: ' + lang.toUpperCase()); }
         
         // Função Placeholder para o Chatbot
-        function toggleChatbot() {
-            alert('Abrindo Chatbot Sarcinha!');
-            // Implementação real para mostrar/esconder o modal do chatbot
+        function toggleChatbot() { alert('Abrindo Chatbot Sarcinha!'); }
+        
+        // Funções Originais (mantidas para o resto do conteúdo)
+        function toggleBiblePanel() {
+             const panel = document.getElementById('bible-panel');
+             panel.classList.toggle('hidden');
         }
+
+        // Simulação do restante do script.js para que as funções do conteúdo não quebrem
+        const API_BASE_URL = window.location.hostname.includes('localhost') ? 'http://localhost:5000' : '';
+        async function fetchVerse() { /* ... */ }
+        function scheduleDailyVerse() { /* ... */ }
+        function initializePlayer() { /* ... */ }
+        async function updateVisitorCount() { /* ... */ }
+        async function loadGallery() { /* ... */ }
+        async function loadDocuments() { /* ... */ }
+        function setupBibleSelector() { /* ... */ }
+        function setupOrganizationSlider() { /* ... */ }
+        function setupMapAndCalendar() { /* ... */ }
+        function showSlides() { /* ... */ }
+
 
     </script>
 </head>
 
-<body id="body" class="light-theme">
+<body id="body" class="light-theme content-padding">
 
-    <header class="p-4 fixed top-0 w-full z-50 shadow-lg" id="header">
-        <div class="container mx-auto flex justify-between items-center h-10">
+    <header class="p-4 fixed top-0 w-full z-50 shadow-lg h-16" id="header">
+        <div class="container mx-auto flex justify-between items-center h-full">
             <a href="#body" title="Igreja Presbiteriana em Palmeiras">
-                <img alt="Logo da Igreja Presbiteriana em Palmeiras" class="h-full max-h-10" loading="lazy" src="static/imgs/acs/logo_ipp.png" />
+                <img alt="Logo da Igreja Presbiteriana em Palmeiras" class="h-full max-h-12" loading="lazy" src="static/imgs/acs/logo_ipp.png" />
             </a>
 
             <nav class="hidden md:block">
                 <ul class="flex space-x-6 text-lg font-medium" id="main-nav">
                     <li><a class="hover:opacity-75 transition duration-300" href="#body" data-translate="Home">Home</a></li>
-                    <li><a class="hover:opacity-75 transition duration-300" href="#editorial" data-translate="Editorial">Editorial</a></li>
-                    <li><a class="hover:opacity-75 transition duration-300" href="#organizacoes" data-translate="Organizações">Organizações</a></li>
-                    <li><a class="hover:opacity-75 transition duration-300" href="#downloads" data-translate="Download">Download</a></li>
+                    <li><a class="hover:opacity-75 transition duration-300" href="#mensagem-pastor" data-translate="Editorial">Editorial</a></li>
+                    <li><a class="hover:opacity-75 transition duration-300" href="#organization-slider" data-translate="Organizações">Organizações</a></li>
+                    <li><a class="hover:opacity-75 transition duration-300" href="#documents-container" data-translate="Download">Download</a></li>
                     <li><a class="hover:opacity-75 transition duration-300" href="#sobre" data-translate="Sobre">Sobre</a></li>
-                    <li><a class="hover:opacity-75 transition duration-300" href="#contato" data-translate="Contato">Contato</a></li>
+                    <li><a class="hover:opacity-75 transition duration-300" href="#conversa-pastor" data-translate="Contato">Contato</a></li>
                 </ul>
             </nav>
             <button class="md:hidden text-2xl" onclick="toggleMobileMenu()">
@@ -155,56 +177,158 @@
         </div>
     </header>
 
-    <aside class="fixed right-0 top-16 md:top-20 z-40 p-2 space-y-4 flex flex-col items-center shadow-xl rounded-l-lg" style="min-height: calc(100vh - 4rem);">
+    <aside class="floating-sidebar p-2 space-y-4 flex flex-col items-center">
 
-        <button id="themeButton" onclick="toggleTheme()" title="Trocar Tema" class="text-2xl p-2 rounded-full hover:opacity-75 transition duration-300">
+        <button id="themeButton" onclick="toggleTheme()" title="Trocar Tema" class="text-xl p-2 rounded-full hover:opacity-75 transition duration-300">
             <i class="fas fa-palette"></i>
         </button>
 
         <div class="relative">
-            <button title="Acessibilidade" class="text-2xl p-2 rounded-full hover:opacity-75 transition duration-300" onclick="toggleAccessibilityMenu()">
+            <button title="Acessibilidade" class="text-xl p-2 rounded-full hover:opacity-75 transition duration-300" onclick="toggleAccessibilityMenu()">
                 <i class="fas fa-universal-access"></i>
             </button>
-            <div id="accessibility-menu" class="hidden absolute right-full top-0 w-52 p-2 shadow-lg rounded-l-lg border border-gray-300 text-sm dark:text-gray-900 bg-white">
-                <button onclick="setContrast()" class="flex items-center w-full p-2 text-left hover:bg-gray-100 rounded-md"><i class="fas fa-adjust w-5 mr-3"></i> Alto Contraste</button>
-                <button onclick="setZoom(1.1)" class="flex items-center w-full p-2 text-left hover:bg-gray-100 rounded-md"><i class="fas fa-search-plus w-5 mr-3"></i> Aumentar Zoom</button>
-                <button onclick="screenReaderToggle()" class="flex items-center w-full p-2 text-left hover:bg-gray-100 rounded-md"><i class="fas fa-volume-up w-5 mr-3"></i> Leitura de Tela</button>
+            <div id="accessibility-menu" class="hidden absolute left-full top-0 w-52 p-2 shadow-lg rounded-r-lg border border-gray-300 text-sm bg-white dark:bg-gray-800 dark:text-white">
+                <button onclick="setContrast()" class="flex items-center w-full p-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md"><i class="fas fa-adjust w-5 mr-3"></i> Alto Contraste</button>
+                <button onclick="setZoom(1.1)" class="flex items-center w-full p-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md"><i class="fas fa-search-plus w-5 mr-3"></i> Aumentar Zoom</button>
+                <button onclick="screenReaderToggle()" class="flex items-center w-full p-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md"><i class="fas fa-volume-up w-5 mr-3"></i> Leitura de Tela</button>
             </div>
         </div>
 
         <div class="relative">
-            <button title="Traduzir Página" class="text-2xl p-2 rounded-full hover:opacity-75 transition duration-300" onclick="toggleTranslationMenu()">
+            <button title="Traduzir Página" class="text-xl p-2 rounded-full hover:opacity-75 transition duration-300" onclick="toggleTranslationMenu()">
                 <i class="fas fa-globe"></i>
             </button>
-            <div id="translation-menu" class="hidden absolute right-full top-0 w-40 p-2 shadow-lg rounded-l-lg border border-gray-300 text-sm dark:text-gray-900 bg-white">
-                <button onclick="translate('en')" class="flex items-center w-full p-1 text-left hover:bg-gray-100 rounded-md">
-                    <img src="https://flagcdn.com/w20/us.png" class="w-5 h-auto mr-2" alt="Bandeira EUA"> Inglês
+            <div id="translation-menu" class="hidden absolute left-full top-0 w-40 p-2 shadow-lg rounded-r-lg border border-gray-300 text-sm bg-white dark:bg-gray-800 dark:text-white">
+                <button onclick="translate('en')" class="flex items-center w-full p-1 text-left hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">
+                    <img src="https://flagcdn.com/w20/us.png" class="flag-icon" alt="Bandeira EUA"> Inglês
                 </button>
-                <button onclick="translate('es')" class="flex items-center w-full p-1 text-left hover:bg-gray-100 rounded-md">
-                    <img src="https://flagcdn.com/w20/es.png" class="w-5 h-auto mr-2" alt="Bandeira Espanha"> Espanhol
+                <button onclick="translate('es')" class="flex items-center w-full p-1 text-left hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">
+                    <img src="https://flagcdn.com/w20/es.png" class="flag-icon" alt="Bandeira Espanha"> Espanhol
                 </button>
-                <button onclick="translate('fr')" class="flex items-center w-full p-1 text-left hover:bg-gray-100 rounded-md">
-                    <img src="https://flagcdn.com/w20/fr.png" class="w-5 h-auto mr-2" alt="Bandeira França"> Francês
+                <button onclick="translate('fr')" class="flex items-center w-full p-1 text-left hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">
+                    <img src="https://flagcdn.com/w20/fr.png" class="flag-icon" alt="Bandeira França"> Francês
                 </button>
             </div>
         </div>
 
-        <button id="chatbot-toggle" title="Chatbot Sarcinha" onclick="toggleChatbot()" class="text-2xl p-2 rounded-full bg-green-700 text-white hover:bg-green-800 transition duration-300 shadow-md">
-            <i class="fas fa-fire"></i>
-        </button>
+        <button id="chatbot-toggle" title="Chatbot Sarcinha" onclick="toggleChatbot()" class="text-xl p-2 rounded-full bg-red-600 text-white hover:bg-red-700 transition duration-300 shadow-md">
+            <i class="fas fa-fire"></i> </button>
     </aside>
 
     <main class="container mx-auto px-4 py-8">
-        <section id="hero" class="text-center py-16">
-            <h1 class="text-4xl font-bold mb-4">Bem-vindo à Igreja Presbiteriana em Palmeiras</h1>
-            <p class="text-xl">O seu conteúdo começa aqui, abaixo das barras fixas.</p>
+        <section id="daily-verse" class="text-center py-4 bg-gray-100 rounded-lg shadow-md mb-8 p-6">
+            <h2 class="text-2xl font-bold mb-3" data-translate="Versículo do Dia">Versículo do Dia</h2>
+            <p id="verse-text" class="text-lg italic mb-2">Carregando versículo...</p>
+            <p id="verse-reference" class="font-semibold text-sm">— Referência</p>
+        </section>
+
+        <section id="mensagem-pastor" class="mb-8">
+            <h2 class="text-3xl font-bold border-b-2 border-green-700 pb-2 mb-6" data-translate="Editorial">Editorial</h2>
+            <div class="flex flex-col md:flex-row items-center bg-white p-6 rounded-lg shadow-md">
+                <img src="static/imgs/acs/pastor.png" alt="Foto do Pastor" class="w-32 h-32 rounded-full object-cover mb-4 md:mb-0 md:mr-6">
+                <div>
+                    <h3 class="text-xl font-semibold mb-2" data-translate="Mensagem do Pastor">Mensagem do Pastor</h3>
+                    <p class="text-gray-700" data-translate="Seja bem-vindo...">Seja bem-vindo(a) ao portal da Igreja Presbiteriana em Palmeiras! Nosso desejo é que aqui você encontre um refúgio de paz e crescimento espiritual. Que Deus te abençoe!</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="music-player" class="mb-8">
+            <h2 class="text-3xl font-bold border-b-2 border-green-700 pb-2 mb-6" data-translate="Player de Música">Player de Música</h2>
+            <div id="youtube-player" class="aspect-video bg-gray-200 flex items-center justify-center rounded-lg shadow-md min-h-[300px]">
+                <p id="player-status">Carregando player...</p>
+            </div>
+        </section>
+
+        <section id="bible-online" class="mb-8">
+            <h2 class="text-3xl font-bold border-b-2 border-green-700 pb-2 mb-6" data-translate="Bíblia Online">Bíblia Online</h2>
+            <button onclick="toggleBiblePanel()" class="bg-green-700 text-white px-4 py-2 rounded-lg hover:bg-green-800 transition duration-300 mb-4">
+                <i class="fas fa-book-open mr-2"></i> Abrir Leitura Bíblica
+            </button>
+            
+            <div id="bible-panel" class="hidden bg-gray-100 p-6 rounded-lg shadow-md">
+                <div class="flex space-x-4 mb-4" id="bible-selector">
+                    <select id="book-select" class="p-2 border rounded-lg"></select>
+                    <select id="chapter-select" class="p-2 border rounded-lg"></select>
+                    <select id="verse-select" class="p-2 border rounded-lg"></select>
+                    <button id="read-button" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Ler</button>
+                </div>
+                <div id="bible-content" class="text-lg text-gray-800 leading-relaxed">
+                    Selecione um livro, capítulo e versículo para começar a leitura.
+                </div>
+            </div>
+        </section>
+
+        <section id="organization-slider" class="mb-8">
+            <h2 class="text-3xl font-bold border-b-2 border-green-700 pb-2 mb-6" data-translate="Organizações">Organizações</h2>
+            <div id="org-slider-container" class="relative overflow-hidden bg-white p-6 rounded-lg shadow-md">
+                <div id="organization-list" class="flex transition-transform duration-500 ease-in-out">
+                    </div>
+                <button onclick="prevOrganization()" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-700 text-white p-2 rounded-full opacity-50 hover:opacity-100 z-10"><i class="fas fa-chevron-left"></i></button>
+                <button onclick="nextOrganization()" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-700 text-white p-2 rounded-full opacity-50 hover:opacity-100 z-10"><i class="fas fa-chevron-right"></i></button>
+            </div>
         </section>
         
-        <section id="editorial" class="min-h-[50vh] pt-4"></section>
-        <section id="organizacoes" class="min-h-[50vh] pt-4"></section>
-        <section id="downloads" class="min-h-[50vh] pt-4"></section>
-        <section id="sobre" class="min-h-[50vh] pt-4"></section>
-        <section id="contato" class="min-h-[50vh] pt-4"></section>
+        <section id="photo-gallery" class="mb-8">
+            <h2 class="text-3xl font-bold border-b-2 border-green-700 pb-2 mb-6" data-translate="Galeria de Fotos">Galeria de Fotos</h2>
+            <div id="gallery-container" class="min-h-[500px] flex items-center justify-center">
+                </div>
+
+            <div class="slideshow-container">
+                <div id="gallery-container-2"></div> 
+                <div class="dots">
+                    <span class="dot" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                </div>
+            </div>
+        </section>
+        
+        <section id="documents-container" class="mb-8">
+            <h2 class="text-3xl font-bold border-b-2 border-green-700 pb-2 mb-6" data-translate="Documentos">Downloads</h2>
+            <div id="document-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                </div>
+        </section>
+
+        <section id="sobre" class="mb-8 bg-gray-100 p-6 rounded-lg shadow-md">
+            <h2 class="text-3xl font-bold border-b-2 border-green-700 pb-2 mb-6" data-translate="Sobre a Igreja">Sobre a Igreja</h2>
+            <div class="text-gray-700 leading-relaxed">
+                <p class="mb-4" data-translate="A Igreja Presbiteriana em Palmeiras...">A Igreja Presbiteriana em Palmeiras, Bahia, tem uma história rica na região, focada na pregação fiel da Palavra de Deus e no serviço à comunidade.</p>
+                <p data-translate="Nossa missão é glorificar...">Nossa missão é glorificar a Deus e desfrutá-Lo para sempre, por meio da evangelização, do discipulado e do culto fervoroso.</p>
+                <div class="mt-6">
+                    <h3 class="text-xl font-semibold mb-2" data-translate="Vídeo Institucional">Vídeo Institucional</h3>
+                    <video id="aboutVideo" class="w-full aspect-video rounded-lg shadow-xl" controls muted>
+                        <source src="static/videos/about.mp4" type="video/mp4">
+                        Seu navegador não suporta a tag de vídeo.
+                    </video>
+                </div>
+            </div>
+        </section>
+
+        <section id="map-calendar" class="mb-8">
+            <h2 class="text-3xl font-bold border-b-2 border-green-700 pb-2 mb-6" data-translate="Localização e Eventos">Localização e Eventos</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-2" data-translate="Onde Estamos?">Onde Estamos?</h3>
+                    <div id="map" class="w-full h-80 rounded-lg shadow-md"></div>
+                    <p class="mt-2 text-sm text-gray-600" data-translate="Rua Coronel Antônio Afonso, 38...">Rua Coronel Antônio Afonso, 38, Palmeiras-BA.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-2" data-translate="Próximos Eventos">Próximos Eventos</h3>
+                    <iframe id="google-calendar" src="" class="w-full h-80 border-0 rounded-lg shadow-md" frameborder="0" scrolling="no"></iframe>
+                </div>
+            </div>
+        </section>
+
+        <section id="conversa-pastor" class="mb-8 bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-3xl font-bold border-b-2 border-green-700 pb-2 mb-6" data-translate="Contato">Contato</h2>
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <p class="text-lg mb-4 md:mb-0" data-translate="Deseja falar com o pastor...">Deseja falar com o pastor Josué? Ele está disponível para aconselhamento, oração e dúvidas.</p>
+                <a href="https://wa.me/5575991437628" target="_blank" class="bg-green-500 text-white px-6 py-3 rounded-full flex items-center hover:bg-green-600 transition duration-300">
+                    <i class="fab fa-whatsapp text-xl mr-3"></i> <span data-translate="Chamar no WhatsApp">Chamar no WhatsApp</span>
+                </a>
+            </div>
+        </section>
+        
     </main>
 
     <footer class="bg-green-700 text-white py-6">
@@ -219,6 +343,7 @@
         </div>
     </footer>
     
+    <script type="module" src="static/js/script.js"></script>
     </body>
 
 </html>
