@@ -16,12 +16,11 @@
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Ajusta o padding superior e o padding inferior para o player fixo */
+        /* Ajusta o padding superior. O padding inferior é controlado pelo JS/content-padding-active */
         body {
             padding-top: 4rem;
             /* h-16 (4rem) do header */
             padding-bottom: 0;
-            /* Remove o padding inferior, a barra do player vai empurrar o footer */
         }
 
         /* Estilo para a barra lateral flutuante e centralizada */
@@ -31,13 +30,11 @@
             left: 0;
             top: 50%;
             transform: translateY(-50%);
-            z-index: 50;
+            z-index: 60; /* Alto z-index para ficar acima de tudo */
             padding: 0.5rem;
             border-radius: 0 0.5rem 0.5rem 0;
-            /* Arredondado só na lateral visível */
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
             background-color: white;
-            /* Cor de fundo para se destacar */
             border: 1px solid #e5e7eb;
         }
 
@@ -58,15 +55,15 @@
             height: 32px;
         }
 
-        /* Estilo para a barra do Player de Música (Escondida por padrão) */
+        /* Estilo para a barra do Player de Música */
         #musicPlayerBar {
             height: 5rem;
             /* h-20 */
             transition: transform 0.3s ease-in-out;
             transform: translateY(100%);
             /* Esconde por padrão */
-            z-index: 40;
-            /* Abaixo do chatbot (z-50) */
+            z-index: 50;
+            /* Garante que fique acima do footer (z-index padrão) */
         }
 
         #musicPlayerBar.active {
@@ -77,7 +74,7 @@
         /* Garante que o conteúdo não seja cortado pelo player quando ele estiver ativo */
         .content-padding-active {
             padding-bottom: 5rem;
-            /* Altura do player (h-20) */
+            /* Altura do player (h-20 = 5rem) */
         }
     </style>
     <script>
@@ -118,7 +115,7 @@
             chatbotWindow.classList.toggle('hidden');
         }
 
-        // RE-IMPLEMENTADO: Função para alternar o Player de Música
+        // Função para alternar o Player de Música (ativada pelo ícone playermusic.png)
         function toggleMusicPlayer() {
             const playerBar = document.getElementById('musicPlayerBar');
             const mainContent = document.querySelector('main');
@@ -126,17 +123,34 @@
             playerBar.classList.toggle('active');
             mainContent.classList.toggle('content-padding-active'); // Adiciona padding ao main
 
-            if (playerBar.classList.contains('active')) {
+            const youtubePlayer = document.getElementById('youtube-player');
+            const isPlaying = playerBar.classList.contains('active');
+            const playPauseIcon = document.querySelector('#player-play-pause i');
+
+            if (isPlaying) {
                 // Inicia o player (simulação)
-                const youtubePlayer = document.getElementById('youtube-player');
+                // Substituir autoplay=0 por 1 e mute=1 por 0 para iniciar (requer API real)
                 youtubePlayer.src = youtubePlayer.src.replace('autoplay=0', 'autoplay=1').replace('mute=1', 'mute=0');
-                console.log('Player Ativo. Música pode começar a tocar.');
+                playPauseIcon.className = 'fas fa-pause text-xl';
+                console.log('Player Ativo.');
             } else {
                 // Para o player (simulação)
-                const youtubePlayer = document.getElementById('youtube-player');
                 youtubePlayer.src = youtubePlayer.src.replace('autoplay=1', 'autoplay=0').replace('mute=0', 'mute=1');
+                playPauseIcon.className = 'fas fa-play text-xl';
                 console.log('Player Inativo.');
             }
+        }
+        
+        // Função placeholder para controlar play/pause diretamente no player
+        function togglePlayback() {
+             // Esta função seria implementada com a API do YouTube
+             alert('Simulação: Tocando/Pausando a música!');
+             const playPauseIcon = document.querySelector('#player-play-pause i');
+             if (playPauseIcon.className.includes('fa-pause')) {
+                 playPauseIcon.className = 'fas fa-play text-xl';
+             } else {
+                 playPauseIcon.className = 'fas fa-pause text-xl';
+             }
         }
 
 
@@ -241,6 +255,11 @@
                 </button>
             </div>
         </div>
+        
+        <button id="music-player-toggle" title="Abrir Player de Músicas" onclick="toggleMusicPlayer()" class="p-2 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition duration-300 shadow-md">
+            <img src="static/imgs/icons/playermusic.png" alt="Ícone de Player de Música" class="sidebar-icon-size">
+        </button>
+
 
         <button id="chatbot-toggle" title="Chatbot Sarcinha" onclick="toggleChatbot()" class="p-2 rounded-full bg-red-600 text-white hover:bg-red-700 transition duration-300 shadow-md">
             <img src="static/imgs/icons/SARCAIPB.png" alt="Ícone do Chatbot Sarcinha (SARCAIPB)" class="chatbot-icon-size">
@@ -326,7 +345,7 @@
                     <button onclick="toggleMusicPlayer()" class="bg-green-700 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-800 transition-colors">
                         <i class="fas fa-play mr-2"></i> Iniciar Player Fixo (Estilo Spotify)
                     </button>
-                    <p class="text-sm text-gray-400 mt-2">O player aparecerá na parte inferior da tela.</p>
+                    <p class="text-sm text-gray-400 mt-2">O player aparecerá na parte inferior da tela, ou use o ícone azul na barra lateral.</p>
                 </div>
             </div>
         </section>
@@ -419,22 +438,44 @@
             </iframe>
 
             <div class="flex items-center space-x-3 w-1/4">
-                <img src="/static/imgs/acs/hino_cover.png" alt="Capa da Música" class="w-12 h-12 rounded">
-                <div class="truncate">
+                <button title="Abrir Playlist" class="text-gray-400 hover:text-white transition hidden md:block">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+                <img src="/static/imgs/acs/hino_cover.png" alt="Capa" class="w-12 h-12 rounded hidden sm:block">
+                <div class="truncate hidden md:block">
                     <p class="text-sm font-semibold">Hino Congregacional</p>
-                    <p class="text-xs text-gray-400 truncate">Título da Música Atual</p>
+                    <p class="text-xs text-gray-400 truncate">Música Atual</p>
                 </div>
             </div>
             
-            <div class="flex items-center justify-center space-x-6 text-xl w-1/2">
-                <button title="Anterior" class="text-gray-400 hover:text-white transition"><i class="fas fa-step-backward"></i></button>
-                <button title="Play/Pause" class="text-3xl"><i class="fas fa-play"></i></button>
-                <button title="Próximo" class="text-gray-400 hover:text-white transition"><i class="fas fa-step-forward"></i></button>
+            <div class="flex flex-col items-center justify-center w-full md:w-1/2">
+                <input type="range" min="0" max="100" value="30" class="w-full h-1 bg-gray-700 rounded-full appearance-none cursor-pointer" style="--tw-bg-opacity: 1; background-color: rgba(107, 114, 128, var(--tw-bg-opacity));">
+
+                <div class="flex items-center justify-center space-x-6 text-white text-xl mt-1">
+                    <button title="Opções" class="text-gray-400 hover:text-white transition md:hidden">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                    <button title="Anterior" class="text-3xl text-white hover:opacity-75 transition">
+                        <i class="fas fa-backward"></i>
+                    </button>
+                    <button id="player-play-pause" title="Play/Pause" onclick="togglePlayback()" class="w-10 h-10 bg-white text-gray-900 rounded-full flex items-center justify-center hover:scale-105 transition">
+                        <i class="fas fa-pause text-xl"></i>
+                    </button>
+                    <button title="Próximo" class="text-3xl text-white hover:opacity-75 transition">
+                        <i class="fas fa-forward"></i>
+                    </button>
+                    <button title="Adicionar aos Favoritos" class="text-gray-400 hover:text-red-500 transition md:hidden">
+                        <i class="fas fa-heart text-xl"></i>
+                    </button>
+                </div>
             </div>
             
-            <div class="flex items-center space-x-4 w-1/4 justify-end">
-                <div class="flex items-center space-x-2 hidden sm:flex">
-                    <i class="fas fa-volume-up"></i>
+            <div class="flex items-center space-x-4 w-1/4 justify-end hidden md:flex">
+                <button title="Adicionar aos Favoritos" class="text-gray-400 hover:text-red-500 transition">
+                    <i class="fas fa-heart text-xl"></i>
+                </button>
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-volume-up text-gray-400"></i>
                     <input type="range" min="0" max="100" value="50" class="w-20 h-1 appearance-none bg-gray-600 rounded-full">
                 </div>
                 <button title="Ocultar Player" onclick="toggleMusicPlayer()" class="text-gray-400 hover:text-white text-2xl transition">&times;</button>
