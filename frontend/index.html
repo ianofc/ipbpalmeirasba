@@ -87,9 +87,13 @@
             /* Altura do player (h-20 = 5rem) */
         }
         
-        /* Adiciona a propriedade CSS para balancear o conteúdo entre as duas colunas */
+        /* Força duas colunas no desktop e tenta balancear o conteúdo */
         .md\:columns-2 {
+            column-count: 2;
             column-fill: balance;
+            column-gap: 2rem;
+            -webkit-column-count: 2;
+            -moz-column-count: 2;
             -webkit-column-fill: balance;
             -moz-column-fill: balance;
         }
