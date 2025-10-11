@@ -14,18 +14,10 @@
     --color-gray-light: #9ca3af;
     --color-gray-medium: #1f2937;
     --transition-default: all 0.3s ease;
-
-    /* Novas Cores Personalizadas para a Interface */
-    --color-navbar-bg: #ffffff;
-    --color-navbar-text: #2d3a34; /* Azul/Verde escuro */
-    --color-link-active: #de8737; /* Laranja/Cobre para links ativos/hover */
-    --color-sidebar-bg: #2d3a34; /* Fundo escuro da barra lateral */
-    --color-sidebar-button: #f8c045; /* Amarelo/Ouro dos botões */
-    --color-banner-overlay: rgba(0, 50, 40, 0.7); /* Overlay do Banner */
 }
 
 /* ===========================
-   ## Temas Globais (Original)
+   ## Temas Globais
    =========================== */
 
 /* Estilo geral do corpo */
@@ -46,20 +38,15 @@ body {
     color: var(--color-dark-text); /* Texto verde claro */
 }
 
+/* Ajustes para elementos específicos no tema escuro */
 .dark-theme .bg-gray-100 {
-    background-color: var(--color-gray-dark);
+    background-color: var(--color-gray-dark); /* Fundo cinza escuro */
 }
-
 .dark-theme .bg-white {
-    background-color: var(--color-gray-medium);
+    background-color: var(--color-gray-medium); /* Fundo cinza médio */
 }
-
 .dark-theme .text-gray-700 {
-    color: var(--color-gray-light);
-}
-
-.dark-theme header, .green-theme header {
-    background-color: #2d2d2d;
+    color: var(--color-gray-light); /* Texto cinza claro */
 }
 
 /* Tema Verde */
@@ -68,20 +55,121 @@ body {
     color: var(--color-green-text); /* Texto branco */
 }
 
+/* Ajustes para elementos específicos no tema verde */
 .green-theme .bg-gray-100 {
-    background-color: #064e3b;
+    background-color: #064e3b; /* Fundo verde mais escuro */
 }
-
 .green-theme .bg-white {
-    background-color: #065f46;
+    background-color: #065f46; /* Fundo verde médio */
+}
+.green-theme .text-gray-700 {
+    color: #a7f3d0; /* Texto verde claro */
 }
 
-.green-theme .text-gray-700 {
-    color: #a7f3d0;
+/* Ajustes para o cabeçalho nos temas escuro e verde */
+.dark-theme header, .green-theme header {
+    background-color: #2d2d2d; /* Fundo cinza escuro */
 }
 
 /* ===========================
-   ## Dots (Indicadores de Navegação) - Original
+   ## Cabeçalho
+   =========================== */
+
+/* Estilo do cabeçalho */
+header {
+    transition: var(--transition-default); /* Transição suave para mudanças no cabeçalho */
+    position: fixed; /* Fixa o cabeçalho no topo */
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%; /* Largura total */
+    z-index: 1000; /* Garante que o cabeçalho fique acima de outros elementos */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para destacar o cabeçalho */
+    background-color: var(--color-light-bg); /* Fundo branco */
+}
+
+/* Estilo do cabeçalho no tema escuro */
+.dark-theme header {
+    background-color: var(--color-dark-bg); /* Fundo preto */
+}
+
+/* Estilo do cabeçalho no tema verde */
+.green-theme header {
+    background-color: var(--color-green-bg); /* Fundo verde escuro */
+}
+
+/* Container do cabeçalho */
+header .container {
+    max-width: 1280px; /* Largura máxima do conteúdo */
+    margin: 0 auto; /* Centraliza o conteúdo */
+    padding: 0 1.5rem; /* Espaçamento lateral */
+}
+
+/* Cabeçalho fixo */
+header.fixed {
+    position: fixed; /* Fixa o cabeçalho no topo */
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%; /* Largura total */
+    z-index: 1000; /* Garante que o cabeçalho fique acima de outros elementos */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para destacar o cabeçalho */
+}
+
+/* Ajustes para o container do cabeçalho fixo */
+header.fixed .container {
+    width: 100%; /* Largura total */
+    max-width: 1280px; /* Largura máxima */
+    margin: 0 auto; /* Centraliza o conteúdo */
+    padding: 0 1.5rem; /* Espaçamento lateral */
+}
+
+/* ===========================
+   ## Galeria
+   =========================== */
+
+/* Estilo para a galeria de imagens */
+#gallery-container {
+    display: grid; /* Usa CSS Grid para layout */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Ajusta o número de colunas automaticamente */
+    gap: 1rem; /* Espaçamento entre os itens */
+    max-width: 1000px; /* Largura máxima */
+    margin: auto; /* Centraliza a galeria */
+    padding-bottom: 60px; /* Espaço para a descrição */
+}
+
+/* Estilo para itens da galeria */
+.gallery-item {
+    position: relative; /* Posicionamento relativo para elementos internos */
+    width: 100%; /* Largura total */
+    height: 100%; /* Altura total */
+    overflow: hidden; /* Esconde conteúdo que ultrapassa o limite */
+    border-radius: 8px; /* Bordas arredondadas */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra leve */
+}
+
+/* Estilo para imagens da galeria */
+.gallery-item img {
+    width: 100%; /* Largura total */
+    height: auto; /* Altura automática */
+    aspect-ratio: 16 / 9; /* Define proporção de 16:9 */
+    object-fit: cover; /* Ajusta a imagem para preencher o container */
+    transition: opacity 0.5s ease-in-out; /* Transição de opacidade */
+}
+
+/* Estilo para descrições das imagens */
+.gallery-item p {
+    position: absolute; /* Posicionamento absoluto */
+    bottom: -60px; /* Posiciona abaixo da imagem */
+    left: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.9); /* Fundo branco semi-transparente */
+    padding: 10px; /* Espaçamento interno */
+    margin: 0; /* Remove margens */
+}
+
+/* ===========================
+   ## Dots (Indicadores de Navegação)
    =========================== */
 
 /* Estilo para dots (indicadores de navegação) */
@@ -100,143 +188,75 @@ body {
     background-color: #333; /* Cor do dot ativo */
 }
 
-/* =========================================================
-   ## Estilos Personalizados para o NOVO LAYOUT (Adições)
-   ========================================================= */
-
-
 /* ===========================
-   ## Header Personalizado (navbar-custom)
+   ## Floating Sidebar (sidebar-custom) - NOVO ESTILO
    =========================== */
 
-.navbar-custom {
-    background-color: var(--color-navbar-bg) !important; 
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    height: 5rem; /* Altura fixa de 80px */
-}
-
-/* Links de Navegação */
-.nav-link-custom {
-    text-decoration: none;
-    color: var(--color-navbar-text) !important; 
-    font-weight: bold;
-    transition: color 0.3s;
-    padding: 0.5rem 0;
-}
-
-.nav-link-custom:hover,
-.nav-link-custom.active {
-    color: var(--color-link-active) !important;
-}
-
-/* ===========================
-   ## Floating Sidebar (sidebar-custom)
-   =========================== */
-
-.sidebar-custom {
-    background-color: var(--color-sidebar-bg);
-    padding: 10px;
-    border-radius: 0 10px 10px 0;
+/* Estilos de posicionamento (assumidos com base no HTML) */
+#sidebar-custom {
+    /* Mantido o posicionamento fixo do HTML: right-6 bottom-6 */
 }
 
 .sidebar-button-custom {
-    background: var(--color-sidebar-button);
-    border: none;
+    /* Estilos de Botão */
+    width: 56px; 
+    height: 56px;
+    background-color: var(--color-light-text); /* Verde padrão */
+    color: transparent !important; /* MUITO IMPORTANTE: Esconde o ícone FA, se houver */
     border-radius: 50%;
-    width: 45px;
-    height: 45px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     cursor: pointer;
-    transition: transform 0.2s, background-color 0.3s;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* Garante que o background-color customizado seja o principal */
-    background-color: var(--color-sidebar-button) !important;
-    color: var(--color-sidebar-bg) !important; /* Cor escura do ícone */
+    transition: var(--transition-default);
+    
+    /* CORREÇÃO: Configuração para usar a imagem SARCAIPB.png como ícone */
+    background-image: url('/static/imgs/icons/SARCAIPB.png');
+    background-size: 70%; /* Ajusta o tamanho da imagem dentro do botão */
+    background-repeat: no-repeat;
+    background-position: center;
+    /* Garante que o ícone FA não seja visível */
+    font-size: 0; 
 }
 
 .sidebar-button-custom:hover {
     transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
 }
 
-/* Tooltip (adaptado para a barra lateral) */
-.tooltip-custom {
-    visibility: hidden;
-    width: auto;
-    background-color: var(--color-sidebar-bg);
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 10px;
-    position: absolute;
-    z-index: 1;
-    left: 120%;
-    top: 50%;
-    transform: translateY(-50%);
-    opacity: 0;
-    transition: opacity 0.3s;
-    white-space: nowrap;
-    pointer-events: none;
+/* Garante que o ícone FA dentro do botão seja ignorado (usado no index.html) */
+.sarcinha-icon {
+    display: none !important;
 }
 
-.sidebar-button-custom:hover .tooltip-custom {
-    visibility: visible;
-    opacity: 1;
+/* Dark/Green Theme adjustments para o botão do Sarcinha */
+.dark-theme .sidebar-button-custom, 
+.green-theme .sidebar-button-custom {
+    /* Cor de fundo para melhor contraste nos temas escuros */
+    background-color: #2d2d2d; 
 }
-
-/* Estilo especial para o ícone Sarcinha (Chatbot) */
-.sarcinha-icon::before {
-    content: "\f075"; /* Código Unicode para o ícone fa-comments */
-    font-family: "Font Awesome 5 Free";
-    font-weight: 900;
-    font-size: 1.25rem; 
-    color: var(--color-sidebar-bg); 
-    display: block;
-}
-
 
 /* ===========================
-   ## Banner Personalizado (banner-custom)
+   ## Responsividade
    =========================== */
 
-.banner-custom {
-    color: var(--color-link-active);
-}
-
-.dark-overlay {
-    background-color: var(--color-banner-overlay);
-}
-
-.escudo-custom {
-    margin-bottom: 1rem;
-}
-
-
-/* ===========================
-   ## Responsividade (Ajustes para o novo layout)
-   =========================== */
-
+/* Ajustes para telas menores */
 @media (max-width: 768px) {
-    /* Reduz a altura do header no mobile */
-    .navbar-custom {
-        height: auto;
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    
-    /* Oculta a barra flutuante em telas muito pequenas */
-    #floating-sidebar {
-        display: none;
-    }
-    
-    /* Ajustes para telas menores - Mantendo o original */
     header .container {
-        padding: 0 1rem;
+        padding: 0 1rem; /* Reduz o espaçamento lateral em telas menores */
     }
 
     #gallery-container {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Uma coluna em telas menores */
     }
+}
+
+/* ===========================
+   ## Conteúdo da Bíblia
+   =========================== */
+
+#bible-content {
+    width: auto; /* Permite que o conteúdo ocupe a largura necessária */
+    max-width: none; /* Remove qualquer limite de largura */
+    margin: 0 auto; /* Centraliza o conteúdo */
+    padding: 1rem; /* Adiciona espaçamento interno */
+    box-sizing: border-box; /* Inclui padding e border no cálculo da largura */
 }
