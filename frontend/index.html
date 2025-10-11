@@ -86,6 +86,13 @@
             padding-bottom: 5rem;
             /* Altura do player (h-20 = 5rem) */
         }
+        
+        /* Adiciona a propriedade CSS para balancear o conteúdo entre as duas colunas */
+        .md\:columns-2 {
+            column-fill: balance;
+            -webkit-column-fill: balance;
+            -moz-column-fill: balance;
+        }
     </style>
     <script>
         // Funções para a nova Barra Lateral
@@ -456,135 +463,4 @@
             </div>
         </section>
 
-        <section id="documents-container" class="py-16">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center mb-10">Downloads (Documentos e Informativos)</h2>
-                <div id="documents-list" class="max-w-3xl mx-auto">
-                    <p class="text-center text-gray-500">Carregando documentos...</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="conversa-pastor" class="py-16 bg-green-50 dark:bg-gray-900">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center mb-10">Fale Conosco e Localização</h2>
-                <div class="flex flex-col lg:flex-row lg:space-x-8">
-                    <div class="lg:w-1/2 mb-8 lg:mb-0">
-                        <h3 class="text-2xl font-semibold mb-4">Nossa Localização</h3>
-                        <div id="map-container" class="w-full h-80 rounded-lg shadow-xl mb-4 bg-gray-300 flex items-center justify-center">
-                            <p>Carregando Mapa...</p>
-                        </div>
-                        <div class="flex items-center space-x-4">
-                            <img id="locationPhoto" src="/static/imgs/acs/igreja.png" alt="Foto da Igreja" class="w-24 h-24 object-cover rounded-lg shadow-md">
-                            <div>
-                                <p class="font-bold">Igreja Presbiteriana em Palmeiras</p>
-                                <p>Rua Coronel Antônio Afonso, 38, Centro</p>
-                                <p>Palmeiras - BA, 46900-000</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="lg:w-1/2">
-                        <h3 class="text-2xl font-semibold mb-4">Contato Rápido</h3>
-                        <p class="mb-6 text-gray-700 dark:text-gray-300">Quer conversar com o pastor, agendar uma visita ou tirar dúvidas? Envie uma mensagem direta.</p>
-                        <form id="contactForm" class="space-y-4">
-                            <input type="text" placeholder="Seu Nome" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
-                            <input type="email" placeholder="Seu E-mail" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
-                            <textarea placeholder="Sua Mensagem / Pedido de Oração" rows="4" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"></textarea>
-                            <button type="submit" class="w-full bg-green-700 text-white font-bold py-3 rounded-lg hover:bg-green-800 transition-colors">Enviar Mensagem</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div id="sidebar-custom" class="fixed right-6 bottom-6 z-50">
-            <div id="chatbotWindow" class="hidden absolute right-0 bottom-16 w-80 h-[400px] bg-white dark:bg-gray-800 rounded-lg shadow-2xl flex flex-col overflow-hidden">
-                <div class="flex justify-between items-center bg-green-700 text-white p-4">
-                    <h4 class="font-bold">Sarcinha - Assistente Virtual</h4>
-                    <button id="chatbotClose" class="text-xl leading-none" onclick="toggleChatbot()">&times;</button>
-                </div>
-                <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-4">
-                    <div class="text-left mb-4">
-                        <div class="bg-gray-100 dark:bg-gray-700 dark:text-white flex items-start inline-block rounded-lg p-2 max-w-[80%]">
-                            <div>Olá! Eu sou o Sarcinha, seu assistente virtual. Como posso ajudar hoje?</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="p-4 border-t border-gray-200 dark:border-gray-700">
-                    <input type="text" id="userInput" placeholder="Digite 1, 2, 3, ou sua pergunta..." class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <div id="musicPlayerBar" class="fixed bottom-0 w-full bg-gray-900 text-white shadow-2xl transition transform translate-y-full">
-        <div class="container mx-auto h-20 flex items-center justify-between px-6">
-            <iframe id="youtube-player" 
-                class="absolute -left-full w-1 h-1" 
-                src="https://www.youtube.com/embed/videoseries?list=PLKjD9s30bT5vXvR6z8oGf3lX8E4A0w1N8&autoplay=0&controls=0&mute=1&loop=1" 
-                frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
-            </iframe>
-
-            <div class="flex items-center space-x-3 w-1/4">
-                <button title="Abrir Playlist" class="text-gray-400 hover:text-white transition hidden md:block">
-                    <i class="fas fa-bars text-xl"></i>
-                </button>
-                <img src="/static/imgs/acs/hino_cover.png" alt="Capa" class="w-12 h-12 rounded hidden sm:block">
-                <div class="truncate hidden md:block">
-                    <p class="text-sm font-semibold">Hino Congregacional</p>
-                    <p class="text-xs text-gray-400 truncate">Música Atual</p>
-                </div>
-            </div>
-            
-            <div class="flex flex-col items-center justify-center w-full md:w-1/2">
-                <input type="range" min="0" max="100" value="30" class="w-full h-1 bg-gray-700 rounded-full appearance-none cursor-pointer" style="--tw-bg-opacity: 1; background-color: rgba(107, 114, 128, var(--tw-bg-opacity));">
-
-                <div class="flex items-center justify-center space-x-6 text-white text-xl mt-1">
-                    <button title="Opções" class="text-gray-400 hover:text-white transition md:hidden">
-                        <i class="fas fa-bars text-xl"></i>
-                    </button>
-                    <button title="Anterior" class="text-3xl text-white hover:opacity-75 transition">
-                        <i class="fas fa-backward"></i>
-                    </button>
-                    <button id="player-play-pause" title="Play/Pause" onclick="togglePlayback()" class="w-10 h-10 bg-white text-gray-900 rounded-full flex items-center justify-center hover:scale-105 transition">
-                        <i class="fas fa-pause text-xl"></i>
-                    </button>
-                    <button title="Próximo" class="text-3xl text-white hover:opacity-75 transition">
-                        <i class="fas fa-forward"></i>
-                    </button>
-                    <button title="Adicionar aos Favoritos" class="text-gray-400 hover:text-red-500 transition md:hidden">
-                        <i class="fas fa-heart text-xl"></i>
-                    </button>
-                </div>
-            </div>
-            
-            <div class="flex items-center space-x-4 w-1/4 justify-end hidden md:flex">
-                <button title="Adicionar aos Favoritos" class="text-gray-400 hover:text-red-500 transition">
-                    <i class="fas fa-heart text-xl"></i>
-                </button>
-                <div class="flex items-center space-x-2">
-                    <i class="fas fa-volume-up text-gray-400"></i>
-                    <input type="range" min="0" max="100" value="50" class="w-20 h-1 appearance-none bg-gray-600 rounded-full">
-                </div>
-                <button title="Ocultar Player" onclick="toggleMusicPlayer()" class="text-gray-400 hover:text-white text-2xl transition">&times;</button>
-            </div>
-        </div>
-    </div>
-
-
-    <footer class="bg-green-700 text-white py-6">
-        <div class="container mx-auto px-6 text-center">
-            <p class="mb-2" data-translate="Visitantes:">Visitantes: <span id="visitor-count" class="font-bold">0</span></p>
-            <p data-translate="© 2025 Igreja Presbiteriana em Palmeiras-BA. Todos os direitos reservados.">
-                © 2025 Igreja Presbiteriana em Palmeiras-BA. Todos os direitos reservados.
-            </p>
-            <p data-translate="Administrador e Desenvolvido por Ian S. A. Santos" class="text-sm mt-1 opacity-75">
-                Administrado e Desenvolvido por Ian S. A. Santos
-            </p>
-        </div>
-    </footer>
-
-    <script type="module" src="static/js/script.js"></script>
-</body>
-
-</html>
+        <section
