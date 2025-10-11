@@ -50,10 +50,7 @@
             height: 24px;
         }
 
-        .chatbot-icon-size {
-            width: 32px;
-            height: 32px;
-        }
+        /* REMOVIDO: .chatbot-icon-size não é mais necessário, usando sidebar-icon-size */
 
         /* Estilo para a barra do Player de Música */
         #musicPlayerBar {
@@ -256,13 +253,12 @@
             </div>
         </div>
         
-        <button id="music-player-toggle" title="Abrir Player de Músicas" onclick="toggleMusicPlayer()" class="p-2 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition duration-300 shadow-md">
+        <button id="music-player-toggle" title="Abrir Player de Músicas" onclick="toggleMusicPlayer()" class="p-2 rounded-full hover:opacity-75 transition duration-300">
             <img src="static/imgs/icons/playermusic.png" alt="Ícone de Player de Música" class="sidebar-icon-size">
         </button>
 
-
-        <button id="chatbot-toggle" title="Chatbot Sarcinha" onclick="toggleChatbot()" class="p-2 rounded-full bg-red-600 text-white hover:bg-red-700 transition duration-300 shadow-md">
-            <img src="static/imgs/icons/SARCAIPB.png" alt="Ícone do Chatbot Sarcinha (SARCAIPB)" class="chatbot-icon-size">
+        <button id="chatbot-toggle" title="Chatbot Sarcinha" onclick="toggleChatbot()" class="p-2 rounded-full hover:opacity-75 transition duration-300">
+            <img src="static/imgs/icons/SARCAIPB.png" alt="Ícone do Chatbot Sarcinha (SARCAIPB)" class="sidebar-icon-size">
         </button>
 
     </aside>
@@ -345,7 +341,7 @@
                     <button onclick="toggleMusicPlayer()" class="bg-green-700 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-800 transition-colors">
                         <i class="fas fa-play mr-2"></i> Iniciar Player Fixo (Estilo Spotify)
                     </button>
-                    <p class="text-sm text-gray-400 mt-2">O player aparecerá na parte inferior da tela, ou use o ícone azul na barra lateral.</p>
+                    <p class="text-sm text-gray-400 mt-2">O player aparecerá na parte inferior da tela, ou use o ícone na barra lateral.</p>
                 </div>
             </div>
         </section>
