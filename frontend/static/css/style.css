@@ -1,295 +1,255 @@
-<!DOCTYPE html>
-<html lang="pt">
+/* ===========================
+   ## Variáveis Globais
+   =========================== */
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="Igreja Presbiteriana em Palmeiras, Bahia.">
-    <meta name="keywords" content="igreja presbiteriana, palmeiras, bahia">
-    <meta name="author" content="Ian S. A. Santos">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Igreja Presbiteriana em Palmeiras</title>
-    <meta http-equiv="Cache-Control" content="max-age=31536000"> 
+/* Definição de variáveis CSS para facilitar a manutenção */
+:root {
+    /* Cores */
+    --color-primary: #15803d; /* Verde Principal (Textos Light) */
+    --color-secondary: #047857; /* Um tom de verde escuro */
+    --color-accent: #4ade80; /* Verde Claro (Textos Dark) */
+    --color-light-bg: #ffffff;
+    --color-dark-bg: #1a1a1a;
+    --color-green-bg: #f0fdf4; /* Fundo Light Green */
+    --color-nav-light: #ffffff;
+    --color-nav-dark: #2d2d2d;
     
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    /* Cores de Tema */
+    --color-gray-dark: #111827;
+    --color-gray-medium: #1f2937;
+    --color-gray-light: #9ca3af;
     
-    <link rel="stylesheet" href="/static/css/style.css"> 
-    
-    <style>
-        /* Estilos do tema (serão removidos e gerenciados pelo style.css e JS) */
-        body {
-            font-family: 'Roboto', sans-serif;
-            transition: all 0.3s ease;
-        }
-        .light-theme {
-            background-color: #ffffff;
-            color: #15803d;
-        }
-        .dark-theme {
-            background-color: #1a1a1a;
-            color: #4ade80;
-        }
-        .theme-green {
-            background-color: #f0fdf4;
-            color: #14532d;
-        }
-        /* Overlay escuro para o Hero */
-        .dark-overlay {
-            background-color: rgba(0, 0, 0, 0.5); 
-            z-index: 10;
-        }
-        #hero > * {
-            z-index: 20; /* Garante que o conteúdo fique acima do overlay */
-        }
-        /* Estilos do tema (mantidos para o funcionamento inicial) */
-        .dark-theme .bg-gray-100 { background-color: #111827; }
-        .dark-theme .bg-white { background-color: #1f2937; }
-        .dark-theme .text-gray-700 { color: #9ca3af; }
-        .green-theme { background-color: #14532d; color: #ffffff; }
-        .green-theme .bg-gray-100 { background-color: #064e3b; }
-        .green-theme .bg-white { background-color: #065f46; }
-        .green-theme .text-gray-700 { color: #a7f3d0; }
-        .dark-theme header, .green-theme header { background-color: #2d2d2d; }
-    </style>
-</head>
+    /* Transições */
+    --transition-default: all 0.3s ease;
+}
 
-<body id="body" class="light-theme">
-    <main>
-        
-        <header id="header" class="navbar-custom fixed w-full top-0 z-50 transition-colors duration-300">
-            <div class="container mx-auto px-6 flex justify-between items-center h-20">
-                <a href="#hero" class="flex items-center space-x-3">
-                    <img src="/static/imgs/acs/logo_ipp.png" alt="Logo IPB Palmeiras" class="h-10 w-auto"> 
-                    <h1 class="text-xl font-bold nav-link-custom hidden md:block">Igreja Presbiteriana em Palmeiras</h1>
-                </a>
+/* ===========================
+   ## Temas Globais
+   =========================== */
 
-                <nav class="hidden md:flex space-x-6">
-                    <a href="#body" class="nav-link-custom active" data-translate="Home">Home</a>
-                    <a href="#mensagem-pastor" class="nav-link-custom" data-translate="Editorial">Editorial</a>
-                    <a href="#organization-slider" class="nav-link-custom" data-translate="Organizações">Organizações</a>
-                    <a href="#documents-container" class="nav-link-custom" data-translate="Download">Download</a>
-                    <a href="#sobre" class="nav-link-custom" data-translate="Sobre">Sobre</a>
-                    <a href="#conversa-pastor" class="nav-link-custom" data-translate="Contato">Contato</a>
-                </nav>
+/* Estilo geral do corpo */
+body {
+    font-family: 'Roboto', sans-serif; /* Define a fonte padrão */
+    transition: var(--transition-default); /* Transição suave para mudanças de estilo */
+}
 
-                <div class="flex items-center space-x-4">
-                    <button id="menuButton" class="md:hidden p-2 rounded-full hover:opacity-70 transition-colors">
-                        <i class="fas fa-bars text-xl nav-link-custom"></i>
-                    </button>
-                </div>
-            </div>
-            
-            <nav id="mobileMenu" class="md:hidden absolute top-20 left-0 w-full bg-white dark:bg-gray-800 shadow-lg hidden">
-                <a href="#body" class="block py-3 px-6 text-center nav-link-custom">Home</a>
-                <a href="#mensagem-pastor" class="block py-3 px-6 text-center nav-link-custom">Editorial</a>
-                <a href="#organization-slider" class="block py-3 px-6 text-center nav-link-custom">Organizações</a>
-                <a href="#documents-container" class="block py-3 px-6 text-center nav-link-custom">Download</a>
-                <a href="#sobre" class="block py-3 px-6 text-center nav-link-custom">Sobre</a>
-                <a href="#conversa-pastor" class="block py-3 px-6 text-center nav-link-custom">Contato</a>
-            </nav>
-        </header>
+/* Tema Claro (Light Theme) */
+.light-theme {
+    background-color: var(--color-light-bg); /* Fundo branco */
+    color: var(--color-primary); /* Texto verde */
+}
+.light-theme .text-gray-700 { color: #4b5563; } /* Textos secundários em cinza escuro */
+.light-theme .bg-gray-100 { background-color: #f3f4f6; }
 
-        <section id="hero" class="relative bg-cover bg-center min-h-screen flex items-center justify-center text-white pt-20" 
-            style="background-image: url('/static/imgs/acs/BACKGROUND_HERO.png');">
-            <div class="dark-overlay absolute inset-0"></div>
-            <div class="container mx-auto px-6 text-center relative z-20">
-                <h2 class="text-4xl md:text-6xl font-bold mb-4">Igreja Presbiteriana em Palmeiras</h2>
-                <p class="text-xl md:text-2xl mb-8">Vivendo e Proclamando o Evangelho de Cristo.</p>
-                <div class="bg-white/20 p-4 rounded-lg backdrop-blur-sm mx-auto max-w-lg">
-                    <p id="daily-verse" class="text-lg font-semibold italic">"Carregando Versículo Diário..."</p>
-                    <p id="verse-reference" class="text-sm mt-2 font-light">- Referência</p>
-                </div>
-            </div>
-        </section>
+/* Tema Escuro (Dark Theme) */
+.dark-theme {
+    background-color: var(--color-dark-bg); /* Fundo preto */
+    color: var(--color-accent); /* Texto verde claro */
+}
+.dark-theme .bg-gray-100 { background-color: var(--color-gray-dark); }
+.dark-theme .bg-white { background-color: var(--color-gray-medium); }
+.dark-theme .text-gray-700 { color: var(--color-gray-light); } 
 
-        <section id="mensagem-pastor" class="py-16">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center mb-10">Mensagem Pastoral</h2>
-                <div class="flex flex-col md:flex-row items-center md:space-x-8">
-                    <div class="md:w-1/3 mb-6 md:mb-0">
-                        <img src="/static/imgs/acs/pastor.png" alt="Pastor Josué" class="w-full h-auto rounded-lg shadow-lg">
-                    </div>
-                    <div class="md:w-2/3">
-                        <h3 class="text-2xl font-semibold mb-4">"A Graça Vos Baste"</h3>
-                        <p class="mb-4 text-gray-700">Estimados irmãos e amigos, é uma alegria recebê-los em nosso portal! Vivemos em um mundo de incertezas, mas a Palavra de Deus é nossa âncora e direção. Aqui, você encontrará recursos para sua jornada de fé, nossa agenda de eventos, e uma comunidade pronta para acolhê-lo.</p>
-                        <p class="mb-4 text-gray-700">Que o Senhor continue a abençoar sua vida. Venha nos visitar e cultuar conosco! A porta da Casa do Senhor está sempre aberta.</p>
-                        <p class="text-xl font-bold text-green-700">- Rev. Josué Souza</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+/* Tema Verde (Green Theme) */
+.green-theme { 
+    background-color: var(--color-green-bg); 
+    color: var(--color-secondary); 
+}
+.green-theme .bg-gray-100 { background-color: #d1fae5; }
+.green-theme .bg-white { background-color: #ecfdf5; }
+.green-theme .text-gray-700 { color: var(--color-secondary); }
 
-        <section id="about" class="py-16 bg-gray-100 dark:bg-gray-800">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center mb-10">Quem Somos</h2>
-                <div class="flex flex-col lg:flex-row lg:space-x-8">
-                    <div class="lg:w-1/2 mb-8 lg:mb-0">
-                        <h3 class="text-2xl font-semibold mb-4">Nossa Missão</h3>
-                        <p class="text-gray-700 dark:text-gray-300 mb-4">A Igreja Presbiteriana em Palmeiras existe para glorificar a Deus e desfrutá-Lo para sempre, através da adoração, comunhão, evangelização e serviço. Somos uma igreja histórica, reformada na fé e sempre buscando a excelência no serviço a Cristo.</p>
-                        <h3 class="text-2xl font-semibold mb-4">Nossa História</h3>
-                        <p class="text-gray-700 dark:text-gray-300">Fundada em [Ano], nossa igreja tem sido um farol da verdade bíblica na região da Chapada Diamantina, testemunhando o poder transformador do Evangelho por gerações.</p>
-                    </div>
-                    <div class="lg:w-1/2">
-                        <iframe id="aboutVideo" class="w-full aspect-video rounded-lg shadow-xl" src="https://www.youtube.com/embed/dQw4w9WgXcQ?controls=0&mute=1" title="Hino IPB Palmeiras" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        <p class="text-center mt-2 text-sm text-gray-500 dark:text-gray-400">Assista ao nosso vídeo de boas-vindas.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <section id="organization-slider" class="py-16">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center mb-10">Nossas Organizações</h2>
-                <div id="slider-content" class="relative">
-                    <div class="text-center py-10 text-gray-500">Carregando organizações...</div>
-                </div>
-            </div>
-        </section>
+/* ===========================
+   ## Barra de Navegação (Header)
+   =========================== */
 
-        <section id="events" class="py-16 bg-green-50 dark:bg-gray-900">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center mb-10">Agenda e Eventos</h2>
-                <div class="max-w-4xl mx-auto shadow-xl rounded-lg overflow-hidden">
-                    <iframe id="google-calendar" class="w-full aspect-video" 
-                        src="https://calendar.google.com/calendar/embed?src=pt.brazilian%23holiday%40group.v.calendar.google.com&ctz=America%2FSao_Paulo" 
-                        style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
-                </div>
-            </div>
-        </section>
+/* Navbar padrão */
+.navbar-custom {
+    background-color: transparent;
+    box-shadow: none;
+    transition: var(--transition-default);
+}
 
-        <section id="music-player" class="py-16">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-3xl font-bold mb-8">Músicas para Edificação</h2>
-                <div id="player-container" class="max-w-2xl mx-auto bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-                    <p class="text-gray-500 dark:text-gray-400">Carregando player...</p>
-                </div>
-            </div>
-        </section>
+/* Navbar fixa após o scroll */
+.scrolled .navbar-custom {
+    background-color: var(--color-nav-light); /* Fundo branco ou claro */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+.dark-theme .scrolled .navbar-custom, .green-theme .scrolled .navbar-custom {
+    background-color: var(--color-nav-dark); /* Fundo escuro */
+    box-shadow: 0 4px 6px -1px rgba(255, 255, 255, 0.1), 0 2px 4px -2px rgba(255, 255, 255, 0.1);
+}
 
-        <section id="gallery" class="py-16 bg-gray-100 dark:bg-gray-800">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center mb-10">Galeria de Fotos</h2>
-                <div id="gallery-container" class="min-h-[500px] flex items-center justify-center">
-                    </div>
-            </div>
+/* Links da navegação */
+.nav-link-custom {
+    color: var(--color-nav-light); /* Cor padrão dos links na hero (branco) */
+    transition: var(--transition-default);
+}
 
-            <div class="slideshow-container">
-                <div id="slideshow-inner-container"></div>
-                <div class="dots" id="slider-dots">
-                    </div>
-                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                <a class="next" onclick="plusSlides(1)">&#10095;</a>
-            </div>
-        </section>
+/* Ajuste de cores dos links quando a navbar estiver "scrolled" */
+.scrolled .nav-link-custom {
+    color: var(--color-primary); /* Cor do texto em temas light */
+}
+.dark-theme .scrolled .nav-link-custom, .green-theme .scrolled .nav-link-custom {
+    color: var(--color-accent); /* Cor do texto em temas dark/green */
+}
 
-        <section id="documents-container" class="py-16">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center mb-10">Downloads (Documentos e Informativos)</h2>
-                <div id="documents-list" class="max-w-3xl mx-auto">
-                    <p class="text-center text-gray-500">Carregando documentos...</p>
-                </div>
-            </div>
-        </section>
+/* Efeito Hover nos links */
+.nav-link-custom:hover {
+    color: #4ade80; /* Destaque no hover */
+}
+.scrolled .nav-link-custom:hover, .scrolled .nav-link-custom.active {
+    color: var(--color-secondary); /* Destaque no hover após scroll */
+}
 
-        <section id="conversa-pastor" class="py-16 bg-green-50 dark:bg-gray-900">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center mb-10">Fale Conosco e Localização</h2>
-                <div class="flex flex-col lg:flex-row lg:space-x-8">
-                    <div class="lg:w-1/2 mb-8 lg:mb-0">
-                        <h3 class="text-2xl font-semibold mb-4">Nossa Localização</h3>
-                        <div id="map-container" class="w-full h-80 rounded-lg shadow-xl mb-4">
-                            </div>
-                        <div class="flex items-center space-x-4">
-                            <img id="locationPhoto" src="/static/imgs/acs/igreja.png" alt="Foto da Igreja" class="w-24 h-24 object-cover rounded-lg shadow-md">
-                            <div>
-                                <p class="font-bold">Igreja Presbiteriana em Palmeiras</p>
-                                <p>Rua Coronel Antônio Afonso, 38, Centro</p>
-                                <p>Palmeiras - BA, 46900-000</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="lg:w-1/2">
-                        <h3 class="text-2xl font-semibold mb-4">Contato Rápido</h3>
-                        <p class="mb-6 text-gray-700 dark:text-gray-300">Quer conversar com o pastor, agendar uma visita ou tirar dúvidas? Envie uma mensagem direta.</p>
-                        <form id="contactForm" class="space-y-4">
-                            <input type="text" placeholder="Seu Nome" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
-                            <input type="email" placeholder="Seu E-mail" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
-                            <textarea placeholder="Sua Mensagem / Pedido de Oração" rows="4" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"></textarea>
-                            <button type="submit" class="w-full bg-green-700 text-white font-bold py-3 rounded-lg hover:bg-green-800 transition-colors">Enviar Mensagem</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-    </main>
-    
-    <div id="floating-sidebar" class="fixed right-6 bottom-6 z-50 flex flex-col items-center space-y-3">
-        
-        <button id="chatbotButton" class="floating-button sidebar-button-custom" aria-label="Abrir Chatbot Sarcinha" title="Chatbot Sarcinha">
-            <i class="fas fa-comment-dots sarcinha-icon"></i> 
-        </button>
+/* ===========================
+   ## FLUTUANTE SIDEBAR (Recursos de Acessibilidade/Chatbot)
+   =========================== */
 
-        <button id="themeButton" class="floating-button theme-button" aria-label="Trocar Tema" title="Trocar Tema">
-            <img src="/static/imgs/icons/PINCEL.png" alt="Mudar Tema" class="h-6 w-6 floating-icon">
-            <span id="themeLabel" class="sr-only">Light</span>
-        </button>
-        
-        <button id="translateButton" class="floating-button translate-button" aria-label="Tradução" title="Tradução">
-            <img src="/static/imgs/icons/GLOBO.png" alt="Tradução" class="h-6 w-6 floating-icon">
-        </button>
-        
-        <button id="accessibilityButton" class="floating-button accessibility-button" aria-label="Acessibilidade" title="Acessibilidade">
-            <img src="/static/imgs/icons/ACESSIBILIDADE.png" alt="Acessibilidade" class="h-6 w-6 floating-icon">
-        </button>
+/* Contêiner da barra flutuante */
+#floating-sidebar {
+    /* O Tailwind já aplica fixed right-6 bottom-6 flex flex-col items-center space-y-3 */
+    /* Garante que o chatbotWindow fique na ordem correta, se o JS não ocultar. */
+}
 
-        <div id="chatbotWindow" class="hidden absolute right-0 bottom-16 w-80 h-[400px] bg-white dark:bg-gray-800 rounded-lg shadow-2xl flex flex-col overflow-hidden">
-            <div class="flex justify-between items-center bg-green-700 text-white p-4">
-                <h4 class="font-bold">Sarcinha - Assistente Virtual</h4>
-                <button id="chatbotClose" class="text-xl leading-none">&times;</button>
-            </div>
-            <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-4">
-                <div class="text-left mb-4">
-                    <div class="bg-gray-100 flex items-start inline-block rounded-lg p-2 max-w-[80%]">
-                        <div>Olá! Eu sou o Sarcinha, seu assistente virtual. Como posso ajudar hoje?</div>
-                    </div>
-                </div>
-            </div>
-            <div class="p-4 border-t border-gray-200 dark:border-gray-700">
-                <input type="text" id="userInput" placeholder="Digite 1, 2, 3, ou sua pergunta..." class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
-            </div>
-        </div>
-    </div>
-    <footer class="bg-green-700 text-white py-6">
-        <div class="container mx-auto px-6 text-center">
-            <p class="mb-2" data-translate="Visitantes:">Visitantes: <span id="visitor-count" class="font-bold">0</span></p>
-            <p data-translate="© 2025 Igreja Presbiteriana em Palmeiras-BA. Todos os direitos reservados.">
-                 © 2025 Igreja Presbiteriana em Palmeiras-BA. Todos os direitos reservados.
-                </p>  
-                
-                <p data-translate="Administrador e Desenvolvido por Ian S. A. Santos">
-                Administrado e Desenvolvido por Ian S. A. Santos
-            </p>
-        </div>
-    </footer>
+/* Estilo base para todos os botões flutuantes */
+.floating-button {
+    width: 56px; /* h-14 */
+    height: 56px; /* w-14 */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease, background-color 0.2s ease;
+    z-index: 1000; /* Alto z-index */
+}
+.floating-button:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
 
-    <script type="module" src="/static/js/fallback-data.js"></script> 
-    <script type="module" src="/static/js/script.js"></script>
-    <script type="module" src="/static/js/chatbot.js"></script>
-    <script>
-        // Registrar o Service Worker (se existir)
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/static/js/service-worker.js').then(registration => {
-                    console.log('ServiceWorker registrado com sucesso:', registration.scope);
-                }).catch(error => {
-                    console.log('Falha no registro do ServiceWorker:', error);
-                });
-            });
-        }
-    </script>
-</body>
-</html>
+/* Estilo específico para o botão do Chatbot (Sarcinha) */
+/* Usa a classe sidebar-button-custom e sarcinha-icon do HTML */
+#chatbotButton.sidebar-button-custom {
+    background-color: #10b981; /* Verde esmeralda */
+    color: white;
+    font-size: 1.5rem;
+}
+.sarcinha-icon {
+    /* Se a imagem for o ícone real: */
+    /* background-image: url('/static/imgs/acs/sarcinha-icon.png'); */
+    /* background-size: cover; */
+}
+
+/* Estilo para os botões com ícone de imagem (Tema, Tradução, Acessibilidade) */
+.theme-button, .translate-button, .accessibility-button {
+    background-color: transparent; /* Fundo transparente por padrão para se misturar ao site */
+    border: 2px solid var(--color-primary); /* Borda verde */
+    padding: 0;
+}
+.dark-theme .theme-button, .dark-theme .translate-button, .dark-theme .accessibility-button {
+    border: 2px solid var(--color-accent); /* Borda verde claro no tema escuro */
+}
+
+.floating-icon {
+    /* Para garantir que a imagem do ícone preencha o botão corretamente */
+    filter: none;
+}
+
+
+/* ===========================
+   ## SLIDESHOW E GALERIA
+   =========================== */
+
+/* Contêiner principal do Slideshow */
+.slideshow-container {
+    max-width: 1000px; /* Largura máxima do slideshow */
+    position: relative;
+    margin: auto;
+}
+
+/* Estilo para as imagens no slideshow (opcional) */
+.slideshow-container img {
+    vertical-align: middle;
+}
+
+/* Botões de Próximo e Anterior (Next/Prev) */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
+}
+
+/* Posição do botão "Próximo" */
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* Hover nos botões de Próximo/Anterior */
+.prev:hover, .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Contêiner dos dots (Indicadores de Navegação) */
+.dots {
+    text-align: center; 
+    padding: 10px; /* Espaçamento interno */
+    margin: 0; /* Remove margens */
+}
+
+/* Estilo para dots (indicadores de navegação) */
+.dot {
+    display: inline-block; /* Exibe como bloco inline */
+    width: 12px; /* Largura do dot */
+    height: 12px; /* Altura do dot */
+    margin: 0 5px; /* Espaçamento entre os dots */
+    border-radius: 50%; /* Formato circular */
+    background-color: #bbb; /* Cor padrão */
+    cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
+}
+
+/* Estilo para o dot ativo */
+.dot.active {
+    background-color: #333; /* Cor do dot ativo */
+}
+
+/* ===========================
+   ## Conteúdo da Bíblia
+   =========================== */
+
+#bible-content {
+    /* Opcional: Estilos para o visualizador da Bíblia */
+    white-space: pre-wrap;
+    text-align: left;
+}
+
+/* ===========================
+   ## Responsividade
+   =========================== */
+
+/* Ajustes para telas menores */
+@media (max-width: 768px) {
+    header .container {
+        padding: 0 1rem; /* Reduz o espaçamento lateral em telas menores */
+    }
+
+    /* Opcional: Esconder alguns botões flutuantes em mobile se for demais */
+    /* #floating-sidebar .floating-button:not(#chatbotButton) {
+        display: none; 
+    } */
+}
