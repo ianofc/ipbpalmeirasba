@@ -13,50 +13,16 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/style.css"> <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            transition: all 0.3s ease;
-        }
-        .light-theme {
-            background-color: #ffffff;
-            color: #15803d;
-        }
-        .dark-theme {
-            background-color: #1a1a1a;
-            color: #4ade80;
-        }
-        .theme-green {
-            background-color: #f0fdf4;
-            color: #14532d;
-        }
-        /* Overlay escuro para o Hero */
-        .dark-overlay {
-            background-color: rgba(0, 0, 0, 0.5); 
-            z-index: 10;
-        }
-        #hero > * {
-            z-index: 20; /* Garante que o conteúdo fique acima do overlay */
-        }
-        /* Estilos do tema (mantidos para o funcionamento inicial) */
-        .dark-theme .bg-gray-100 { background-color: #111827; }
-        .dark-theme .bg-white { background-color: #1f2937; }
-        .dark-theme .text-gray-700 { color: #9ca3af; }
-        .green-theme { background-color: #14532d; color: #ffffff; }
-        .green-theme .bg-gray-100 { background-color: #064e3b; }
-        .green-theme .bg-white { background-color: #065f46; }
-        .green-theme .text-gray-700 { color: #a7f3d0; }
-        .dark-theme header, .green-theme header { background-color: #2d2d2d; }
-    </style>
-    </head>
+    <link rel="stylesheet" href="/static/css/style.css"> 
+</head>
 
 <body id="body" class="light-theme">
     <main>
-        
+
         <header id="header" class="navbar-custom fixed w-full top-0 z-50 transition-colors duration-300">
             <div class="container mx-auto px-6 flex justify-between items-center h-20">
                 <a href="#hero" class="flex items-center space-x-3">
-                    <img src="/static/imgs/acs/logo_ipp.png" alt="Logo IPB Palmeiras" class="h-10 w-auto"> 
+                    <img src="/static/imgs/acs/logo_ipp.png" alt="Logo IPB Palmeiras" class="h-10 w-auto">
                     <h1 class="text-xl font-bold nav-link-custom hidden md:block">Igreja Presbiteriana em Palmeiras</h1>
                 </a>
 
@@ -89,7 +55,7 @@
                 </div>
             </div>
             
-            <nav id="mobileMenu" class="md:hidden absolute top-20 left-0 w-full bg-white dark:bg-gray-800 shadow-lg hidden">
+            <nav id="mobileMenu" class="md:hidden absolute top-20 left-0 w-full mobile-menu-custom shadow-lg hidden">
                 <a href="#body" class="block py-3 px-6 text-center nav-link-custom">Home</a>
                 <a href="#mensagem-pastor" class="block py-3 px-6 text-center nav-link-custom">Editorial</a>
                 <a href="#organization-slider" class="block py-3 px-6 text-center nav-link-custom">Organizações</a>
@@ -235,7 +201,7 @@
 
         <div id="sidebar-custom" class="fixed right-6 bottom-6 z-50">
             <button id="chatbotToggle" class="sidebar-button-custom w-14 h-14 bg-green-700 text-white text-3xl rounded-full shadow-lg flex items-center justify-center transition-transform duration-300">
-                <i class="fas fa-comment-dots sarcinha-icon"></i> 
+                <i class="fas fa-comment-dots sarcinha-icon"></i>
             </button>
 
             <div id="chatbotWindow" class="hidden absolute right-0 bottom-16 w-80 h-[400px] bg-white dark:bg-gray-800 rounded-lg shadow-2xl flex flex-col overflow-hidden">
@@ -261,8 +227,8 @@
         <div class="container mx-auto px-6 text-center">
             <p class="mb-2" data-translate="Visitantes:">Visitantes: <span id="visitor-count" class="font-bold">0</span></p>
             <p data-translate="© 2025 Igreja Presbiteriana em Palmeiras-BA. Todos os direitos reservados.">
-                 © 2025 Igreja Presbiteriana em Palmeiras-BA. Todos os direitos reservados.
-                </p>  
+                    © 2025 Igreja Presbiteriana em Palmeiras-BA. Todos os direitos reservados.
+                </p> 
                 
                 <p data-translate="Administrador e Desenvolvido por Ian S. A. Santos">
                 Administrado e Desenvolvido por Ian S. A. Santos
