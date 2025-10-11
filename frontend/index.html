@@ -23,14 +23,29 @@
             padding-bottom: 0;
         }
 
+        /* Estilo para a Letra Drop Cap (Jornal) */
+        .drop-cap:first-letter {
+            float: left;
+            font-size: 3.5rem;
+            /* Aumenta o tamanho */
+            line-height: 0.8;
+            /* Ajusta a altura da linha */
+            margin-right: 0.125rem;
+            /* Pequena margem à direita */
+            font-weight: 700;
+            /* Negrito */
+            color: #10B981;
+            /* Cor verde para destaque */
+        }
+
         /* Estilo para a barra lateral flutuante e centralizada */
         .floating-sidebar {
-            /* left-0 para o lado esquerdo, top-1/2 e -translate-y-1/2 para centralizar */
             position: fixed;
             left: 0;
             top: 50%;
             transform: translateY(-50%);
-            z-index: 60; /* Alto z-index para ficar acima de tudo */
+            z-index: 60;
+            /* Alto z-index para ficar acima de tudo */
             padding: 0.5rem;
             border-radius: 0 0.5rem 0.5rem 0;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
@@ -38,7 +53,7 @@
             border: 1px solid #e5e7eb;
         }
 
-        /* Classes para as bandeiras no submenu */
+        /* Classes para os ícones padronizados */
         .flag-icon {
             width: 20px;
             height: auto;
@@ -50,8 +65,6 @@
             height: 24px;
         }
 
-        /* REMOVIDO: .chatbot-icon-size não é mais necessário, usando sidebar-icon-size */
-
         /* Estilo para a barra do Player de Música */
         #musicPlayerBar {
             height: 5rem;
@@ -60,7 +73,7 @@
             transform: translateY(100%);
             /* Esconde por padrão */
             z-index: 50;
-            /* Garante que fique acima do footer (z-index padrão) */
+            /* Acima do footer */
         }
 
         #musicPlayerBar.active {
@@ -69,7 +82,7 @@
         }
 
         /* Garante que o conteúdo não seja cortado pelo player quando ele estiver ativo */
-        .content-padding-active {
+        main.content-padding-active {
             padding-bottom: 5rem;
             /* Altura do player (h-20 = 5rem) */
         }
@@ -125,13 +138,12 @@
             const playPauseIcon = document.querySelector('#player-play-pause i');
 
             if (isPlaying) {
-                // Inicia o player (simulação)
-                // Substituir autoplay=0 por 1 e mute=1 por 0 para iniciar (requer API real)
+                // Simulação de início de player (o controle real exigiria a API do YouTube)
                 youtubePlayer.src = youtubePlayer.src.replace('autoplay=0', 'autoplay=1').replace('mute=1', 'mute=0');
                 playPauseIcon.className = 'fas fa-pause text-xl';
                 console.log('Player Ativo.');
             } else {
-                // Para o player (simulação)
+                // Simulação de parada de player
                 youtubePlayer.src = youtubePlayer.src.replace('autoplay=1', 'autoplay=0').replace('mute=0', 'mute=1');
                 playPauseIcon.className = 'fas fa-play text-xl';
                 console.log('Player Inativo.');
@@ -152,25 +164,9 @@
 
 
         // Funções Originais (mantidas para o resto do conteúdo)
-        function toggleBiblePanel() {
-            const panel = document.getElementById('bible-panel');
-            panel.classList.toggle('hidden');
-        }
-
-        // Placeholder para Menu Mobile
-        function toggleMobileMenu() {
-            alert('Abrir menu mobile!');
-        }
-
-        // Placeholder para toggleTheme
-        function toggleTheme() {
-            document.body.classList.toggle('dark-theme');
-            document.body.classList.toggle('light-theme');
-            alert('Tema alterado!');
-        }
-
-
-        // Simulação do restante do script.js para que as funções do conteúdo não quebrem
+        function toggleBiblePanel() { /* ... */ }
+        function toggleMobileMenu() { alert('Abrir menu mobile!'); }
+        function toggleTheme() { /* ... */ }
         const API_BASE_URL = window.location.hostname.includes('localhost') ? 'http://localhost:5000' : '';
         async function fetchVerse() { /* ... */ }
         function scheduleDailyVerse() { /* ... */ }
@@ -257,6 +253,7 @@
             <img src="static/imgs/icons/playermusic.png" alt="Ícone de Player de Música" class="sidebar-icon-size">
         </button>
 
+
         <button id="chatbot-toggle" title="Chatbot Sarcinha" onclick="toggleChatbot()" class="p-2 rounded-full hover:opacity-75 transition duration-300">
             <img src="static/imgs/icons/SARCAIPB.png" alt="Ícone do Chatbot Sarcinha (SARCAIPB)" class="sidebar-icon-size">
         </button>
@@ -280,16 +277,111 @@
 
         <section id="mensagem-pastor" class="py-16">
             <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center mb-10">Mensagem Pastoral</h2>
-                <div class="flex flex-col md:flex-row items-center md:space-x-8">
-                    <div class="md:w-1/3 mb-6 md:mb-0">
-                        <img src="/static/imgs/acs/pastor.png" alt="Pastor Josué" class="w-full h-auto rounded-lg shadow-lg">
+                <h2 class="text-3xl font-bold text-center mb-10" data-translate="Editorial">Editorial</h2>
+
+                <div class="max-w-4xl mx-auto">
+                    <p class="text-lg text-justify mb-8 italic text-gray-700 dark:text-gray-300" data-translate="Bem-vindos à nossa igreja! Estamos aqui para compartilhar a palavra de Deus e viver em comunidade. Junte-se a nós em nossos cultos e atividades.">
+                        Bem-vindos à nossa igreja! Estamos aqui para compartilhar a palavra de Deus e viver em comunidade. Junte-se a nós em nossos cultos e atividades.
+                    </p>
+
+                    <h3 class="text-2xl font-bold mt-8 mb-4 border-b pb-2" data-translate="Mensagem do Pastor">Mensagem do Pastor</h3>
+
+                    <div class="space-y-6 text-justify md:columns-2 md:gap-8">
+
+                        <p class="text-lg drop-cap" data-translate="Eu tinha 34 anos quando usei a palavra “crônica” na frente da palavra “dor” pela primeira vez. Eu disse isso em voz baixa, me perguntando se cinco anos de sofrimento eram tempo suficiente para merecer a frase. Quando essa porta de sofrimento se abriu diante de mim, eu não entendi que o caminho para crescer na fé poderia doer tanto">
+                            Eu tinha 34 anos quando usei a palavra “crônica” na frente da palavra “dor” pela primeira vez. Eu disse isso em voz baixa, me perguntando se cinco anos de sofrimento eram tempo suficiente para merecer a frase. Quando essa porta de sofrimento se abriu diante de mim, eu não entendi que o caminho para crescer na fé poderia doer tanto.
+                        </p>
+
+                        <p class="text-lg" data-translate="Na primeira carta do apóstolo Pedro, ele encoraja os crentes a perseverarem no sofrimento por seu efeito refinador da fé. Ele nos aponta para o peso da glória eterna que está por vir, tornando nossos sofrimentos menores do que parecem à primeira vista. Ele nos dá confiança para nos confiarmos a um Pai amoroso">
+                            Na primeira carta do apóstolo Pedro, ele encoraja os crentes a perseverarem no sofrimento por seu efeito refinador da fé. Ele nos aponta para o peso da glória eterna que está por vir, tornando nossos sofrimentos menores do que parecem à primeira vista. Ele nos dá confiança para nos confiarmos a um Pai amoroso.
+                        </p>
+                        
+                        <p class="text-lg" data-translate="Pedro me faz contorcer, no entanto, quando leio que há lições que o cristão deve aprender no fogo refinador do sofrimento. “Vocês se alegram nisso, embora agora, por um curto período de tempo, tenham lutado em várias provações, para que a genuinidade da sua fé — mais valiosa do que o ouro que perece, embora refinado pelo fogo — possa resultar em louvor, glória e honra, na revelação de Jesus Cristo” (1 Pe 1:6–7 HCSB, ênfase adicionada)">
+                            Pedro me faz contorcer, no entanto, quando leio que há lições que o cristão deve aprender no fogo refinador do sofrimento. “Vocês se alegram nisso, embora agora, por um curto período de tempo, tenham lutado em várias provações, para que a genuinidade da sua fé — mais valiosa do que o ouro que perece, embora refinado pelo fogo — possa resultar em louvor, glória e honra, na revelação de Jesus Cristo” (1 Pe 1:6–7 HCSB, ênfase adicionada).
+                        </p>
+
+                        <h3 class="text-2xl font-bold mt-8 break-before-column" data-translate="Quando Deus te chama para atravessar a porta do sofrimento">
+                            Quando Deus te chama para atravessar a porta do sofrimento
+                        </h3>
+
+                        <p class="text-lg" data-translate="Quando o próximo passo da santificação nos coloca diretamente na frente da porta do sofrimento — seja ele rotulado como 'câncer de mama' ou 'doença de Lyme', podemos responder de duas maneiras. Podemos desperdiçar a oportunidade de crescer em piedade nos tornando amargos, ou podemos cruzar o limiar confiantes de que o que recebemos da mão de Deus é para sua glória e nosso bem">
+                            Quando o próximo passo da santificação nos coloca diretamente na frente da porta do sofrimento — seja ele rotulado como "câncer de mama" ou "doença de Lyme", podemos responder de duas maneiras. Podemos desperdiçar a oportunidade de crescer em piedade nos tornando amargos, ou podemos cruzar o limiar confiantes de que o que recebemos da mão de Deus é para sua glória e nosso bem.
+                        </p>
+                        
+                        <p class="text-lg" data-translate="Se o sofrimento é a porta pela qual você deve passar, então anime-se nas maneiras pelas quais Deus o usará para o bem em sua vida">
+                            Se o sofrimento é a porta pela qual você deve passar, então anime-se nas maneiras pelas quais Deus o usará para o bem em sua vida.
+                        </p>
+
+                        <h3 class="text-2xl font-bold mt-8" data-translate="Fé Aumentada">Fé Aumentada</h3>
+
+                        <p class="text-lg" data-translate="Aprendemos a verdadeira natureza da nossa fé quando ela é preparada contra a dor, a tristeza ou a perseguição. Quando nossos corações estão sobrecarregados com a tristeza, ou quando nossos corpos são devastados pela doença, Deus pode garantir nossa confiança">
+                            Aprendemos a verdadeira natureza da nossa fé quando ela é preparada contra a dor, a tristeza ou a perseguição. Quando nossos corações estão sobrecarregados com a tristeza, ou quando nossos corpos são devastados pela doença, Deus pode garantir nossa confiança.
+                        </p>
+
+                        <p class="text-lg" data-translate="Eu costumava temer que minha fé na bondade de Deus não fosse forte o suficiente para suportar anos de dor física, mas o sofrimento crônico queimou qualquer ilusão de que a salvação depende de mim. Nós perseveramos, e é Deus quem nos preserva. Nos piores momentos de dor, minha fé na bondade de Deus parecia tão frágil. Eu não conseguia pensar em fé de longo prazo, apenas no próximo passo à minha frente">
+                            Eu costumava temer que minha fé na bondade de Deus não fosse forte o suficiente para suportar anos de dor física, mas o sofrimento crônico queimou qualquer ilusão de que a salvação depende de mim. Nós perseveramos, e é Deus quem nos preserva. Nos piores momentos de dor, minha fé na bondade de Deus parecia tão frágil. Eu não conseguia pensar em fé de longo prazo, apenas no próximo passo à minha frente.
+                        </p>
+
+                        <p class="text-lg" data-translate="Mas Deus usou os momentos de perseverança de respiração a respiração para me ensinar que era seguro confiar nele para o próximo passo. Ele pode não ter removido meu sofrimento quando eu queria, mas ele estava comigo no meio dele. Meu sofrimento revelou que foi Deus quem me guardou, protegendo meu coração pela eternidade (1 Pe 1:5–7)">
+                            Mas Deus usou os momentos de perseverança de respiração a respiração para me ensinar que era seguro confiar nele para o próximo passo. Ele pode não ter removido meu sofrimento quando eu queria, mas ele estava comigo no meio dele. Meu sofrimento revelou que foi Deus quem me guardou, protegendo meu coração pela eternidade (1 Pe 1:5–7).
+                        </p>
+
+                        <h3 class="text-2xl font-bold mt-8" data-translate="Apresentando Cristo">Apresentando Cristo</h3>
+
+                        <p class="text-lg" data-translate="Porque ele nos deu todas as bênçãos espirituais em Cristo, podemos trilhar o caminho do sofrimento sabendo que Cristo o percorreu primeiro e nos mostra como prosseguir (1 Pedro 2:21)">
+                            Porque ele nos deu todas as bênçãos espirituais em Cristo, podemos trilhar o caminho do sofrimento sabendo que Cristo o percorreu primeiro e nos mostra como prosseguir (1 Pedro 2:21).
+                        </p>
+
+                        <p class="text-lg" data-translate="Embora meus anos com dor crônica tenham sido os mais difíceis da minha vida, a obra fiel de Deus produziu o fruto da perseverança que me preparou para a próxima provação. Eu finalmente pude caminhar pela porta ao lado do sofrimento com a confiança de que a estrada além estava pavimentada com o cuidado de Deus. Se Deus ordenou uma porta de sofrimento para você atravessar, você pode confiar que ele investiu tanto na sua perseverança quanto na sua restauração (1 Pe 5:10). Você pode atravessar o limiar doloroso sabendo que a estrada além é incomparavelmente curta em vista da herança que foi comprada e guardada para você">
+                            Embora meus anos com dor crônica tenham sido os mais difíceis da minha vida, a obra fiel de Deus produziu o fruto da perseverança que me preparou para a próxima provação. Eu finalmente pude caminhar pela porta ao lado do sofrimento com a confiança de que a estrada além estava pavimentada com o cuidado de Deus. Se Deus ordenou uma porta de sofrimento para você atravessar, você pode confiar que ele investiu tanto na sua perseverança quanto na sua restauração (1 Pe 5:10). Você pode atravessar o limiar doloroso sabendo que a estrada além é incomparavelmente curta em vista da herança que foi comprada e guardada para você.
+                        </p>
+
+                        <p class="text-lg" data-translate="Um pé na frente do outro, Christian. Você não sofre sem propósito, e você não sofre sozinho">
+                            Um pé na frente do outro, Christian. Você não sofre sem propósito, e você não sofre sozinho.
+                        </p>
+
+                        <div class="space-y-2 mt-8 break-before-column">
+                            <p class="text-sm font-semibold italic text-gray-600 dark:text-gray-400">
+                                *Glenna Marshall é esposa de pastor e mãe de dois filhos. Ela é autora de <em>The Promise Is His Presence</em>, <em>Everyday Faithfulness</em> e <em>Memorizing Scripture</em>. Ela escreve regularmente sobre alfabetização bíblica, sofrimento e a fidelidade de Deus em seu site. Ela é membro da Grace Bible Fellowship em Sikeston, Missouri.
+                            </p>
+                        </div>
                     </div>
-                    <div class="md:w-2/3">
-                        <h3 class="text-2xl font-semibold mb-4">"A Graça Vos Baste"</h3>
-                        <p class="mb-4 text-gray-700 dark:text-gray-300">Estimados irmãos e amigos, é uma alegria recebê-los em nosso portal! Vivemos em um mundo de incertezas, mas a Palavra de Deus é nossa âncora e direção. Aqui, você encontrará recursos para sua jornada de fé, nossa agenda de eventos, e uma comunidade pronta para acolhê-lo.</p>
-                        <p class="mb-4 text-gray-700 dark:text-gray-300">Que o Senhor continue a abençoar sua vida. Venha nos visitar e cultuar conosco! A porta da Casa do Senhor está sempre aberta.</p>
-                        <p class="text-xl font-bold text-green-700 dark:text-green-500">- Rev. Josué Souza</p>
+
+                    <div class="mt-12 pt-6 border-t border-gray-300 dark:border-gray-600">
+                        <h3 class="text-3xl font-bold text-center mb-6" data-translate="Pedidos de Oração">Pedidos de Oração</h3>
+                        
+                        <p class="text-lg italic text-center mb-6 text-green-700 dark:text-green-400">
+                            "Confessai, pois, os vossos pecados uns aos outros e orai uns pelos outros, para serdes curados. Muito pode, por sua eficácia, a súplica do justo” **Tiago 5.16.**
+                        </p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6 text-center">
+                            
+                            <div>
+                                <h4 class="text-xl font-bold mb-1" data-translate="Saúde emocional">Saúde emocional</h4>
+                                <p class="text-lg">Eva, Marilene, Luciene e Ana Paula.</p>
+                            </div>
+                            
+                            <div>
+                                <h4 class="text-xl font-bold mb-1" data-translate="Enlutados">Enlutados</h4>
+                                <p class="text-lg">Família de Carmelina e Família de Erito.</p>
+                            </div>
+                            
+                            <div>
+                                <h4 class="text-xl font-bold mb-1" data-translate="Enfermidades">Enfermidades</h4>
+                                <p class="text-lg">Abel, Armando, Geane, Enzo e Luma.</p>
+                            </div>
+                            
+                            <div>
+                                <h4 class="text-xl font-bold mb-1" data-translate="Recuperação">Recuperação</h4>
+                                <p class="text-lg">Dagmar, Nemésio, Leide e João.</p>
+                            </div>
+
+                            <div class="sm:col-span-2">
+                                <h4 class="text-xl font-bold mt-4 mb-1" data-translate="Outros Pedidos">Outros Pedidos</h4>
+                                <p class="text-lg">Despertamento da Igreja, Grávidas, Amanda.</p>
+                            </div>
+                            
+                        </div>
                     </div>
                 </div>
             </div>
@@ -318,7 +410,7 @@
                 <h2 class="text-3xl font-bold text-center mb-10">Nossas Organizações</h2>
                 <div id="slider-content" class="relative">
                     <div class="text-center py-10 text-gray-500">Carregando organizações...</div>
-                    </div>
+                </div>
             </div>
         </section>
 
