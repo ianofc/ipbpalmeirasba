@@ -18,8 +18,10 @@
     <style>
         body {
             /* Adicione padding superior para não ser coberto pelo fixed header */
-            padding-top: 4rem; /* h-16 (4rem) do header */
+            padding-top: 4rem;
+            /* h-16 (4rem) do header */
         }
+
         /* Estilo para a barra lateral flutuante e centralizada */
         .floating-sidebar {
             /* left-0 para o lado esquerdo, top-1/2 e -translate-y-1/2 para centralizar */
@@ -29,16 +31,29 @@
             transform: translateY(-50%);
             z-index: 50;
             padding: 0.5rem;
-            border-radius: 0 0.5rem 0.5rem 0; /* Arredondado só na lateral visível */
+            border-radius: 0 0.5rem 0.5rem 0;
+            /* Arredondado só na lateral visível */
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-            background-color: white; /* Cor de fundo para se destacar */
+            background-color: white;
+            /* Cor de fundo para se destacar */
             border: 1px solid #e5e7eb;
         }
+
         /* Classes para as bandeiras no submenu */
         .flag-icon {
             width: 20px;
             height: auto;
             margin-right: 0.5rem;
+        }
+        
+        .sidebar-icon-size {
+            width: 24px;
+            height: 24px;
+        }
+
+        .chatbot-icon-size {
+            width: 32px;
+            height: 32px;
         }
     </style>
     <script>
@@ -58,12 +73,22 @@
         }
 
         // Funções Placeholder de Acessibilidade
-        function setContrast() { alert('Ajuste de Alto Contraste ativado/desativado!'); }
-        function setZoom(factor) { alert('Ajuste de Zoom aplicado: ' + factor); }
-        function screenReaderToggle() { alert('Modo Leitura de Tela ativado/desativado!'); }
+        function setContrast() {
+            alert('Ajuste de Alto Contraste ativado/desativado!');
+        }
+
+        function setZoom(factor) {
+            alert('Ajuste de Zoom aplicado: ' + factor);
+        }
+
+        function screenReaderToggle() {
+            alert('Modo Leitura de Tela ativado/desativado!');
+        }
 
         // Função Placeholder de Tradução
-        function translate(lang) { alert('Traduzindo para: ' + lang.toUpperCase()); }
+        function translate(lang) {
+            alert('Traduzindo para: ' + lang.toUpperCase());
+        }
 
         // Função para o Chatbot (ajustada para usar o ID do botão correto)
         function toggleChatbot() {
@@ -76,10 +101,10 @@
             const panel = document.getElementById('bible-panel');
             panel.classList.toggle('hidden');
         }
-        
+
         // Placeholder para Menu Mobile
         function toggleMobileMenu() {
-             alert('Abrir menu mobile!');
+            alert('Abrir menu mobile!');
         }
 
         // Placeholder para toggleTheme
@@ -133,12 +158,12 @@
     <aside class="floating-sidebar p-2 space-y-4 flex flex-col items-center">
 
         <button id="themeButton" onclick="toggleTheme()" title="Trocar Tema" class="text-xl p-2 rounded-full hover:opacity-75 transition duration-300">
-            <i class="fas fa-palette"></i>
+            <img src="static/images/icons/PINCEL.png" alt="Ícone de Tema" class="sidebar-icon-size">
         </button>
 
         <div class="relative">
             <button title="Acessibilidade" class="text-xl p-2 rounded-full hover:opacity-75 transition duration-300" onclick="toggleAccessibilityMenu()">
-                <i class="fas fa-universal-access"></i>
+                <img src="static/images/icons/ACESSIBILIDADE.png" alt="Ícone de Acessibilidade" class="sidebar-icon-size">
             </button>
             <div id="accessibility-menu" class="hidden absolute left-full top-0 w-52 p-2 shadow-lg rounded-r-lg border border-gray-300 text-sm bg-white dark:bg-gray-800 dark:text-white">
                 <button onclick="setContrast()" class="flex items-center w-full p-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md"><i class="fas fa-adjust w-5 mr-3"></i> Alto Contraste</button>
@@ -149,7 +174,7 @@
 
         <div class="relative">
             <button title="Traduzir Página" class="text-xl p-2 rounded-full hover:opacity-75 transition duration-300" onclick="toggleTranslationMenu()">
-                <i class="fas fa-globe"></i>
+                <img src="static/images/icons/GLOBO.png" alt="Ícone de Tradução" class="sidebar-icon-size">
             </button>
             <div id="translation-menu" class="hidden absolute left-full top-0 w-40 p-2 shadow-lg rounded-r-lg border border-gray-300 text-sm bg-white dark:bg-gray-800 dark:text-white">
                 <button onclick="translate('en')" class="flex items-center w-full p-1 text-left hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">
@@ -164,11 +189,15 @@
             </div>
         </div>
         
+        <button id="chatbot-toggle" title="Chatbot Sarcinha" onclick="toggleChatbot()" class="text-xl p-2 rounded-full bg-red-600 text-white hover:bg-red-700 transition duration-300 shadow-md">
+            <img src="static/images/icons/SARCA.png" alt="Ícone do Chatbot Sarcinha" class="chatbot-icon-size">
+        </button>
+
     </aside>
 
     <main class="content-padding">
 
-        <section id="hero" class="relative bg-cover bg-center min-h-[70vh] flex items-center justify-center text-white"
+        <section id="hero" class="relative bg-cover bg-center min-h-[100vh] flex items-center justify-center text-white"
             style="background-image: url('/static/imgs/acs/BACKGROUND_HERO.png');">
             <div class="dark-overlay absolute inset-0 bg-black/50"></div>
             <div class="container mx-auto px-6 text-center relative z-20 py-20">
@@ -197,7 +226,7 @@
                 </div>
             </div>
         </section>
-        
+
         <section id="about" class="py-16 bg-gray-100 dark:bg-gray-800">
             <div class="container mx-auto px-6">
                 <h2 class="text-3xl font-bold text-center mb-10">Quem Somos</h2>
@@ -304,10 +333,6 @@
         </section>
 
         <div id="sidebar-custom" class="fixed right-6 bottom-6 z-50">
-            <button id="chatbot-toggle" title="Chatbot Sarcinha" onclick="toggleChatbot()" class="sidebar-button-custom w-14 h-14 bg-red-600 text-white text-3xl rounded-full shadow-lg flex items-center justify-center transition-transform duration-300 hover:bg-red-700">
-                <i class="fas fa-fire sarcinha-icon"></i>
-            </button>
-
             <div id="chatbotWindow" class="hidden absolute right-0 bottom-16 w-80 h-[400px] bg-white dark:bg-gray-800 rounded-lg shadow-2xl flex flex-col overflow-hidden">
                 <div class="flex justify-between items-center bg-green-700 text-white p-4">
                     <h4 class="font-bold">Sarcinha - Assistente Virtual</h4>
