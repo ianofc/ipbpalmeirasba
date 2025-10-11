@@ -4,15 +4,27 @@
 
 /* Definição de variáveis CSS para facilitar a manutenção */
 :root {
+    /* Cores do Tema Claro (Light) */
     --color-light-bg: #ffffff;
-    --color-light-text: #15803d;
+    --color-light-text: #15803d; /* Verde Escuro da Igreja */
+    --color-light-header-bg: #ffffff;
+
+    /* Cores do Tema Escuro (Dark) */
     --color-dark-bg: #1a1a1a;
-    --color-dark-text: #4ade80;
-    --color-green-bg: #14532d;
+    --color-dark-text: #4ade80; /* Verde Claro (Lime) para contraste */
+    --color-dark-header-bg: #2d2d2d;
+    --color-dark-card-bg: #1f2937; /* Cinza Médio para cartões */
+    --color-dark-bg-hover: #111827; /* Cinza Escuro para hover/elementos secundários */
+    --color-dark-text-secondary: #9ca3af; /* Cinza claro para textos secundários */
+
+    /* Cores do Tema Verde (Green) */
+    --color-green-bg: #14532d; /* Verde Escuro Profundo */
     --color-green-text: #ffffff;
-    --color-gray-dark: #111827;
-    --color-gray-light: #9ca3af;
-    --color-gray-medium: #1f2937;
+    --color-green-header-bg: #064e3b; /* Verde mais escuro para cabeçalho */
+    --color-green-card-bg: #065f46; /* Verde Médio para cartões */
+    --color-green-bg-hover: #047857; /* Verde para hover/elementos secundários */
+    --color-green-text-secondary: #a7f3d0; /* Verde claro para textos secundários */
+    
     --transition-default: all 0.3s ease;
 }
 
@@ -26,49 +38,76 @@ body {
     transition: var(--transition-default); /* Transição suave para mudanças de estilo */
 }
 
-/* Tema Claro */
+/* Tema Claro (Padrão) */
 .light-theme {
-    background-color: var(--color-light-bg); /* Fundo branco */
-    color: var(--color-light-text); /* Texto verde */
+    background-color: var(--color-light-bg);
+    color: var(--color-light-text);
 }
 
 /* Tema Escuro */
 .dark-theme {
-    background-color: var(--color-dark-bg); /* Fundo preto */
-    color: var(--color-dark-text); /* Texto verde claro */
+    background-color: var(--color-dark-bg);
+    color: var(--color-dark-text); 
 }
 
-/* Ajustes para elementos específicos no tema escuro */
-.dark-theme .bg-gray-100 {
-    background-color: var(--color-gray-dark); /* Fundo cinza escuro */
+/* Ajustes para elementos específicos no tema escuro (inverte cores) */
+.dark-theme header,
+.dark-theme footer {
+    background-color: var(--color-dark-header-bg) !important;
 }
-.dark-theme .bg-white {
-    background-color: var(--color-gray-medium); /* Fundo cinza médio */
+
+.dark-theme .bg-gray-100, /* Usado no chatbot e playlist item */
+.dark-theme .hover\:bg-gray-100:hover { 
+    background-color: var(--color-dark-bg-hover);
 }
-.dark-theme .text-gray-700 {
-    color: var(--color-gray-light); /* Texto cinza claro */
+
+.dark-theme .bg-white, /* Usado em cartões/elementos principais */
+.dark-theme .shadow-lg,
+.dark-theme .shadow {
+    background-color: var(--color-dark-card-bg) !important;
+    box-shadow: 0 4px 6px -1px rgba(255, 255, 255, 0.1), 0 2px 4px -2px rgba(255, 255, 255, 0.1); /* Sombra clara */
+}
+
+.dark-theme .text-gray-700, /* Textos que precisam de contraste no dark mode */
+.dark-theme .text-gray-500 {
+    color: var(--color-dark-text-secondary) !important;
+}
+
+.dark-theme .text-green-700 { /* Links e destaques que eram verdes */
+    color: var(--color-dark-text) !important;
 }
 
 /* Tema Verde */
 .green-theme {
-    background-color: var(--color-green-bg); /* Fundo verde escuro */
-    color: var(--color-green-text); /* Texto branco */
+    background-color: var(--color-green-bg); 
+    color: var(--color-green-text); 
 }
 
 /* Ajustes para elementos específicos no tema verde */
-.green-theme .bg-gray-100 {
-    background-color: #064e3b; /* Fundo verde mais escuro */
-}
-.green-theme .bg-white {
-    background-color: #065f46; /* Fundo verde médio */
-}
-.green-theme .text-gray-700 {
-    color: #a7f3d0; /* Texto verde claro */
+.green-theme header,
+.green-theme footer {
+    background-color: var(--color-green-header-bg) !important;
 }
 
-/* Ajustes para o cabeçalho nos temas escuro e verde */
-.dark-theme header, .green-theme header {
-    background-color: #2d2d2d; /* Fundo cinza escuro */
+.green-theme .bg-gray-100, /* Usado no chatbot e playlist item */
+.green-theme .hover\:bg-gray-100:hover { 
+    background-color: var(--color-green-bg-hover);
+}
+
+.green-theme .bg-white, /* Usado em cartões/elementos principais */
+.green-theme .shadow-lg,
+.green-theme .shadow {
+    background-color: var(--color-green-card-bg) !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+}
+
+.green-theme .text-gray-700, /* Textos secundários */
+.green-theme .text-gray-500 {
+    color: var(--color-green-text-secondary) !important;
+}
+
+.green-theme .text-green-700 { /* Links e destaques */
+    color: var(--color-green-text) !important;
 }
 
 /* ===========================
@@ -77,115 +116,112 @@ body {
 
 /* Estilo do cabeçalho */
 header {
-    transition: var(--transition-default); /* Transição suave para mudanças no cabeçalho */
-    position: fixed; /* Fixa o cabeçalho no topo */
+    transition: var(--transition-default); 
+    position: fixed; 
     top: 0;
     left: 0;
     right: 0;
-    width: 100%; /* Largura total */
-    z-index: 1000; /* Garante que o cabeçalho fique acima de outros elementos */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para destacar o cabeçalho */
-    background-color: var(--color-light-bg); /* Fundo branco */
-}
-
-/* Estilo do cabeçalho no tema escuro */
-.dark-theme header {
-    background-color: var(--color-dark-bg); /* Fundo preto */
-}
-
-/* Estilo do cabeçalho no tema verde */
-.green-theme header {
-    background-color: var(--color-green-bg); /* Fundo verde escuro */
+    width: 100%; 
+    z-index: 1000; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+    background-color: var(--color-light-header-bg); 
 }
 
 /* Container do cabeçalho */
 header .container {
-    max-width: 1280px; /* Largura máxima do conteúdo */
-    margin: 0 auto; /* Centraliza o conteúdo */
-    padding: 0 1.5rem; /* Espaçamento lateral */
+    max-width: 1280px; 
+    margin: 0 auto; 
+    padding: 0 1.5rem; 
 }
 
 /* Cabeçalho fixo */
 header.fixed {
-    position: fixed; /* Fixa o cabeçalho no topo */
+    position: fixed; 
     top: 0;
     left: 0;
     right: 0;
-    width: 100%; /* Largura total */
-    z-index: 1000; /* Garante que o cabeçalho fique acima de outros elementos */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para destacar o cabeçalho */
+    width: 100%; 
+    z-index: 1000; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 /* Ajustes para o container do cabeçalho fixo */
 header.fixed .container {
-    width: 100%; /* Largura total */
-    max-width: 1280px; /* Largura máxima */
-    margin: 0 auto; /* Centraliza o conteúdo */
-    padding: 0 1.5rem; /* Espaçamento lateral */
+    width: 100%; 
+    max-width: 1280px; 
+    margin: 0 auto; 
+    padding: 0 1.5rem; 
 }
 
 /* ===========================
-   ## Galeria
+   ## Galeria / Carrossel
    =========================== */
 
-/* Estilo para a galeria de imagens */
+/* O estilo original de grid foi mantido, mas o JS o trata como carrossel */
 #gallery-container {
-    display: grid; /* Usa CSS Grid para layout */
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Ajusta o número de colunas automaticamente */
-    gap: 1rem; /* Espaçamento entre os itens */
-    max-width: 1000px; /* Largura máxima */
-    margin: auto; /* Centraliza a galeria */
-    padding-bottom: 60px; /* Espaço para a descrição */
+    /* Estilos de Carrossel (ajustados para a lógica do JS) */
+    display: flex; /* Altera para flexbox para o carrossel horizontal */
+    transition: transform 0.5s ease-in-out; /* Transição para o movimento */
+    width: 100%; /* O container que se move */
+    max-width: 1000px; 
+    margin: 0 auto; 
 }
 
-/* Estilo para itens da galeria */
-.gallery-item {
-    position: relative; /* Posicionamento relativo para elementos internos */
-    width: 100%; /* Largura total */
-    height: 100%; /* Altura total */
-    overflow: hidden; /* Esconde conteúdo que ultrapassa o limite */
-    border-radius: 8px; /* Bordas arredondadas */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra leve */
+.mySlides {
+    flex: 0 0 100%; /* Garante que cada slide ocupe exatamente 100% do container */
+    max-width: 100%;
+    /* Removendo estilos de 'display: grid' conflitantes se houver */
 }
 
 /* Estilo para imagens da galeria */
-.gallery-item img {
-    width: 100%; /* Largura total */
-    height: auto; /* Altura automática */
-    aspect-ratio: 16 / 9; /* Define proporção de 16:9 */
-    object-fit: cover; /* Ajusta a imagem para preencher o container */
-    transition: opacity 0.5s ease-in-out; /* Transição de opacidade */
+.mySlides img {
+    width: 100%; 
+    height: auto; 
+    aspect-ratio: 16 / 9; 
+    object-fit: cover; 
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilo para descrições das imagens */
+/* Estilo para descrições das imagens (se houver no HTML) */
 .gallery-item p {
-    position: absolute; /* Posicionamento absoluto */
-    bottom: -60px; /* Posiciona abaixo da imagem */
+    position: absolute; 
+    bottom: -60px; 
     left: 0;
     right: 0;
-    background-color: rgba(255, 255, 255, 0.9); /* Fundo branco semi-transparente */
-    padding: 10px; /* Espaçamento interno */
-    margin: 0; /* Remove margens */
+    background-color: rgba(255, 255, 255, 0.9); 
+    padding: 10px; 
+    margin: 0; 
 }
 
 /* ===========================
    ## Dots (Indicadores de Navegação)
    =========================== */
+.dots {
+    text-align: center;
+    padding: 10px 0;
+}
 
 /* Estilo para dots (indicadores de navegação) */
 .dot {
-    display: inline-block; /* Exibe como bloco inline */
-    width: 12px; /* Largura do dot */
-    height: 12px; /* Altura do dot */
-    margin: 0 5px; /* Espaçamento entre os dots */
-    border-radius: 50%; /* Formato circular */
-    background-color: #bbb; /* Cor padrão */
-    cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
+    display: inline-block; 
+    width: 12px; 
+    height: 12px; 
+    margin: 0 5px; 
+    border-radius: 50%; 
+    background-color: #bbb; 
+    cursor: pointer; 
+    transition: background-color 0.3s;
 }
 
 /* Estilo para o dot ativo */
 .dot.active {
-    background-color: #333; /* Cor do dot ativo */
+    background-color: var(--color-light-text); /* Cor verde no tema light */
+}
+
+.dark-theme .dot.active, 
+.green-theme .dot.active {
+    background-color: var(--color-dark-text); /* Verde claro nos temas escuros */
 }
 
 /* ===========================
@@ -202,7 +238,7 @@ header.fixed .container {
     width: 56px; 
     height: 56px;
     background-color: var(--color-light-text); /* Verde padrão */
-    color: transparent !important; /* MUITO IMPORTANTE: Esconde o ícone FA, se houver */
+    color: transparent !important; 
     border-radius: 50%;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     cursor: pointer;
@@ -210,7 +246,7 @@ header.fixed .container {
     
     /* CORREÇÃO: Configuração para usar a imagem SARCAIPB.png como ícone */
     background-image: url('/static/imgs/icons/SARCAIPB.png');
-    background-size: 70%; /* Ajusta o tamanho da imagem dentro do botão */
+    background-size: 70%; 
     background-repeat: no-repeat;
     background-position: center;
     /* Garante que o ícone FA não seja visível */
@@ -231,7 +267,7 @@ header.fixed .container {
 .dark-theme .sidebar-button-custom, 
 .green-theme .sidebar-button-custom {
     /* Cor de fundo para melhor contraste nos temas escuros */
-    background-color: #2d2d2d; 
+    background-color: var(--color-dark-header-bg); 
 }
 
 /* ===========================
@@ -241,12 +277,11 @@ header.fixed .container {
 /* Ajustes para telas menores */
 @media (max-width: 768px) {
     header .container {
-        padding: 0 1rem; /* Reduz o espaçamento lateral em telas menores */
+        padding: 0 1rem; 
     }
 
-    #gallery-container {
-        grid-template-columns: 1fr; /* Uma coluna em telas menores */
-    }
+    /* Removido o grid-template-columns para #gallery-container,
+       já que ele é um flexbox em nível de carrossel. */
 }
 
 /* ===========================
@@ -254,9 +289,9 @@ header.fixed .container {
    =========================== */
 
 #bible-content {
-    width: auto; /* Permite que o conteúdo ocupe a largura necessária */
-    max-width: none; /* Remove qualquer limite de largura */
-    margin: 0 auto; /* Centraliza o conteúdo */
-    padding: 1rem; /* Adiciona espaçamento interno */
-    box-sizing: border-box; /* Inclui padding e border no cálculo da largura */
+    width: auto; 
+    max-width: none; 
+    margin: 0 auto; 
+    padding: 1rem; 
+    box-sizing: border-box; 
 }
