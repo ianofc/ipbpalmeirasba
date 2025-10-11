@@ -86,17 +86,6 @@
             padding-bottom: 5rem;
             /* Altura do player (h-20 = 5rem) */
         }
-        
-        /* Força duas colunas no desktop e tenta balancear o conteúdo */
-        .md\:columns-2 {
-            column-count: 2;
-            column-fill: balance;
-            column-gap: 2rem;
-            -webkit-column-count: 2;
-            -moz-column-count: 2;
-            -webkit-column-fill: balance;
-            -moz-column-fill: balance;
-        }
     </style>
     <script>
         // Funções para a nova Barra Lateral
@@ -297,66 +286,70 @@
 
                     <h3 class="text-2xl font-bold mt-8 mb-4 border-b pb-2" data-translate="Mensagem do Pastor">Mensagem do Pastor</h3>
 
-                    <div class="space-y-6 text-justify md:columns-2 md:gap-8">
+                    <div class="flex flex-col md:flex-row md:space-x-8 text-justify">
 
-                        <p class="text-lg drop-cap" data-translate="Eu tinha 34 anos quando usei a palavra “crônica” na frente da palavra “dor” pela primeira vez. Eu disse isso em voz baixa, me perguntando se cinco anos de sofrimento eram tempo suficiente para merecer a frase. Quando essa porta de sofrimento se abriu diante de mim, eu não entendi que o caminho para crescer na fé poderia doer tanto">
-                            Eu tinha 34 anos quando usei a palavra “crônica” na frente da palavra “dor” pela primeira vez. Eu disse isso em voz baixa, me perguntando se cinco anos de sofrimento eram tempo suficiente para merecer a frase. Quando essa porta de sofrimento se abriu diante de mim, eu não entendi que o caminho para crescer na fé poderia doer tanto.
-                        </p>
+                        <div class="md:w-1/2 space-y-6">
+                            <p class="text-lg drop-cap" data-translate="Eu tinha 34 anos quando usei a palavra “crônica” na frente da palavra “dor” pela primeira vez. Eu disse isso em voz baixa, me perguntando se cinco anos de sofrimento eram tempo suficiente para merecer a frase. Quando essa porta de sofrimento se abriu diante de mim, eu não entendi que o caminho para crescer na fé poderia doer tanto">
+                                Eu tinha 34 anos quando usei a palavra “crônica” na frente da palavra “dor” pela primeira vez. Eu disse isso em voz baixa, me perguntando se cinco anos de sofrimento eram tempo suficiente para merecer a frase. Quando essa porta de sofrimento se abriu diante de mim, eu não entendi que o caminho para crescer na fé poderia doer tanto.
+                            </p>
 
-                        <p class="text-lg" data-translate="Na primeira carta do apóstolo Pedro, ele encoraja os crentes a perseverarem no sofrimento por seu efeito refinador da fé. Ele nos aponta para o peso da glória eterna que está por vir, tornando nossos sofrimentos menores do que parecem à primeira vista. Ele nos dá confiança para nos confiarmos a um Pai amoroso">
-                            Na primeira carta do apóstolo Pedro, ele encoraja os crentes a perseverarem no sofrimento por seu efeito refinador da fé. Ele nos aponta para o peso da glória eterna que está por vir, tornando nossos sofrimentos menores do que parecem à primeira vista. Ele nos dá confiança para nos confiarmos a um Pai amoroso.
-                        </p>
+                            <p class="text-lg" data-translate="Na primeira carta do apóstolo Pedro, ele encoraja os crentes a perseverarem no sofrimento por seu efeito refinador da fé. Ele nos aponta para o peso da glória eterna que está por vir, tornando nossos sofrimentos menores do que parecem à primeira vista. Ele nos dá confiança para nos confiarmos a um Pai amoroso">
+                                Na primeira carta do apóstolo Pedro, ele encoraja os crentes a perseverarem no sofrimento por seu efeito refinador da fé. Ele nos aponta para o peso da glória eterna que está por vir, tornando nossos sofrimentos menores do que parecem à primeira vista. Ele nos dá confiança para nos confiarmos a um Pai amoroso.
+                            </p>
+                            
+                            <p class="text-lg" data-translate="Pedro me faz contorcer, no entanto, quando leio que há lições que o cristão deve aprender no fogo refinador do sofrimento. “Vocês se alegram nisso, embora agora, por um curto período de tempo, tenham lutado em várias provações, para que a genuinidade da sua fé — mais valiosa do que o ouro que perece, embora refinado pelo fogo — possa resultar em louvor, glória e honra, na revelação de Jesus Cristo” (1 Pe 1:6–7 HCSB, ênfase adicionada)">
+                                Pedro me faz contorcer, no entanto, quando leio que há lições que o cristão deve aprender no fogo refinador do sofrimento. “Vocês se alegram nisso, embora agora, por um curto período de tempo, tenham lutado em várias provações, para que a genuinidade da sua fé — mais valiosa do que o ouro que perece, embora refinado pelo fogo — possa resultar em louvor, glória e honra, na revelação de Jesus Cristo” (1 Pe 1:6–7 HCSB, ênfase adicionada).
+                            </p>
+                        </div>
                         
-                        <p class="text-lg" data-translate="Pedro me faz contorcer, no entanto, quando leio que há lições que o cristão deve aprender no fogo refinador do sofrimento. “Vocês se alegram nisso, embora agora, por um curto período de tempo, tenham lutado em várias provações, para que a genuinidade da sua fé — mais valiosa do que o ouro que perece, embora refinado pelo fogo — possa resultar em louvor, glória e honra, na revelação de Jesus Cristo” (1 Pe 1:6–7 HCSB, ênfase adicionada)">
-                            Pedro me faz contorcer, no entanto, quando leio que há lições que o cristão deve aprender no fogo refinador do sofrimento. “Vocês se alegram nisso, embora agora, por um curto período de tempo, tenham lutado em várias provações, para que a genuinidade da sua fé — mais valiosa do que o ouro que perece, embora refinado pelo fogo — possa resultar em louvor, glória e honra, na revelação de Jesus Cristo” (1 Pe 1:6–7 HCSB, ênfase adicionada).
-                        </p>
+                        <div class="md:w-1/2 space-y-6">
+                            <h3 class="text-2xl font-bold mt-8 md:mt-0" data-translate="Quando Deus te chama para atravessar a porta do sofrimento">
+                                Quando Deus te chama para atravessar a porta do sofrimento
+                            </h3>
 
-                        <h3 class="text-2xl font-bold mt-8 break-before-column" data-translate="Quando Deus te chama para atravessar a porta do sofrimento">
-                            Quando Deus te chama para atravessar a porta do sofrimento
-                        </h3>
+                            <p class="text-lg" data-translate="Quando o próximo passo da santificação nos coloca diretamente na frente da porta do sofrimento — seja ele rotulado como 'câncer de mama' ou 'doença de Lyme', podemos responder de duas maneiras. Podemos desperdiçar a oportunidade de crescer em piedade nos tornando amargos, ou podemos cruzar o limiar confiantes de que o que recebemos da mão de Deus é para sua glória e nosso bem">
+                                Quando o próximo passo da santificação nos coloca diretamente na frente da porta do sofrimento — seja ele rotulado como "câncer de mama" ou "doença de Lyme", podemos responder de duas maneiras. Podemos desperdiçar a oportunidade de crescer em piedade nos tornando amargos, ou podemos cruzar o limiar confiantes de que o que recebemos da mão de Deus é para sua glória e nosso bem.
+                            </p>
+                            
+                            <p class="text-lg" data-translate="Se o sofrimento é a porta pela qual você deve passar, então anime-se nas maneiras pelas quais Deus o usará para o bem em sua vida">
+                                Se o sofrimento é a porta pela qual você deve passar, então anime-se nas maneiras pelas quais Deus o usará para o bem em sua vida.
+                            </p>
 
-                        <p class="text-lg" data-translate="Quando o próximo passo da santificação nos coloca diretamente na frente da porta do sofrimento — seja ele rotulado como 'câncer de mama' ou 'doença de Lyme', podemos responder de duas maneiras. Podemos desperdiçar a oportunidade de crescer em piedade nos tornando amargos, ou podemos cruzar o limiar confiantes de que o que recebemos da mão de Deus é para sua glória e nosso bem">
-                            Quando o próximo passo da santificação nos coloca diretamente na frente da porta do sofrimento — seja ele rotulado como "câncer de mama" ou "doença de Lyme", podemos responder de duas maneiras. Podemos desperdiçar a oportunidade de crescer em piedade nos tornando amargos, ou podemos cruzar o limiar confiantes de que o que recebemos da mão de Deus é para sua glória e nosso bem.
-                        </p>
-                        
-                        <p class="text-lg" data-translate="Se o sofrimento é a porta pela qual você deve passar, então anime-se nas maneiras pelas quais Deus o usará para o bem em sua vida">
-                            Se o sofrimento é a porta pela qual você deve passar, então anime-se nas maneiras pelas quais Deus o usará para o bem em sua vida.
-                        </p>
+                            <h3 class="text-2xl font-bold mt-8" data-translate="Fé Aumentada">Fé Aumentada</h3>
 
-                        <h3 class="text-2xl font-bold mt-8" data-translate="Fé Aumentada">Fé Aumentada</h3>
+                            <p class="text-lg" data-translate="Aprendemos a verdadeira natureza da nossa fé quando ela é preparada contra a dor, a tristeza ou a perseguição. Quando nossos corações estão sobrecarregados com a tristeza, ou quando nossos corpos são devastados pela doença, Deus pode garantir nossa confiança">
+                                Aprendemos a verdadeira natureza da nossa fé quando ela é preparada contra a dor, a tristeza ou a perseguição. Quando nossos corações estão sobrecarregados com a tristeza, ou quando nossos corpos são devastados pela doença, Deus pode garantir nossa confiança.
+                            </p>
 
-                        <p class="text-lg" data-translate="Aprendemos a verdadeira natureza da nossa fé quando ela é preparada contra a dor, a tristeza ou a perseguição. Quando nossos corações estão sobrecarregados com a tristeza, ou quando nossos corpos são devastados pela doença, Deus pode garantir nossa confiança">
-                            Aprendemos a verdadeira natureza da nossa fé quando ela é preparada contra a dor, a tristeza ou a perseguição. Quando nossos corações estão sobrecarregados com a tristeza, ou quando nossos corpos são devastados pela doença, Deus pode garantir nossa confiança.
-                        </p>
+                            <p class="text-lg" data-translate="Eu costumava temer que minha fé na bondade de Deus não fosse forte o suficiente para suportar anos de dor física, mas o sofrimento crônico queimou qualquer ilusão de que a salvação depende de mim. Nós perseveramos, e é Deus quem nos preserva. Nos piores momentos de dor, minha fé na bondade de Deus parecia tão frágil. Eu não conseguia pensar em fé de longo prazo, apenas no próximo passo à minha frente">
+                                Eu costumava temer que minha fé na bondade de Deus não fosse forte o suficiente para suportar anos de dor física, mas o sofrimento crônico queimou qualquer ilusão de que a salvação depende de mim. Nós perseveramos, e é Deus quem nos preserva. Nos piores momentos de dor, minha fé na bondade de Deus parecia tão frágil. Eu não conseguia pensar em fé de longo prazo, apenas no próximo passo à minha frente.
+                            </p>
 
-                        <p class="text-lg" data-translate="Eu costumava temer que minha fé na bondade de Deus não fosse forte o suficiente para suportar anos de dor física, mas o sofrimento crônico queimou qualquer ilusão de que a salvação depende de mim. Nós perseveramos, e é Deus quem nos preserva. Nos piores momentos de dor, minha fé na bondade de Deus parecia tão frágil. Eu não conseguia pensar em fé de longo prazo, apenas no próximo passo à minha frente">
-                            Eu costumava temer que minha fé na bondade de Deus não fosse forte o suficiente para suportar anos de dor física, mas o sofrimento crônico queimou qualquer ilusão de que a salvação depende de mim. Nós perseveramos, e é Deus quem nos preserva. Nos piores momentos de dor, minha fé na bondade de Deus parecia tão frágil. Eu não conseguia pensar em fé de longo prazo, apenas no próximo passo à minha frente.
-                        </p>
+                            <p class="text-lg" data-translate="Mas Deus usou os momentos de perseverança de respiração a respiração para me ensinar que era seguro confiar nele para o próximo passo. Ele pode não ter removido meu sofrimento quando eu queria, mas ele estava comigo no meio dele. Meu sofrimento revelou que foi Deus quem me guardou, protegendo meu coração pela eternidade (1 Pe 1:5–7)">
+                                Mas Deus usou os momentos de perseverança de respiração a respiração para me ensinar que era seguro confiar nele para o próximo passo. Ele pode não ter removido meu sofrimento quando eu queria, mas ele estava comigo no meio dele. Meu sofrimento revelou que foi Deus quem me guardou, protegendo meu coração pela eternidade (1 Pe 1:5–7).
+                            </p>
 
-                        <p class="text-lg" data-translate="Mas Deus usou os momentos de perseverança de respiração a respiração para me ensinar que era seguro confiar nele para o próximo passo. Ele pode não ter removido meu sofrimento quando eu queria, mas ele estava comigo no meio dele. Meu sofrimento revelou que foi Deus quem me guardou, protegendo meu coração pela eternidade (1 Pe 1:5–7)">
-                            Mas Deus usou os momentos de perseverança de respiração a respiração para me ensinar que era seguro confiar nele para o próximo passo. Ele pode não ter removido meu sofrimento quando eu queria, mas ele estava comigo no meio dele. Meu sofrimento revelou que foi Deus quem me guardou, protegendo meu coração pela eternidade (1 Pe 1:5–7).
-                        </p>
+                            <h3 class="text-2xl font-bold mt-8" data-translate="Apresentando Cristo">Apresentando Cristo</h3>
 
-                        <h3 class="text-2xl font-bold mt-8" data-translate="Apresentando Cristo">Apresentando Cristo</h3>
+                            <p class="text-lg" data-translate="Porque ele nos deu todas as bênçãos espirituais em Cristo, podemos trilhar o caminho do sofrimento sabendo que Cristo o percorreu primeiro e nos mostra como prosseguir (1 Pedro 2:21)">
+                                Porque ele nos deu todas as bênçãos espirituais em Cristo, podemos trilhar o caminho do sofrimento sabendo que Cristo o percorreu primeiro e nos mostra como prosseguir (1 Pedro 2:21).
+                            </p>
 
-                        <p class="text-lg" data-translate="Porque ele nos deu todas as bênçãos espirituais em Cristo, podemos trilhar o caminho do sofrimento sabendo que Cristo o percorreu primeiro e nos mostra como prosseguir (1 Pedro 2:21)">
-                            Porque ele nos deu todas as bênçãos espirituais em Cristo, podemos trilhar o caminho do sofrimento sabendo que Cristo o percorreu primeiro e nos mostra como prosseguir (1 Pedro 2:21).
-                        </p>
+                            <p class="text-lg" data-translate="Embora meus anos com dor crônica tenham sido os mais difíceis da minha vida, a obra fiel de Deus produziu o fruto da perseverança que me preparou para a próxima provação. Eu finalmente pude caminhar pela porta ao lado do sofrimento com a confiança de que a estrada além estava pavimentada com o cuidado de Deus. Se Deus ordenou uma porta de sofrimento para você atravessar, você pode confiar que ele investiu tanto na sua perseverança quanto na sua restauração (1 Pe 5:10). Você pode atravessar o limiar doloroso sabendo que a estrada além é incomparavelmente curta em vista da herança que foi comprada e guardada para você">
+                                Embora meus anos com dor crônica tenham sido os mais difíceis da minha vida, a obra fiel de Deus produziu o fruto da perseverança que me preparou para a próxima provação. Eu finalmente pude caminhar pela porta ao lado do sofrimento com a confiança de que a estrada além estava pavimentada com o cuidado de Deus. Se Deus ordenou uma porta de sofrimento para você atravessar, você pode confiar que ele investiu tanto na sua perseverança quanto na sua restauração (1 Pe 5:10). Você pode atravessar o limiar doloroso sabendo que a estrada além é incomparavelmente curta em vista da herança que foi comprada e guardada para você.
+                            </p>
 
-                        <p class="text-lg" data-translate="Embora meus anos com dor crônica tenham sido os mais difíceis da minha vida, a obra fiel de Deus produziu o fruto da perseverança que me preparou para a próxima provação. Eu finalmente pude caminhar pela porta ao lado do sofrimento com a confiança de que a estrada além estava pavimentada com o cuidado de Deus. Se Deus ordenou uma porta de sofrimento para você atravessar, você pode confiar que ele investiu tanto na sua perseverança quanto na sua restauração (1 Pe 5:10). Você pode atravessar o limiar doloroso sabendo que a estrada além é incomparavelmente curta em vista da herança que foi comprada e guardada para você">
-                            Embora meus anos com dor crônica tenham sido os mais difíceis da minha vida, a obra fiel de Deus produziu o fruto da perseverança que me preparou para a próxima provação. Eu finalmente pude caminhar pela porta ao lado do sofrimento com a confiança de que a estrada além estava pavimentada com o cuidado de Deus. Se Deus ordenou uma porta de sofrimento para você atravessar, você pode confiar que ele investiu tanto na sua perseverança quanto na sua restauração (1 Pe 5:10). Você pode atravessar o limiar doloroso sabendo que a estrada além é incomparavelmente curta em vista da herança que foi comprada e guardada para você.
-                        </p>
-
-                        <p class="text-lg" data-translate="Um pé na frente do outro, Christian. Você não sofre sem propósito, e você não sofre sozinho">
-                            Um pé na frente do outro, Christian. Você não sofre sem propósito, e você não sofre sozinho.
-                        </p>
-
-                        <div class="space-y-2 mt-8 break-before-column">
-                            <p class="text-sm font-semibold italic text-gray-600 dark:text-gray-400">
-                                *Glenna Marshall é esposa de pastor e mãe de dois filhos. Ela é autora de <em>The Promise Is His Presence</em>, <em>Everyday Faithfulness</em> e <em>Memorizing Scripture</em>. Ela escreve regularmente sobre alfabetização bíblica, sofrimento e a fidelidade de Deus em seu site. Ela é membro da Grace Bible Fellowship em Sikeston, Missouri.
+                            <p class="text-lg" data-translate="Um pé na frente do outro, Christian. Você não sofre sem propósito, e você não sofre sozinho">
+                                Um pé na frente do outro, Christian. Você não sofre sem propósito, e você não sofre sozinho.
                             </p>
                         </div>
                     </div>
+                    <div class="space-y-2 mt-8 border-t pt-4 border-gray-300 dark:border-gray-600">
+                        <p class="text-sm font-semibold italic text-gray-600 dark:text-gray-400">
+                            *Glenna Marshall é esposa de pastor e mãe de dois filhos. Ela é autora de <em>The Promise Is His Presence</em>, <em>Everyday Faithfulness</em> e <em>Memorizing Scripture</em>. Ela escreve regularmente sobre alfabetização bíblica, sofrimento e a fidelidade de Deus em seu site. Ela é membro da Grace Bible Fellowship em Sikeston, Missouri.
+                        </p>
+                    </div>
+
 
                     <div class="mt-12 pt-6 border-t border-gray-300 dark:border-gray-600">
                         <h3 class="text-3xl font-bold text-center mb-6" data-translate="Pedidos de Oração">Pedidos de Oração</h3>
