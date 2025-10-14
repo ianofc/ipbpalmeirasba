@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Downloads e recursos da Igreja Presbiteriana em Palmeiras, Bahia.">
+    <meta name="keywords" content="igreja presbiteriana, palmeiras, bahia, downloads, recursos, fotos">
+    <meta name="author" content="Ian S. A. Santos">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downloads - Igreja Presbiteriana em Palmeiras</title>
+    <meta http-equiv="Cache-Control" content="max-age=31536000">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/static/css/style.css"> 
+    
+    <link rel="manifest" href="/manifest.json">
+</head>
+
+<body class="light-theme">
+
+   <header id="header" class="fixed top-0 left-0 w-full h-16 shadow-md z-50 transition duration-300">
+    <div class="container mx-auto flex justify-between items-center h-full px-6">
+        <a href="/" title="Igreja Presbiteriana em Palmeiras">
+            <img alt="Logo da Igreja Presbiteriana em Palmeiras" class="h-full max-h-12" loading="lazy" src="/static/imgs/acs/logo_ipp.png" />
+        </a>
+
+        <nav class="hidden md:block">
+            <ul class="flex space-x-6 text-lg font-medium" id="main-nav">
+                <li><a class="hover:opacity-75 transition duration-300" href="/#hero" data-translate="Home">Home</a></li>
+                <li><a class="hover:opacity-75 transition duration-300" href="/#mensagem-pastor" data-translate="Editorial">Editorial</a></li>
+                <li><a class="hover:opacity-75 transition duration-300" href="/#organization-slider" data-translate="Organizações">Organizações</a></li>
+                <li><a class="hover:opacity-75 transition duration-300 active" href="/downloads.html" data-translate="Download">Download</a></li>
+                <li><a class="hover:opacity-75 transition duration-300" href="/history.html" data-translate="História">História</a></li>
+                <li><a class="hover:opacity-75 transition duration-300" href="/bible.html" data-translate="Bíblia">Bíblia</a></li>
+                <li><a class="hover:opacity-75 transition duration-300" href="/#conversa-pastor" data-translate="Contato">Contato</a></li>
+            </ul>
+        </nav>
+        </div>
+    </header>
+
+    <div id="mobileMenu" class="fixed top-16 left-0 w-full h-screen bg-white dark:bg-gray-800 z-40 p-6 hidden md:hidden shadow-lg">
+        <ul class="flex flex-col space-y-4 text-xl font-semibold">
+            <li><a class="hover:opacity-75 transition duration-300" href="/#hero" data-translate="Home">Home</a></li>
+            <li><a class="hover:opacity-75 transition duration-300" href="/#mensagem-pastor" data-translate="Editorial">Editorial</a></li>
+            <li><a class="hover:opacity-75 transition duration-300" href="/#organization-slider" data-translate="Organizações">Organizações</a></li>
+            <li><a class="hover:opacity-75 transition duration-300" href="/downloads.html" data-translate="Download">Download</a></li>
+            <li><a class="hover:opacity-75 transition duration-300" href="/history.html" data-translate="História">História</a></li>
+            <li><a class="hover:opacity-75 transition duration-300" href="/bible.html" data-translate="Bíblia">Bíblia</a></li>
+            <li><a class="hover:opacity-75 transition duration-300" href="/#conversa-pastor" data-translate="Contato">Contato</a></li>
+        </ul>
+        <div class="mt-8 pt-4 border-t border-gray-200 dark:border-gray-700 flex justify-around">
+            <button id="themeButtonMobile" class="text-3xl"><i class="fas fa-lightbulb"></i></button>
+            <button id="bibleButtonMobile" class="text-3xl"><i class="fas fa-bible"></i></button>
+            <button id="musicButtonMobile" class="text-3xl"><i class="fas fa-music"></i></button>
+        </div>
+    </div>
+
+    <aside class="floating-sidebar p-2 space-y-4 flex flex-col items-center">
+        </aside>
+
+    <div id="chatbotWindow" class="chatbot-sidebar-position w-80 h-96 bg-white dark:bg-gray-800 rounded-lg shadow-2xl z-50 flex flex-col hidden">
+        </div>
+
+    <main class="pt-16">
+        <section id="downloads-docs-section" class="py-16 bg-green-50 dark:bg-gray-900">
+            <div class="container mx-auto px-6">
+                <h1 class="text-4xl font-bold text-center mb-4 border-b-2 border-green-600 pb-4" data-translate="Documentos e Recursos">Documentos e Recursos</h1>
+                <p class="text-center text-lg max-w-3xl mx-auto mb-12 text-gray-700 dark:text-gray-300" data-translate="Encontre aqui materiais importantes como estudos bíblicos, catecismos e confissões de fé para seu crescimento espiritual.">
+                    Encontre aqui materiais importantes como estudos bíblicos, catecismos e confissões de fé para seu crescimento espiritual.
+                </p>
+                <div id="documents-list" class="max-w-3xl mx-auto space-y-4">
+                    <p class="text-center text-gray-500" data-translate="Carregando documentos...">Carregando documentos...</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="downloads-photos-section" class="py-16 bg-white dark:bg-gray-800">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-4 border-b-2 border-green-600 pb-4" data-translate="Galeria para Download">Galeria para Download</h2>
+                <p class="text-center text-lg max-w-3xl mx-auto mb-12 text-gray-700 dark:text-gray-300" data-translate="Reveja e baixe fotos de nossos cultos, eventos e momentos especiais em comunidade.">
+                    Reveja e baixe fotos de nossos cultos, eventos e momentos especiais em comunidade.
+                </p>
+                <div id="photos-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <p class="text-center text-gray-500 col-span-full" data-translate="Carregando fotos...">Carregando fotos...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <div id="musicPlayerBar" class="fixed bottom-0 left-0 w-full h-20 bg-gray-900 text-white shadow-2xl z-50 hidden">
+        </div>
+
+    <footer class="bg-green-700 text-white py-6">
+        <div class="container mx-auto px-6 text-center">
+            <p class="mb-2" data-translate="Visitantes:">Visitantes: <span id="visitor-count" class="font-bold">0</span></p>
+            <p data-translate="© 2025 Igreja Presbiteriana em Palmeiras-BA. Todos os direitos reservados.">
+                © 2025 Igreja Presbiteriana em Palmeiras-BA. Todos os direitos reservados.
+            </p>
+            <p data-translate="Administrador e Desenvolvido por Ian S. A. Santos" class="text-sm mt-1 opacity-75">
+                Administrado e Desenvolvido por Ian S. A. Santos
+            </p>
+        </div>
+    </footer>
+    
+    <script type="module" src="/static/js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const documentsList = document.getElementById('documents-list');
+            const photosList = document.getElementById('photos-list');
+
+            // Função para buscar e renderizar os documentos
+            async function fetchDocuments() {
+                try {
+                    const response = await fetch('/api/documents');
+                    if (!response.ok) throw new Error('Falha ao buscar documentos');
+                    const documents = await response.json();
+
+                    documentsList.innerHTML = ''; // Limpa a mensagem de "carregando"
+                    if (documents.length === 0) {
+                        documentsList.innerHTML = '<p class="text-center text-gray-500" data-translate="Nenhum documento encontrado.">Nenhum documento encontrado.</p>';
+                        return;
+                    }
+
+                    documents.forEach(doc => {
+                        const docElement = `
+                            <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <i class="fas fa-file-alt text-2xl text-green-600 mr-4"></i>
+                                    <span class="font-semibold text-gray-800 dark:text-gray-200">${doc.name}</span>
+                                </div>
+                                <a href="${doc.path}" download target="_blank" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 flex items-center">
+                                    <i class="fas fa-download mr-2"></i>
+                                    <span data-translate="Baixar">Baixar</span>
+                                </a>
+                            </div>
+                        `;
+                        documentsList.innerHTML += docElement;
+                    });
+                } catch (error) {
+                    console.error('Erro:', error);
+                    documentsList.innerHTML = '<p class="text-center text-red-500" data-translate="Erro ao carregar os documentos.">Erro ao carregar os documentos.</p>';
+                }
+            }
+
+            // Função para buscar e renderizar as fotos
+            async function fetchPhotos() {
+                try {
+                    const response = await fetch('/api/photos');
+                    if (!response.ok) throw new Error('Falha ao buscar fotos');
+                    const photos = await response.json();
+
+                    photosList.innerHTML = ''; // Limpa a mensagem de "carregando"
+                    if (photos.length === 0) {
+                        photosList.innerHTML = '<p class="text-center text-gray-500 col-span-full" data-translate="Nenhuma foto encontrada.">Nenhuma foto encontrada.</p>';
+                        return;
+                    }
+
+                    photos.forEach(photo => {
+                        const photoElement = `
+                            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden group transform hover:scale-105 transition-transform duration-300">
+                                <img src="${photo.url}" alt="${photo.description}" class="w-full h-48 object-cover">
+                                <div class="p-4">
+                                    <p class="text-sm text-gray-600 dark:text-gray-300 truncate">${photo.description}</p>
+                                    <a href="${photo.url}" download target="_blank" class="mt-2 w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 flex items-center justify-center">
+                                        <i class="fas fa-download mr-2"></i>
+                                        <span data-translate="Baixar">Baixar</span>
+                                    </a>
+                                </div>
+                            </div>
+                        `;
+                        photosList.innerHTML += photoElement;
+                    });
+                } catch (error) {
+                    console.error('Erro:', error);
+                    photosList.innerHTML = '<p class="text-center text-red-500 col-span-full" data-translate="Erro ao carregar as fotos.">Erro ao carregar as fotos.</p>';
+                }
+            }
+
+            // Inicia as buscas
+            fetchDocuments();
+            fetchPhotos();
+        });
+
+        // Registrar o Service Worker (PWA)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => console.log('ServiceWorker registrado com sucesso:', registration.scope))
+                    .catch(error => console.log('Falha no registro do ServiceWorker:', error));
+            });
+        }
+    </script>
+</body>
+
+</html>

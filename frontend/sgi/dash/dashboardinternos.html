@@ -1,0 +1,340 @@
+<html class="scroll-smooth" lang="pt-BR">
+ <head>
+  <!-- Metadados básicos -->
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>Peniel Social - Dashboard de Relatórios</title>
+  <!-- Importação de bibliotecas externas -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ </head>
+ <body class="bg-gray-100 min-h-screen flex flex-col text-black">
+  <!-- Navbar -->
+  <nav class="bg-white shadow-md border-b border-gray-300">
+    <!-- Container principal da barra de navegação -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="flex justify-between h-16 items-center relative">
+      <!-- Logotipo e título -->
+      <div class="flex items-center space-x-3">
+       <img
+        alt="Logo da Peniel, símbolo dourado estilizado com fundo branco"
+        class="h-10 w-10 rounded-full"
+        height="40"
+        src="https://storage.googleapis.com/a1aa/image/34d4e407-1218-4948-0478-f3dcb7d95fcd.jpg"
+        width="40"
+       />
+       <span class="font-semibold text-xl" style="color: var(--color-gold)"
+        >Peniel Social+</span
+       >
+      </div>
+      <!-- Links de navegação para desktop com submenus -->
+      <div class="hidden md:flex space-x-6 items-center relative">
+       <!-- Cadastro -->
+       <div class="relative group">
+        <button
+         class="text-gray-700 hover:text-[var(--color-gold)] font-semibold transition focus:outline-none flex items-center space-x-1"
+         id="btnCadastro"
+         aria-haspopup="true"
+         aria-expanded="false"
+        >
+         <span>Cadastro</span>
+         <i class="fas fa-chevron-down text-sm"></i>
+        </button>
+        <div
+         class="absolute left-0 mt-2 w-40 bg-white border border-gray-300 rounded-md shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity z-30"
+         role="menu"
+         aria-label="Submenu Cadastro"
+        >
+         <a
+          href="cadinternos.html"
+          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+          role="menuitem"
+          >Cadastro de Internos</a
+         >
+         <a
+          href="cadvoluntarios.html"
+          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+          role="menuitem"
+          >Cadastro de Voluntários</a
+         >
+         <a
+          href="cadobreiros.html"
+          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+          role="menuitem"
+          >Cadastro de Obreiros</a
+         >
+        </div>
+       </div>
+       <!-- Pesquisa -->
+       <div class="relative group">
+        <button
+         class="text-gray-700 hover:text-[var(--color-gold)] font-semibold transition focus:outline-none flex items-center space-x-1"
+         id="btnPesquisa"
+         aria-haspopup="true"
+         aria-expanded="false"
+        >
+         <span>Pesquisa</span>
+         <i class="fas fa-chevron-down text-sm"></i>
+        </button>
+        <div
+         class="absolute left-0 mt-2 w-40 bg-white border border-gray-300 rounded-md shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity z-30"
+         role="menu"
+         aria-label="Submenu Pesquisa"
+        >
+         <a
+          href="pesqinternos.html"
+          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+          role="menuitem"
+          >Pesquisa de Internos</a
+         >
+         <a
+          href="pesqvoluntarios.html"
+          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+          role="menuitem"
+          >Pesquisa de Voluntários</a
+         >
+        </div>
+       </div>
+       <!-- Relatórios -->
+       <div class="relative group">
+        <button
+         class="text-[var(--color-gold)] font-semibold transition focus:outline-none flex items-center space-x-1"
+         id="btnRelatorios"
+         aria-haspopup="true"
+         aria-expanded="false"
+        >
+         <span>Relatórios</span>
+         <i class="fas fa-chevron-down text-sm"></i>
+        </button>
+        <div
+         class="absolute left-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity z-30"
+         role="menu"
+         aria-label="Submenu Relatórios"
+        >
+         <a
+          href="dashboardinternos.html"
+          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+          role="menuitem"
+          >Relatórios de Internos</a
+         >
+         <a
+          href="dashboardmembros.html"
+          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+          role="menuitem"
+          >Relatórios de Membros</a
+         >
+         <a
+          href="dashboardministerio.html"
+          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+          role="menuitem"
+          >Relatórios de Ministério</a
+         >
+         <a
+          href="dashboardmissao.html"
+          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+          role="menuitem"
+          >Relatórios de Missões</a
+         >
+        </div>
+       </div>
+      </div>
+      <!-- Perfil -->
+      <div class="flex items-center space-x-4">
+       <!-- Menu suspenso do perfil -->
+       <div class="relative group">
+        <button
+         aria-label="Perfil do usuário"
+         class="flex items-center space-x-2 focus:outline-none"
+         id="user-menu-button"
+        >
+         <img
+          alt="Foto do usuário, rosto sorridente de pessoa jovem com fundo cinza claro"
+          class="rounded-full border-2 border-[var(--color-gold)]"
+          height="32"
+          src="https://storage.googleapis.com/a1aa/image/43fd7a15-3d17-458f-ee09-2793942a0a7c.jpg"
+          width="32"
+         />
+         <span class="font-semibold text-gray-800">João Silva</span>
+         <i class="fas fa-chevron-down text-gray-500"></i>
+        </button>
+        <div
+         class="absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded-md shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity z-20"
+         id="user-menu"
+        >
+         <a
+          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+          href="perfil.html"
+          >Perfil</a
+         >
+         <a
+          class="block px-4 py-2 text-red-600 hover:bg-red-50 font-semibold"
+          href="#sair"
+          >Sair</a
+         >
+        </div>
+       </div>
+      </div>
+      <!-- Botão de menu para dispositivos móveis -->
+      <div class="md:hidden">
+       <button
+        aria-label="Abrir menu"
+        class="text-gray-700 hover:text-[var(--color-gold)] focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)] rounded"
+        id="mobile-menu-button"
+       >
+        <i class="fas fa-bars fa-lg"></i>
+       </button>
+      </div>
+     </div>
+    </div>
+    <!-- Menu suspenso para dispositivos móveis -->
+    <div class="hidden md:hidden bg-white border-t border-gray-300" id="mobile-menu">
+     <details class="group border-b border-gray-200">
+      <summary
+       class="px-4 py-3 cursor-pointer select-none text-gray-800 font-semibold hover:bg-[var(--color-gold)] hover:text-white"
+      >
+       Cadastro
+       <i
+        class="fas fa-chevron-down float-right mt-1 text-gray-600 group-open:rotate-180 transition-transform"
+       ></i>
+      </summary>
+      <div class="pl-6 pb-3 space-y-1">
+       <a
+        href="cadinternos.html"
+        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
+        >Cadastro de Internos</a
+       >
+       <a
+        href="cadvoluntarios.html"
+        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
+        >Cadastro de Voluntários</a
+       >
+       <a
+        href="cadobreiros.html"
+        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
+        >Cadastro de Obreiros</a
+       >
+      </div>
+     </details>
+     <details class="group border-b border-gray-200">
+      <summary
+       class="px-4 py-3 cursor-pointer select-none text-gray-800 font-semibold hover:bg-[var(--color-gold)] hover:text-white"
+      >
+       Pesquisa
+       <i
+        class="fas fa-chevron-down float-right mt-1 text-gray-600 group-open:rotate-180 transition-transform"
+       ></i>
+      </summary>
+      <div class="pl-6 pb-3 space-y-1">
+       <a
+        href="pesqinternos.html"
+        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
+        >Pesquisa de Internos</a
+       >
+       <a
+        href="pesqvoluntarios.html"
+        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
+        >Pesquisa de Voluntários</a
+       >
+      </div>
+     </details>
+     <details class="group border-b border-gray-200">
+      <summary
+       class="px-4 py-3 cursor-pointer select-none text-[var(--color-gold)] font-semibold hover:bg-[var(--color-gold)] hover:text-white"
+      >
+       Relatórios
+       <i
+        class="fas fa-chevron-down float-right mt-1 text-gray-600 group-open:rotate-180 transition-transform"
+       ></i>
+      </summary>
+      <div class="pl-6 pb-3 space-y-1">
+       <a
+        href="dashboardinternos.html"
+        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
+        >Relatórios de Internos</a
+       >
+       <a
+        href="dashboardmembros.html"
+        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
+        >Relatórios de Membros</a
+       >
+       <a
+        href="dashboardministerio.html"
+        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
+        >Relatórios de Ministério</a
+       >
+       <a
+        href="dashboardmissao.html"
+        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
+        >Relatórios de Missões</a
+       >
+      </div>
+     </details>
+     <a
+      class="block px-4 py-3 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+      href="perfil.html"
+      >Perfil</a
+     >
+     <a
+      class="block px-4 py-3 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+      href="#configuracoes"
+      >Configurações</a
+     >
+     <a
+      class="block px-4 py-3 text-red-600 font-semibold hover:bg-red-50"
+      href="#sair"
+      >Sair</a
+     >
+    </div>
+   </nav>
+  <!-- Conteúdo principal -->
+  <main class="flex-grow w-full px-4 sm:px-6 lg:px-8 py-6 max-w-7xl mx-auto">
+   <h1 class="text-3xl font-semibold text-[var(--color-black)] mb-8 text-center">Dashboard de Relatórios</h1>
+   <!-- Seção de gráficos -->
+   <section aria-label="Gráficos de distribuição" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <!-- Gráfico de gênero -->
+    <div class="bg-white rounded-lg shadow p-6">
+     <h3 class="text-xl font-semibold mb-4 text-[var(--color-gold)]">Distribuição por Gênero</h3>
+     <canvas aria-label="Gráfico de pizza mostrando a distribuição por gênero" height="300" id="chartGenero" role="img"></canvas>
+    </div>
+    <!-- Gráfico de estado civil -->
+    <div class="bg-white rounded-lg shadow p-6">
+     <h3 class="text-xl font-semibold mb-4 text-[var(--color-gold)]">Distribuição por Estado Civil</h3>
+     <canvas aria-label="Gráfico de pizza mostrando a distribuição por estado civil" height="300" id="chartEstadoCivil" role="img"></canvas>
+    </div>
+    <!-- Gráfico de escolaridade -->
+    <div class="bg-white rounded-lg shadow p-6">
+     <h3 class="text-xl font-semibold mb-4 text-[var(--color-gold)]">Distribuição por Escolaridade</h3>
+     <canvas aria-label="Gráfico de barras mostrando a distribuição por escolaridade" height="300" id="chartEscolaridade" role="img"></canvas>
+    </div>
+    <!-- Gráfico de histórico de internação -->
+    <div class="bg-white rounded-lg shadow p-6">
+     <h3 class="text-xl font-semibold mb-4 text-[var(--color-gold)]">Histórico de Internação</h3>
+     <canvas aria-label="Gráfico de barras mostrando histórico de internação" height="300" id="chartHistoricoInternacao" role="img"></canvas>
+    </div>
+    <!-- Gráfico de tipo de tratamento -->
+    <div class="bg-white rounded-lg shadow p-6">
+     <h3 class="text-xl font-semibold mb-4 text-[var(--color-gold)]">Tipo de Tratamento</h3>
+     <canvas aria-label="Gráfico de barras mostrando tipos de tratamento" height="300" id="chartTipoTratamento" role="img"></canvas>
+    </div>
+    <!-- Gráfico de tipo de doença -->
+    <div class="bg-white rounded-lg shadow p-6">
+     <h3 class="text-xl font-semibold mb-4 text-[var(--color-gold)]">Tipo de Doença</h3>
+     <canvas aria-label="Gráfico de barras mostrando tipos de doença" height="300" id="chartTipoDoenca" role="img"></canvas>
+    </div>
+    <!-- Gráfico de cidade de origem -->
+    <div class="bg-white rounded-lg shadow p-6">
+     <h3 class="text-xl font-semibold mb-4 text-[var(--color-gold)]">Cidade de Origem</h3>
+     <canvas aria-label="Gráfico de barras mostrando cidades de origem" height="300" id="chartCidadeOrigem" role="img"></canvas>
+    </div>
+    <!-- Gráfico de internamentos por data -->
+    <div class="bg-white rounded-lg shadow p-6 col-span-full">
+     <h3 class="text-xl font-semibold mb-4 text-[var(--color-gold)]">Internamentos por Data</h3>
+     <canvas aria-label="Gráfico de linha mostrando internamentos por data" height="300" id="chartDataInternamento" role="img"></canvas>
+    </div>
+   </section>
+  </main>
+  <script src="frontend/src/js/script.js"></script>
+ </body>
+</html>

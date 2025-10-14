@@ -1,0 +1,408 @@
+/* ===========================
+   ## Variáveis Globais
+   =========================== */
+
+/* Definição de variáveis CSS para facilitar a manutenção */
+:root {
+    /* Cores */
+    --color-primary: #15803d; /* Verde Principal (Textos Light) */
+    --color-secondary: #047857; /* Um tom de verde escuro */
+    --color-accent: #4ade80; /* Verde Claro (Textos Dark) */
+    --color-light-bg: #ffffff;
+    --color-dark-bg: #1a1a1a;
+    --color-green-bg: #f0fdf4; /* Fundo Light Green */
+    --color-nav-light: #ffffff;
+    --color-nav-dark: #2d2d2d;
+    
+    /* Cores de Tema */
+    --color-gray-dark: #111827;
+    --color-gray-medium: #1f2937;
+    --color-gray-light: #9ca3af;
+
+    /* NOVO: Destaque Navbar (Fundo/Texto do link ativo) */
+    --color-active-bg-light: #15803d; /* Verde Principal (Tema Claro/Fundo Hero) */
+    --color-active-bg-dark: #047857; /* Verde Escuro (Temas Dark/Green) */
+    --color-active-text: #ffffff; /* Texto Branco para todos os destaques */
+    
+    /* Transições */
+    --transition-default: all 0.3s ease;
+}
+
+/* ===========================
+   ## Estilos Base e Temas
+   =========================== */
+
+body {
+    font-family: 'Roboto', sans-serif;
+    transition: var(--transition-default);
+    /* Ajusta o padding superior e o padding inferior (controlado pelo JS) */
+    padding-top: 4rem; /* h-16 (4rem) do header */
+    padding-bottom: 0;
+}
+
+/* Tema Claro (Padrão) */
+.light-theme {
+    background-color: var(--color-light-bg);
+    color: #374151; /* Cor de texto padrão */
+}
+
+/* Tema Escuro */
+.dark-theme {
+    background-color: var(--color-gray-dark);
+    color: #f3f4f6;
+}
+
+.dark-theme .bg-white {
+    background-color: var(--color-gray-medium);
+}
+
+.dark-theme .text-gray-700 {
+    color: #d1d5db;
+}
+
+/* Estilo para a Letra Drop Cap (Jornalístico) */
+.drop-cap:first-letter {
+    font-size: 3em;
+    line-height: 0.8;
+    float: left;
+    margin-right: 0.1em;
+    font-weight: bold;
+    color: var(--color-primary);
+}
+
+/* Tema Green  */
+.green-theme {
+    background-color: var(--color-green-bg); /* Fundo Claro Verde */
+    color: #1a2a1a; 
+}
+
+.dark-theme .floating-sidebar button {
+    background-color: transparent !important; /* Já está lá, mas reforçar não custa */
+}  N 
+
+.green-theme #header {
+    background-color: var(--color-primary); /* Verde Principal */
+    color: white;
+}
+
+.green-theme #header a {
+    color: white;
+}
+
+.green-theme #main-nav li a.active {
+    background-color: var(--color-secondary); /* Verde Escuro */
+    color: var(--color-active-text);
+}
+
+.green-theme .floating-sidebar {
+   background-color: transparent !important; 
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.green-theme .floating-sidebar button {
+    background-color: transparent;
+}
+
+/* Sobrescreve cores escuras para o tema green */
+.green-theme .bg-green-50, .green-theme .dark:bg-gray-900 {
+    background-color: #e6ffec !important; /* Um verde mais claro para seções */
+}
+.green-theme .text-green-700, .green-theme .dark:text-green-400 {
+    color: var(--color-primary) !important;
+}
+
+/* ===========================
+   ## Header e Navegação
+   =========================== */
+
+#header {
+    background-color: var(--color-nav-light);
+}
+
+.dark-theme #header {
+    background-color: var(--color-nav-dark);
+}
+
+/* Estilo para link ativo na navegação desktop (Pode ser aplicado via JS) */
+#main-nav li a.active {
+    background-color: var(--color-active-bg-light);
+    color: var(--color-active-text);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    transition: var(--transition-default);
+}
+
+.dark-theme #main-nav li a.active {
+    background-color: var(--color-active-bg-dark);
+}
+
+/* Efeito de transição para links não ativos */
+#main-nav li a:not(.active):hover {
+    color: var(--color-primary);
+}
+
+.dark-theme #main-nav li a:not(.active):hover {
+    color: var(--color-accent);
+}
+
+/* Estilo para o Menu Mobile */
+#mobileMenu a {
+    display: block;
+    padding: 0.5rem 0;
+}
+
+
+/* ===========================
+   ## Barra Lateral Flutuante (CORRIGIDA)
+   =========================== */
+
+.floating-sidebar {
+    /* Posicionamento Fixo */
+    position: fixed; 
+    top: 50%; /* Começa no meio verticalmente */
+    left: 0; /* Fica fixo no canto esquerdo */
+    transform: translateY(-50%); /* Move para cima 50% de sua própria altura para centralizar verticalmente */
+    background-color: transparent !important; 
+    padding: 0.25rem;
+    width: auto;
+    height: auto;
+    
+    /* Aparência */
+    z-index: 1000; /* Garante que fique acima de outros elementos */
+    background-color: var(--color-nav-light); /* Cor de fundo clara */
+    border-radius: 0 10px 10px 0; /* Cantos arredondados à direita */
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+    padding: 0.5rem; /* REDUZIDO (Era 0.75rem) */
+    
+    /* Configuração Dark Mode */
+    transition: var(--transition-default);
+}
+
+/* Ajustes de Tema para a Sidebar */
+.dark-theme .floating-sidebar {
+    background-color: var(--color-gray-medium);
+    box-shadow: 2px 0 10px rgba(255, 255, 255, 0.1);
+}
+
+/* Tamanho Padrão para os Ícones */
+.sidebar-icon-size {
+    width: 24px; /* REDUZIDO (Era 32px) */
+    height: 24px; /* REDUZIDO (Era 32px) */
+}
+
+/* REDUÇÃO DE ESPAÇAMENTO: Sobrescreve o space-y-4 do HTML (aproximadamente 1rem/16px) */
+.floating-sidebar > * {
+    margin-top: 0.5rem !important; /* REDUZIDO para 8px */
+    margin-bottom: 0.5rem !important;
+}
+
+/* O primeiro e o último elemento não precisam de margem extra */
+.floating-sidebar > *:first-child {
+    margin-top: 0 !important;
+}
+.floating-sidebar > *:last-child {
+    margin-bottom: 0 !important;
+}
+
+.floating-sidebar button {
+    /* Fundo dos botões (para não aparecer branco no dark mode) */
+    background-color: transparent; 
+    padding: 0.25rem; /* Adiciona um pequeno padding interno para o clique */
+    width: auto;
+    height: auto;
+}
+
+/* Estilo para os menus suspensos (accessibility/translation) */
+#accessibility-menu, #translation-menu {
+    z-index: 1010; /* Acima da sidebar */
+}
+
+/* Media Query: Oculta em telas menores */
+@media (max-width: 768px) {
+    .floating-sidebar {
+        display: none; 
+    }
+}
+
+
+/* ===========================
+   ## Player de Música
+   =========================== */
+
+#musicPlayerBar {
+    /* Estilos base (Tailwind já faz o fixed bottom-0) */
+    transition: transform 0.3s ease-out;
+}
+
+/* Classe para ocultar o player */
+.player-hidden {
+    transform: translateY(100%);
+}
+
+/* ===========================
+   ## Chatbot
+   =========================== */
+
+#chatbotWindow {
+    /* Estilos base (Tailwind já faz o fixed bottom-24 right-6) */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Estilos de mensagem do Chatbot */
+.chat-message {
+    padding: 8px 12px;
+    border-radius: 15px;
+    max-width: 80%;
+}
+
+.user-message {
+    background-color: #d1fae5; /* Verde claro */
+    align-self: flex-end;
+    margin-left: auto;
+    text-align: right;
+}
+
+.bot-message {
+    background-color: #f3f4f6; /* Cinza claro */
+    align-self: flex-start;
+    text-align: left;
+    white-space: pre-wrap; /* Garante que \n funcione */
+}
+
+.dark-theme .user-message {
+    background-color: var(--color-secondary);
+    color: white;
+}
+
+.dark-theme .bot-message {
+    background-color: #374151;
+    color: #f3f4f6;
+}
+
+.chatbot-sidebar-position {
+    position: fixed;
+    top: 50%; /* Alinha com o centro da tela como a sidebar */
+    left: 70px; /* Desloca para a direita da sidebar (que tem ~40-50px de largura) */
+    transform: translateY(-50%); /* Centraliza verticalmente */
+    
+    /* Z-Index para ficar acima da página, mas abaixo dos menus flutuantes */
+    z-index: 1005; 
+}
+/* ===========================
+   ## Slider de Organizações (Custom Arrows/Dots)
+   =========================== */
+
+/* O slider é manipulado majoritariamente pelo JS/Tailwind,
+   mas estas classes customizam os controles */
+
+/* Botões Anterior/Próximo (Slider) */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
+}
+
+/* Posição do botão \"Próximo\" */
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* Hover nos botões de Próximo/Anterior */
+.prev:hover, .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Contêiner dos dots (Indicadores de Navegação) */
+.dots {
+    text-align: center; 
+    padding: 10px; /* Espaçamento interno */
+    margin: 0; /* Remove margens */
+}
+
+/* Estilo para dots (indicadores de navegação) */
+.dot {
+    display: inline-block; /* Exibe como bloco inline */
+    width: 12px; /* Largura do dot */
+    height: 12px; /* Altura do dot */
+    margin: 0 5px; /* Espaçamento entre os dots */
+    border-radius: 50%; /* Formato circular */
+    background-color: #bbb; /* Cor padrão */
+    cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
+}
+
+/* Estilo para o dot ativo */
+.dot.active {
+    background-color: #333; /* Cor do dot ativo */
+}
+
+/* ===========================
+   ## Conteúdo da Bíblia
+   =========================== */
+
+#bible-content {
+    /* Opcional: Estilos para o visualizador da Bíblia */
+    white-space: pre-wrap;
+    text-align: left;
+}
+
+/* ===========================
+   ## Responsividade
+   =========================== */
+
+/* Ajuste para telas menores: Diminuir o tamanho do texto em geral */
+@media (max-width: 640px) {
+    h2 {
+        font-size: 2rem;
+    }
+    .text-xl {
+        font-size: 1.125rem;
+    }
+}
+
+/* 1. Alto Contraste */
+.high-contrast {
+    background-color: black !important;
+    color: yellow !important;
+}
+
+.high-contrast a, .high-contrast button, .high-contrast .text-green-700 {
+    color: white !important;
+    background-color: black !important;
+}
+
+.high-contrast .shadow-md, .high-contrast .shadow-lg, .high-contrast .shadow-xl {
+    box-shadow: 0 0 5px yellow !important;
+    border-color: yellow !important;
+}
+
+/* 2. Fonte Dislexia (Precisa de fallback seguro) */
+.dyslexia-font {
+    /* OpenDyslexic não está no CDN, usando fallback que melhora a legibilidade */
+    font-family: "Comic Sans MS", "OpenDyslexic", sans-serif !important;
+}
+
+/* 3. Destacar Links */
+.highlight-links a:not(.btn):not(button) {
+    border-bottom: 3px solid #ff00ff !important; /* Fúcsia de alto contraste */
+    background-color: yellow !important; 
+    padding: 2px;
+    color: black !important;
+}
+
+/* 4. Leitor de Tela (Semântica) */
+.screen-reader-on * {
+    /* Estilo de foco e semântica para o leitor de tela (navegador faz a leitura) */
+}
+
+

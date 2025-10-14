@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Igreja Presbiteriana em Palmeiras, Bahia.">
+    <meta name="keywords" content="igreja presbiteriana, palmeiras, bahia">
+    <meta name="author" content="Ian S. A. Santos">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Igreja Presbiteriana em Palmeiras</title>
+    <meta http-equiv="Cache-Control" content="max-age=31536000">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/static/css/style.css"> 
+    
+    <link rel="manifest" href="/manifest.json">
+</head>
+
+<body class="light-theme">
+
+    <header id="header" class="fixed top-0 left-0 w-full h-16 shadow-md z-50 transition duration-300">
+        <div class="container mx-auto flex justify-between items-center h-full px-6">
+            <a href="/" title="Igreja Presbiteriana em Palmeiras">
+                <img alt="Logo da Igreja Presbiteriana em Palmeiras" class="h-full max-h-12" loading="lazy" src="static/imgs/acs/logo_ipp.png" />
+            </a>
+
+            <nav class="hidden md:block">
+                <ul class="flex space-x-6 text-lg font-medium" id="main-nav">
+                    <li><a class="hover:opacity-75 transition duration-300" href="/#hero" data-translate="Home">Home</a></li>
+                    <li><a class="hover:opacity-75 transition duration-300" href="/#mensagem-pastor" data-translate="Editorial">Editorial</a></li>
+                    <li><a class="hover:opacity-75 transition duration-300" href="/#organization-slider" data-translate="Organizações">Organizações</a></li>
+                    <li><a class="hover:opacity-75 transition duration-300" href="/downloads.html" data-translate="Download">Download</a></li>
+                    <li><a class="hover:opacity-75 transition duration-300" href="/history.html" data-translate="História">História</a></li>
+                    <li><a class="hover:opacity-75 transition duration-300" href="/bible.html" data-translate="Bíblia">Bíblia</a></li>
+                    <li><a class="hover:opacity-75 transition duration-300" href="/#conversa-pastor" data-translate="Contato">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div id="mobileMenu" class="fixed top-16 left-0 w-full h-screen bg-white dark:bg-gray-800 z-40 p-6 hidden md:hidden shadow-lg">
+        <ul class="flex flex-col space-y-4 text-xl font-semibold">
+            <li><a class="hover:opacity-75 transition duration-300" href="/#hero" data-translate="Home">Home</a></li>
+            <li><a class="hover:opacity-75 transition duration-300" href="/#mensagem-pastor" data-translate="Editorial">Editorial</a></li>
+            <li><a class="hover:opacity-75 transition duration-300" href="/#organization-slider" data-translate="Organizações">Organizações</a></li>
+            <li><a class="hover:opacity-75 transition duration-300" href="/downloads.html" data-translate="Download">Download</a></li>
+            <li><a class="hover:opacity-75 transition duration-300" href="/history.html" data-translate="História">História</a></li>
+            <li><a class="hover:opacity-75 transition duration-300" href="/bible.html" data-translate="Bíblia">Bíblia</a></li>
+            <li><a class="hover:opacity-75 transition duration-300" href="/#conversa-pastor" data-translate="Contato">Contato</a></li>
+        </ul>
+        <div class="mt-8 pt-4 border-t border-gray-200 dark:border-gray-700 flex justify-around">
+            <button id="themeButtonMobile" class="text-3xl"><i class="fas fa-lightbulb"></i></button>
+            <button id="bibleButtonMobile" class="text-3xl"><i class="fas fa-bible"></i></button>
+            <button id="musicButtonMobile" class="text-3xl"><i class="fas fa-music"></i></button>
+        </div>
+    </div>
+
+    <aside class="floating-sidebar p-2 space-y-4 flex flex-col items-center">
+
+        <button id="themeButton" onclick="toggleTheme()" title="Trocar Tema" class="p-2 rounded-full hover:opacity-75 transition duration-300">
+            <img src="static/imgs/icons/PINCEL.png" alt="Ícone de Tema (PINCEL)" class="sidebar-icon-size">
+        </button>
+
+        <div class="relative">
+            <button title="Acessibilidade" class="p-2 rounded-full hover:opacity-75 transition duration-300" onclick="toggleAccessibilityMenu()">
+                <img src="static/imgs/icons/ACESSIBILIDADE.png" alt="Ícone de Acessibilidade (ACESSIBILIDADE)" class="sidebar-icon-size">
+            </button>
+            <div id="accessibility-menu" class="hidden absolute left-full top-0 w-52 p-2 shadow-lg rounded-r-lg border border-gray-300 text-sm bg-white dark:bg-gray-800 dark:text-white">
+                <button onclick="setZoom(1.1)" class="flex items-center w-full p-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md"><i class="fas fa-search-plus w-5 mr-3"></i> Aumentar Fonte</button>
+                <button onclick="setZoom(0.9)" class="flex items-center w-full p-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md"><i class="fas fa-search-minus w-5 mr-3"></i> Diminuir Fonte</button>
+                <button onclick="setContrast()" class="flex items-center w-full p-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md"><i class="fas fa-adjust w-5 mr-3"></i> Alto Contraste</button>
+                <button onclick="screenReaderToggle()" class="flex items-center w-full p-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md"><i class="fas fa-volume-up w-5 mr-3"></i> Ler Tela</button>
+                <button onclick="highlightLinksToggle()" class="flex items-center w-full p-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md"><i class="fas fa-link w-5 mr-3"></i> Destacar Links</button>
+                <button onclick="dyslexiaFontToggle()" class="flex items-center w-full p-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md"><i class="fas fa-font w-5 mr-3"></i> Fonte Dislexia</button>
+                <hr class="my-2 border-gray-200 dark:border-gray-700">
+                <button onclick="resetAccessibility()" class="flex items-center w-full p-2 text-left hover:bg-red-100 dark:hover:bg-red-700 rounded-md text-red-600 dark:text-red-300"><i class="fas fa-redo w-5 mr-3"></i> Resetar</button>
+            </div>
+        </div>
+
+        <div class="relative">
+            <button title="Traduzir Página" class="p-2 rounded-full hover:opacity-75 transition duration-300" onclick="toggleTranslationMenu()">
+                <img src="static/imgs/icons/GLOBO.png" alt="Ícone de Tradução (GLOBO)" class="sidebar-icon-size">
+            </button>
+            <div id="translation-menu" class="hidden absolute left-full top-0 w-40 p-2 shadow-lg rounded-r-lg border border-gray-300 text-sm bg-white dark:bg-gray-800 dark:text-white">
+                <p class="px-2 pb-1 font-bold text-gray-500 dark:text-gray-400">DeepL API (Simulado)</p>
+                <button onclick="translate('pt')" class="flex items-center w-full p-1 text-left hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">
+                    <img src="https://flagcdn.com/w20/br.png" class="flag-icon" alt="Bandeira Brasil"> Português (Padrão)
+                </button>
+                <button onclick="translate('en')" class="flex items-center w-full p-1 text-left hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">
+                    <img src="https://flagcdn.com/w20/us.png" class="flag-icon" alt="Bandeira EUA"> Inglês
+                </button>
+                <button onclick="translate('es')" class="flex items-center w-full p-1 text-left hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">
+                    <img src="https://flagcdn.com/w20/es.png" class="flag-icon" alt="Bandeira Espanha"> Espanhol
+                </button>
+                <button onclick="translate('fr')" class="flex items-center w-full p-1 text-left hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">
+                    <img src="https://flagcdn.com/w20/fr.png" class="flag-icon" alt="Bandeira França"> Francês
+                </button>
+                <button onclick="translate('de')" class="flex items-center w-full p-1 text-left hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">
+                    <img src="https://flagcdn.com/w20/de.png" class="flag-icon" alt="Bandeira Alemanha"> Alemão
+                </button>
+                <button onclick="translate('it')" class="flex items-center w-full p-1 text-left hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">
+                    <img src="https://flagcdn.com/w20/it.png" class="flag-icon" alt="Bandeira Itália"> Italiano
+                </button>
+            </div>
+        </div>
+
+        <button id="music-player-toggle" title="Abrir Player de Músicas" onclick="toggleMusicPlayer()" class="p-2 rounded-full hover:opacity-75 transition duration-300">
+            <img src="static/imgs/icons/playermusic.png" alt="Ícone de Player de Música" class="sidebar-icon-size">
+        </button>
+
+        <button id="chatbot-toggle" title="Chatbot Sarcinha" onclick="toggleChatbot()" class="p-2 rounded-full hover:opacity-75 transition duration-300">
+            <img src="static/imgs/icons/SARCAIPB.png" alt="Ícone do Chatbot Sarcinha (SARCAIPB)" class="sidebar-icon-size">
+        </button>
+
+    </aside>
+
+    <div id="chatbotWindow" class="chatbot-sidebar-position w-80 h-96 bg-white dark:bg-gray-800 rounded-lg shadow-2xl z-50 flex flex-col hidden">
+        <div class="p-3 bg-green-700 text-white rounded-t-lg flex justify-between items-center">
+            <h3 class="font-bold">Sarcinha - Chatbot</h3>
+            <button id="chatbotClose" class="text-xl">&times;</button>
+        </div>
+        <div id="chat-messages" class="flex-1 p-3 overflow-y-auto space-y-3">
+        </div>
+        <div class="p-3 border-t border-gray-200 dark:border-gray-700">
+            <div class="flex">
+                <input type="text" id="chat-input" placeholder="Digite sua mensagem..." class="flex-1 p-2 border border-gray-300 dark:border-gray-600 rounded-l-lg focus:outline-none dark:bg-gray-700 dark:text-white">
+                <button id="chat-send" class="bg-green-600 hover:bg-green-700 text-white p-2 rounded-r-lg">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <section id="hero" class="relative flex items-center justify-center text-center h-[90vh] bg-cover bg-center" style="background-image: url('static/imgs/acs/BACKGROUND_HERO.png');">
+            <div class="absolute inset-0 bg-black opacity-50"></div>
+            <div class="relative z-10 text-white px-6">
+                <h2 class="text-5xl md:text-7xl font-extrabold mb-4 animate-fadeIn" data-translate="Bem-vindo à IPB Palmeiras">
+                    Bem-vindo à IPB Palmeiras
+                </h2>
+                <p class="text-xl md:text-2xl mb-8 animate-fadeIn delay-300" data-translate="Aqui você encontra a Palavra, o amor e a graça de Cristo.">
+                    Aqui você encontra a Palavra, o amor e a graça de Cristo.
+                </p>
+                <div class="space-x-4">
+                    <a href="#cultos" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 shadow-lg" data-translate="Ver Cultos">Ver Cultos</a>
+                    <a href="#conversa-pastor" class="bg-white hover:bg-gray-200 text-green-700 font-bold py-3 px-6 rounded-lg transition duration-300 shadow-lg" data-translate="Fale Conosco">Fale Conosco</a>
+                </div>
+            </div>
+            <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-4/5 max-w-xl bg-white dark:bg-gray-800 p-4 rounded-lg shadow-xl z-20 text-center border-t-4 border-green-600">
+                <h3 class="text-lg font-bold mb-2 text-green-700 dark:text-green-400" data-translate="Versículo Diário">Versículo Diário</h3>
+                <p id="verse-text" class="text-lg font-semibold italic text-gray-700 dark:text-gray-300">"Carregando Versículo Diário..."</p>
+                <p id="verse-reference" class="text-sm mt-2 font-light text-gray-500 dark:text-gray-400">- Referência</p>
+            </div>
+        </section>
+
+        <section id="cultos" class="py-16">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl font-bold mb-10" data-translate="Nossos Cultos e Encontros">Nossos Cultos e Encontros</h2>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div class="p-6 bg-green-50 dark:bg-gray-700 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:scale-105">
+                        <i class="fas fa-church text-4xl text-green-700 dark:text-green-400 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2" data-translate="Culto Dominical">Culto Dominical</h3>
+                        <p class="text-gray-700 dark:text-gray-300">Domingos, 19:00</p>
+                    </div>
+                    <div class="p-6 bg-green-50 dark:bg-gray-700 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:scale-105">
+                        <i class="fas fa-book-reader text-4xl text-green-700 dark:text-green-400 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2" data-translate="Escola Bíblica Dominical">Escola Bíblica Dominical</h3>
+                        <p class="text-gray-700 dark:text-gray-300">Domingos, 10:00</p>
+                    </div>
+                    <div class="p-6 bg-green-50 dark:bg-gray-700 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:scale-105">
+                        <i class="fas fa-hands-praying text-4xl text-green-700 dark:text-green-400 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2" data-translate="Culto de Oração">Culto de Oração</h3>
+                        <p class="text-gray-700 dark:text-gray-300">Quartas-feiras, 19:30</p>
+                    </div>
+                    <div class="p-6 bg-green-50 dark:bg-gray-700 rounded-lg shadow-md hover:shadow-xl transition duration-300 transform hover:scale-105">
+                        <i class="fas fa-cross text-4xl text-green-700 dark:text-green-400 mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2" data-translate="Culto de Doutrina">Culto de Doutrina</h3>
+                        <p class="text-gray-700 dark:text-gray-300">Sextas-feiras, 19:30</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="mensagem-pastor" class="py-16 bg-green-50 dark:bg-gray-900">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold border-b-2 border-green-700 pb-2 mb-6" data-translate="Editorial">Editorial</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    
+                    <div class="bg-white p-6 rounded-lg shadow-md text-gray-700 dark:bg-gray-800 dark:text-gray-300">
+                        <h3 class="text-xl font-semibold mb-3 text-red-700 dark:text-red-400" data-translate="A Porta do Sofrimento">A Porta do Sofrimento</h3>
+                        <p class="mb-4">
+                            Eu tinha 34 anos quando usei a palavra “crônica” na frente da palavra “dor” pela primeira vez. Eu disse isso em voz baixa, me perguntando se cinco anos de sofrimento eram tempo suficiente para merecer a frase. Quando essa porta de sofrimento se abriu diante de mim, eu não entendi que o caminho para crescer na fé poderia doer tanto.
+                        </p>
+                        <p class="mb-4">
+                            Na primeira carta do apóstolo Pedro, ele encoraja os crentes a perseverarem no sofrimento por seu efeito refinador da fé. Ele nos aponta para o peso da glória eterna que está por vir, tornando nossos sofrimentos menores do que parecem à primeira vista. Ele nos dá confiança para nos confiarmos a um Pai amoroso.
+                        </p>
+                        <p class="mb-6">
+                            Pedro me faz contorcer, no entanto, quando leio que há lições que o cristão deve aprender no fogo refinador do sofrimento. “Vocês se alegram nisso, embora agora, por um curto período de tempo, tenham lutado em várias provações, para que a genuinidade da sua fé — mais valiosa do que o ouro que perece, embora refinado pelo fogo — possa resultar em louvor, glória e honra, na revelação de Jesus Cristo” (1 Pe 1:6–7 HCSB, ênfase adicionada).
+                        </p>
+                        
+                        <h3 class="text-xl font-bold mb-3 text-red-700 dark:text-red-400" data-translate="Quando Deus te chama para atravessar a porta do sofrimento">
+                            <strong>Quando Deus te chama para atravessar a porta do sofrimento</strong>
+                        </h3>
+                        <p class="mb-4">
+                            Quando o próximo passo da santificação nos coloca diretamente na frente da porta do sofrimento — seja ele rotulado como "câncer de mama" ou "doença de Lyme", podemos responder de duas maneiras. Podemos desperdiçar a oportunidade de crescer em piedade nos tornando amargos, ou podemos cruzar o limiar confiantes de que o que recebemos da mão de Deus é para sua glória e nosso bem.
+                        </p>
+                        <p class="italic">
+                            Se o sofrimento é a porta pela qual você deve passar, então anime-se nas maneiras pelas quais Deus o usará para o bem em sua vida.
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-md text-gray-700 dark:bg-gray-800 dark:text-gray-300">
+                        
+                        <h3 class="text-xl font-bold mb-3 text-green-700 dark:text-green-400" data-translate="Fé Aumentada">
+                            <strong>Fé Aumentada</strong>
+                        </h3>
+                        <p class="mb-4">
+                            Aprendemos a verdadeira natureza da nossa fé quando ela é preparada contra a dor, a tristeza ou a perseguição. Quando nossos corações estão sobrecarregados com a tristeza, ou quando nossos corpos são devastados pela doença, Deus pode garantir nossa confiança.
+                        </p>
+                        <p class="mb-4">
+                            Eu costumava temer que minha fé na bondade de Deus não fosse forte o suficiente para suportar anos de dor física, mas o sofrimento crônico queimou qualquer ilusão de que a salvação depende de mim. Nós perseveramos, e é Deus quem nos preserva. Nos piores momentos de dor, minha fé na bondade de Deus parecia tão frágil. Eu não conseguia pensar em fé de longo prazo, apenas no próximo passo à minha frente.
+                        </p>
+                        <p class="mb-6">
+                            Mas Deus usou os momentos de perseverança de respiração a respiração para me ensinar que era seguro confiar nele para o próximo passo. Ele pode não ter removido meu sofrimento quando eu queria, mas ele estava comigo no meio dele. Meu sofrimento revelou que foi Deus quem me guardou, protegendo meu coração pela eternidade (1 Pe 1:5–7).
+                        </p>
+                        
+                        <h3 class="text-xl font-bold mb-3 text-green-700 dark:text-green-400" data-translate="Apresentando Cristo">
+                            <strong>Apresentando Cristo</strong>
+                        </h3>
+                        <p class="mb-4">
+                            Porque ele nos deu todas as bênçãos espirituais em Cristo, podemos trilhar o caminho do sofrimento sabendo que Cristo o percorreu primeiro e nos mostra como prosseguir (1 Pedro 2:21).
+                        </p>
+                        <p class="mb-4">
+                            Embora meus anos com dor crônica tenham sido os mais difíceis da minha vida, a obra fiel de Deus produziu o fruto da perseverança que me preparou para a próxima provação. Eu finalmente pude caminhar pela porta ao lado do sofrimento com a confiança de que a estrada além estava pavimentada com o cuidado de Deus. Se Deus ordenou uma porta de sofrimento para você atravessar, você pode confiar que ele investiu tanto na sua perseverança quanto na sua restauração (1 Pe 5:10). Você pode atravessar o limiar doloroso sabendo que a estrada além é incomparavelmente curta em vista da herança que foi comprada e guardada para você.
+                        </p>
+                        <p class="italic mb-2">
+                            Um pé na frente do outro, Christian. Você não sofre sem propósito, e você não sofre sozinho.
+                        </p>
+                        <p class="text-sm text-gray-500">
+                            *Glenna Marshall é esposa de pastor e mãe de dois filhos. Ela é autora de The Promise Is His Presence, Everyday Faithfulness e Memorizing Scripture. Ela escreve regularmente sobre alfabetização bíblica, sofrimento e a fidelidade de Deus em seu site. Ela é membro da Grace Bible Fellowship em Sikeston, Missouri.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mt-12 pt-6 border-t border-gray-300 dark:border-gray-700">
+                    <h3 class="text-3xl font-bold text-center mb-6" data-translate="Pedidos de Oração">Pedidos de Oração</h3>
+
+                    <p class="text-lg italic text-center mb-6 text-green-700 dark:text-green-400">
+                        "Confessai, pois, os vossos pecados uns aos outros e orai uns pelos outros, para serdes curados. Muito pode, por sua eficácia, a súplica do justo” **Tiago 5.16.**
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6 text-center">
+
+                        <div>
+                            <h4 class="text-xl font-bold mb-1" data-translate="Saúde emocional">Saúde emocional</h4>
+                            <p class="text-lg">Eva, Marilene, Luciene e Ana Paula.</p>
+                        </div>
+
+                        <div>
+                            <h4 class="text-xl font-bold mb-1" data-translate="Enlutados">Enlutados</h4>
+                            <p class="text-lg">Família de Carmelina e Família de Erito.</p>
+                        </div>
+
+                        <div>
+                            <h4 class="text-xl font-bold mb-1" data-translate="Enfermidades">Enfermidades</h4>
+                            <p class="text-lg">Abel, Armando, Geane, Enzo e Luma.</p>
+                        </div>
+
+                        <div>
+                            <h4 class="text-xl font-bold mb-1" data-translate="Recuperação">Recuperação</h4>
+                            <p class="text-lg">Dagmar, Nemésio, Leide e João.</p>
+                        </div>
+
+                        <div class="sm:col-span-2">
+                            <h4 class="text-xl font-bold mt-4 mb-1" data-translate="Outros Pedidos">Outros Pedidos</h4>
+                            <p class="text-lg">Despertamento da Igreja, Grávidas, Amanda.</p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        
+        <section id="organization-slider" class="py-16">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center mb-10">Nossas Organizações</h2>
+                <div id="slider-content" class="relative">
+                    <div class="text-center py-10 text-gray-500">Carregando organizações...</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="events" class="py-16 bg-green-50 dark:bg-gray-900">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center mb-10">Agenda e Eventos</h2>
+                <div class="max-w-4xl mx-auto shadow-xl rounded-lg overflow-hidden bg-white dark:bg-gray-800">
+                    <div id="events-list" class="p-6">
+                        <p class="text-center text-gray-500">Carregando eventos...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="about" class="py-16">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center mb-10" data-translate="Localização">Localização</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4" data-translate="Nossa Igreja">Nossa Igreja</h3>
+                        <img src="static/imgs/acs/igreja.png" alt="Igreja Presbiteriana em Palmeiras" class="w-full h-auto max-h-80 object-cover rounded-lg shadow-xl border-2 border-green-600">
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4" data-translate="Nossa Localização">Nossa Localização</h3>
+                        <div id="map-container" class="w-full h-80 rounded-lg shadow-xl border-2 border-green-600">
+                        </div>
+                        <p class="text-sm mt-2 text-gray-500 dark:text-gray-400">Rua Coronel Antônio Afonso, 38, Palmeiras - BA.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="conversa-pastor" class="py-16 bg-green-700 text-white">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl font-bold mb-10" data-translate="Fale com o Pastor">Fale com o Pastor</h2>
+                <p class="mb-8 max-w-lg mx-auto" data-translate="Envie sua mensagem, dúvida ou pedido de oração diretamente.">
+                    Envie sua mensagem, dúvida ou pedido de oração diretamente ao Rev. Josué.
+                </p>
+                <form class="max-w-xl mx-auto space-y-4 bg-white p-8 rounded-lg shadow-2xl dark:bg-gray-800 dark:text-white">
+                    <input type="text" placeholder="Seu Nome" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                    <input type="email" placeholder="Seu E-mail" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                    <textarea placeholder="Sua Mensagem / Pedido de Oração" rows="4" required class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"></textarea>
+                    <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300" data-translate="Enviar Mensagem">
+                        Enviar Mensagem
+                    </button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+    
+    <div id="musicPlayerBar" class="fixed bottom-0 left-0 w-full h-20 bg-gray-900 text-white shadow-2xl z-50">
+        <div class="container mx-auto px-6 h-full flex items-center justify-between">
+            <div class="flex items-center space-x-4 w-1/4">
+                <img src="static/imgs/acs/playermusic.png" alt="Música" class="h-10">
+                <div class="hidden sm:block">
+                    <p class="font-bold text-sm" id="player-song-title">Louvor de Fundo</p>
+                    <p class="text-xs text-gray-400" id="player-artist">IPB Palmeiras</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-6 w-1/2 justify-center">
+                <button title="Música Anterior" class="text-gray-400 hover:text-white transition">
+                    <i class="fas fa-step-backward text-xl"></i>
+                </button>
+                <button id="player-play-pause" title="Play/Pause" onclick="togglePlayback()" class="bg-green-600 hover:bg-green-700 p-3 rounded-full transition">
+                    <i class="fas fa-play text-xl"></i>
+                </button>
+                <button title="Próxima Música" class="text-gray-400 hover:text-white transition">
+                    <i class="fas fa-step-forward text-xl"></i>
+                </button>
+            </div>
+
+            <div class="flex items-center space-x-4 w-1/4 justify-end hidden md:flex">
+                <button title="Adicionar aos Favoritos" class="text-gray-400 hover:text-red-500 transition">
+                    <i class="fas fa-heart text-xl"></i>
+                </button>
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-volume-up text-gray-400"></i>
+                    <input type="range" min="0" max="100" value="50" class="w-20 h-1 appearance-none bg-gray-600 rounded-full">
+                </div>
+                <button title="Ocultar Player" onclick="toggleMusicPlayer()" class="text-gray-400 hover:text-white text-2xl transition">&times;</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-green-700 text-white py-6">
+        <div class="container mx-auto px-6 text-center">
+            <p class="mb-2" data-translate="Visitantes:">Visitantes: <span id="visitor-count" class="font-bold">0</span></p>
+            <p data-translate="© 2025 Igreja Presbiteriana em Palmeiras-BA. Todos os direitos reservados.">
+                © 2025 Igreja Presbiteriana em Palmeiras-BA. Todos os direitos reservados.
+            </p>
+            <p data-translate="Administrador e Desenvolvido por Ian S. A. Santos" class="text-sm mt-1 opacity-75">
+                Administrado e Desenvolvido por Ian S. A. Santos
+            </p>
+        </div>
+    </footer>
+    
+    <script type="module" src="/static/js/script.js"></script>
+    <script>
+        // Registrar o Service Worker (PWA)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registrado com sucesso:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('Falha no registro do ServiceWorker:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+
+</html>

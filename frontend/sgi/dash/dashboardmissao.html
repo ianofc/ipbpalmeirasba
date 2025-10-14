@@ -1,0 +1,462 @@
+<html lang="pt-BR" class="scroll-smooth">
+ <head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>Dashboard - Relatório de Evangelismo e Missões - Peniel Social+</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link
+   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+   rel="stylesheet"
+  />
+  <link
+   href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap"
+   rel="stylesheet"
+  />
+  <style>
+   body {
+    font-family: "Inter", sans-serif;
+   }
+  </style>
+ </head>
+ <body class="bg-gray-100 min-h-screen flex flex-col text-black">
+  <!-- Navbar -->
+  <nav class="bg-white shadow-md border-b border-gray-300">
+    <!-- Container principal da barra de navegação -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="flex justify-between h-16 items-center relative">
+      <!-- Logotipo e título -->
+      <div class="flex items-center space-x-3">
+       <img
+        alt="Logo da Peniel, símbolo dourado estilizado com fundo branco"
+        class="h-10 w-10 rounded-full"
+        height="40"
+        src="https://storage.googleapis.com/a1aa/image/34d4e407-1218-4948-0478-f3dcb7d95fcd.jpg"
+        width="40"
+       />
+       <span class="font-semibold text-xl" style="color: var(--color-gold)"
+        >Peniel Social+</span
+       >
+      </div>
+      <!-- Links de navegação para desktop com submenus -->
+      <div class="hidden md:flex space-x-6 items-center relative">
+       <!-- Cadastro -->
+       <div class="relative group">
+        <button
+         class="text-gray-700 hover:text-[var(--color-gold)] font-semibold transition focus:outline-none flex items-center space-x-1"
+         id="btnCadastro"
+         aria-haspopup="true"
+         aria-expanded="false"
+        >
+         <span>Cadastro</span>
+         <i class="fas fa-chevron-down text-sm"></i>
+        </button>
+        <div
+         class="absolute left-0 mt-2 w-40 bg-white border border-gray-300 rounded-md shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity z-30"
+         role="menu"
+         aria-label="Submenu Cadastro"
+        >
+         <a
+          href="cadinternos.html"
+          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+          role="menuitem"
+          >Cadastro de Internos</a
+         >
+         <a
+          href="cadvoluntarios.html"
+          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+          role="menuitem"
+          >Cadastro de Voluntários</a
+         >
+         <a
+          href="cadobreiros.html"
+          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+          role="menuitem"
+          >Cadastro de Obreiros</a
+         >
+        </div>
+       </div>
+       <!-- Pesquisa -->
+       <div class="relative group">
+        <button
+         class="text-gray-700 hover:text-[var(--color-gold)] font-semibold transition focus:outline-none flex items-center space-x-1"
+         id="btnPesquisa"
+         aria-haspopup="true"
+         aria-expanded="false"
+        >
+         <span>Pesquisa</span>
+         <i class="fas fa-chevron-down text-sm"></i>
+        </button>
+        <div
+         class="absolute left-0 mt-2 w-40 bg-white border border-gray-300 rounded-md shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity z-30"
+         role="menu"
+         aria-label="Submenu Pesquisa"
+        >
+         <a
+          href="pesqinternos.html"
+          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+          role="menuitem"
+          >Pesquisa de Internos</a
+         >
+         <a
+          href="pesqvoluntarios.html"
+          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+          role="menuitem"
+          >Pesquisa de Voluntários</a
+         >
+        </div>
+       </div>
+       <!-- Relatórios -->
+       <div class="relative group">
+        <button
+         class="text-[var(--color-gold)] font-semibold transition focus:outline-none flex items-center space-x-1"
+         id="btnRelatorios"
+         aria-haspopup="true"
+         aria-expanded="false"
+        >
+         <span>Relatórios</span>
+         <i class="fas fa-chevron-down text-sm"></i>
+        </button>
+        <div
+         class="absolute left-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity z-30"
+         role="menu"
+         aria-label="Submenu Relatórios"
+        >
+         <a
+          href="dashboardinternos.html"
+          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+          role="menuitem"
+          >Relatórios de Internos</a
+         >
+         <a
+          href="dashboardmembros.html"
+          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+          role="menuitem"
+          >Relatórios de Membros</a
+         >
+         <a
+          href="dashboardministerio.html"
+          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+          role="menuitem"
+          >Relatórios de Ministério</a
+         >
+         <a
+          href="dashboardmissao.html"
+          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+          role="menuitem"
+          >Relatórios de Missões</a
+         >
+        </div>
+       </div>
+      </div>
+      <!-- Perfil -->
+      <div class="flex items-center space-x-4">
+       <!-- Menu suspenso do perfil -->
+       <div class="relative group">
+        <button
+         aria-label="Perfil do usuário"
+         class="flex items-center space-x-2 focus:outline-none"
+         id="user-menu-button"
+        >
+         <img
+          alt="Foto do usuário, rosto sorridente de pessoa jovem com fundo cinza claro"
+          class="rounded-full border-2 border-[var(--color-gold)]"
+          height="32"
+          src="https://storage.googleapis.com/a1aa/image/43fd7a15-3d17-458f-ee09-2793942a0a7c.jpg"
+          width="32"
+         />
+         <span class="font-semibold text-gray-800">João Silva</span>
+         <i class="fas fa-chevron-down text-gray-500"></i>
+        </button>
+        <div
+         class="absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded-md shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity z-20"
+         id="user-menu"
+        >
+         <a
+          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+          href="perfil.html"
+          >Perfil</a
+         >
+         <a
+          class="block px-4 py-2 text-red-600 hover:bg-red-50 font-semibold"
+          href="#sair"
+          >Sair</a
+         >
+        </div>
+       </div>
+      </div>
+      <!-- Botão de menu para dispositivos móveis -->
+      <div class="md:hidden">
+       <button
+        aria-label="Abrir menu"
+        class="text-gray-700 hover:text-[var(--color-gold)] focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)] rounded"
+        id="mobile-menu-button"
+       >
+        <i class="fas fa-bars fa-lg"></i>
+       </button>
+      </div>
+     </div>
+    </div>
+    <!-- Menu suspenso para dispositivos móveis -->
+    <div class="hidden md:hidden bg-white border-t border-gray-300" id="mobile-menu">
+     <details class="group border-b border-gray-200">
+      <summary
+       class="px-4 py-3 cursor-pointer select-none text-gray-800 font-semibold hover:bg-[var(--color-gold)] hover:text-white"
+      >
+       Cadastro
+       <i
+        class="fas fa-chevron-down float-right mt-1 text-gray-600 group-open:rotate-180 transition-transform"
+       ></i>
+      </summary>
+      <div class="pl-6 pb-3 space-y-1">
+       <a
+        href="cadinternos.html"
+        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
+        >Cadastro de Internos</a
+       >
+       <a
+        href="cadvoluntarios.html"
+        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
+        >Cadastro de Voluntários</a
+       >
+       <a
+        href="cadobreiros.html"
+        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
+        >Cadastro de Obreiros</a
+       >
+      </div>
+     </details>
+     <details class="group border-b border-gray-200">
+      <summary
+       class="px-4 py-3 cursor-pointer select-none text-gray-800 font-semibold hover:bg-[var(--color-gold)] hover:text-white"
+      >
+       Pesquisa
+       <i
+        class="fas fa-chevron-down float-right mt-1 text-gray-600 group-open:rotate-180 transition-transform"
+       ></i>
+      </summary>
+      <div class="pl-6 pb-3 space-y-1">
+       <a
+        href="pesqinternos.html"
+        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
+        >Pesquisa de Internos</a
+       >
+       <a
+        href="pesqvoluntarios.html"
+        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
+        >Pesquisa de Voluntários</a
+       >
+      </div>
+     </details>
+     <details class="group border-b border-gray-200">
+      <summary
+       class="px-4 py-3 cursor-pointer select-none text-[var(--color-gold)] font-semibold hover:bg-[var(--color-gold)] hover:text-white"
+      >
+       Relatórios
+       <i
+        class="fas fa-chevron-down float-right mt-1 text-gray-600 group-open:rotate-180 transition-transform"
+       ></i>
+      </summary>
+      <div class="pl-6 pb-3 space-y-1">
+       <a
+        href="dashboardinternos.html"
+        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
+        >Relatórios de Internos</a
+       >
+       <a
+        href="dashboardmembros.html"
+        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
+        >Relatórios de Membros</a
+       >
+       <a
+        href="dashboardministerio.html"
+        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
+        >Relatórios de Ministério</a
+       >
+       <a
+        href="dashboardmissao.html"
+        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
+        >Relatórios de Missões</a
+       >
+      </div>
+     </details>
+     <a
+      class="block px-4 py-3 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+      href="perfil.html"
+      >Perfil</a
+     >
+     <a
+      class="block px-4 py-3 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+      href="#configuracoes"
+      >Configurações</a
+     >
+     <a
+      class="block px-4 py-3 text-red-600 font-semibold hover:bg-red-50"
+      href="#sair"
+      >Sair</a
+     >
+    </div>
+   </nav>
+  <!-- Conteúdo principal -->
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+   <h1 class="text-3xl font-semibold text-gray-900 mb-8 text-center">
+    Relatório de Evangelismo e Missões
+   </h1>
+   <!-- Dashboard Cards -->
+   <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div
+     class="bg-white rounded-lg shadow p-6 flex flex-col items-center justify-center"
+    >
+     <i class="fas fa-bullhorn text-[var(--color-gold)] text-4xl mb-4"></i>
+     <h2 class="text-xl font-semibold mb-2">Atividades de Evangelismo</h2>
+     <p class="text-3xl font-bold text-gray-900">56</p>
+    </div>
+    <div
+     class="bg-white rounded-lg shadow p-6 flex flex-col items-center justify-center"
+    >
+     <i class="fas fa-globe-americas text-[var(--color-gold)] text-4xl mb-4"></i>
+     <h2 class="text-xl font-semibold mb-2">Projetos de Missões</h2>
+     <p class="text-3xl font-bold text-gray-900">12</p>
+    </div>
+    <div
+     class="bg-white rounded-lg shadow p-6 flex flex-col items-center justify-center"
+    >
+     <i class="fas fa-hand-holding-usd text-[var(--color-gold)] text-4xl mb-4"></i>
+     <h2 class="text-xl font-semibold mb-2">Apoio Financeiro (R$)</h2>
+     <p class="text-3xl font-bold text-gray-900">45.000</p>
+    </div>
+   </section>
+   <!-- Gráficos -->
+   <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+    <div class="bg-white rounded-lg shadow p-6">
+     <h3 class="text-lg font-semibold mb-4 text-gray-900">
+      Evolução das Atividades de Evangelismo
+     </h3>
+     <canvas id="evangelismChart" class="w-full h-64"></canvas>
+    </div>
+    <div class="bg-white rounded-lg shadow p-6">
+     <h3 class="text-lg font-semibold mb-4 text-gray-900">
+      Distribuição dos Projetos de Missões
+     </h3>
+     <canvas id="missionsChart" class="w-full h-64"></canvas>
+    </div>
+   </section>
+   <!-- Descrição dos Projetos -->
+   <section class="bg-white rounded-lg shadow p-6">
+    <h2 class="text-xl font-semibold mb-4 text-gray-900">
+     Projetos de Missões e Evangelismo
+    </h2>
+    <ul class="list-disc list-inside space-y-2 text-gray-700">
+     <li>
+      <strong>Evangelismo de Rua:</strong> Realização de eventos e
+      distribuição de literatura para alcançar a comunidade local.
+     </li>
+     <li>
+      <strong>Missão Internacional:</strong> Apoio a projetos missionários em
+      países da América Latina, com envio de voluntários e recursos.
+     </li>
+     <li>
+      <strong>Projeto Acolher:</strong> Atendimento a pessoas em situação de
+      vulnerabilidade, oferecendo suporte espiritual e social.
+     </li>
+     <li>
+      <strong>Campanhas de Oração:</strong> Mobilização da igreja para
+      intercessão e fortalecimento da fé.
+     </li>
+    </ul>
+   </section>
+  </main>
+  <!-- Rodapé -->
+  <footer class="bg-white border-t border-gray-300 py-3 mt-8">
+   <div
+    class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-600 text-sm select-none"
+   >
+    © 2025 Ministerio Peniel. Todos os direitos reservados.
+   </div>
+  </footer>
+  <script>
+   const ctxEvangelism = document
+    .getElementById("evangelismChart")
+    .getContext("2d");
+   const evangelismChart = new Chart(ctxEvangelism, {
+    type: "line",
+    data: {
+     labels: [
+      "Jan",
+      "Fev",
+      "Mar",
+      "Abr",
+      "Mai",
+      "Jun",
+      "Jul",
+      "Ago",
+      "Set",
+      "Out",
+      "Nov",
+      "Dez",
+     ],
+     datasets: [
+      {
+       label: "Atividades de Evangelismo",
+       data: [3, 5, 7, 10, 12, 15, 18, 20, 22, 25, 28, 30],
+       borderColor: "#4a6dbb",
+       backgroundColor: "rgba(74, 109, 187, 0.3)",
+       fill: true,
+       tension: 0.3,
+      },
+     ],
+    },
+    options: {
+     responsive: true,
+     plugins: {
+      legend: {
+       display: true,
+       position: "top",
+      },
+     },
+     scales: {
+      y: {
+       beginAtZero: true,
+       ticks: {
+        stepSize: 5,
+       },
+      },
+     },
+    },
+   });
+
+   const ctxMissions = document
+    .getElementById("missionsChart")
+    .getContext("2d");
+   const missionsChart = new Chart(ctxMissions, {
+    type: "doughnut",
+    data: {
+     labels: ["América Latina", "África", "Ásia", "Europa", "Local"],
+     datasets: [
+      {
+       label: "Projetos de Missões",
+       data: [40, 25, 15, 10, 10],
+       backgroundColor: [
+        "#4a6dbb",
+        "#fbbf24",
+        "#34d399",
+        "#f87171",
+        "#a78bfa",
+       ],
+       hoverOffset: 30,
+      },
+     ],
+    },
+    options: {
+     responsive: true,
+     plugins: {
+      legend: {
+       position: "bottom",
+      },
+     },
+    },
+   });
+  </script>
+  <script src="frontend/src/js/script.js"></script>
+ </body>
+</html>

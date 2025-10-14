@@ -1,0 +1,567 @@
+<html class="scroll-smooth" lang="pt-BR">
+ <head>
+  <!-- Metadados básicos -->
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <title>Peniel Social - Pesquisa de Internos</title>
+  <!-- Importação de bibliotecas externas -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+   rel="stylesheet"
+  />
+  <link
+   href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap"
+   rel="stylesheet"
+  />
+ </head>
+ <body class="bg-gray-100 min-h-screen flex flex-col text-black">
+  <!-- Navbar -->
+  <nav class="bg-white shadow-md border-b border-gray-300">
+    <!-- Container principal da barra de navegação -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="flex justify-between h-16 items-center relative">
+      <!-- Logotipo e título -->
+      <div class="flex items-center space-x-3">
+       <img
+        alt="Logo da Peniel, símbolo dourado estilizado com fundo branco"
+        class="h-10 w-10 rounded-full"
+        height="40"
+        src="https://storage.googleapis.com/a1aa/image/34d4e407-1218-4948-0478-f3dcb7d95fcd.jpg"
+        width="40"
+       />
+       <span class="font-semibold text-xl" style="color: var(--color-gold)"
+        >Peniel Social+</span
+       >
+      </div>
+      <!-- Links de navegação para desktop com submenus -->
+      <div class="hidden md:flex space-x-6 items-center relative">
+       <!-- Cadastro -->
+       <div class="relative group">
+        <button
+         class="text-gray-700 hover:text-[var(--color-gold)] font-semibold transition focus:outline-none flex items-center space-x-1"
+         id="btnCadastro"
+         aria-haspopup="true"
+         aria-expanded="false"
+        >
+         <span>Cadastro</span>
+         <i class="fas fa-chevron-down text-sm"></i>
+        </button>
+        <div
+         class="absolute left-0 mt-2 w-40 bg-white border border-gray-300 rounded-md shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity z-30"
+         role="menu"
+         aria-label="Submenu Cadastro"
+        >
+         <a
+          href="cadinternos.html"
+          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+          role="menuitem"
+          >Cadastro de Internos</a
+         >
+         <a
+          href="cadvoluntarios.html"
+          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+          role="menuitem"
+          >Cadastro de Voluntários</a
+         >
+         <a
+          href="cadobreiros.html"
+          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+          role="menuitem"
+          >Cadastro de Obreiros</a
+         >
+        </div>
+       </div>
+       <!-- Pesquisa -->
+       <div class="relative group">
+        <button
+         class="text-gray-700 hover:text-[var(--color-gold)] font-semibold transition focus:outline-none flex items-center space-x-1"
+         id="btnPesquisa"
+         aria-haspopup="true"
+         aria-expanded="false"
+        >
+         <span>Pesquisa</span>
+         <i class="fas fa-chevron-down text-sm"></i>
+        </button>
+        <div
+         class="absolute left-0 mt-2 w-40 bg-white border border-gray-300 rounded-md shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity z-30"
+         role="menu"
+         aria-label="Submenu Pesquisa"
+        >
+         <a
+          href="pesqinternos.html"
+          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+          role="menuitem"
+          >Internos</a
+         >
+         <a
+          href="pesqvoluntarios.html"
+          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+          role="menuitem"
+          >Voluntários</a
+         >
+        </div>
+       </div>
+       <!-- Relatórios -->
+       <div class="relative group">
+        <button
+         class="text-[var(--color-gold)] font-semibold transition focus:outline-none flex items-center space-x-1"
+         id="btnRelatorios"
+         aria-haspopup="true"
+         aria-expanded="false"
+        >
+         <span>Relatórios</span>
+         <i class="fas fa-chevron-down text-sm"></i>
+        </button>
+        <div
+         class="absolute left-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity z-30"
+         role="menu"
+         aria-label="Submenu Relatórios"
+        >
+         <a
+          href="dashboardinternos.html"
+          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+          role="menuitem"
+          >Relatórios de Internos</a
+         >
+         <a
+          href="dashboardmembros.html"
+          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+          role="menuitem"
+          >Relatórios de Membros</a
+         >
+         <a
+          href="dashboardministerio.html"
+          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+          role="menuitem"
+          >Relatórios de Ministério</a
+         >
+         <a
+          href="dashboardmissao.html"
+          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+          role="menuitem"
+          >Relatórios de Missões</a
+         >
+        </div>
+       </div>
+      </div>
+      <!-- Perfil -->
+      <div class="flex items-center space-x-4">
+       <!-- Menu suspenso do perfil -->
+       <div class="relative group">
+        <button
+         aria-label="Perfil do usuário"
+         class="flex items-center space-x-2 focus:outline-none"
+         id="user-menu-button"
+        >
+         <img
+          alt="Foto do usuário, rosto sorridente de pessoa jovem com fundo cinza claro"
+          class="rounded-full border-2 border-[var(--color-gold)]"
+          height="32"
+          src="https://storage.googleapis.com/a1aa/image/43fd7a15-3d17-458f-ee09-2793942a0a7c.jpg"
+          width="32"
+         />
+         <span class="font-semibold text-gray-800">João Silva</span>
+         <i class="fas fa-chevron-down text-gray-500"></i>
+        </button>
+        <div
+         class="absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded-md shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity z-20"
+         id="user-menu"
+        >
+         <a
+          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+          href="perfil.html#perfil"
+          >Perfil</a
+         >
+         <a
+          class="block px-4 py-2 text-red-600 hover:bg-red-50 font-semibold"
+          href="perfil.html#sair"
+          >Sair</a
+         >
+        </div>
+       </div>
+      </div>
+      <!-- Botão de menu para dispositivos móveis -->
+      <div class="md:hidden">
+       <button
+        aria-label="Abrir menu"
+        class="text-gray-700 hover:text-[var(--color-gold)] focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)] rounded"
+        id="mobile-menu-button"
+       >
+        <i class="fas fa-bars fa-lg"></i>
+       </button>
+      </div>
+     </div>
+    </div>
+    <!-- Menu suspenso para dispositivos móveis -->
+    <div class="hidden md:hidden bg-white border-t border-gray-300" id="mobile-menu">
+     <details class="group border-b border-gray-200">
+      <summary
+       class="px-4 py-3 cursor-pointer select-none text-gray-800 font-semibold hover:bg-[var(--color-gold)] hover:text-white"
+      >
+       Cadastro
+       <i
+        class="fas fa-chevron-down float-right mt-1 text-gray-600 group-open:rotate-180 transition-transform"
+       ></i>
+      </summary>
+      <div class="pl-6 pb-3 space-y-1">
+       <a
+        href="cadinternos.html"
+        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
+        >Cadastro de Internos</a
+       >
+       <a
+        href="cadvoluntarios.html"
+        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
+        >Cadastro de Voluntários</a
+       >
+       <a
+        href="cadobreiros.html"
+        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
+        >Cadastro de Obreiros</a
+       >
+      </div>
+     </details>
+     <details class="group border-b border-gray-200">
+      <summary
+       class="px-4 py-3 cursor-pointer select-none text-gray-800 font-semibold hover:bg-[var(--color-gold)] hover:text-white"
+      >
+       Pesquisa
+       <i
+        class="fas fa-chevron-down float-right mt-1 text-gray-600 group-open:rotate-180 transition-transform"
+       ></i>
+      </summary>
+      <div class="pl-6 pb-3 space-y-1">
+       <a
+        href="pesqinternos.html"
+        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
+        >Internos</a
+       >
+       <a
+        href="pesqvoluntarios.html"
+        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
+        >Voluntários</a
+       >
+      </div>
+     </details>
+     <details class="group border-b border-gray-200">
+      <summary
+       class="px-4 py-3 cursor-pointer select-none text-[var(--color-gold)] font-semibold hover:bg-[var(--color-gold)] hover:text-white"
+      >
+       Relatórios
+       <i
+        class="fas fa-chevron-down float-right mt-1 text-gray-600 group-open:rotate-180 transition-transform"
+       ></i>
+      </summary>
+      <div class="pl-6 pb-3 space-y-1">
+       <a
+        href="dashboardinternos.html"
+        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
+        >Relatórios de Internos</a
+       >
+       <a
+        href="dashboardmembros.html"
+        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
+        >Relatórios de Membros</a
+       >
+       <a
+        href="dashboardministerio.html"
+        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
+        >Relatórios de Ministério</a
+       >
+       <a
+        href="dashboardmissao.html"
+        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
+        >Relatórios de Missões</a
+       >
+      </div>
+     </details>
+     <a
+      class="block px-4 py-3 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+      href="perfil.html#perfil"
+      >Perfil</a
+     >
+     <a
+      class="block px-4 py-3 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
+      href="perfil.html#configuracoes"
+      >Configurações</a
+     >
+     <a
+      class="block px-4 py-3 text-red-600 font-semibold hover:bg-red-50"
+      href="perfil.html#sair"
+      >Sair</a
+     >
+    </div>
+   </nav>
+  <!-- Conteúdo principal -->
+  <main class="flex-grow w-full px-4 sm:px-6 lg:px-8 py-6 max-w-full mx-auto">
+   <h1 class="text-3xl font-semibold text-[var(--color-black)] mb-8 text-center">
+    Pesquisa de Internos
+   </h1>
+   <!-- Seção de pesquisa -->
+   <div class="bg-white rounded-lg shadow p-8 mb-4 w-full mx-auto">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-4">
+     <!-- Campo de busca -->
+     <input
+      type="text"
+      id="searchInput"
+      placeholder="Digite aqui para buscar..."
+      class="flex-grow border border-gray-300 rounded px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)] text-gray-700"
+     />
+     <!-- Filtro de pesquisa -->
+     <select
+      id="filterSelect"
+      class="mt-4 sm:mt-0 w-full sm:w-48 border border-gray-300 rounded px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)] text-gray-700"
+     >
+      <option value="nome" selected>Nome</option>
+      <option value="cpf">CPF</option>
+      <option value="tipoDoenca">Tipo de Doença</option>
+      <option value="tipoInternacao">Tipo de Internação</option>
+      <option value="estadoCivil">Estado Civil</option>
+      <option value="genero">Gênero</option>
+      <option value="tipoSanguineo">Tipo Sanguíneo</option>
+      <option value="dataEntrada">Data de Entrada</option>
+      <option value="outro">Outro</option>
+     </select>
+     <!-- Botões de ação -->
+     <button
+      id="btnSearch"
+      class="mt-4 sm:mt-0 bg-[var(--color-gold)] hover:bg-yellow-500 text-white font-semibold px-6 py-3 rounded shadow transition focus:outline-none focus:ring-2 focus:ring-yellow-400 flex items-center space-x-2"
+     >
+      <i class="fas fa-search"></i><span>Buscar</span>
+     </button>
+     <button
+      id="btnClear"
+      class="mt-4 sm:mt-0 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold px-6 py-3 rounded shadow transition focus:outline-none focus:ring-2 focus:ring-gray-400 flex items-center space-x-2"
+     >
+      <i class="fas fa-eraser"></i><span>Limpar</span>
+     </button>
+    </div>
+    <!-- Controles de paginação -->
+    <div
+     id="paginationControls"
+     class="mt-6 flex flex-wrap justify-between items-center"
+    >
+     <div class="flex flex-wrap gap-2 items-center">
+      <button
+       id="btnFirst"
+       class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-4 py-2 rounded shadow focus:outline-none flex items-center space-x-1"
+       title="Primeiro"
+      >
+       <i class="fas fa-angle-double-left"></i><span>Primeiro</span>
+      </button>
+      <button
+       id="btnPrevious"
+       class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-4 py-2 rounded shadow focus:outline-none flex items-center space-x-1"
+       title="Anterior"
+      >
+       <i class="fas fa-angle-left"></i><span>Anterior</span>
+      </button>
+      <button
+       id="btnNext"
+       class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-4 py-2 rounded shadow focus:outline-none flex items-center space-x-1"
+       title="Próximo"
+      >
+       <span>Próximo</span><i class="fas fa-angle-right"></i>
+      </button>
+      <button
+       id="btnLast"
+       class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-4 py-2 rounded shadow focus:outline-none flex items-center space-x-1"
+       title="Último"
+      >
+       <span>Último</span><i class="fas fa-angle-double-right"></i>
+      </button>
+     </div>
+     <span id="pageInfo" class="font-semibold text-gray-700"></span>
+     <div class="flex flex-wrap gap-2 items-center">
+      <button
+       id="btnUpdateSelected"
+       class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded shadow focus:outline-none flex items-center space-x-2"
+       disabled
+       title="Atualizar Interno Selecionado"
+      >
+       <i class="fas fa-edit"></i><span>Atualizar</span>
+      </button>
+      <button
+       id="btnDeleteSelected"
+       class="bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded shadow focus:outline-none flex items-center space-x-2"
+       disabled
+       title="Deletar Internos Selecionados"
+      >
+       <i class="fas fa-trash-alt"></i><span>Deletar</span>
+      </button>
+      <button
+       id="btnSaveReport"
+       class="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded shadow focus:outline-none flex items-center space-x-2"
+       title="Salvar Relatório"
+      >
+       <i class="fas fa-file-download"></i><span>Salvar Relatório</span>
+      </button>
+     </div>
+    </div>
+   </div>
+   <!-- Tabela de resultados -->
+   <div class="overflow-x-auto bg-white rounded-lg shadow p-4 max-w-7xl mx-auto">
+    <table class="min-w-full divide-y divide-gray-200 border border-gray-300 rounded">
+     <thead class="bg-[var(--color-gold)] text-white">
+      <tr>
+       <th class="px-4 py-2 text-center text-sm font-semibold w-10">
+        <input type="checkbox" id="selectAll" class="cursor-pointer" />
+       </th>
+       <th class="px-4 py-2 text-left text-sm font-semibold">Nome</th>
+       <th class="px-4 py-2 text-left text-sm font-semibold">CPF</th>
+       <th class="px-4 py-2 text-left text-sm font-semibold">Tipo de Doença</th>
+       <th class="px-4 py-2 text-left text-sm font-semibold">Tipo de Internação</th>
+       <th class="px-4 py-2 text-left text-sm font-semibold">Estado Civil</th>
+       <th class="px-4 py-2 text-left text-sm font-semibold">Gênero</th>
+       <th class="px-4 py-2 text-left text-sm font-semibold">Tipo Sanguíneo</th>
+       <th class="px-4 py-2 text-left text-sm font-semibold">Data de Entrada</th>
+      </tr>
+     </thead>
+     <tbody id="internosTableBody" class="bg-white divide-y divide-gray-200">
+      <tr>
+       <td colspan="9" class="text-center py-4 text-gray-500">Nenhum interno encontrado.</td>
+      </tr>
+     </tbody>
+    </table>
+   </div>
+  </main>
+  <!-- Edit Modal -->
+  <div
+   id="editModal"
+   class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+  >
+   <div class="bg-white rounded-lg shadow-lg max-w-4xl w-full p-6 max-h-[90vh] overflow-y-auto">
+    <h3 class="text-lg font-semibold mb-4 text-center text-[var(--color-gold)]">
+     Editar Interno
+    </h3>
+    <form id="editForm" class="space-y-6">
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 max-w-full">
+      <label class="flex flex-col">
+       <span class="font-semibold mb-1">Nome</span>
+       <input
+        type="text"
+        name="nome"
+        id="editNome"
+        class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
+        required
+       />
+      </label>
+      <label class="flex flex-col">
+       <span class="font-semibold mb-1">CPF</span>
+       <input
+        type="text"
+        name="cpf"
+        id="editCpf"
+        class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
+        required
+       />
+      </label>
+      <label class="flex flex-col">
+       <span class="font-semibold mb-1">Tipo de Doença</span>
+       <input
+        type="text"
+        name="tipoDoenca"
+        id="editTipoDoenca"
+        class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
+       />
+      </label>
+      <label class="flex flex-col">
+       <span class="font-semibold mb-1">Tipo de Internação</span>
+       <select
+        name="tipoInternacao"
+        id="editTipoInternacao"
+        class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
+       >
+        <option value="">Selecione</option>
+        <option value="Voluntária">Voluntária</option>
+        <option value="Judicial">Judicial</option>
+        <option value="Outros">Outros</option>
+       </select>
+      </label>
+      <label class="flex flex-col">
+       <span class="font-semibold mb-1">Estado Civil</span>
+       <select
+        name="estadoCivil"
+        id="editEstadoCivil"
+        class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
+       >
+        <option value="">Selecione</option>
+        <option value="Casado">Casado</option>
+        <option value="Solteiro">Solteiro</option>
+        <option value="Outros">Outros</option>
+       </select>
+      </label>
+      <label class="flex flex-col">
+       <span class="font-semibold mb-1">Gênero</span>
+       <select
+        name="genero"
+        id="editGenero"
+        class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
+       >
+        <option value="">Selecione</option>
+        <option value="Masculino">Masculino</option>
+        <option value="Feminino">Feminino</option>
+        <option value="Outro">Outro</option>
+       </select>
+      </label>
+      <label class="flex flex-col">
+       <span class="font-semibold mb-1">Tipo Sanguíneo</span>
+       <select
+        name="tipoSanguineo"
+        id="editTipoSanguineo"
+        class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
+       >
+        <option value="">Selecione</option>
+        <option value="A+">A+</option>
+        <option value="A-">A-</option>
+        <option value="B+">B+</option>
+        <option value="B-">B-</option>
+        <option value="AB+">AB+</option>
+        <option value="AB-">AB-</option>
+        <option value="O+">O+</option>
+        <option value="O-">O-</option>
+       </select>
+      </label>
+      <label class="flex flex-col">
+       <span class="font-semibold mb-1">Data de Entrada</span>
+       <input
+        type="date"
+        name="dataEntrada"
+        id="editDataEntrada"
+        class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
+       />
+      </label>
+     </div>
+     <div class="flex justify-end space-x-4 mt-6">
+      <button
+       type="button"
+       id="btnDeleteInterno"
+       class="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-2 rounded shadow transition focus:outline-none focus:ring-2 focus:ring-red-500 flex items-center space-x-2"
+      >
+       <i class="fas fa-trash-alt"></i><span>Deletar</span>
+      </button>
+      <button
+       type="submit"
+       id="btnUpdateInterno"
+       class="bg-[var(--color-gold)] hover:bg-yellow-500 text-white font-semibold px-6 py-2 rounded shadow transition focus:outline-none focus:ring-2 focus:ring-yellow-400 flex items-center space-x-2"
+      >
+       <i class="fas fa-save"></i><span>Atualizar</span>
+      </button>
+      <button
+       type="button"
+       id="btnCloseEditModal"
+       class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold px-6 py-2 rounded shadow transition focus:outline-none focus:ring-2 focus:ring-gray-400 flex items-center space-x-2"
+      >
+       <i class="fas fa-times"></i><span>Fechar</span>
+      </button>
+     </div>
+    </form>
+   </div>
+  </div>
+  <!-- Importação de bibliotecas para manipulação de arquivos -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="frontend/src/js/script.js"></script>
+ </body>
+</html>
