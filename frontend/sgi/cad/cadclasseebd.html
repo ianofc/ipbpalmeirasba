@@ -1,0 +1,102 @@
+<html class="scroll-smooth" lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>SGIPP - Cadastro de Classes da EBD</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/css/sgi.css" />
+    <style> body { font-family: "Inter", sans-serif; } </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col text-black">
+    <nav class="bg-white shadow-md border-b border-gray-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center space-x-3">
+                    <a href="/sgi/home.html"><img alt="Logo da IPB Palmeiras" class="h-10 w-10" src="/static/imgs/acs/logo_ipp.png" /></a>
+                    <a href="/sgi/home.html" class="font-semibold text-xl text-gray-800">SGIPP</a>
+                </div>
+                <div class="hidden md:flex space-x-1 items-center">
+                    <div class="relative group px-3 py-2">
+                        <button class="text-gray-700 hover:text-green-600 font-semibold transition">Cadastro</button>
+                        <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            <a href="/sgi/cad/agendas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Agendas</a>
+                            <a href="/sgi/cad/classe_ebd.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Classes EBD</a>
+                            <a href="/sgi/cad/eventos.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Eventos</a>
+                            <a href="/sgi/cad/cadmembros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
+                            <a href="/sgi/cad/cadoficial.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Oficiais</a>
+                            <a href="/sgi/cad/publicacoes.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Publicações</a>
+                            <a href="/sgi/cad/cadsociedades.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Sociedades</a>
+                        </div>
+                    </div>
+                    </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative group px-3 py-2">
+                        <button class="flex items-center space-x-2 focus:outline-none">
+                            <img alt="Foto do usuário" class="h-8 w-8 rounded-full border-2 border-green-600" src="https://i.pravatar.cc/40" />
+                            <span class="font-semibold text-gray-800 menu-username">Usuário</span>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-20">
+                            <a href="/sgi/perfil.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Perfil</a>
+                            <button onclick="logout()" class="block w-full text-left px-4 py-2 text-red-600 hover:bg-red-500 hover:text-white">Sair</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow p-8">
+        <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-md">
+            <h2 class="text-2xl font-bold text-center text-gray-800 mb-2">Cadastro de Classe da Escola Dominical</h2>
+            <p class="text-center text-gray-500 mb-6">Crie uma nova classe e atribua um professor.</p>
+
+            <div id="feedback-message" class="hidden p-4 mb-4 text-sm rounded-lg" role="alert"></div>
+            
+            <form id="form-cadastro-classe" class="space-y-6">
+                <label class="flex flex-col">
+                    <span class="font-semibold mb-1 text-gray-600">Nome da Classe</span>
+                    <input type="text" name="nome_classe" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Ex: Classe de Adultos, Classe de Jovens" required>
+                </label>
+                
+                <label class="flex flex-col">
+                    <span class="font-semibold mb-1 text-gray-600">Professor(a) Responsável</span>
+                    <input type="text" name="professor_nome" list="membros-list" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Digite o nome do membro para buscar...">
+                    <datalist id="membros-list">
+                        </datalist>
+                    <input type="hidden" name="professor_id">
+                </label>
+
+                <div class="flex justify-center mt-6">
+                    <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-8 py-3 rounded shadow-md transition duration-300 flex items-center">
+                        <i class="fas fa-save mr-2"></i>
+                        <span id="button-text">Salvar Classe</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-300 py-3 mt-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-600 text-sm">
+            © 2025 SGIPP. Todos os direitos reservados.
+        </div>
+    </footer>
+    
+    <script>
+        // Script temporário para feedback
+        function logout() {
+            window.location.href = '/sgi/login.html';
+        }
+
+        document.getElementById('form-cadastro-classe').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const feedbackDiv = document.getElementById('feedback-message');
+            feedbackDiv.textContent = 'Funcionalidade de salvar classe em desenvolvimento.';
+            feedbackDiv.className = 'p-4 mb-4 text-sm rounded-lg bg-blue-100 text-blue-700';
+            window.scrollTo(0, 0);
+        });
+    </script>
+</body>
+</html>

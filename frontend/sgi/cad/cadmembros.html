@@ -13,47 +13,71 @@
 </head>
 <body class="bg-gray-100 min-h-screen flex flex-col text-black">
     <nav class="bg-white shadow-md border-b border-gray-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center space-x-3">
-                    <a href="/sgi/home.html"><img alt="Logo da IPB Palmeiras" class="h-10 w-10" src="/static/imgs/acs/logo_ipp.png" /></a>
-                    <a href="/sgi/home.html" class="font-semibold text-xl text-gray-800">SGIPP</a>
-                </div>
-                <div class="hidden md:flex space-x-1 items-center">
-                    <div class="relative group px-3 py-2">
-                        <button class="text-gray-700 hover:text-green-600 font-semibold transition">Cadastro</button>
-                        <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
-                            <a href="/sgi/cad/cadmembros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
-                            <a href="/sgi/cad/cadoficial.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Oficiais</a>
-                        </div>
-                    </div>
-                    <div class="relative group px-3 py-2">
-                         <button class="text-gray-700 hover:text-green-600 font-semibold transition">Pesquisa</button>
-                         <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
-                            <a href="/sgi/pesq/pesqmembros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
-                         </div>
-                    </div>
-                    <div class="relative group px-3 py-2" data-role="pastor,admin">
-                        <button class="text-gray-700 hover:text-green-600 font-semibold transition">Relatórios</button>
-                        <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
-                            <a href="/sgi/dash/dashboard_membros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
-                        </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16 items-center">
+            <div class="flex items-center space-x-3">
+                <a href="/sgi/home.html"><img alt="Logo da IPB Palmeiras" class="h-10 w-10" src="/static/imgs/acs/logo_ipp.png" /></a>
+                <a href="/sgi/home.html" class="font-semibold text-xl text-gray-800">SGIPP</a>
+            </div>
+
+            <div class="hidden md:flex space-x-1 items-center">
+                <div class="relative group px-3 py-2">
+                    <button class="text-gray-700 hover:text-green-600 font-semibold transition">Cadastro</button>
+                    <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                        <a href="/sgi/cad/agendas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Agendas</a>
+                        <a href="/sgi/cad/classe_ebd.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Classes EBD</a>
+                        <a href="/sgi/cad/eventos.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Eventos</a>
+                        <a href="/sgi/cad/cadmembros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
+                        <a href="/sgi/cad/cadoficial.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Oficiais</a>
+                        <a href="/sgi/cad/publicacoes.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Publicações</a>
+                        <a href="/sgi/cad/cadsociedades.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Sociedades</a>
                     </div>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <div class="relative group px-3 py-2">
-                        <button class="flex items-center space-x-2 focus:outline-none">
-                            <img alt="Foto do usuário" class="h-8 w-8 rounded-full border-2 border-green-600" src="https://i.pravatar.cc/40" />
-                            <span class="font-semibold text-gray-800 menu-username">Usuário</span>
-                        </button>
-                        <div class="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-20">
-                            <button onclick="logout()" class="block w-full text-left px-4 py-2 text-red-600 hover:bg-red-500 hover:text-white">Sair</button>
-                        </div>
+
+                <div class="relative group px-3 py-2">
+                     <button class="text-gray-700 hover:text-green-600 font-semibold transition">Pesquisa</button>
+                     <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                        <a href="/sgi/pesq/agendas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Agendas</a>
+                        <a href="/sgi/pesq/classe_ebd.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Classes EBD</a>
+                        <a href="/sgi/pesq/eventos.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Eventos</a>
+                        <a href="/sgi/pesq/pesqmembros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
+                        <a href="/sgi/pesq/oficiais.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Oficiais</a>
+                        <a href="/sgi/pesq/publicacoes.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Publicações</a>
+                        <a href="/sgi/pesq/sociedades.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Sociedades</a>
+                     </div>
+                </div>
+
+                <div class="relative group px-3 py-2" data-role="pastor,admin">
+                    <button class="text-gray-700 hover:text-green-600 font-semibold transition">Dashboard</button>
+                    <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                        <a href="/sgi/dash/agendas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Agendas</a>
+                        <a href="/sgi/dash/classe_ebd.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Classes EBD</a>
+                        <a href="/sgi/dash/eventos.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Eventos</a>
+                        <a href="/sgi/dash/dashboard_membros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
+                        <a href="/sgi/dash/oficiais.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Oficiais</a>
+                        <a href="/sgi/dash/publicacoes.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Publicações</a>
+                        <a href="/sgi/dash/dashboard_sociedades.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Sociedades</a>
                     </div>
                 </div>
             </div>
-        </div>
-    </nav>
+
+            <div class="flex items-center space-x-4">
+                <div class="relative group px-3 py-2">
+                    <button class="flex items-center space-x-2 focus:outline-none">
+                        <img alt="Foto do usuário" class="h-8 w-8 rounded-full border-2 border-green-600" src="https://i.pravatar.cc/40" />
+                        <span class="font-semibold text-gray-800 menu-username">Usuário</span>
+                    </button>
+                    <div class="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-20">
+                        <a href="/sgi/perfil.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Perfil</a>
+                        <button onclick="logout()" class="block w-full text-left px-4 py-2 text-red-600 hover:bg-red-500 hover:text-white">Sair</button>
+                    </div>
+                </div>
+            </div>
+            
+            </div>
+    </div>
+</nav>
+
     <main class="flex-grow p-8">
         <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-md">
             <h2 class="text-2xl font-bold text-center text-gray-800 mb-2">Ficha de Cadastro de Membro</h2>
@@ -82,14 +106,6 @@
                         <option>Viúvo(a)</option>
                     </select>
                 </label>
-                <label class="flex flex-col">
-                    <span class="font-semibold mb-1 text-gray-600">CPF</span>
-                    <input type="text" name="cpf" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
-                </label>
-                <label class="flex flex-col">
-                    <span class="font-semibold mb-1 text-gray-600">RG</span>
-                    <input type="text" name="rg" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
-                </label>
 
                 <div class="md:col-span-2 mt-4">
                     <h3 class="text-lg font-semibold border-b pb-2 mb-4 text-gray-700">Contato e Endereço</h3>
@@ -97,10 +113,6 @@
                 <label class="flex flex-col">
                     <span class="font-semibold mb-1 text-gray-600">Telefone / Celular</span>
                     <input type="tel" name="telefone" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
-                </label>
-                <label class="flex flex-col">
-                    <span class="font-semibold mb-1 text-gray-600">E-mail</span>
-                    <input type="email" name="email" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
                 </label>
                 <label class="flex flex-col md:col-span-2">
                     <span class="font-semibold mb-1 text-gray-600">Endereço Completo</span>
@@ -152,7 +164,7 @@
                 </label>
                 
                 <div class="md:col-span-2 flex justify-center mt-6">
-                    <button type="submit" class="bg-green-600 hover:bg-green-800 text-white font-semibold px-8 py-3 rounded shadow-md transition duration-300 flex items-center">
+                    <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-8 py-3 rounded shadow-md transition duration-300 flex items-center">
                         <i class="fas fa-save mr-2"></i>
                         <span id="button-text">Salvar Cadastro</span>
                     </button>
@@ -182,32 +194,29 @@
             feedbackDiv.classList.add('hidden');
 
             try {
-                // Rota da API para onde os dados serão enviados
                 const response = await fetch('/sgi/api/membros', {
                     method: 'POST',
                     body: formData,
-                    // Futuramente, adicionaremos um header de autorização aqui
                 });
 
                 const result = await response.json();
                 
-                feedbackDiv.classList.remove('hidden', 'bg-red-100', 'text-red-700', 'bg-green-100', 'text-green-700');
+                feedbackDiv.classList.remove('hidden');
 
                 if (response.ok && result.success) {
                     feedbackDiv.textContent = result.message;
-                    feedbackDiv.classList.add('bg-green-100', 'text-green-700');
-                    form.reset(); // Limpa o formulário
+                    feedbackDiv.className = 'p-4 mb-4 text-sm rounded-lg bg-green-100 text-green-700';
+                    form.reset();
                 } else {
                     throw new Error(result.message || 'Ocorreu um erro desconhecido.');
                 }
             } catch (error) {
                 feedbackDiv.textContent = error.message;
-                feedbackDiv.classList.add('bg-red-100', 'text-red-700');
+                feedbackDiv.className = 'p-4 mb-4 text-sm rounded-lg bg-red-100 text-red-700';
             } finally {
-                feedbackDiv.classList.remove('hidden');
                 buttonText.textContent = 'Salvar Cadastro';
                 submitButton.disabled = false;
-                window.scrollTo(0, 0); // Rola a página para o topo
+                window.scrollTo(0, 0);
             }
         });
         

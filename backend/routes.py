@@ -5,7 +5,7 @@ from PIL import Image
 from io import BytesIO
 import sqlite3, os, requests, random, logging
 from config import Config
-from models import db, Membro, User # ...
+from models import db, Membro, User, Oficial
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -154,7 +154,14 @@ def register_routes(app):
         safe_filename = secure_filename(filename)
         return send_from_directory(Config.DOCUMENTS_DIR, safe_filename, as_attachment=True)
 
-de ser expandida)
+
+    # --- API PARA CADASTRO DE MEMBRO ---
+    @app.route('/sgi/api/membros', methods=['POST'])
+    def add_membro():
+        # (Futuramente, adicionaremos a verificação de login aqui)
+        
+        data = request.form
+        
         if not data.get('nome_completo'):
             return jsonify({'success': False, 'message': 'Nome completo é obrigatório.'}), 400
 
@@ -162,11 +169,9 @@ de ser expandida)
             novo_membro = Membro(
                 nome_completo=data.get('nome_completo'),
                 data_nascimento=data.get('data_nascimento') or None,
-                cpf=data.get('cpf'),
-                rg=data.get('rg'),
+                # Os campos cpf, rg e email foram removidos daqui
                 endereco=data.get('endereco'),
                 telefone=data.get('telefone'),
-                email=data.get('email'),
                 estado_civil=data.get('estado_civil'),
                 data_batismo=data.get('data_batismo') or None,
                 igreja_batismo=data.get('igreja_batismo'),
@@ -174,7 +179,6 @@ de ser expandida)
                 tipo_membro=data.get('tipo_membro'),
                 status=data.get('status'),
                 observacoes=data.get('observacoes')
-                # O campo da foto será tratado separadamente
             )
             
             db.session.add(novo_membro)
@@ -185,4 +189,60 @@ de ser expandida)
         except Exception as e:
             db.session.rollback()
             logger.error(f"Erro ao cadastrar membro: {e}")
-            return jsonify({'success': False, 'message': 'Erro no servidor. Verifique se o CPF ou E-mail já não estão cadastrados.'}), 500
+            # Mensagem de erro simplificada
+            return jsonify({'success': False, 'message': 'Erro interno ao salvar no banco de dados.'}), 500
+
+    # --- API PARA BUSCAR MEMBROS (Autocomplete) ---
+    @app.route('/sgi/api/membros/search')
+    def search_membros():
+        # Futuramente, protegeremos esta rota
+        
+        query = request.args.get('q', '') # Pega o termo de busca da URL (?q=nome)
+        if not query:
+            return jsonify([])
+
+        # Busca membros cujo nome contenha o termo pesquisado (case-insensitive)
+        membros = Membro.query.filter(Membro.nome_completo.ilike(f'%{query}%')).limit(10).all()
+        
+        # Formata o resultado para o frontend
+        results = [{'id': membro.id, 'nome_completo': membro.nome_completo} for membro in membros]
+        return jsonify(results)
+
+    # --- API PARA CADASTRAR OFICIAL ---
+    @app.route('/sgi/api/oficiais', methods=['POST'])
+    def add_oficial():
+        # Futuramente, protegeremos esta rota
+        
+        data = request.form
+        membro_id = data.get('membro_id')
+        
+        # Validações
+        if not membro_id:
+            return jsonify({'success': False, 'message': 'É necessário selecionar um membro válido.'}), 400
+        
+        # Verifica se o membro já não é um oficial
+        existing_oficial = Oficial.query.filter_by(membro_id=membro_id).first()
+        if existing_oficial:
+            return jsonify({'success': False, 'message': f'Este membro já é um {existing_oficial.cargo}.'}), 409
+
+        try:
+            novo_oficial = Oficial(
+                membro_id=membro_id,
+                cargo=data.get('cargo'),
+                data_ordenacao=data.get('data_ordenacao') or None,
+                mandato_inicio=data.get('mandato_inicio') or None,
+                mandato_fim=data.get('mandato_fim') or None,
+                status_oficio=data.get('status_oficio')
+            )
+            
+            db.session.add(novo_oficial)
+            db.session.commit()
+            
+            return jsonify({'success': True, 'message': f'{data.get("cargo")} cadastrado com sucesso!'})
+
+        except Exception as e:
+            db.session.rollback()
+            logger.error(f"Erro ao cadastrar oficial: {e}")
+            return jsonify({'success': False, 'message': 'Erro interno ao salvar o oficial.'}), 500
+
+   

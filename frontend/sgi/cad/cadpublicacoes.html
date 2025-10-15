@@ -1,0 +1,261 @@
+<html class="scroll-smooth" lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>SGIPP - Cadastro de Publicações</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/css/sgi.css" />
+    <script src="https://unpkg.com/html-to-docx/dist/html-to-docx.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+    <style>
+        body { font-family: "Inter", sans-serif; }
+        /* Estilos do seu editor customizado */
+        .toolbar {
+            padding: 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .toolbar button, .toolbar select {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 3px;
+            transition: background-color 0.2s;
+            min-width: 40px;
+            text-align: center;
+        }
+        .toolbar button:hover, .toolbar select:hover {
+            background-color: #e0e0e0;
+        }
+        .editor-content {
+            min-height: 300px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            outline: none;
+            line-height: 1.6;
+            font-size: 16px;
+            overflow-y: auto;
+            background-color: white;
+        }
+        .toolbar button i { pointer-events: none; }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col text-black">
+    <nav class="bg-white shadow-md border-b border-gray-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center space-x-3">
+                    <a href="/sgi/home.html"><img alt="Logo da IPB Palmeiras" class="h-10 w-10" src="/static/imgs/acs/logo_ipp.png" /></a>
+                    <a href="/sgi/home.html" class="font-semibold text-xl text-gray-800">SGIPP</a>
+                </div>
+                <div class="hidden md:flex space-x-1 items-center">
+                    <div class="relative group px-3 py-2">
+                        <button class="text-gray-700 hover:text-green-600 font-semibold transition">Cadastro</button>
+                        <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            <a href="/sgi/cad/agendas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Agendas</a>
+                            <a href="/sgi/cad/classe_ebd.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Classes EBD</a>
+                            <a href="/sgi/cad/eventos.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Eventos</a>
+                            <a href="/sgi/cad/cadmembros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
+                            <a href="/sgi/cad/cadoficial.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Oficiais</a>
+                            <a href="/sgi/cad/publicacoes.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Publicações</a>
+                            <a href="/sgi/cad/cadsociedades.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Sociedades</a>
+                        </div>
+                    </div>
+                    <div class="relative group px-3 py-2">
+                         <button class="text-gray-700 hover:text-green-600 font-semibold transition">Pesquisa</button>
+                         <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            <a href="/sgi/pesq/agendas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Agendas</a>
+                            <a href="/sgi/pesq/classe_ebd.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Classes EBD</a>
+                            <a href="/sgi/pesq/eventos.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Eventos</a>
+                            <a href="/sgi/pesq/pesqmembros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
+                            <a href="/sgi/pesq/oficiais.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Oficiais</a>
+                            <a href="/sgi/pesq/publicacoes.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Publicações</a>
+                            <a href="/sgi/pesq/sociedades.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Sociedades</a>
+                         </div>
+                    </div>
+                    <div class="relative group px-3 py-2" data-role="pastor,admin">
+                        <button class="text-gray-700 hover:text-green-600 font-semibold transition">Dashboard</button>
+                        <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            <a href="/sgi/dash/agendas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Agendas</a>
+                            <a href="/sgi/dash/classe_ebd.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Classes EBD</a>
+                            <a href="/sgi/dash/eventos.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Eventos</a>
+                            <a href="/sgi/dash/dashboard_membros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
+                            <a href="/sgi/dash/oficiais.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Oficiais</a>
+                            <a href="/sgi/dash/publicacoes.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Publicações</a>
+                            <a href="/sgi/dash/dashboard_sociedades.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Sociedades</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative group px-3 py-2">
+                        <button class="flex items-center space-x-2 focus:outline-none">
+                            <img alt="Foto do usuário" class="h-8 w-8 rounded-full border-2 border-green-600" src="https://i.pravatar.cc/40" />
+                            <span class="font-semibold text-gray-800 menu-username">Usuário</span>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-20">
+                            <a href="/sgi/perfil.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Perfil</a>
+                            <button onclick="logout()" class="block w-full text-left px-4 py-2 text-red-600 hover:bg-red-500 hover:text-white">Sair</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow p-8">
+        <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-md">
+            <h2 class="text-2xl font-bold text-center text-gray-800 mb-2">Criar Nova Publicação</h2>
+            <p class="text-center text-gray-500 mb-6">Escreva um novo sermão, devocional ou estudo para a igreja.</p>
+            <div id="feedback-message" class="hidden p-4 mb-4 text-sm rounded-lg" role="alert"></div>
+            
+            <form id="form-cadastro-publicacao" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <label class="flex flex-col md:col-span-2">
+                        <span class="font-semibold mb-1 text-gray-600">Título da Publicação</span>
+                        <input type="text" id="titulo-publicacao" name="titulo" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500" required>
+                    </label>
+                    <label class="flex flex-col">
+                        <span class="font-semibold mb-1 text-gray-600">Tipo</span>
+                        <select id="tipo-publicacao" name="tipo" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                            <option>Sermão</option>
+                            <option>Devocional</option>
+                            <option>Estudo Bíblico</option>
+                            <option>Notícia</option>
+                            <option>Aviso</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div class="flex flex-col">
+                    <span class="font-semibold mb-1 text-gray-600">Conteúdo</span>
+                    <div class="editor-container">
+                        <div class="toolbar">
+                            <button type="button" data-command="bold"><b>B</b></button>
+                            <button type="button" data-command="italic"><i>I</i></button>
+                            <button type="button" data-command="underline"><u>U</u></button>
+                            <button type="button" data-command="strikeThrough"><s>S</s></button>
+                            <button type="button" data-command="insertOrderedList"><i class="fas fa-list-ol"></i></button>
+                            <button type="button" data-command="insertUnorderedList"><i class="fas fa-list-ul"></i></button>
+                            <button type="button" data-command="justifyLeft"><i class="fas fa-align-left"></i></button>
+                            <button type="button" data-command="justifyCenter"><i class="fas fa-align-center"></i></button>
+                            <button type="button" data-command="justifyRight"><i class="fas fa-align-right"></i></button>
+                            <button type="button" data-command="justifyFull"><i class="fas fa-align-justify"></i></button>
+                            <select data-command="fontName">
+                                <option value="Arial">Arial</option>
+                                <option value="Verdana">Verdana</option>
+                                <option value="Times New Roman">Times New Roman</option>
+                            </select>
+                        </div>
+                        <div class="editor-content" contenteditable="true">
+                            <p>Comece a digitar seu texto aqui...</p>
+                        </div>
+                    </div>
+                    <input type="hidden" id="conteudo-final" name="conteudo">
+                </div>
+
+                <label class="flex flex-col">
+                    <span class="font-semibold mb-1 text-gray-600">Autor</span>
+                    <input type="text" id="autor-publicacao" name="autor" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Ex: Rev. Josué, SAF, etc.">
+                </label>
+                
+                <div class="flex justify-center items-center mt-6 space-x-4">
+                    <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-8 py-3 rounded shadow-md transition duration-300 flex items-center">
+                        <i class="fas fa-paper-plane mr-2"></i>
+                        <span id="button-text">Publicar na Home</span>
+                    </button>
+                    <button type="button" id="save-doc-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded shadow-md transition duration-300 flex items-center">
+                        <i class="fas fa-file-download mr-2"></i>
+                        <span>Salvar Documento</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-300 py-3 mt-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-600 text-sm">
+            © 2025 SGIPP. Todos os direitos reservados.
+        </div>
+    </footer>
+    
+    <script>
+        function logout() { window.location.href = '/sgi/login.html'; }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const editorContent = document.querySelector('.editor-content');
+            const toolbar = document.querySelector('.toolbar');
+            const form = document.getElementById('form-cadastro-publicacao');
+            const hiddenContentInput = document.getElementById('conteudo-final');
+            const saveDocBtn = document.getElementById('save-doc-btn');
+
+            toolbar.addEventListener('click', (event) => {
+                const target = event.target.closest('button');
+                if (target && target.dataset.command) {
+                    event.preventDefault();
+                    const command = target.dataset.command;
+                    if (command === 'createLink') {
+                        const url = prompt('Insira o URL:', 'https://');
+                        if (url) document.execCommand(command, false, url);
+                    } else {
+                        document.execCommand(command, false, null);
+                    }
+                    editorContent.focus(); 
+                }
+            });
+            
+            toolbar.addEventListener('change', (event) => {
+                const target = event.target;
+                if (target.tagName === 'SELECT' && target.dataset.command) {
+                    const command = target.dataset.command;
+                    const value = target.value;
+                    document.execCommand(command, false, value);
+                    editorContent.focus();
+                }
+            });
+
+            // Lógica para o botão "Salvar como Documento"
+            saveDocBtn.addEventListener('click', async () => {
+                const title = document.getElementById('titulo-publicacao').value || "Documento Sem Título";
+                const type = document.getElementById('tipo-publicacao').value;
+                const author = document.getElementById('autor-publicacao').value || "Autor Desconhecido";
+                
+                const headerHTML = `<div style="text-align: center;"><h1>${title}</h1><p><strong>Tipo:</strong> ${type}</p></div><hr>`;
+                const footerHTML = `<br><hr><p style="text-align: right;"><em>Por: ${author}</em></p>`;
+                const contentHTML = headerHTML + editorContent.innerHTML + footerHTML;
+                
+                try {
+                    const fileBuffer = await htmlToDocx.asBlob(contentHTML);
+                    saveAs(fileBuffer, `${title}.docx`);
+                } catch (error) {
+                    console.error("Erro ao gerar o documento:", error);
+                    alert("Não foi possível gerar o documento.");
+                }
+            });
+
+            // Lógica de Envio do Formulário ("Publicar")
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                hiddenContentInput.value = editorContent.innerHTML;
+
+                const feedbackDiv = document.getElementById('feedback-message');
+                feedbackDiv.textContent = 'Funcionalidade de "Publicar" em desenvolvimento.';
+                feedbackDiv.className = 'p-4 mb-4 text-sm rounded-lg bg-blue-100 text-blue-700';
+                window.scrollTo(0, 0);
+            });
+        });
+    </script>
+</body>
+</html>

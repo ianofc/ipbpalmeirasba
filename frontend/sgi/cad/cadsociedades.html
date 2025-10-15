@@ -1,0 +1,172 @@
+<html class="scroll-smooth" lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>SGIPP - Cadastro de Eventos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/css/sgi.css" />
+    <style> body { font-family: "Inter", sans-serif; } </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col text-black">
+    <nav class="bg-white shadow-md border-b border-gray-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center space-x-3">
+                    <a href="/sgi/home.html"><img alt="Logo da IPB Palmeiras" class="h-10 w-10" src="/static/imgs/acs/logo_ipp.png" /></a>
+                    <a href="/sgi/home.html" class="font-semibold text-xl text-gray-800">SGIPP</a>
+                </div>
+                <div class="hidden md:flex space-x-1 items-center">
+                    <div class="relative group px-3 py-2">
+                        <button class="text-gray-700 hover:text-green-600 font-semibold transition">Cadastro</button>
+                        <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            <a href="/sgi/cad/agendas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Agendas</a>
+                            <a href="/sgi/cad/classe_ebd.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Classes EBD</a>
+                            <a href="/sgi/cad/eventos.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Eventos</a>
+                            <a href="/sgi/cad/cadmembros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
+                            <a href="/sgi/cad/cadoficial.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Oficiais</a>
+                            <a href="/sgi/cad/publicacoes.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Publicações</a>
+                            <a href="/sgi/cad/cadsociedades.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Sociedades</a>
+                        </div>
+                    </div>
+                    <div class="relative group px-3 py-2">
+                         <button class="text-gray-700 hover:text-green-600 font-semibold transition">Pesquisa</button>
+                         <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            <a href="/sgi/pesq/agendas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Agendas</a>
+                            <a href="/sgi/pesq/classe_ebd.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Classes EBD</a>
+                            <a href="/sgi/pesq/eventos.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Eventos</a>
+                            <a href="/sgi/pesq/pesqmembros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
+                            <a href="/sgi/pesq/oficiais.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Oficiais</a>
+                            <a href="/sgi/pesq/publicacoes.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Publicações</a>
+                            <a href="/sgi/pesq/sociedades.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Sociedades</a>
+                         </div>
+                    </div>
+                    <div class="relative group px-3 py-2" data-role="pastor,admin">
+                        <button class="text-gray-700 hover:text-green-600 font-semibold transition">Dashboard</button>
+                        <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            <a href="/sgi/dash/agendas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Agendas</a>
+                            <a href="/sgi/dash/classe_ebd.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Classes EBD</a>
+                            <a href="/sgi/dash/eventos.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Eventos</a>
+                            <a href="/sgi/dash/dashboard_membros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
+                            <a href="/sgi/dash/oficiais.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Oficiais</a>
+                            <a href="/sgi/dash/publicacoes.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Publicações</a>
+                            <a href="/sgi/dash/dashboard_sociedades.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Sociedades</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative group px-3 py-2">
+                        <button class="flex items-center space-x-2 focus:outline-none">
+                            <img alt="Foto do usuário" class="h-8 w-8 rounded-full border-2 border-green-600" src="https://i.pravatar.cc/40" />
+                            <span class="font-semibold text-gray-800 menu-username">Usuário</span>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-20">
+                            <a href="/sgi/perfil.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Perfil</a>
+                            <button onclick="logout()" class="block w-full text-left px-4 py-2 text-red-600 hover:bg-red-500 hover:text-white">Sair</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+     <main class="flex-grow p-8">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-2xl font-bold text-center text-gray-800 mb-2">Gestão de Sociedades Internas</h2>
+            <p class="text-center text-gray-500 mb-8">Selecione uma sociedade para visualizar ou atualizar sua diretoria e atividades.</p>
+
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+                <div class="sociedade-card cursor-pointer p-4 bg-white rounded-lg shadow-md hover:shadow-xl hover:scale-105 transition-transform duration-300 flex flex-col items-center" data-sociedade="SAF">
+                    <img src="/static/imgs/orgs/logo_saf.png" alt="Logo SAF" class="h-20 mb-2">
+                    <span class="font-semibold">SAF</span>
+                </div>
+                <div class="sociedade-card cursor-pointer p-4 bg-white rounded-lg shadow-md hover:shadow-xl hover:scale-105 transition-transform duration-300 flex flex-col items-center" data-sociedade="UPH">
+                    <img src="/static/imgs/orgs/logo_uph.png" alt="Logo UPH" class="h-20 mb-2">
+                    <span class="font-semibold">UPH</span>
+                </div>
+                <div class="sociedade-card cursor-pointer p-4 bg-white rounded-lg shadow-md hover:shadow-xl hover:scale-105 transition-transform duration-300 flex flex-col items-center" data-sociedade="UMP">
+                    <img src="/static/imgs/orgs/logo_ump.png" alt="Logo UMP" class="h-20 mb-2">
+                    <span class="font-semibold">UMP</span>
+                </div>
+                <div class="sociedade-card cursor-pointer p-4 bg-white rounded-lg shadow-md hover:shadow-xl hover:scale-105 transition-transform duration-300 flex flex-col items-center" data-sociedade="UPA">
+                    <img src="/static/imgs/orgs/logo_upa.png" alt="Logo UPA" class="h-20 mb-2">
+                    <span class="font-semibold">UPA</span>
+                </div>
+                <div class="sociedade-card cursor-pointer p-4 bg-white rounded-lg shadow-md hover:shadow-xl hover:scale-105 transition-transform duration-300 flex flex-col items-center" data-sociedade="UCP">
+                    <img src="/static/imgs/orgs/logo_ucp.png" alt="Logo UCP" class="h-20 mb-2">
+                    <span class="font-semibold">UCP</span>
+                </div>
+            </div>
+
+            <div id="management-form-container" class="hidden">
+                <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold text-center text-gray-800 mb-6">
+                        Gerenciando Diretoria da <span id="sociedade-selecionada-titulo" class="text-green-600"></span>
+                    </h3>
+                    <form id="form-gestao-sociedade" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <input type="hidden" name="sociedade_sigla" id="sociedade_sigla">
+                        
+                        <label class="flex flex-col">
+                            <span class="font-semibold mb-1 text-gray-600">Presidente</span>
+                            <input type="text" name="presidente" list="membros-list" class="membro-search-input border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Buscar membro...">
+                        </label>
+                         <label class="flex flex-col">
+                            <span class="font-semibold mb-1 text-gray-600">Vice-Presidente</span>
+                            <input type="text" name="vice_presidente" list="membros-list" class="membro-search-input border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Buscar membro...">
+                        </label>
+                         <label class="flex flex-col">
+                            <span class="font-semibold mb-1 text-gray-600">1º Secretário(a)</span>
+                            <input type="text" name="secretario1" list="membros-list" class="membro-search-input border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Buscar membro...">
+                        </label>
+                         <label class="flex flex-col">
+                            <span class="font-semibold mb-1 text-gray-600">2º Secretário(a)</span>
+                            <input type="text" name="secretario2" list="membros-list" class="membro-search-input border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Buscar membro...">
+                        </label>
+                        <label class="flex flex-col">
+                            <span class="font-semibold mb-1 text-gray-600">Tesoureiro(a)</span>
+                            <input type="text" name="tesoureiro" list="membros-list" class="membro-search-input border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Buscar membro...">
+                        </label>
+                        
+                        <datalist id="membros-list"></datalist>
+
+                        <div class="md:col-span-2 flex justify-center mt-6">
+                            <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-8 py-3 rounded shadow-md transition duration-300">
+                                Salvar Diretoria
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-300 py-3 mt-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-600 text-sm">© 2025 SGIPP. Todos os direitos reservados.</div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const formContainer = document.getElementById('management-form-container');
+            const sociedadeTitulo = document.getElementById('sociedade-selecionada-titulo');
+            const sociedadeSiglaInput = document.getElementById('sociedade_sigla');
+
+            document.querySelectorAll('.sociedade-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const sigla = card.dataset.sociedade;
+                    sociedadeTitulo.textContent = sigla;
+                    sociedadeSiglaInput.value = sigla;
+                    formContainer.classList.remove('hidden');
+                    
+                    // Futuramente, buscaremos a diretoria atual e preencheremos o form
+                });
+            });
+
+            // Lógica de busca de membros (igual ao cadoficiais.html)
+            // ... (o código para buscar membros em tempo real será adicionado aqui no próximo passo)
+        });
+
+        function logout() { window.location.href = '/sgi/login.html'; }
+    </script>
+</body>
+</html>
