@@ -1,1304 +1,220 @@
 <html class="scroll-smooth" lang="pt-BR">
- <head>
-  <!-- Metadados básicos -->
-  <meta charset="utf-8" />
-  <meta content="width=device-width, initial-scale=1" name="viewport" />
-  <title>Peniel Social</title>
-  
-  <!-- Importação de bibliotecas externas -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link
-   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-   rel="stylesheet"
-  />
-  <link
-   href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap"
-   rel="stylesheet"
-  />
- </head>
- <body class="bg-gray-100 min-h-screen flex flex-col text-black">
-  <!-- Navbar -->
-  <nav class="bg-white shadow-md border-b border-gray-300">
-    <!-- Container principal da barra de navegação -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-     <div class="flex justify-between h-16 items-center relative">
-      <!-- Logotipo e título -->
-      <div class="flex items-center space-x-3">
-       <img
-        alt="Logo da Peniel, símbolo dourado estilizado com fundo branco"
-        class="h-10 w-10 rounded-full"
-        height="40"
-        src="https://storage.googleapis.com/a1aa/image/34d4e407-1218-4948-0478-f3dcb7d95fcd.jpg"
-        width="40"
-       />
-       <span class="font-semibold text-xl" style="color: var(--color-gold)"
-        >Peniel Social+</span
-       >
-      </div>
-      <!-- Links de navegação para desktop com submenus -->
-      <div class="hidden md:flex space-x-6 items-center relative">
-       <!-- Cadastro -->
-       <div class="relative group">
-        <button
-         class="text-gray-700 hover:text-[var(--color-gold)] font-semibold transition focus:outline-none flex items-center space-x-1"
-         id="btnCadastro"
-         aria-haspopup="true"
-         aria-expanded="false"
-        >
-         <span>Cadastro</span>
-         <i class="fas fa-chevron-down text-sm"></i>
-        </button>
-        <div
-         class="absolute left-0 mt-2 w-40 bg-white border border-gray-300 rounded-md shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity z-30"
-         role="menu"
-         aria-label="Submenu Cadastro"
-        >
-         <a
-          href="cadinternos.html"
-          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
-          role="menuitem"
-          >Cadastro de Internos</a
-         >
-         <a
-          href="cadvoluntarios.html"
-          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
-          role="menuitem"
-          >Cadastro de Voluntários</a
-         >
-         <a
-          href="cadobreiros.html"
-          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
-          role="menuitem"
-          >Cadastro de Obreiros</a
-         >
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>SGIPP - Cadastro de Membros</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/css/sgi.css" />
+    <style>
+        body { font-family: "Inter", sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col text-black">
+    <nav class="bg-white shadow-md border-b border-gray-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center space-x-3">
+                    <a href="/sgi/home.html"><img alt="Logo da IPB Palmeiras" class="h-10 w-10" src="/static/imgs/acs/logo_ipp.png" /></a>
+                    <a href="/sgi/home.html" class="font-semibold text-xl text-gray-800">SGIPP</a>
+                </div>
+                <div class="hidden md:flex space-x-1 items-center">
+                    <div class="relative group px-3 py-2">
+                        <button class="text-gray-700 hover:text-green-600 font-semibold transition">Cadastro</button>
+                        <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            <a href="/sgi/cad/cadmembros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
+                            <a href="/sgi/cad/cadoficial.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Oficiais</a>
+                        </div>
+                    </div>
+                    <div class="relative group px-3 py-2">
+                         <button class="text-gray-700 hover:text-green-600 font-semibold transition">Pesquisa</button>
+                         <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            <a href="/sgi/pesq/pesqmembros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
+                         </div>
+                    </div>
+                    <div class="relative group px-3 py-2" data-role="pastor,admin">
+                        <button class="text-gray-700 hover:text-green-600 font-semibold transition">Relatórios</button>
+                        <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            <a href="/sgi/dash/dashboard_membros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative group px-3 py-2">
+                        <button class="flex items-center space-x-2 focus:outline-none">
+                            <img alt="Foto do usuário" class="h-8 w-8 rounded-full border-2 border-green-600" src="https://i.pravatar.cc/40" />
+                            <span class="font-semibold text-gray-800 menu-username">Usuário</span>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-20">
+                            <button onclick="logout()" class="block w-full text-left px-4 py-2 text-red-600 hover:bg-red-500 hover:text-white">Sair</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-       </div>
-       <!-- Pesquisa -->
-       <div class="relative group">
-        <button
-         class="text-gray-700 hover:text-[var(--color-gold)] font-semibold transition focus:outline-none flex items-center space-x-1"
-         id="btnPesquisa"
-         aria-haspopup="true"
-         aria-expanded="false"
-        >
-         <span>Pesquisa</span>
-         <i class="fas fa-chevron-down text-sm"></i>
-        </button>
-        <div
-         class="absolute left-0 mt-2 w-40 bg-white border border-gray-300 rounded-md shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity z-30"
-         role="menu"
-         aria-label="Submenu Pesquisa"
-        >
-         <a
-          href="pesqinternos.html"
-          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
-          role="menuitem"
-          >Pesquisa de Internos</a
-         >
-         <a
-          href="pesqvoluntarios.html"
-          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
-          role="menuitem"
-          >Pesquisa de Voluntários</a
-         >
-        </div>
-       </div>
-       <!-- Relatórios -->
-       <div class="relative group">
-        <button
-         class="text-[var(--color-gold)] font-semibold transition focus:outline-none flex items-center space-x-1"
-         id="btnRelatorios"
-         aria-haspopup="true"
-         aria-expanded="false"
-        >
-         <span>Relatórios</span>
-         <i class="fas fa-chevron-down text-sm"></i>
-        </button>
-        <div
-         class="absolute left-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity z-30"
-         role="menu"
-         aria-label="Submenu Relatórios"
-        >
-         <a
-          href="dashboardinternos.html"
-          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
-          role="menuitem"
-          >Relatórios de Internos</a
-         >
-         <a
-          href="dashboardmembros.html"
-          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
-          role="menuitem"
-          >Relatórios de Membros</a
-         >
-         <a
-          href="dashboardministerio.html"
-          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
-          role="menuitem"
-          >Relatórios de Ministério</a
-         >
-         <a
-          href="dashboardmissao.html"
-          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
-          role="menuitem"
-          >Relatórios de Missões</a
-         >
-        </div>
-       </div>
-      </div>
-      <!-- Perfil -->
-      <div class="flex items-center space-x-4">
-       <!-- Menu suspenso do perfil -->
-       <div class="relative group">
-        <button
-         aria-label="Perfil do usuário"
-         class="flex items-center space-x-2 focus:outline-none"
-         id="user-menu-button"
-        >
-         <img
-          alt="Foto do usuário, rosto sorridente de pessoa jovem com fundo cinza claro"
-          class="rounded-full border-2 border-[var(--color-gold)]"
-          height="32"
-          src="https://storage.googleapis.com/a1aa/image/43fd7a15-3d17-458f-ee09-2793942a0a7c.jpg"
-          width="32"
-         />
-         <span class="font-semibold text-gray-800">João Silva</span>
-         <i class="fas fa-chevron-down text-gray-500"></i>
-        </button>
-        <div
-         class="absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded-md shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity z-20"
-         id="user-menu"
-        >
-         <a
-          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
-          href="perfil.html"
-          >Perfil</a
-         >
-         <a
-          class="block px-4 py-2 text-red-600 hover:bg-red-50 font-semibold"
-          href="#sair"
-          >Sair</a
-         >
-        </div>
-       </div>
-      </div>
-      <!-- Botão de menu para dispositivos móveis -->
-      <div class="md:hidden">
-       <button
-        aria-label="Abrir menu"
-        class="text-gray-700 hover:text-[var(--color-gold)] focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)] rounded"
-        id="mobile-menu-button"
-       >
-        <i class="fas fa-bars fa-lg"></i>
-       </button>
-      </div>
-     </div>
-    </div>
-    <!-- Menu suspenso para dispositivos móveis -->
-    <div class="hidden md:hidden bg-white border-t border-gray-300" id="mobile-menu">
-     <details class="group border-b border-gray-200">
-      <summary
-       class="px-4 py-3 cursor-pointer select-none text-gray-800 font-semibold hover:bg-[var(--color-gold)] hover:text-white"
-      >
-       Cadastro
-       <i
-        class="fas fa-chevron-down float-right mt-1 text-gray-600 group-open:rotate-180 transition-transform"
-       ></i>
-      </summary>
-      <div class="pl-6 pb-3 space-y-1">
-       <a
-        href="cadinternos.html"
-        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-        >Cadastro de Internos</a
-       >
-       <a
-        href="cadvoluntarios.html"
-        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-        >Cadastro de Voluntários</a
-       >
-       <a
-        href="cadobreiros.html"
-        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-        >Cadastro de Obreiros</a
-       >
-      </div>
-     </details>
-     <details class="group border-b border-gray-200">
-      <summary
-       class="px-4 py-3 cursor-pointer select-none text-gray-800 font-semibold hover:bg-[var(--color-gold)] hover:text-white"
-      >
-       Pesquisa
-       <i
-        class="fas fa-chevron-down float-right mt-1 text-gray-600 group-open:rotate-180 transition-transform"
-       ></i>
-      </summary>
-      <div class="pl-6 pb-3 space-y-1">
-       <a
-        href="pesqinternos.html"
-        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-        >Pesquisa de Internos</a
-       >
-       <a
-        href="pesqvoluntarios.html"
-        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-        >Pesquisa de Voluntários</a
-       >
-      </div>
-     </details>
-     <details class="group border-b border-gray-200">
-      <summary
-       class="px-4 py-3 cursor-pointer select-none text-[var(--color-gold)] font-semibold hover:bg-[var(--color-gold)] hover:text-white"
-      >
-       Relatórios
-       <i
-        class="fas fa-chevron-down float-right mt-1 text-gray-600 group-open:rotate-180 transition-transform"
-       ></i>
-      </summary>
-      <div class="pl-6 pb-3 space-y-1">
-       <a
-        href="dashboardinternos.html"
-        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-        >Relatórios de Internos</a
-       >
-       <a
-        href="dashboardmembros.html"
-        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-        >Relatórios de Membros</a
-       >
-       <a
-        href="dashboardministerio.html"
-        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-        >Relatórios de Ministério</a
-       >
-       <a
-        href="dashboardmissao.html"
-        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-        >Relatórios de Missões</a
-       >
-      </div>
-     </details>
-     <a
-      class="block px-4 py-3 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
-      href="perfil.html"
-      >Perfil</a
-     >
-     <a
-      class="block px-4 py-3 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
-      href="#configuracoes"
-      >Configurações</a
-     >
-     <a
-      class="block px-4 py-3 text-red-600 font-semibold hover:bg-red-50"
-      href="#sair"
-      >Sair</a
-     >
-    </div>
-   </nav>
-  <!-- Conteúdo principal -->
-  <main class="flex-grow w-full px-4 sm:px-6 lg:px-8 py-6">
-   <h1 class="text-3xl font-semibold text-[var(--color-black)] mb-8 text-center">
-    Bem-vindo, João Silva
-   </h1>
-   <!-- Seção de Cadastro -->
-   <section
-    class="bg-white rounded-lg shadow p-8 mb-6 max-w-full mx-auto"
-    id="sectionCadastro"
-    style="display: block"
-   >
-    <h2
-     class="text-2xl font-semibold mb-6 text-[var(--color-gold)] text-center"
-    >
-     Cadastro
-    </h2>
-    <div class="text-gray-700 leading-relaxed space-y-4 text-justify max-w-full mx-auto">
-     <p class="font-semibold text-center text-xl mb-6">CADASTRO DE INTERNO</p>
-     <form class="space-y-6" id="cadastroForm">
-      <!-- Formulário de cadastro com campos organizados em grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 max-w-full">
-       <!-- Campo para selecionar a cor da pele -->
-       <label for="skinColor" class="flex flex-col">
-        <span class="font-semibold mb-1">Cor da Pele</span>
-        <select
-         id="skinColor"
-         name="skinColor"
-         required
-         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-        >
-         <option value="" disabled selected>Selecione a cor da pele</option>
-         <option value="clara">Clara</option>
-         <option value="media-clara">Média Clara</option>
-         <option value="media">Média</option>
-         <option value="media-escura">Média Escura</option>
-         <option value="escura">Escura</option>
-        </select>
-       </label>
-       <!-- Campo para selecionar a cor do cabelo -->
-       <label for="hairColor" class="flex flex-col">
-        <span class="font-semibold mb-1">Cor do Cabelo</span>
-        <select
-         id="hairColor"
-         name="hairColor"
-         required
-         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-        >
-         <option value="" disabled selected>Selecione a cor do cabelo</option>
-         <option value="preto">Preto</option>
-         <option value="castanho-escuro">Castanho Escuro</option>
-         <option value="castanho-claro">Castanho Claro</option>
-         <option value="loiro">Loiro</option>
-         <option value="ruivo">Ruivo</option>
-         <option value="outros">Outros</option>
-        </select>
-       </label>
-       <!-- Campo para selecionar a cor dos olhos -->
-       <label for="eyeColor" class="flex flex-col md:col-span-2">
-        <span class="font-semibold mb-1">Cor dos Olhos</span>
-        <select
-         id="eyeColor"
-         name="eyeColor"
-         required
-         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-        >
-         <option value="" disabled selected>Selecione a cor dos olhos</option>
-         <option value="castanho">Castanho</option>
-         <option value="avela">Avelã</option>
-         <option value="verde">Verde</option>
-         <option value="azul">Azul</option>
-         <option value="cinza">Cinza</option>
-         <option value="outros">Outros</option>
-        </select>
-       </label>
-       <!-- Campo para altura -->
-       <label class="flex flex-col">
-        <span class="font-semibold mb-1">Altura:</span>
-        <input
-         type="text"
-         name="altura"
-         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-         placeholder="Altura"
-        />
-       </label>
-       <!-- Campo para peso -->
-       <label class="flex flex-col">
-        <span class="font-semibold mb-1">Peso:</span>
-        <input
-         type="text"
-         name="peso"
-         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-         placeholder="Peso"
-        />
-       </label>
-       <fieldset class="flex flex-col md:col-span-2">
-        <legend class="font-semibold mb-1">Estado civil:</legend>
-        <div class="flex space-x-6">
-         <label class="inline-flex items-center">
-          <input
-           type="radio"
-           name="estadoCivil"
-           value="Casado"
-           class="form-radio text-[var(--color-gold)]"
-          />
-          <span class="ml-2">Casado</span>
-         </label>
-         <label class="inline-flex items-center">
-          <input
-           type="radio"
-           name="estadoCivil"
-           value="Solteiro"
-           class="form-radio text-[var(--color-gold)]"
-          />
-          <span class="ml-2">Solteiro</span>
-         </label>
-         <label class="inline-flex items-center">
-          <input
-           type="radio"
-           name="estadoCivil"
-           value="Outros"
-           class="form-radio text-[var(--color-gold)]"
-          />
-          <span class="ml-2">Outros</span>
-         </label>
-        </div>
-       </fieldset>
-       <label class="flex flex-col md:col-span-2">
-        <span class="font-semibold mb-1">Filhos:</span>
-        <input
-         type="text"
-         name="filhos"
-         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-         placeholder="Filhos"
-        />
-       </label>
-       <label class="flex flex-col">
-        <span class="font-semibold mb-1">RG:</span>
-        <input
-         type="text"
-         name="rg"
-         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-         placeholder="RG"
-        />
-       </label>
-       <label class="flex flex-col">
-        <span class="font-semibold mb-1">CPF:</span>
-        <input
-         type="text"
-         name="cpf"
-         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-         placeholder="CPF"
-        />
-       </label>
-       <label class="flex flex-col">
-        <span class="font-semibold mb-1">Título de Eleitor:</span>
-        <input
-         type="text"
-         name="tituloEleitor"
-         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-         placeholder="Título de Eleitor"
-        />
-       </label>
-       <label class="flex flex-col">
-        <span class="font-semibold mb-1">CTPS:</span>
-        <input
-         type="text"
-         name="ctps"
-         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-         placeholder="CTPS"
-        />
-       </label>
-       <label class="flex flex-col md:col-span-2">
-        <span class="font-semibold mb-1">Endereço:</span>
-        <input
-         type="text"
-         name="endereco"
-         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-         placeholder="Endereço"
-        />
-       </label>
-       <label class="flex flex-col">
-        <span class="font-semibold mb-1">Bairro:</span>
-        <input
-         type="text"
-         name="bairro"
-         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-         placeholder="Bairro"
-        />
-       </label>
-       <label class="flex flex-col">
-        <span class="font-semibold mb-1">Cidade:</span>
-        <input
-         type="text"
-         name="cidade"
-         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-         placeholder="Cidade"
-        />
-       </label>
-       <label class="flex flex-col">
-        <span class="font-semibold mb-1">Estado:</span>
-        <input
-         type="text"
-         name="estado"
-         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-         placeholder="Estado"
-        />
-       </label>
-       <label class="flex flex-col">
-        <span class="font-semibold mb-1">Escolaridade:</span>
-        <input
-         type="text"
-         name="escolaridade"
-         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-         placeholder="Escolaridade"
-        />
-       </label>
-       <label class="flex flex-col">
-        <span class="font-semibold mb-1">Curso Profissionalizante:</span>
-        <input
-         type="text"
-         name="cursoProfissionalizante"
-         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-         placeholder="Curso Profissionalizante"
-        />
-       </label>
-       <label class="flex flex-col md:col-span-2">
-        <span class="font-semibold mb-1">Profissional na área de:</span>
-        <input
-         type="text"
-         name="profissionalArea"
-         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-         placeholder="Profissional na área de"
-        />
-       </label>
-       <fieldset class="flex flex-col md:col-span-2">
-        <legend class="font-semibold mb-1">Está empregado?</legend>
-        <div class="flex space-x-6">
-         <label class="inline-flex items-center">
-          <input
-           type="radio"
-           name="empregado"
-           value="Sim"
-           class="form-radio text-[var(--color-gold)]"
-          />
-          <span class="ml-2">Sim</span>
-         </label>
-         <label class="inline-flex items-center">
-          <input
-           type="radio"
-           name="empregado"
-           value="Não"
-           class="form-radio text-[var(--color-gold)]"
-          />
-          <span class="ml-2">Não</span>
-         </label>
-        </div>
-       </fieldset>
-       <label class="flex flex-col md:col-span-2">
-        <span class="font-semibold mb-1">Empresa:</span>
-        <input
-         type="text"
-         name="empresa"
-         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-         placeholder="Empresa"
-        />
-       </label>
-       <label class="flex flex-col md:col-span-2">
-        <span class="font-semibold mb-1">Telefone Empresa:</span>
-        <input
-         type="text"
-         name="telefoneEmpresa"
-         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-         placeholder="Telefone Empresa"
-        />
-       </label>
-       <label class="flex flex-col md:col-span-2">
-        <span class="font-semibold mb-1">Chefe imediato:</span>
-        <input
-         type="text"
-         name="chefeImediato"
-         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-         placeholder="Chefe imediato"
-        />
-       </label>
-       <label class="flex flex-col md:col-span-2">
-        <span class="font-semibold mb-1">Motivo de interrupção:</span>
-        <input
-         type="text"
-         name="motivoInterrupcao"
-         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-         placeholder="Motivo de interrupção"
-        />
-       </label>
-       <fieldset class="flex flex-col md:col-span-2">
-        <legend class="font-semibold mb-1">
-         Já passou por algum Centro de Recuperação?
-        </legend>
-        <div class="flex space-x-6">
-         <label class="inline-flex items-center">
-          <input
-           type="radio"
-           name="centroRecuperacao"
-           value="Sim"
-           class="form-radio text-[var(--color-gold)]"
-          />
-          <span class="ml-2">Sim</span>
-         </label>
-         <label class="inline-flex items-center">
-          <input
-           type="radio"
-           name="centroRecuperacao"
-           value="Não"
-           class="form-radio text-[var(--color-gold)]"
-          />
-          <span class="ml-2">Não</span>
-         </label>
-        </div>
-       </fieldset>
-       <label class="flex flex-col md:col-span-2">
-        <span class="font-semibold mb-1">Caso tenha qual?</span>
-        <input
-         type="text"
-         name="qualCentro"
-         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-         placeholder="Qual Centro"
-        />
-       </label>
-       <label class="flex flex-col md:col-span-2">
-        <span class="font-semibold mb-1">Quanto tempo:</span>
-        <input
-         type="text"
-         name="tempoCentro"
-         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-         placeholder="Quanto tempo"
-        />
-       </label>
-       <label class="flex flex-col md:col-span-2">
-        <span class="font-semibold mb-1">Motivo de saída:</span>
-        <input
-         type="text"
-         name="motivoSaidaCentro"
-         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-         placeholder="Motivo de saída"
-        />
-       </label>
-       <fieldset class="flex flex-col md:col-span-2">
-        <legend class="font-semibold mb-1">Já esteve internado em Peniel?</legend>
-        <div class="flex space-x-6">
-         <label class="inline-flex items-center">
-          <input
-           type="radio"
-           name="internadoPeniel"
-           value="Sim"
-           class="form-radio text-[var(--color-gold)]"
-          />
-          <span class="ml-2">Sim</span>
-         </label>
-         <label class="inline-flex items-center">
-          <input
-           type="radio"
-           name="internadoPeniel"
-           value="Não"
-           class="form-radio text-[var(--color-gold)]"
-          />
-          <span class="ml-2">Não</span>
-         </label>
-        </div>
-       </fieldset>
-       <label class="flex flex-col">
-        <span class="font-semibold mb-1">Em que data:</span>
-        <input
-         type="date"
-         name="dataInternacao"
-         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-        />
-       </label>
-       <label class="flex flex-col">
-        <span class="font-semibold mb-1">Motivo da saída:</span>
-        <input
-         type="text"
-         name="motivoSaidaPeniel"
-         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-         placeholder="Motivo da saída"
-        />
-       </label>
-       <fieldset class="flex flex-col md:col-span-2">
-        <legend class="font-semibold mb-1">
-         Está fazendo algum tratamento médico?
-        </legend>
-        <div class="flex space-x-6">
-         <label class="inline-flex items-center">
-          <input
-           type="radio"
-           name="tratamentoMedico"
-           value="Sim"
-           class="form-radio text-[var(--color-gold)]"
-          />
-          <span class="ml-2">Sim</span>
-         </label>
-         <label class="inline-flex items-center">
-          <input
-           type="radio"
-           name="tratamentoMedico"
-           value="Não"
-           class="form-radio text-[var(--color-gold)]"
-          />
-          <span class="ml-2">Não</span>
-         </label>
-        </div>
-       </fieldset>
-       <label class="flex flex-col md:col-span-2">
-        <span class="font-semibold mb-1">Caso esteja, em que hospital/clínica:</span>
-        <input
-         type="text"
-         name="hospitalClinica"
-         <option value="B+">B+</option>
-         <option value="B-">B-</option>
-         <option value="AB+">AB+</option>
-         <option value="AB-">AB-</option>
-         <option value="O+">O+</option>
-         <option value="O-">O-</option>
-        </select>
-       </label>
-       <fieldset class="flex flex-col md:col-span-2">
-        <legend class="font-semibold mb-1">Foi vacinado contra Tétano?</legend>
-        <div class="flex space-x-6">
-         <label class="inline-flex items-center">
-          <input
-           type="radio"
-           name="vacinadoTetano"
-           value="Sim"
-           class="form-radio text-[var(--color-gold)]"
-          />
-          <span class="ml-2">Sim</span>
-         </label>
-         <label class="inline-flex items-center">
-          <input
-           type="radio"
-           name="vacinadoTetano"
-           value="Não"
-           class="form-radio text-[var(--color-gold)]"
-          />
-          <span class="ml-2">Não</span>
-         </label>
-        </div>
-       </fieldset>
-       <fieldset class="flex flex-col md:col-span-2">
-        <legend class="font-semibold mb-1">
-         Já teve alguma doença contagiosa?
-        </legend>
-        <div class="flex space-x-6 mb-2">
-         <label class="inline-flex items-center">
-          <input
-           type="radio"
-           name="doencaContagiosa"
-           value="Sim"
-           class="form-radio text-[var(--color-gold)]"
-          />
-          <span class="ml-2">Sim</span>
-         </label>
-         <label class="inline-flex items-center">
-          <input
-           type="radio"
-           name="doencaContagiosa"
-           value="Não"
-           class="form-radio text-[var(--color-gold)]"
-          />
-          <span class="ml-2">Não</span>
-         </label>
-        </div>
-        <input
-         type="text"
-         name="qualDoencaContagiosa"
-         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-         placeholder="Qual?"
-        />
-       </fieldset>
-       <fieldset class="flex flex-col md:col-span-2">
-        <legend class="font-semibold mb-1">Algum outro tipo de doença?</legend>
-        <div class="flex space-x-6 mb-2">
-         <label class="inline-flex items-center">
-          <input
-           type="radio"
-           name="outroTipoDoenca"
-           value="Sim"
-           class="form-radio text-[var(--color-gold)]"
-          />
-          <span class="ml-2">Sim</span>
-         </label>
-         <label class="inline-flex items-center">
-          <input
-           type="radio"
-           name="outroTipoDoenca"
-           value="Não"
-           class="form-radio text-[var(--color-gold)]"
-          />
-          <span class="ml-2">Não</span>
-         </label>
-        </div>
-        <input
-         type="text"
-         name="qualOutroTipoDoenca"
-         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-         placeholder="Qual?"
-        />
-       </fieldset>
-       <fieldset class="flex flex-col md:col-span-2">
-        <legend class="font-semibold mb-1">Possui algum defeito físico?</legend>
-        <div class="flex space-x-6 mb-2">
-         <label class="inline-flex items-center">
-          <input
-           type="radio"
-           name="defeitoFisico"
-           value="Sim"
-           class="form-radio text-[var(--color-gold)]"
-          />
-          <span class="ml-2">Sim</span>
-         </label>
-         <label class="inline-flex items-center">
-          <input
-           type="radio"
-           name="defeitoFisico"
-           value="Não"
-           class="form-radio text-[var(--color-gold)]"
-          />
-          <span class="ml-2">Não</span>
-         </label>
-        </div>
-        <input
-         type="text"
-         name="qualDefeitoFisico"
-         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-         placeholder="Qual?"
-        />
-       </fieldset>
-       <fieldset class="flex flex-col md:col-span-2">
-        <legend class="font-semibold mb-1">Tem alguma cicatriz?</legend>
-        <div class="flex space-x-6 mb-2">
-         <label class="inline-flex items-center">
-          <input
-           type="radio"
-           name="temCicatriz"
-           value="Sim"
-           class="form-radio text-[var(--color-gold)]"
-          />
-          <span class="ml-2">Sim</span>
-         </label>
-         <label class="inline-flex items-center">
-          <input
-           type="radio"
-           name="temCicatriz"
-           value="Não"
-           class="form-radio text-[var(--color-gold)]"
-          />
-          <span class="ml-2">Não</span>
-         </label>
-        </div>
-        <input
-         type="text"
-         name="ondeCicatriz"
-         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-         placeholder="Onde?"
-        />
-       </fieldset>
-       <fieldset class="flex flex-col md:col-span-2">
-        <legend class="font-semibold mb-1">Tem alguma tatuagem?</legend>
-        <div class="flex space-x-6 mb-2">
-         <label class="inline-flex items-center">
-          <input
-           type="radio"
-           name="temTatuagem"
-           value="Sim"
-           class="form-radio text-[var(--color-gold)]"
-          />
-          <span class="ml-2">Sim</span>
-         </label>
-         <label class="inline-flex items-center">
-          <input
-           type="radio"
-           name="temTatuagem"
-           value="Não"
-           class="form-radio text-[var(--color-gold)]"
-          />
-          <span class="ml-2">Não</span>
-         </label>
-        </div>
-        <input
-         type="text"
-         name="ondeTatuagem"
-         class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-         placeholder="Onde?"
-        />
-       </fieldset>
-       <p class="md:col-span-2 text-sm italic text-gray-600 mt-4">
-        OBS: Não haverá ressarcimento da ajuda de custo em caso de desistência do
-        interno.
-       </p>
-       <p class="md:col-span-2 mt-4">
-        Declaro que todas as informações acima, por mim prestadas, são verdadeiras.
-       </p>
-       <div class="md:col-span-2 flex flex-col sm:flex-row sm:space-x-6 mt-2">
-        <label class="flex flex-col flex-1">
-         <span class="font-semibold mb-1">Assinatura:</span>
-         <input
-          type="text"
-          name="assinatura"
-          class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-          placeholder="Assinatura"
-         />
-        </label>
-        <label class="flex flex-col mt-4 sm:mt-0">
-         <span class="font-semibold mb-1">DATA DE ENTRADA:</span>
-         <input
-          type="date"
-          name="dataEntrada"
-          class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-         />
-        </label>
-        <label class="flex flex-col mt-4 sm:mt-0">
-         <span class="font-semibold mb-1">DATA DE SAÍDA:</span>
-         <input
-          type="date"
-          name="dataSaida"
-          class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-         />
-        </label>
-       </div>
-       <p class="md:col-span-2 font-semibold text-center mt-4">
-        Ministério Peniel Missão Nova Jerusalém
-       </p>
-       <p class="md:col-span-2 text-center mb-6">CNPJ: 11.609.098/0001-51</p>
-       <p class="md:col-span-2 mt-6 text-center text-gray-700 text-sm">
-        Av. Gervásio Santos, 95ª, Vila São José I, Paço do Lumiar - MA
-       </p>
-      </div>
-     </form>
-    </div>
-    <div class="flex justify-center mt-6">
-     <button
-      id="btnSave"
-      class="bg-[var(--color-gold)] hover:bg-yellow-500 text-white font-semibold px-8 py-3 rounded shadow transition focus:outline-none focus:ring-2 focus:ring-yellow-400 flex items-center space-x-2"
-     >
-      <i class="fas fa-save"></i><span>Salvar</span>
-     </button>
-    </div>
-   </section>
+    </nav>
+    <main class="flex-grow p-8">
+        <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-md">
+            <h2 class="text-2xl font-bold text-center text-gray-800 mb-2">Ficha de Cadastro de Membro</h2>
+            <p class="text-center text-gray-500 mb-6">Preencha os dados abaixo para registrar um novo membro.</p>
 
-   <!-- Pesquisa Section -->
-   <section
-    class="bg-white rounded-lg shadow p-8 mb-6 max-w-full mx-auto hidden"
-    id="sectionPesquisa"
-   >
-    <h2 class="text-2xl font-semibold mb-6 text-[var(--color-gold)] text-center">
-     Pesquisa de Internos
-    </h2>
-    <form id="searchForm" class="space-y-6 max-w-5xl mx-auto">
-     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <label class="flex flex-col">
-       <span class="font-semibold mb-1">Nome</span>
-       <input
-        type="text"
-        id="searchNome"
-        name="searchNome"
-        placeholder="Nome completo"
-        class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-       />
-      </label>
-      <label class="flex flex-col">
-       <span class="font-semibold mb-1">CPF</span>
-       <input
-        type="text"
-        id="searchCpf"
-        name="searchCpf"
-        placeholder="CPF"
-        class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-       />
-      </label>
-      <label class="flex flex-col">
-       <span class="font-semibold mb-1">Tipo de Doença</span>
-       <input
-        type="text"
-        id="searchTipoDoenca"
-        name="searchTipoDoenca"
-        placeholder="Tipo de doença"
-        class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-       />
-      </label>
-      <label class="flex flex-col">
-       <span class="font-semibold mb-1">Tipo de Internação</span>
-       <select
-        id="searchTipoInternacao"
-        name="searchTipoInternacao"
-        class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-       >
-        <option value="" selected>Selecione</option>
-        <option value="Voluntária">Voluntária</option>
-        <option value="Judicial">Judicial</option>
-        <option value="Outros">Outros</option>
-       </select>
-      </label>
-      <label class="flex flex-col">
-       <span class="font-semibold mb-1">Estado Civil</span>
-       <select
-        id="searchEstadoCivil"
-        name="searchEstadoCivil"
-        class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-       >
-        <option value="" selected>Selecione</option>
-        <option value="Casado">Casado</option>
-        <option value="Solteiro">Solteiro</option>
-        <option value="Outros">Outros</option>
-       </select>
-      </label>
-      <label class="flex flex-col">
-       <span class="font-semibold mb-1">Gênero</span>
-       <select
-        id="searchGenero"
-        name="searchGenero"
-        class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-       >
-        <option value="" selected>Selecione</option>
-        <option value="Masculino">Masculino</option>
-        <option value="Feminino">Feminino</option>
-        <option value="Outro">Outro</option>
-       </select>
-      </label>
-      <label class="flex flex-col">
-       <span class="font-semibold mb-1">Tipo Sanguíneo</span>
-       <select
-        id="searchTipoSanguineo"
-        name="searchTipoSanguineo"
-        class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-       >
-        <option value="" selected>Selecione</option>
-        <option value="A+">A+</option>
-        <option value="A-">A-</option>
-        <option value="B+">B+</option>
-        <option value="B-">B-</option>
-        <option value="AB+">AB+</option>
-        <option value="AB-">AB-</option>
-        <option value="O+">O+</option>
-        <option value="O-">O-</option>
-       </select>
-      </label>
-      <label class="flex flex-col">
-       <span class="font-semibold mb-1">Data de Entrada (de)</span>
-       <input
-        type="date"
-        id="searchDataEntradaInicio"
-        name="searchDataEntradaInicio"
-        class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-       />
-      </label>
-      <label class="flex flex-col">
-       <span class="font-semibold mb-1">Data de Entrada (até)</span>
-       <input
-        type="date"
-        id="searchDataEntradaFim"
-        name="searchDataEntradaFim"
-        class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-       />
-      </label>
-     </div>
-     <div class="flex justify-center mt-6 space-x-4">
-      <button
-       type="button"
-       id="btnSearch"
-       class="bg-[var(--color-gold)] hover:bg-yellow-500 text-white font-semibold px-8 py-3 rounded shadow transition focus:outline-none focus:ring-2 focus:ring-yellow-400 flex items-center space-x-2"
-      >
-       <i class="fas fa-search"></i><span>Pesquisar</span>
-      </button>
-      <button
-       type="button"
-       id="btnClearSearch"
-       class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold px-8 py-3 rounded shadow transition focus:outline-none focus:ring-2 focus:ring-gray-400 flex items-center space-x-2"
-      >
-       <i class="fas fa-eraser"></i><span>Limpar</span>
-      </button>
-     </div>
-    </form>
+            <div id="feedback-message" class="hidden p-4 mb-4 text-sm rounded-lg" role="alert"></div>
+            
+            <form id="form-cadastro-membro" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="md:col-span-2">
+                    <h3 class="text-lg font-semibold border-b pb-2 mb-4 text-gray-700">Dados Pessoais</h3>
+                </div>
+                <label class="flex flex-col md:col-span-2">
+                    <span class="font-semibold mb-1 text-gray-600">Nome Completo</span>
+                    <input type="text" name="nome_completo" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500" required>
+                </label>
+                <label class="flex flex-col">
+                    <span class="font-semibold mb-1 text-gray-600">Data de Nascimento</span>
+                    <input type="date" name="data_nascimento" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                </label>
+                <label class="flex flex-col">
+                    <span class="font-semibold mb-1 text-gray-600">Estado Civil</span>
+                    <select name="estado_civil" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                        <option>Solteiro(a)</option>
+                        <option>Casado(a)</option>
+                        <option>Divorciado(a)</option>
+                        <option>Viúvo(a)</option>
+                    </select>
+                </label>
+                <label class="flex flex-col">
+                    <span class="font-semibold mb-1 text-gray-600">CPF</span>
+                    <input type="text" name="cpf" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                </label>
+                <label class="flex flex-col">
+                    <span class="font-semibold mb-1 text-gray-600">RG</span>
+                    <input type="text" name="rg" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                </label>
 
-    <div class="mt-8 overflow-x-auto max-w-full">
-     <table class="min-w-full divide-y divide-gray-200 border border-gray-300 rounded">
-      <thead class="bg-[var(--color-gold)] text-white">
-       <tr>
-        <th class="px-4 py-2 text-left text-sm font-semibold">Nome</th>
-        <th class="px-4 py-2 text-left text-sm font-semibold">CPF</th>
-        <th class="px-4 py-2 text-left text-sm font-semibold">Tipo de Doença</th>
-        <th class="px-4 py-2 text-left text-sm font-semibold">Tipo de Internação</th>
-        <th class="px-4 py-2 text-left text-sm font-semibold">Estado Civil</th>
-        <th class="px-4 py-2 text-left text-sm font-semibold">Gênero</th>
-        <th class="px-4 py-2 text-left text-sm font-semibold">Tipo Sanguíneo</th>
-        <th class="px-4 py-2 text-left text-sm font-semibold">Data de Entrada</th>
-        <th class="px-4 py-2 text-center text-sm font-semibold">Ações</th>
-       </tr>
-      </thead>
-      <tbody id="internosTableBody" class="bg-white divide-y divide-gray-200">
-       <!-- Rows will be dynamically inserted here -->
-      </tbody>
-     </table>
-    </div>
-   </section>
+                <div class="md:col-span-2 mt-4">
+                    <h3 class="text-lg font-semibold border-b pb-2 mb-4 text-gray-700">Contato e Endereço</h3>
+                </div>
+                <label class="flex flex-col">
+                    <span class="font-semibold mb-1 text-gray-600">Telefone / Celular</span>
+                    <input type="tel" name="telefone" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                </label>
+                <label class="flex flex-col">
+                    <span class="font-semibold mb-1 text-gray-600">E-mail</span>
+                    <input type="email" name="email" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                </label>
+                <label class="flex flex-col md:col-span-2">
+                    <span class="font-semibold mb-1 text-gray-600">Endereço Completo</span>
+                    <input type="text" name="endereco" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                </label>
 
-   <!-- Relatorios Section Placeholder -->
-   <section
-    class="bg-white rounded-lg shadow p-8 mb-6 max-w-full mx-auto hidden"
-    id="sectionRelatorios"
-   >
-    <h2 class="text-2xl font-semibold mb-6 text-[var(--color-gold)] text-center">
-     Relatórios
-    </h2>
-    <p class="text-center text-gray-700">Em desenvolvimento...</p>
-   </section>
-  </main>
-  <footer class="bg-white border-t border-gray-300 py-3 mt-4">
-   <div
-    class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-600 text-sm select-none"
-   >
-    © 2025 Ministerio Peniel. Todos os direitos reservados.
-   </div>
-  </footer>
+                <div class="md:col-span-2 mt-4">
+                    <h3 class="text-lg font-semibold border-b pb-2 mb-4 text-gray-700">Dados Eclesiásticos</h3>
+                </div>
+                <label class="flex flex-col">
+                    <span class="font-semibold mb-1 text-gray-600">Data de Batismo</span>
+                    <input type="date" name="data_batismo" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                </label>
+                <label class="flex flex-col">
+                    <span class="font-semibold mb-1 text-gray-600">Igreja de Batismo</span>
+                    <input type="text" name="igreja_batismo" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                </label>
+                <label class="flex flex-col">
+                    <span class="font-semibold mb-1 text-gray-600">Data da Profissão de Fé</span>
+                    <input type="date" name="data_profissao_fe" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                </label>
+                 <label class="flex flex-col">
+                    <span class="font-semibold mb-1 text-gray-600">Tipo de Membro</span>
+                    <select name="tipo_membro" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                        <option>Comungante</option>
+                        <option>Não-Comungante</option>
+                    </select>
+                </label>
+                 <label class="flex flex-col">
+                    <span class="font-semibold mb-1 text-gray-600">Status</span>
+                    <select name="status" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                        <option>Ativo</option>
+                        <option>Inativo</option>
+                        <option>Sob disciplina</option>
+                        <option>Transferido</option>
+                    </select>
+                </label>
+                
+                <div class="md:col-span-2 mt-4">
+                    <h3 class="text-lg font-semibold border-b pb-2 mb-4 text-gray-700">Outras Informações</h3>
+                </div>
+                <label class="flex flex-col md:col-span-2">
+                    <span class="font-semibold mb-1 text-gray-600">Observações</span>
+                    <textarea name="observacoes" rows="4" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"></textarea>
+                </label>
+                 <label class="flex flex-col md:col-span-2">
+                    <span class="font-semibold mb-1 text-gray-600">Foto de Perfil</span>
+                    <input type="file" name="foto_perfil" accept="image/*" class="border rounded px-3 py-2">
+                </label>
+                
+                <div class="md:col-span-2 flex justify-center mt-6">
+                    <button type="submit" class="bg-green-600 hover:bg-green-800 text-white font-semibold px-8 py-3 rounded shadow-md transition duration-300 flex items-center">
+                        <i class="fas fa-save mr-2"></i>
+                        <span id="button-text">Salvar Cadastro</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
 
-  <!-- Modal -->
-  <div
-   id="saveModal"
-   class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
-  >
-   <div class="bg-white rounded-lg shadow-lg max-w-sm w-full p-6">
-    <h3 class="text-lg font-semibold mb-4 text-center text-[var(--color-gold)]">
-     Escolha o formato para salvar
-    </h3>
-    <div class="flex flex-col space-y-4">
-     <button
-      id="saveDocx"
-      class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded flex items-center justify-center space-x-2"
-     >
-      <i class="fas fa-file-word"></i><span>DOCX</span>
-     </button>
-     <button
-      id="saveXls"
-      class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 rounded flex items-center justify-center space-x-2"
-     >
-      <i class="fas fa-file-excel"></i><span>XLS</span>
-     </button>
-     <button
-      id="savePdf"
-      class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 rounded flex items-center justify-center space-x-2"
-     >
-      <i class="fas fa-file-pdf"></i><span>PDF</span>
-     </button>
-     <button
-      id="saveOnlyDB"
-      class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 rounded flex items-center justify-center space-x-2"
-     >
-      <i class="fas fa-database"></i><span>Salvar apenas no banco</span>
-     </button>
-     <button
-      id="closeModal"
-      class="mt-4 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 rounded"
-     >
-      Cancelar
-     </button>
-    </div>
-   </div>
-  </div>
+    <footer class="bg-white border-t border-gray-300 py-3 mt-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-600 text-sm">
+            © 2025 SGIPP. Todos os direitos reservados.
+        </div>
+    </footer>
+    
+    <script>
+        document.getElementById('form-cadastro-membro').addEventListener('submit', async function(event) {
+            event.preventDefault();
 
-  <!-- Edit Modal -->
-  <div
-   id="editModal"
-   class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
-  >
-   <div class="bg-white rounded-lg shadow-lg max-w-4xl w-full p-6 max-h-[90vh] overflow-y-auto">
-    <h3 class="text-lg font-semibold mb-4 text-center text-[var(--color-gold)]">
-     Editar Interno
-    </h3>
-    <form id="editForm" class="space-y-6">
-     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 max-w-full">
-      <label class="flex flex-col">
-       <span class="font-semibold mb-1">Nome</span>
-       <input
-        type="text"
-        name="nome"
-        id="editNome"
-        class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-        required
-       />
-      </label>
-      <label class="flex flex-col">
-       <span class="font-semibold mb-1">CPF</span>
-       <input
-        type="text"
-        name="cpf"
-        id="editCpf"
-        class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-        required
-       />
-      </label>
-      <label class="flex flex-col">
-       <span class="font-semibold mb-1">Tipo de Doença</span>
-       <input
-        type="text"
-        name="tipoDoenca"
-        id="editTipoDoenca"
-        class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-       />
-      </label>
-      <label class="flex flex-col">
-       <span class="font-semibold mb-1">Tipo de Internação</span>
-       <select
-        name="tipoInternacao"
-        id="editTipoInternacao"
-        class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-       >
-        <option value="">Selecione</option>
-        <option value="Voluntária">Voluntária</option>
-        <option value="Judicial">Judicial</option>
-        <option value="Outros">Outros</option>
-       </select>
-      </label>
-      <label class="flex flex-col">
-       <span class="font-semibold mb-1">Estado Civil</span>
-       <select
-        name="estadoCivil"
-        id="editEstadoCivil"
-        class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-       >
-        <option value="">Selecione</option>
-        <option value="Casado">Casado</option>
-        <option value="Solteiro">Solteiro</option>
-        <option value="Outros">Outros</option>
-       </select>
-      </label>
-      <label class="flex flex-col">
-       <span class="font-semibold mb-1">Gênero</span>
-       <select
-        name="genero"
-        id="editGenero"
-        class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-       >
-        <option value="">Selecione</option>
-        <option value="Masculino">Masculino</option>
-        <option value="Feminino">Feminino</option>
-        <option value="Outro">Outro</option>
-       </select>
-      </label>
-      <label class="flex flex-col">
-       <span class="font-semibold mb-1">Tipo Sanguíneo</span>
-       <select
-        name="tipoSanguineo"
-        id="editTipoSanguineo"
-        class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-       >
-        <option value="">Selecione</option>
-        <option value="A+">A+</option>
-        <option value="A-">A-</option>
-        <option value="B+">B+</option>
-        <option value="B-">B-</option>
-        <option value="AB+">AB+</option>
-        <option value="AB-">AB-</option>
-        <option value="O+">O+</option>
-        <option value="O-">O-</option>
-       </select>
-      </label>
-      <label class="flex flex-col">
-       <span class="font-semibold mb-1">Data de Entrada</span>
-       <input
-        type="date"
-        name="dataEntrada"
-        id="editDataEntrada"
-        class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-       />
-      </label>
-     </div>
-     <div class="flex justify-end space-x-4 mt-6">
-      <button
-       type="button"
-       id="btnDeleteInterno"
-       class="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-2 rounded shadow transition focus:outline-none focus:ring-2 focus:ring-red-500 flex items-center space-x-2"
-      >
-       <i class="fas fa-trash-alt"></i><span>Deletar</span>
-      </button>
-      <button
-       type="submit"
-       id="btnUpdateInterno"
-       class="bg-[var(--color-gold)] hover:bg-yellow-500 text-white font-semibold px-6 py-2 rounded shadow transition focus:outline-none focus:ring-2 focus:ring-yellow-400 flex items-center space-x-2"
-      >
-       <i class="fas fa-save"></i><span>Atualizar</span>
-      </button>
-      <button
-       type="button"
-       id="btnCloseEditModal"
-       class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold px-6 py-2 rounded shadow transition focus:outline-none focus:ring-2 focus:ring-gray-400 flex items-center space-x-2"
-      >
-       <i class="fas fa-times"></i><span>Fechar</span>
-      </button>
-     </div>
-    </form>
-   </div>
-  </div>
+            const form = event.target;
+            const formData = new FormData(form);
+            const feedbackDiv = document.getElementById('feedback-message');
+            const submitButton = form.querySelector('button[type="submit"]');
+            const buttonText = document.getElementById('button-text');
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.1.0/docx.umd.js"></script>
-  <script src="frontend/src/js/script.js"></script>
+            buttonText.textContent = 'Salvando...';
+            submitButton.disabled = true;
+            feedbackDiv.classList.add('hidden');
 
- </body>
+            try {
+                // Rota da API para onde os dados serão enviados
+                const response = await fetch('/sgi/api/membros', {
+                    method: 'POST',
+                    body: formData,
+                    // Futuramente, adicionaremos um header de autorização aqui
+                });
+
+                const result = await response.json();
+                
+                feedbackDiv.classList.remove('hidden', 'bg-red-100', 'text-red-700', 'bg-green-100', 'text-green-700');
+
+                if (response.ok && result.success) {
+                    feedbackDiv.textContent = result.message;
+                    feedbackDiv.classList.add('bg-green-100', 'text-green-700');
+                    form.reset(); // Limpa o formulário
+                } else {
+                    throw new Error(result.message || 'Ocorreu um erro desconhecido.');
+                }
+            } catch (error) {
+                feedbackDiv.textContent = error.message;
+                feedbackDiv.classList.add('bg-red-100', 'text-red-700');
+            } finally {
+                feedbackDiv.classList.remove('hidden');
+                buttonText.textContent = 'Salvar Cadastro';
+                submitButton.disabled = false;
+                window.scrollTo(0, 0); // Rola a página para o topo
+            }
+        });
+        
+        // Simples logout para a navbar
+        function logout() {
+            window.location.href = '/sgi/login.html';
+        }
+    </script>
+</body>
 </html>

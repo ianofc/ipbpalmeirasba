@@ -5,6 +5,7 @@ from PIL import Image
 from io import BytesIO
 import sqlite3, os, requests, random, logging
 from config import Config
+from models import db, Membro, User # ...
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -152,3 +153,36 @@ def register_routes(app):
     def serve_document(filename):
         safe_filename = secure_filename(filename)
         return send_from_directory(Config.DOCUMENTS_DIR, safe_filename, as_attachment=True)
+
+de ser expandida)
+        if not data.get('nome_completo'):
+            return jsonify({'success': False, 'message': 'Nome completo é obrigatório.'}), 400
+
+        try:
+            novo_membro = Membro(
+                nome_completo=data.get('nome_completo'),
+                data_nascimento=data.get('data_nascimento') or None,
+                cpf=data.get('cpf'),
+                rg=data.get('rg'),
+                endereco=data.get('endereco'),
+                telefone=data.get('telefone'),
+                email=data.get('email'),
+                estado_civil=data.get('estado_civil'),
+                data_batismo=data.get('data_batismo') or None,
+                igreja_batismo=data.get('igreja_batismo'),
+                data_profissao_fe=data.get('data_profissao_fe') or None,
+                tipo_membro=data.get('tipo_membro'),
+                status=data.get('status'),
+                observacoes=data.get('observacoes')
+                # O campo da foto será tratado separadamente
+            )
+            
+            db.session.add(novo_membro)
+            db.session.commit()
+            
+            return jsonify({'success': True, 'message': 'Membro cadastrado com sucesso!'})
+
+        except Exception as e:
+            db.session.rollback()
+            logger.error(f"Erro ao cadastrar membro: {e}")
+            return jsonify({'success': False, 'message': 'Erro no servidor. Verifique se o CPF ou E-mail já não estão cadastrados.'}), 500

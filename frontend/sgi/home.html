@@ -1,700 +1,191 @@
 <html class="scroll-smooth" lang="pt-BR">
- <head>
-  <!-- Metadados básicos -->
-  <meta charset="utf-8" />
-  <meta content="width=device-width, initial-scale=1" name="viewport" />
-  <title>Peniel Social</title>
-  <!-- Importação de bibliotecas externas -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link
-   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-   rel="stylesheet"
-  />
-  <link
-   href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap"
-   rel="stylesheet"
-  />
-  <style>
-   body {
-    font-family: "Inter", sans-serif;
-   }
-   .submenu-item:hover {
-    background-color: #d4af37; /* Cor de fundo dourada */
-    color: white; /* Texto branco */
-   }
-  </style>
- </head>
- <body class="bg-gray-100 min-h-screen flex flex-col text-black" onload="loadUserNameFromURL()">
-  <!-- Navbar -->
-  <nav class="bg-white shadow-md border-b border-gray-300">
-    <!-- Container principal da barra de navegação -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-     <div class="flex justify-between h-16 items-center relative">
-      <!-- Logotipo e título -->
-      <div class="flex items-center space-x-3">
-       <img
-        alt="Logo da Peniel, símbolo dourado estilizado com fundo branco"
-        class="h-10 w-10 rounded-full"
-        height="40"
-        src="https://storage.googleapis.com/a1aa/image/34d4e407-1218-4948-0478-f3dcb7d95fcd.jpg"
-        width="40"
-       />
-       <span class="font-semibold text-xl" style="color: var(--color-gold)"
-        >Peniel Social+</span
-       >
-      </div>
-      <!-- Links de navegação para desktop com submenus -->
-      <div class="hidden md:flex space-x-6 items-center relative">
-       <!-- Cadastro -->
-       <div class="relative group">
-        <button
-         class="text-gray-700 hover:text-[var(--color-gold)] font-semibold transition focus:outline-none flex items-center space-x-1"
-         id="btnCadastro"
-         aria-haspopup="true"
-         aria-expanded="false"
-        >
-         <span>Cadastro</span>
-         <i class="fas fa-chevron-down text-sm"></i>
-        </button>
-        <div
-         class="absolute left-0 mt-2 w-40 bg-white border border-gray-300 rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity z-30"
-         role="menu"
-         aria-label="Submenu Cadastro"
-        >
-         <a
-          href="cadinterno.html"
-          class="block px-4 py-2 text-gray-800 font-semibold submenu-item"
-          role="menuitem"
-          >Internos</a
-         >
-         <a
-          href="cadvoluntarios.html"
-          class="block px-4 py-2 text-gray-800 font-semibold submenu-item"
-          role="menuitem"
-          >Voluntários</a
-         >
-         <a
-          href="cadobreiros.html"
-          class="block px-4 py-2 text-gray-800 font-semibold submenu-item"
-          role="menuitem"
-          >Obreiros</a
-         >
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>SGIPP - Sistema de Gestão da Igreja Presbiteriana em Palmeiras</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/css/sgi.css" />
+    <style>
+        body { font-family: "Inter", sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col text-black">
+    <nav class="bg-white shadow-md border-b border-gray-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center space-x-3">
+                    <img alt="Logo da IPB Palmeiras" class="h-10 w-10" src="/static/imgs/acs/logo_ipp.png" />
+                    <span class="font-semibold text-xl text-gray-800">SGIPP</span>
+                </div>
+                <div class="hidden md:flex space-x-1 items-center">
+                    <div class="relative group px-3 py-2">
+                        <button class="text-gray-700 hover:text-[var(--color-gold)] font-semibold transition">Cadastro</button>
+                        <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            <a href="/sgi/cad/cadmembros.html" class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white">Membros</a>
+                            <a href="/sgi/cad/cadoficial.html" class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white">Oficiais</a>
+                        </div>
+                    </div>
+                    <div class="relative group px-3 py-2">
+                         <button class="text-gray-700 hover:text-[var(--color-gold)] font-semibold transition">Pesquisa</button>
+                         <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            <a href="/sgi/pesq/pesqmembros.html" class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white">Membros</a>
+                         </div>
+                    </div>
+                    <div class="relative group px-3 py-2" data-role="pastor,admin">
+                        <button class="text-gray-700 hover:text-[var(--color-gold)] font-semibold transition">Relatórios</button>
+                        <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            <a href="/sgi/dash/dashboard_membros.html" class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white">Membros</a>
+                            <a href="/sgi/dash/dashboard_sociedades.html" class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white">Sociedades</a>
+                            <a href="/sgi/dash/dashboard_missoes.html" class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white">Missões</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative group px-3 py-2">
+                        <button class="flex items-center space-x-2 focus:outline-none">
+                            <img alt="Foto do usuário" class="h-8 w-8 rounded-full border-2 border-[var(--color-gold)]" src="https://i.pravatar.cc/40" />
+                            <span class="font-semibold text-gray-800 menu-username">Usuário</span>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-20">
+                            <a href="/sgi/pesq/perfoficial.html" class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white">Meu Perfil</a>
+                            <button onclick="logout()" class="block w-full text-left px-4 py-2 text-red-600 hover:bg-red-500 hover:text-white">Sair</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-       </div>
-       <!-- Pesquisa -->
-       <div class="relative group">
-        <button
-         class="text-gray-700 hover:text-[var(--color-gold)] font-semibold transition focus:outline-none flex items-center space-x-1"
-         id="btnPesquisa"
-         aria-haspopup="true"
-         aria-expanded="false"
-        >
-         <span>Pesquisa</span>
-         <i class="fas fa-chevron-down text-sm"></i>
-        </button>
-        <div
-         class="absolute left-0 mt-2 w-40 bg-white border border-gray-300 rounded-md shadow-lg opacity-0 group-hover:opacity-100 group-hover:visible transition-opacity z-30"
-         role="menu"
-         aria-label="Submenu Pesquisa"
-        >
-         <a
-          href="pesqinternos.html"
-          class="block px-4 py-2 text-gray-800 font-semibold submenu-item"
-          role="menuitem"
-          >Internos</a
-         >
-         <a
-          href="pesqvoluntarios.html"
-          class="block px-4 py-2 text-gray-800 font-semibold submenu-item"
-          role="menuitem"
-          >Voluntários</a
-         >
+    </nav>
+    
+    <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
+        <div class="mb-4">
+            <p id="currentDate" class="text-sm text-gray-700 font-semibold"></p>
+            <h1 class="font-semibold text-2xl text-gray-900">Bem-vindo, <span class="menu-username">Usuário</span>!</h1>
         </div>
-       </div>
-       <!-- Relatórios -->
-       <div class="relative group">
-        <button
-         class="text-gray-700 hover:text-[var(--color-gold)] font-semibold transition focus:outline-none flex items-center space-x-1"
-         id="btnRelatorios"
-         aria-haspopup="true"
-         aria-expanded="false"
-        >
-         <span>Relatórios</span>
-         <i class="fas fa-chevron-down text-sm"></i>
-        </button>
-        <div
-         class="absolute left-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity z-30"
-         role="menu"
-         aria-label="Submenu Relatórios"
-        >
-         <a
-          href="dashboardinternos.html"
-          class="block px-4 py-2 text-gray-800 font-semibold submenu-item"
-          role="menuitem"
-          >Internos</a
-         >
-         <a
-          href="dashboardmembros.html"
-          class="block px-4 py-2 text-gray-800 font-semibold submenu-item"
-          role="menuitem"
-          >Membros</a
-         >
-         <a
-          href="dashboardministerio.html"
-          class="block px-4 py-2 text-gray-800 font-semibold submenu-item"
-          role="menuitem"
-          >Ministério</a
-         >
-         <a
-          href="dashboardmissao.html"
-          class="block px-4 py-2 text-gray-800 font-semibold submenu-item"
-          role="menuitem"
-          >Missões</a
-         >
+
+        <div class="flex flex-col md:flex-row md:space-x-6">
+            <div class="flex flex-col space-y-6 md:w-[320px]">
+                <section aria-label="Informações meteorológicas">
+                    <h2 class="text-sm font-semibold text-gray-900 mb-1">Clima em Palmeiras</h2>
+                    <div class="bg-gradient-to-tr from-[#3a5a9a] to-[#5a7acb] rounded-xl p-4 text-white">
+                        <div class="flex justify-between items-center mb-3">
+                            <div class="flex items-center space-x-1 font-semibold text-sm"><i class="fas fa-location-arrow"></i><span>Palmeiras, BA</span></div>
+                        </div>
+                        <div class="flex items-center space-x-2 mb-3">
+                            <div class="text-5xl font-light leading-none">26°</div>
+                            <div class="text-2xl font-semibold">C</div>
+                            <div class="flex items-center space-x-1 text-sm opacity-80"><i class="fas fa-tint"></i><span>Umidade de 69%</span></div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section aria-label="Aniversariantes da Semana">
+                    <h2 class="text-sm font-semibold text-gray-900 mb-1">Aniversariantes da Semana</h2>
+                    <div class="bg-white rounded-lg p-4 shadow-sm max-w-[320px]">
+                        <div class="flex items-center space-x-2 mb-2">
+                            <i class="fas fa-birthday-cake text-purple-500"></i>
+                            <span class="font-semibold text-sm">Próximos Aniversários</span>
+                        </div>
+                        <div id="aniversariantes-container" class="space-y-2 text-sm">
+                            <div class="flex justify-between"><span>- Maria das Graças</span><span class="font-semibold text-gray-500">Hoje</span></div>
+                            <div class="flex justify-between"><span>- João Pereira</span><span class="font-semibold text-gray-500">16/10</span></div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section aria-label="Resumo Financeiro" data-role="pastor,admin,tesoureiro">
+                    <h2 class="text-sm font-semibold text-gray-900 mb-1">Resumo Financeiro</h2>
+                    <div class="bg-white rounded-lg p-4 shadow-sm max-w-[320px]">
+                        <div class="flex items-center space-x-2 mb-2">
+                            <i class="fas fa-hand-holding-usd text-yellow-500"></i>
+                            <span class="font-semibold text-sm">Entradas do Mês</span>
+                        </div>
+                        <p class="font-bold text-2xl text-yellow-600">R$ 7.850,00</p>
+                        <p class="text-xs text-gray-500 mt-1">Dízimos e Ofertas (Mês Corrente)</p>
+                    </div>
+                </section>
+            </div>
+            
+            <main class="flex-1 space-y-6 mt-6 md:mt-0">
+                 <section aria-label="Notícias recentes" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <article class="md:col-span-2 bg-white rounded-lg shadow-sm overflow-hidden">
+                        <img alt="Imagem representando fé e comunidade" class="w-full object-cover h-48" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" />
+                        <div class="p-4">
+                            <div class="flex items-center space-x-2 text-xs text-gray-600 mb-2"><i class="fas fa-book-open text-green-600"></i><span>Último Editorial / Devocional</span></div>
+                            <h3 class="font-semibold text-lg leading-tight mb-2">A Perseverança na Fé</h3>
+                            <p class="text-gray-700 mb-4 text-sm">Em tempos de desafios, a perseverança se torna a âncora da nossa fé. É o ato contínuo de confiar em Deus mesmo quando as circunstâncias parecem desfavoráveis...</p>
+                            <div class="flex items-center text-gray-600 text-sm">
+                                <span class="italic text-xs">Por Rev. Josué</span>
+                                <button class="ml-auto bg-green-600 text-white text-xs font-semibold rounded-md px-3 py-1 flex items-center space-x-1"><span>Ler mais</span><i class="fas fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="bg-white rounded-lg shadow-sm overflow-hidden flex flex-col">
+                        <img alt="Imagem de voluntários da igreja" class="w-full object-cover h-32" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=400&q=80" />
+                        <div class="p-4 flex flex-col flex-grow">
+                            <div class="flex items-center space-x-2 text-xs text-gray-600 mb-2"><i class="fas fa-calendar-check text-blue-600"></i><span>Próximos Eventos e Avisos</span></div>
+                            <div class="space-y-3 mt-2 text-sm">
+                                <div class="border-l-2 border-blue-500 pl-2">
+                                    <p class="font-semibold">Aniversário de Benjamim e Benício</p>
+                                    <p class="text-xs text-gray-600">Sábado, 18/10, às 15:00h - Salão Social</p>
+                                </div>
+                                <div class="border-l-2 border-blue-500 pl-2">
+                                    <p class="font-semibold">Chá da SAF</p>
+                                    <p class="text-xs text-gray-600">Sábado, 25/10, às 16:00h - Salão Social</p>
+                                </div>
+                                <div class="border-l-2 border-yellow-500 pl-2">
+                                    <p class="font-semibold">Reunião do Conselho</p>
+                                    <p class="text-xs text-gray-600">Sábado, 18/10, às 19:30h</p>
+                                </div>
+                            </div>
+                            <button class="mt-4 w-full bg-blue-600 text-white text-xs font-semibold rounded-md py-1"><span>Ver agenda completa</span></button>
+                        </div>
+                    </article>
+                </section>
+            </main>
         </div>
-       </div>
-      </div>
-      <!-- Perfil -->
-      <div class="flex items-center space-x-4">
-       <!-- Menu suspenso do perfil -->
-       <div class="relative group">
-        <button
-         aria-label="Perfil do usuário"
-         class="flex items-center space-x-2 focus:outline-none"
-         id="user-menu-button"
-        >
-         <img
-          alt="Foto do usuário, rosto sorridente de pessoa jovem com fundo cinza claro"
-          class="rounded-full border-2 border-[var(--color-gold)]"
-          height="32"
-          src="https://storage.googleapis.com/a1aa/image/43fd7a15-3d17-458f-ee09-2793942a0a7c.jpg"
-          width="32"
-         />
-         <span class="font-semibold text-gray-800 menu-username">João Silva</span>
-         <i class="fas fa-chevron-down text-gray-500"></i>
-        </button>
-        <div
-         class="absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded-md shadow-lg opacity-0 invisible transition-opacity z-20"
-         id="user-menu"
-         role="menu"
-        >
-         <a
-          class="block px-4 py-2 text-gray-800 font-semibold submenu-item"
-          href="perfobreiro.html"
-         >
-          Perfil
-         </a>
-         <button
-          class="block w-full text-left px-4 py-2 text-red-600 font-semibold submenu-item"
-          onclick="logout()"
-         >
-          Sair
-         </button>
-        </div>
-       </div>
-      </div>
-      <!-- Botão de menu para dispositivos móveis -->
-      <div class="md:hidden">
-       <button
-        aria-label="Abrir menu"
-        class="text-gray-700 hover:text-[var(--color-gold)] focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)] rounded"
-        id="mobile-menu-button"
-       >
-        <i class="fas fa-bars fa-lg"></i>
-       </button>
-      </div>
-     </div>
-    </div>
-    <!-- Menu suspenso para dispositivos móveis -->
-    <div class="hidden md:hidden bg-white border-t border-gray-300" id="mobile-menu">
-     <details class="group border-b border-gray-200">
-      <summary
-       class="px-4 py-3 cursor-pointer select-none text-gray-800 font-semibold hover:bg-[var(--color-gold)] hover:text-white"
-      >
-       Cadastro
-       <i
-        class="fas fa-chevron-down float-right mt-1 text-gray-600 group-open:rotate-180 transition-transform"
-       ></i>
-      </summary>
-      <div class="pl-6 pb-3 space-y-1">
-       <a
-        href="cadinterno.html"
-        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-        >Internos</a
-       >
-       <a
-        href="cadvoluntarios.html"
-        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-        >Voluntários</a
-       >
-       <a
-        href="cadobreiros.html"
-        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-        >Obreiros</a
-       >
-      </div>
-     </details>
-     <details class="group border-b border-gray-200">
-      <summary
-       class="px-4 py-3 cursor-pointer select-none text-gray-800 font-semibold hover:bg-[var(--color-gold)] hover:text-white"
-      >
-       Pesquisa
-       <i
-        class="fas fa-chevron-down float-right mt-1 text-gray-600 group-open:rotate-180 transition-transform"
-       ></i>
-      </summary>
-      <div class="pl-6 pb-3 space-y-1">
-       <a
-        href="pesqinternos.html"
-        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-        >Internos</a
-       >
-       <a
-        href="pesqvoluntarios.html"
-        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-        >Voluntários</a
-       >
-      </div>
-     </details>
-     <details class="group border-b border-gray-200">
-      <summary
-       class="px-4 py-3 cursor-pointer select-none text-gray-800 font-semibold hover:bg-[var(--color-gold)] hover:text-white"
-      >
-       Relatórios
-       <i
-        class="fas fa-chevron-down float-right mt-1 text-gray-600 group-open:rotate-180 transition-transform"
-       ></i>
-      </summary>
-      <div class="pl-6 pb-3 space-y-1">
-       <a
-        href="dashboardinternos.html"
-        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-        >Internos</a
-       >
-       <a
-        href="dashboardmembros.html"
-        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-        >Membros</a
-       >
-       <a
-        href="dashboardministerio.html"
-        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-        >Ministério</a
-       >
-       <a
-        href="dashboardmissao.html"
-        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-        >Missões</a
-       >
-      </div>
-     </details>
-     <a
-      class="block px-4 py-3 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
-      href="#perfil"
-      >Perfil</a
-     >
-     <a
-      class="block px-4 py-3 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
-      href="#configuracoes"
-      >Configurações</a
-     >
-     <a
-      class="block px-4 py-3 text-red-600 font-semibold hover:bg-red-50"
-      href="#sair"
-      >Sair</a
-     >
-    </div>
-   </nav>
-  <!-- Conteúdo principal -->
-  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-   <div class="mb-4">
-    <p id="currentDate" class="text-sm text-gray-700 font-semibold"></p>
-    <h1 class="font-semibold text-2xl text-gray-900">Bem-vindo, <span id="usernameDisplay">João Silva</span></h1>
-   </div>
-   <section class="bg-white rounded-lg shadow p-6 mb-6">
-    <h2 class="text-xl font-semibold text-gray-900 mb-4">Sobre o Projeto Peniel Social+</h2>
-    <p class="text-gray-700 mb-4">
-     O Peniel Social+ é uma plataforma dedicada a conectar pessoas e comunidades, promovendo ações sociais, compartilhamento de informações e apoio mútuo. Nosso objetivo é fortalecer os laços sociais e facilitar a colaboração entre indivíduos, organizações e instituições, criando um ambiente inclusivo e solidário para todos.
-    </p>
-    <p class="text-gray-700">
-     Através de recursos intuitivos e acessíveis, oferecemos ferramentas para que os usuários possam participar de projetos sociais, acompanhar notícias relevantes, e contribuir para o desenvolvimento sustentável das comunidades. Junte-se a nós e faça parte dessa rede de transformação social.
-    </p>
-   </section>
-   <div class="flex flex-col md:flex-row md:space-x-6">
-    <!-- Left Column -->
-    <div class="flex flex-col space-y-6 md:w-[320px]">
-     <!-- Weather Info -->
-     <section
-      aria-label="Informações meteorológicas"
-      class="space-y-2"
-     >
-      <h2 class="text-sm font-semibold text-gray-900 mb-1">Informações meteorológicas</h2>
-      <div
-       class="bg-gradient-to-tr from-[#3a5a9a] to-[#5a7acb] rounded-xl p-4 text-white relative w-[320px] select-none"
-       style="font-feature-settings: 'tnum'"
-      >
-       <div class="flex justify-between items-center mb-3">
-        <div class="flex items-center space-x-1 font-semibold text-sm">
-         <i class="fas fa-location-arrow"></i>
-         <span>Palmeiras</span>
-         <button aria-label="Abrir menu de seleção de local" class="text-white text-xs">▼</button>
-        </div>
-        <button
-         aria-label="Mais opções"
-         class="text-white text-xl font-bold opacity-70 hover:opacity-100"
-        >
-         ...
-        </button>
-       </div>
-       <div class="flex items-center space-x-2 mb-3">
-        <div class="text-5xl font-light leading-none">26</div>
-        <div class="text-2xl font-semibold">°C</div>
-        <div class="flex items-center space-x-1 text-sm opacity-80 cursor-pointer">
-         <i class="fas fa-tint"></i>
-         <span>Umidade de 69%</span>
-         <i class="fas fa-chevron-right text-xs"></i>
-        </div>
-       </div>
-       <div class="flex space-x-1 mb-3 text-xs font-semibold">
-        <button
-         aria-current="true"
-         class="bg-[#4a6dbb] rounded-l-md px-3 py-1 border border-[#4a6dbb]"
-        >
-         De hora em hora
-        </button>
-        <button class="bg-[#5a7acb]/70 rounded-r-md px-3 py-1 border border-[#5a7acb]/70">
-         Diariamente
-        </button>
-       </div>
-       <div class="grid grid-cols-5 text-center text-xs font-semibold">
-        <div>
-         <div class="mb-1">18:00</div>
-         <div class="mb-1 text-2xl">🌙</div>
-         <div>24°</div>
-         <div class="mt-1 text-xs">
-          <i class="fas fa-tint"></i>0%
-         </div>
-        </div>
-        <div>
-         <div class="mb-1">19:00</div>
-         <div class="mb-1 text-2xl">🌙</div>
-         <div>22°</div>
-         <div class="mt-1 text-xs">
-          <i class="fas fa-tint"></i>1%
-         </div>
-        </div>
-        <div>
-         <div class="mb-1">20:00</div>
-         <div class="mb-1 text-2xl">🌙</div>
-         <div>20°</div>
-         <div class="mt-1 text-xs">
-          <i class="fas fa-tint"></i>1%
-         </div>
-        </div>
-        <div>
-         <div class="mb-1">21:00</div>
-         <div class="mb-1 text-2xl">🌙</div>
-         <div>19°</div>
-         <div class="mt-1 text-xs">
-          <i class="fas fa-tint"></i>2%
-         </div>
-        </div>
-        <div>
-         <div class="mb-1">22:00</div>
-         <div class="mb-1 text-2xl">🌤️</div>
-         <div>19°</div>
-         <div class="mt-1 text-xs">
-          <i class="fas fa-tint"></i>3%
-         </div>
-        </div>
-       </div>
-       <div class="absolute bottom-2 left-0 right-0 flex justify-center space-x-1">
-        <span class="w-2 h-2 rounded-full bg-white opacity-50"></span>
-        <span class="w-2 h-2 rounded-full bg-white opacity-50"></span>
-       </div>
-       <button
-        class="w-full mt-3 bg-[#4a6dbb] rounded-md text-xs py-1 font-semibold"
-       >
-        Ver a previsão completa
-       </button>
-      </div>
-     </section>
-     <!-- Insights -->
-     <section aria-label="Insights que você deixou passar" class="space-y-2">
-      <h2 class="text-sm font-semibold text-gray-900 mb-1">
-       Insights que você deixou passar
-      </h2>
-      <div
-       class="bg-white rounded-lg p-4 shadow-sm max-w-[320px] relative"
-       role="alert"
-      >
-       <div class="flex items-center space-x-2 mb-2">
-        <i class="fas fa-bell text-yellow-400"></i>
-        <span class="font-semibold text-sm">Notificações</span>
-        <button
-         aria-label="Fechar notificações"
-         class="ml-auto text-gray-400 hover:text-gray-600 text-lg"
-         id="close-notifications"
-        >
-         <i class="fas fa-times"></i>
-        </button>
-       </div>
-       <div id="notification-slider" class="space-y-2">
-        <div class="notification-item">
-         <div class="flex items-center space-x-1 text-xs text-gray-600 mb-1">
-          <i class="fas fa-hands-helping text-green-600"></i>
-          <span>Últimas ações sociais · 1h</span>
-         </div>
-         <p class="font-semibold text-sm leading-tight">
-          Ministério Peniel realizou atendimento a 15 pessoas em situação de
-          vulnerabilidade social ontem.
-         </p>
-        </div>
-        <div class="notification-item hidden">
-         <div class="flex items-center space-x-1 text-xs text-gray-600 mb-1">
-          <i class="fas fa-calendar-alt text-blue-600"></i>
-          <span>Evento marcado para amanhã às 10h.</span>
-         </div>
-         <p class="font-semibold text-sm leading-tight">
-          Não se esqueça de participar do evento de arrecadação de alimentos.
-         </p>
-        </div>
-       </div>
-       <div class="flex justify-between mt-2">
-        <button
-         id="prev-notification"
-         class="text-gray-600 hover:text-gray-800"
-         aria-label="Notificação anterior"
-        >
-         <i class="fas fa-chevron-left"></i>
-        </button>
-        <button
-         id="next-notification"
-         class="text-gray-600 hover:text-gray-800"
-         aria-label="Próxima notificação"
-        >
-         <i class="fas fa-chevron-right"></i>
-        </button>
-       </div>
-      </div>
-     </section>
-     <!-- Feedbacks -->
-     <section aria-label="Feedbacks recentes" class="space-y-2">
-      <h2 class="text-sm font-semibold text-gray-900 mb-1">
-       Feedbacks da comunidade
-      </h2>
-      <div
-       class="bg-white rounded-lg p-4 shadow-sm max-w-[320px] relative"
-       role="alert"
-      >
-       <div class="flex items-center space-x-2 mb-2">
-        <i class="fas fa-comments text-blue-400"></i>
-        <span class="font-semibold text-sm">Comentários Recentes</span>
-        <button
-         aria-label="Fechar comentários"
-         class="ml-auto text-gray-400 hover:text-gray-600 text-lg"
-         id="close-comments"
-        >
-         <i class="fas fa-times"></i>
-        </button>
-       </div>
-       <div id="comment-slider" class="space-y-2">
-        <div class="comment-item">
-         <p class="font-semibold text-sm leading-tight">
-          "Excelente trabalho realizado pelo Ministério Peniel. Parabéns!"
-         </p>
-         <span class="text-xs text-gray-600">- Maria Silva, 2h atrás</span>
-        </div>
-        <div class="comment-item hidden">
-         <p class="font-semibold text-sm leading-tight">
-          "Muito obrigado pelo apoio à comunidade. Continuem assim!"
-         </p>
-         <span class="text-xs text-gray-600">- João Santos, 5h atrás</span>
-        </div>
-       </div>
-       <div class="flex justify-between mt-2">
-        <button
-         id="prev-comment"
-         class="text-gray-600 hover:text-gray-800"
-         aria-label="Comentário anterior"
-        >
-         <i class="fas fa-chevron-left"></i>
-        </button>
-        <button
-         id="next-comment"
-         class="text-gray-600 hover:text-gray-800"
-         aria-label="Próximo comentário"
-        >
-         <i class="fas fa-chevron-right"></i>
-        </button>
-       </div>
-      </div>
-     </section>
-    </div>
-    <!-- Right Column -->
-    <main class="flex-1 space-y-6 mt-6 md:mt-0">
-     <!-- News Cards 2/1 layout -->
-     <section
-      aria-label="Notícias recentes"
-      class="grid grid-cols-1 md:grid-cols-3 gap-4"
-     >
-      <article
-       class="md:col-span-2 bg-white rounded-lg shadow-sm overflow-hidden max-w-full"
-      >
-       <img
-        alt="Imagem de um grupo de pessoas diversas em um evento religioso, com expressão de acolhimento e união"
-        class="w-full object-cover h-48 md:h-64"
-        src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&amp;fit=crop&amp;w=800&amp;q=80"
-       />
-       <div class="p-4">
-        <div
-         class="flex items-center space-x-2 text-xs text-gray-600 mb-2"
-        >
-         <i class="fas fa-church text-purple-600"></i>
-         <span>Ministério Peniel · 1d</span>
-        </div>
-        <h3 class="font-semibold text-lg leading-tight mb-2">
-         Peniel acolhe e transforma vidas: evangelismo e trabalho social
-        </h3>
-        <p class="text-gray-700 mb-4">
-         O Ministério Peniel é uma comunidade evangélica dedicada a acolher
-         pessoas em situação de vulnerabilidade, promovendo evangelismo e
-         ações sociais para transformar vidas.
-        </p>
-        <div
-         class="flex items-center space-x-6 text-gray-600 text-sm select-none"
-        >
-         <button
-          class="ml-auto bg-blue-600 text-white text-xs font-semibold rounded-md px-3 py-1 flex items-center space-x-1"
-         >
-          <span>Saiba mais</span>
-          <i class="fas fa-arrow-right"></i>
-         </button>
-        </div>
-       </div>
-      </article>
-      <article
-       class="bg-white rounded-lg shadow-sm overflow-hidden max-w-full flex flex-col"
-      >
-       <img
-        alt="Imagem de voluntários do Ministério Peniel ajudando pessoas em situação de vulnerabilidade social"
-        class="w-full object-cover h-32 md:h-32"
-        src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&amp;fit=crop&amp;w=400&amp;q=80"
-       />
-       <img
-        alt="Imagem de voluntários distribuindo alimentos e roupas para pessoas em situação de rua"
-        class="w-full object-cover h-32 md:h-32 mt-2"
-        src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&amp;fit=crop&amp;w=400&amp;q=80"
-       />
-       <img
-        alt="Imagem de reunião de voluntários do Ministério Peniel planejando ações sociais"
-        class="w-full object-cover h-32 md:h-32 mt-2"
-        src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&amp;fit=crop&amp;w=400&amp;q=80"
-       />
-       <div class="p-4 flex flex-col flex-grow justify-between">
-        <div>
-         <div
-          class="flex items-center space-x-2 text-xs text-gray-600 mb-2"
-         >
-          <i class="fas fa-hands-helping text-green-600"></i>
-          <span>Ministério Peniel · 2d</span>
-         </div>
-         <h3 class="font-semibold text-base leading-tight mb-2">
-          Trabalho social: acolhendo drogados, prostitutas, alcoólatras e mais
-         </h3>
-         <p class="text-gray-700 text-sm">
-          A igreja Peniel realiza um trabalho social acolhedor, oferecendo
-          suporte e esperança para pessoas em situação de vulnerabilidade,
-          incluindo dependentes químicos e outros grupos marginalizados.
-         </p>
-        </div>
-        <div
-         class="mt-4 flex items-center text-gray-600 text-sm select-none"
-        >
-         <button
-          class="ml-auto bg-blue-600 text-white text-xs font-semibold rounded-md px-3 py-1 flex items-center space-x-1"
-         >
-          <span>Saiba mais</span>
-          <i class="fas fa-arrow-right"></i>
-         </button>
-        </div>
-       </div>
-      </article>
-     </section>
     </main>
-   </div>
-  </main>
-  <!-- Rodapé -->
-  <footer class="bg-white border-t border-gray-300 py-3 mt-4">
-   <div
-    class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-600 text-sm select-none"
-   >
-    © 2025 Ministerio Peniel. Todos os direitos reservados.
-   </div>
-  </footer>
-  <script src="frontend/src/js/script.js"></script>
-  <script>
-   // Atualizar a data automaticamente
-   const currentDateElement = document.getElementById('currentDate');
-   const today = new Date();
-   const formattedDate = today.toLocaleDateString('pt-BR', {
-    day: '2-digit',
-    month: 'long',
-    year: 'numeric',
-   });
-   currentDateElement.textContent = formattedDate;
+    
+    <footer class="bg-white border-t border-gray-300 py-3 mt-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-600 text-sm">
+            © 2025 SGIPP. Todos os direitos reservados.
+        </div>
+    </footer>
 
-   function loadUserNameFromURL() {
-    const params = new URLSearchParams(window.location.search);
-    let username = params.get('username');
-    if (username) {
-     username = username.charAt(0).toUpperCase() + username.slice(1).toLowerCase();
-     document.getElementById('usernameDisplay').textContent = username;
+    <script>
+        function logout() {
+            localStorage.removeItem('userRole');
+            localStorage.removeItem('username');
+            window.location.href = '/sgi/login.html';
+        }
+        
+        function applyRoleVisibility(userRole) {
+            document.querySelectorAll('[data-role]').forEach(elem => {
+                const requiredRoles = elem.getAttribute('data-role').split(',');
+                if (!requiredRoles.includes(userRole.trim())) {
+                    elem.style.display = 'none';
+                }
+            });
+        }
 
-     // Atualizar o nome no menu
-     const menuUserName = document.querySelector('.menu-username');
-     if (menuUserName) {
-      menuUserName.textContent = username;
-     }
-    }
-   }
+        document.addEventListener('DOMContentLoaded', () => {
+            const loggedInUser = { username: "Pastor Josué", role: "pastor" };
+            localStorage.setItem('userRole', loggedInUser.role);
+            localStorage.setItem('username', loggedInUser.username);
 
-   let submenuTimeout;
+            const userRole = localStorage.getItem('userRole') || 'guest';
+            const username = localStorage.getItem('username') || 'Visitante';
+            
+            document.querySelectorAll('.menu-username').forEach(el => el.textContent = username);
+            applyRoleVisibility(userRole);
 
-   function showSubmenu(menu) {
-    clearTimeout(submenuTimeout); // Cancela o ocultamento do submenu
-    menu.classList.remove('invisible', 'opacity-0');
-    menu.classList.add('opacity-100');
-   }
-
-   function hideSubmenu(menu) {
-    submenuTimeout = setTimeout(() => {
-      menu.classList.add('invisible', 'opacity-0');
-      menu.classList.remove('opacity-100');
-    }, 300); // Tempo de atraso antes de ocultar (300ms)
-   }
-
-   document.querySelectorAll('.relative.group').forEach((group) => {
-    const button = group.querySelector('button');
-    const menu = group.querySelector('div[role="menu"]');
-
-    if (button && menu) {
-      group.addEventListener('mouseenter', () => showSubmenu(menu));
-      group.addEventListener('mouseleave', () => hideSubmenu(menu));
-    }
-   });
-
-   // Adiciona o mesmo comportamento ao menu de nome de usuário
-   const userMenuGroup = document.querySelector('.relative.group #user-menu-button').parentElement;
-   const userMenu = document.getElementById('user-menu');
-   userMenuGroup.addEventListener('mouseenter', () => showSubmenu(userMenu));
-   userMenuGroup.addEventListener('mouseleave', () => hideSubmenu(userMenu));
-
-   // Função para deslogar o usuário
-   function logout() {
-    localStorage.removeItem('username'); // Remove o nome do usuário do armazenamento local
-    window.location.href = '../../index.html'; // Redireciona para a página inicial
-   }
-  </script>
- </body>
+            const today = new Date();
+            document.getElementById('currentDate').textContent = today.toLocaleDateString('pt-BR', {
+                weekday: 'long', day: '2-digit', month: 'long', year: 'numeric'
+            });
+        });
+    </script>
+</body>
 </html>
