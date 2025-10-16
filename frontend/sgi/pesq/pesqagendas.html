@@ -1,0 +1,219 @@
+<html class="scroll-smooth" lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>SGIPP - Pesquisa de Agendas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/css/sgi.css" />
+    <style> body { font-family: "Inter", sans-serif; } </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col text-black">
+    <nav class="bg-white shadow-md border-b border-gray-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center space-x-3">
+                    <a href="/sgi/home.html"><img alt="Logo da IPB Palmeiras" class="h-10 w-10" src="/static/imgs/acs/logo_ipp.png" /></a>
+                    <a href="/sgi/home.html" class="font-semibold text-xl text-gray-800">SGIPP</a>
+                </div>
+                <div class="hidden md:flex space-x-1 items-center">
+                    <div class="relative group px-3 py-2">
+                        <button class="text-gray-700 hover:text-green-600 font-semibold transition">Cadastro</button>
+                        <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            <a href="/sgi/cad/agendas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Agendas</a>
+                            <a href="/sgi/cad/classe_ebd.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Classes EBD</a>
+                            <a href="/sgi/cad/eventos.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Eventos</a>
+                            <a href="/sgi/cad/cadmembros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
+                            <a href="/sgi/cad/cadoficial.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Oficiais</a>
+                            <a href="/sgi/cad/publicacoes.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Publicações</a>
+                            <a href="/sgi/cad/cadsociedades.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Sociedades</a>
+                        </div>
+                    </div>
+                    <div class="relative group px-3 py-2">
+                         <button class="text-gray-700 hover:text-green-600 font-semibold transition">Pesquisa</button>
+                         <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            <a href="/sgi/pesq/agendas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Agendas</a>
+                            <a href="/sgi/pesq/classe_ebd.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Classes EBD</a>
+                            <a href="/sgi/pesq/eventos.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Eventos</a>
+                            <a href="/sgi/pesq/pesqmembros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
+                            <a href="/sgi/pesq/oficiais.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Oficiais</a>
+                            <a href="/sgi/pesq/publicacoes.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Publicações</a>
+                            <a href="/sgi/pesq/sociedades.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Sociedades</a>
+                         </div>
+                    </div>
+                    <div class="relative group px-3 py-2" data-role="pastor,admin">
+                        <button class="text-gray-700 hover:text-green-600 font-semibold transition">Dashboard</button>
+                        <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                           <a href="/sgi/dash/agendas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Agendas</a>
+                            <a href="/sgi/dash/classe_ebd.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Classes EBD</a>
+                            <a href="/sgi/dash/eventos.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Eventos</a>
+                            <a href="/sgi/dash/dashboard_membros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
+                            <a href="/sgi/dash/oficiais.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Oficiais</a>
+                            <a href="/sgi/dash/publicacoes.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Publicações</a>
+                            <a href="/sgi/dash/dashboard_sociedades.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Sociedades</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative group px-3 py-2">
+                        <button class="flex items-center space-x-2 focus:outline-none">
+                            <img alt="Foto do usuário" class="h-8 w-8 rounded-full border-2 border-green-600" src="https://i.pravatar.cc/40" />
+                            <span class="font-semibold text-gray-800 menu-username">Usuário</span>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-20">
+                            <a href="/sgi/perfil.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Perfil</a>
+                            <button onclick="logout()" class="block w-full text-left px-4 py-2 text-red-600 hover:bg-red-500 hover:text-white">Sair</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow p-8">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center md:text-left">Pesquisa de Agendas</h2>
+
+            <div class="bg-white p-4 rounded-lg shadow-md mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
+                    <input type="text" id="search-input" placeholder="Buscar por Título do Sermão ou Pregador..." class="md:col-span-1 border border-gray-300 rounded-md w-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500">
+                    <select id="type-filter" class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-700">
+                        <option value="">Filtrar por Tipo</option>
+                        <option>Culto Dominical Vespertino</option>
+                        <option>Escola Bíblica Dominical</option>
+                        <option>Reunião de Oração</option>
+                        <option>Santa Ceia</option>
+                    </select>
+                    <input type="date" id="date-filter" class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-500">
+                </div>
+                <div class="mt-4 flex flex-wrap gap-2 items-center justify-between">
+                    <button id="btn-add" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded shadow transition flex items-center space-x-2">
+                        <i class="fas fa-plus"></i><span>Nova Agenda</span>
+                    </button>
+                    <button id="btn-save-report" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded shadow transition flex items-center space-x-2">
+                        <i class="fas fa-file-download"></i><span>Salvar Relatório</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto bg-white rounded-lg shadow-md">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data e Hora</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tipo de Evento</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Título do Sermão / Tema</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pregador / Dirigente</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="agendas-table-body" class="bg-white divide-y divide-gray-200"></tbody>
+                </table>
+            </div>
+            
+            <div id="pagination-controls" class="mt-6 flex justify-center items-center gap-2"></div>
+        </div>
+    </main>
+
+    <div id="edit-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40 flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-xl p-8 max-w-2xl w-full">
+             <h3 class="text-xl font-bold text-gray-800 mb-6">Editar Agenda</h3>
+             <form id="edit-form" class="space-y-4">
+                <input type="hidden" name="agenda_id">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <label class="block"><span class="text-gray-700 font-semibold">Data e Hora</span><input type="datetime-local" name="data_evento" class="mt-1 border rounded w-full px-3 py-2" required></label>
+                    <label class="block"><span class="text-gray-700 font-semibold">Tipo de Evento</span><select name="tipo_evento" class="mt-1 border rounded w-full px-3 py-2"></select></label>
+                    <label class="block md:col-span-2"><span class="text-gray-700 font-semibold">Título do Sermão</span><input type="text" name="titulo_sermao" class="mt-1 border rounded w-full px-3 py-2"></label>
+                    <label class="block md:col-span-2"><span class="text-gray-700 font-semibold">Pregador</span><input type="text" name="pregador" class="mt-1 border rounded w-full px-3 py-2"></label>
+                </div>
+                <div class="flex justify-end space-x-4 pt-4">
+                    <button type="button" id="close-modal-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-6 py-2 rounded shadow-sm">Cancelar</button>
+                    <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded shadow-sm">Salvar Alterações</button>
+                </div>
+             </form>
+        </div>
+    </div>
+
+    <footer class="bg-white border-t border-gray-300 py-3 mt-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-600 text-sm">© 2025 SGIPP. Todos os direitos reservados.</div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Dados de Exemplo
+            const sampleData = [
+                { id: 1, data_evento: '2025-10-12T19:00', tipo_evento: 'Culto Dominical Vespertino', titulo_sermao: 'A Graça que Salva', pregador: 'Rev. Josué' },
+                { id: 2, data_evento: '2025-10-12T10:00', tipo_evento: 'Escola Bíblica Dominical', titulo_sermao: 'Estudo em Romanos 8', pregador: 'Pb. Marcos' },
+                { id: 3, data_evento: '2025-10-15T19:30', tipo_evento: 'Reunião de Oração', titulo_sermao: '', pregador: 'Dc. Davi' },
+                { id: 4, data_evento: '2025-10-19T19:00', tipo_evento: 'Culto Dominical Vespertino', titulo_sermao: 'O Fruto do Espírito', pregador: 'Rev. Josué' },
+            ];
+
+            const tableBody = document.getElementById('agendas-table-body');
+            const editModal = document.getElementById('edit-modal');
+            const editForm = document.getElementById('edit-form');
+            const closeModalBtn = document.getElementById('close-modal-btn');
+            
+            function renderTable(data) {
+                tableBody.innerHTML = '';
+                if (data.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="5" class="text-center py-8 text-gray-500">Nenhuma agenda encontrada para os filtros aplicados.</td></tr>';
+                    return;
+                }
+                data.forEach(agenda => {
+                    const row = `
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 whitespace-nowrap">${new Date(agenda.data_evento).toLocaleString('pt-BR', {day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'})}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">${agenda.tipo_evento}</td>
+                            <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">${agenda.titulo_sermao || '---'}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-500">${agenda.pregador}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <button data-id="${agenda.id}" class="edit-btn text-green-600 hover:text-green-900 font-semibold">Editar</button>
+                            </td>
+                        </tr>
+                    `;
+                    tableBody.innerHTML += row;
+                });
+            }
+
+            function openEditModal(agenda) {
+                const tipoSelect = editForm.querySelector('[name="tipo_evento"]');
+                // Popula o select de tipo de evento se ainda não foi populado
+                if(tipoSelect.options.length <= 1) {
+                    const tipos = ["Culto Dominical Vespertino", "Escola Bíblica Dominical", "Reunião de Oração", "Santa Ceia"];
+                    tipos.forEach(tipo => {
+                        const option = new Option(tipo, tipo);
+                        tipoSelect.add(option);
+                    });
+                }
+
+                editForm.querySelector('[name="agenda_id"]').value = agenda.id;
+                editForm.querySelector('[name="data_evento"]').value = agenda.data_evento;
+                tipoSelect.value = agenda.tipo_evento;
+                editForm.querySelector('[name="titulo_sermao"]').value = agenda.titulo_sermao;
+                editForm.querySelector('[name="pregador"]').value = agenda.pregador;
+                editModal.classList.remove('hidden');
+            }
+
+            tableBody.addEventListener('click', (e) => {
+                if (e.target.classList.contains('edit-btn')) {
+                    const id = e.target.dataset.id;
+                    const agenda = sampleData.find(a => a.id == id);
+                    if (agenda) openEditModal(agenda);
+                }
+            });
+
+            closeModalBtn.addEventListener('click', () => editModal.classList.add('hidden'));
+            editModal.addEventListener('click', (e) => { if(e.target === editModal) editModal.classList.add('hidden'); });
+            
+            document.getElementById('btn-add').addEventListener('click', () => {
+                window.location.href = '/sgi/cad/agendas.html';
+            });
+            
+            renderTable(sampleData);
+        });
+
+        function logout() { window.location.href = '/sgi/login.html'; }
+    </script>
+</body>
+</html>
