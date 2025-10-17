@@ -1,467 +1,188 @@
-<html lang="pt-BR" class="scroll-smooth">
- <head>
-  <meta charset="utf-8" />
-  <meta content="width=device-width, initial-scale=1" name="viewport" />
-  <title>Dashboard - Relatório de Ministérios - Peniel Social+</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link
-   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-   rel="stylesheet"
-  />
-  <link
-   href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap"
-   rel="stylesheet"
-  />
-  <style>
-   body {
-    font-family: "Inter", sans-serif;
-   }
-  </style>
- </head>
- <body class="bg-gray-100 min-h-screen flex flex-col text-black">
-  <!-- Navbar -->
-  <nav class="bg-white shadow-md border-b border-gray-300">
-    <!-- Container principal da barra de navegação -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-     <div class="flex justify-between h-16 items-center relative">
-      <!-- Logotipo e título -->
-      <div class="flex items-center space-x-3">
-       <img
-        alt="Logo da Peniel, símbolo dourado estilizado com fundo branco"
-        class="h-10 w-10 rounded-full"
-        height="40"
-        src="https://storage.googleapis.com/a1aa/image/34d4e407-1218-4948-0478-f3dcb7d95fcd.jpg"
-        width="40"
-       />
-       <span class="font-semibold text-xl" style="color: var(--color-gold)"
-        >Peniel Social+</span
-       >
-      </div>
-      <!-- Links de navegação para desktop com submenus -->
-      <div class="hidden md:flex space-x-6 items-center relative">
-       <!-- Cadastro -->
-       <div class="relative group">
-        <button
-         class="text-gray-700 hover:text-[var(--color-gold)] font-semibold transition focus:outline-none flex items-center space-x-1"
-         id="btnCadastro"
-         aria-haspopup="true"
-         aria-expanded="false"
-        >
-         <span>Cadastro</span>
-         <i class="fas fa-chevron-down text-sm"></i>
-        </button>
-        <div
-         class="absolute left-0 mt-2 w-40 bg-white border border-gray-300 rounded-md shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity z-30"
-         role="menu"
-         aria-label="Submenu Cadastro"
-        >
-         <a
-          href="cadinternos.html"
-          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
-          role="menuitem"
-          >Cadastro de Internos</a
-         >
-         <a
-          href="cadvoluntarios.html"
-          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
-          role="menuitem"
-          >Cadastro de Voluntários</a
-         >
-         <a
-          href="cadobreiros.html"
-          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
-          role="menuitem"
-          >Cadastro de Obreiros</a
-         >
+<html class="scroll-smooth" lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>SGIPP - Dashboard de Sociedades Internas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/static/css/sgi.css" />
+    <style> body { font-family: "Inter", sans-serif; } </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col text-black">
+    <nav class="bg-white shadow-md border-b border-gray-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                 <div class="flex items-center space-x-3">
+                    <a href="/sgi/home.html"><img alt="Logo da IPB Palmeiras" class="h-10 w-10" src="/static/imgs/acs/logo_ipp.png" /></a>
+                    <a href="/sgi/home.html" class="font-semibold text-xl text-gray-800">SGIPP</a>
+                </div>
+                <div class="hidden md:flex space-x-1 items-center">
+                    <div class="relative group px-3 py-2">
+                        <button class="text-gray-700 hover:text-green-600 font-semibold transition">Cadastro</button>
+                        <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            </div>
+                    </div>
+                    <div class="relative group px-3 py-2">
+                         <button class="text-gray-700 hover:text-green-600 font-semibold transition">Pesquisa</button>
+                         <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            </div>
+                    </div>
+                    <div class="relative group px-3 py-2" data-role="pastor,admin">
+                        <button class="text-gray-700 hover:text-green-600 font-semibold transition">Dashboard</button>
+                        <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                           <a href="/sgi/dash/dashfinancas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Financeiro</a>
+                           <a href="/sgi/dash/dashpatrimonio.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Patrimônio</a>
+                           <a href="/sgi/dash/dashagendas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Agendas</a>
+                           <a href="/sgi/dash/dashclasseebd.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Classes EBD</a>
+                           <a href="/sgi/dash/dasheventos.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Eventos</a>
+                           <a href="/sgi/dash/dashkids.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Ministério Infantil</a>
+                           <a href="/sgi/dash/dashboard_membros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
+                           <a href="/sgi/dash/dashoficiais.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Oficiais</a>
+                           <a href="/sgi/dash/dashpublicacoes.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Publicações</a>
+                           <a href="/sgi/dash/dashboardsociedades.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Sociedades</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative group px-3 py-2">
+                        <button class="flex items-center space-x-2 focus:outline-none">
+                            <img alt="Foto do usuário" class="h-8 w-8 rounded-full border-2 border-green-600" src="https://i.pravatar.cc/40" />
+                            <span class="font-semibold text-gray-800 menu-username">Usuário</span>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-20">
+                            <a href="/sgi/perfil.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Perfil</a>
+                            <button onclick="logout()" class="block w-full text-left px-4 py-2 text-red-600 hover:bg-red-500 hover:text-white">Sair</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-       </div>
-       <!-- Pesquisa -->
-       <div class="relative group">
-        <button
-         class="text-gray-700 hover:text-[var(--color-gold)] font-semibold transition focus:outline-none flex items-center space-x-1"
-         id="btnPesquisa"
-         aria-haspopup="true"
-         aria-expanded="false"
-        >
-         <span>Pesquisa</span>
-         <i class="fas fa-chevron-down text-sm"></i>
-        </button>
-        <div
-         class="absolute left-0 mt-2 w-40 bg-white border border-gray-300 rounded-md shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity z-30"
-         role="menu"
-         aria-label="Submenu Pesquisa"
-        >
-         <a
-          href="pesqinternos.html"
-          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
-          role="menuitem"
-          >Pesquisa de Internos</a
-         >
-         <a
-          href="pesqvoluntarios.html"
-          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
-          role="menuitem"
-          >Pesquisa de Voluntários</a
-         >
-        </div>
-       </div>
-       <!-- Relatórios -->
-       <div class="relative group">
-        <button
-         class="text-[var(--color-gold)] font-semibold transition focus:outline-none flex items-center space-x-1"
-         id="btnRelatorios"
-         aria-haspopup="true"
-         aria-expanded="false"
-        >
-         <span>Relatórios</span>
-         <i class="fas fa-chevron-down text-sm"></i>
-        </button>
-        <div
-         class="absolute left-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity z-30"
-         role="menu"
-         aria-label="Submenu Relatórios"
-        >
-         <a
-          href="dashboardinternos.html"
-          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
-          role="menuitem"
-          >Relatórios de Internos</a
-         >
-         <a
-          href="dashboardmembros.html"
-          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
-          role="menuitem"
-          >Relatórios de Membros</a
-         >
-         <a
-          href="dashboardministerio.html"
-          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
-          role="menuitem"
-          >Relatórios de Ministério</a
-         >
-         <a
-          href="dashboardmissao.html"
-          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
-          role="menuitem"
-          >Relatórios de Missões</a
-         >
-        </div>
-       </div>
-      </div>
-      <!-- Perfil -->
-      <div class="flex items-center space-x-4">
-       <!-- Menu suspenso do perfil -->
-       <div class="relative group">
-        <button
-         aria-label="Perfil do usuário"
-         class="flex items-center space-x-2 focus:outline-none"
-         id="user-menu-button"
-        >
-         <img
-          alt="Foto do usuário, rosto sorridente de pessoa jovem com fundo cinza claro"
-          class="rounded-full border-2 border-[var(--color-gold)]"
-          height="32"
-          src="https://storage.googleapis.com/a1aa/image/43fd7a15-3d17-458f-ee09-2793942a0a7c.jpg"
-          width="32"
-         />
-         <span class="font-semibold text-gray-800">João Silva</span>
-         <i class="fas fa-chevron-down text-gray-500"></i>
-        </button>
-        <div
-         class="absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded-md shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity z-20"
-         id="user-menu"
-        >
-         <a
-          class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
-          href="perfil.html"
-          >Perfil</a
-         >
-         <a
-          class="block px-4 py-2 text-red-600 hover:bg-red-50 font-semibold"
-          href="#sair"
-          >Sair</a
-         >
-        </div>
-       </div>
-      </div>
-      <!-- Botão de menu para dispositivos móveis -->
-      <div class="md:hidden">
-       <button
-        aria-label="Abrir menu"
-        class="text-gray-700 hover:text-[var(--color-gold)] focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)] rounded"
-        id="mobile-menu-button"
-       >
-        <i class="fas fa-bars fa-lg"></i>
-       </button>
-      </div>
-     </div>
-    </div>
-    <!-- Menu suspenso para dispositivos móveis -->
-    <div class="hidden md:hidden bg-white border-t border-gray-300" id="mobile-menu">
-     <details class="group border-b border-gray-200">
-      <summary
-       class="px-4 py-3 cursor-pointer select-none text-gray-800 font-semibold hover:bg-[var(--color-gold)] hover:text-white"
-      >
-       Cadastro
-       <i
-        class="fas fa-chevron-down float-right mt-1 text-gray-600 group-open:rotate-180 transition-transform"
-       ></i>
-      </summary>
-      <div class="pl-6 pb-3 space-y-1">
-       <a
-        href="cadinternos.html"
-        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-        >Cadastro de Internos</a
-       >
-       <a
-        href="cadvoluntarios.html"
-        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-        >Cadastro de Voluntários</a
-       >
-       <a
-        href="cadobreiros.html"
-        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-        >Cadastro de Obreiros</a
-       >
-      </div>
-     </details>
-     <details class="group border-b border-gray-200">
-      <summary
-       class="px-4 py-3 cursor-pointer select-none text-gray-800 font-semibold hover:bg-[var(--color-gold)] hover:text-white"
-      >
-       Pesquisa
-       <i
-        class="fas fa-chevron-down float-right mt-1 text-gray-600 group-open:rotate-180 transition-transform"
-       ></i>
-      </summary>
-      <div class="pl-6 pb-3 space-y-1">
-       <a
-        href="pesqinternos.html"
-        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-        >Pesquisa de Internos</a
-       >
-       <a
-        href="pesqvoluntarios.html"
-        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-        >Pesquisa de Voluntários</a
-       >
-      </div>
-     </details>
-     <details class="group border-b border-gray-200">
-      <summary
-       class="px-4 py-3 cursor-pointer select-none text-[var(--color-gold)] font-semibold hover:bg-[var(--color-gold)] hover:text-white"
-      >
-       Relatórios
-       <i
-        class="fas fa-chevron-down float-right mt-1 text-gray-600 group-open:rotate-180 transition-transform"
-       ></i>
-      </summary>
-      <div class="pl-6 pb-3 space-y-1">
-       <a
-        href="dashboardinternos.html"
-        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-        >Relatórios de Internos</a
-       >
-       <a
-        href="dashboardmembros.html"
-        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-        >Relatórios de Membros</a
-       >
-       <a
-        href="dashboardministerio.html"
-        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-        >Relatórios de Ministério</a
-       >
-       <a
-        href="dashboardmissao.html"
-        class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-        >Relatórios de Missões</a
-       >
-      </div>
-     </details>
-     <a
-      class="block px-4 py-3 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
-      href="perfil.html"
-      >Perfil</a
-     >
-     <a
-      class="block px-4 py-3 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
-      href="#configuracoes"
-      >Configurações</a
-     >
-     <a
-      class="block px-4 py-3 text-red-600 font-semibold hover:bg-red-50"
-      href="#sair"
-      >Sair</a
-     >
-    </div>
-   </nav>
-  <!-- Conteúdo principal -->
-  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-   <h1 class="text-3xl font-semibold text-gray-900 mb-8 text-center">
-    Relatório de Ministérios
-   </h1>
-   <!-- Dashboard Cards -->
-   <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-    <div
-     class="bg-white rounded-lg shadow p-6 flex flex-col items-center justify-center"
-    >
-     <i class="fas fa-bible text-[var(--color-gold)] text-4xl mb-4"></i>
-     <h2 class="text-xl font-semibold mb-2">Atividades Realizadas</h2>
-     <p class="text-3xl font-bold text-gray-900">128</p>
-    </div>
-    <div
-     class="bg-white rounded-lg shadow p-6 flex flex-col items-center justify-center"
-    >
-     <i class="fas fa-users text-[var(--color-gold)] text-4xl mb-4"></i>
-     <h2 class="text-xl font-semibold mb-2">Participação de Membros</h2>
-     <p class="text-3xl font-bold text-gray-900">1.045</p>
-    </div>
-    <div
-     class="bg-white rounded-lg shadow p-6 flex flex-col items-center justify-center"
-    >
-     <i class="fas fa-music text-[var(--color-gold)] text-4xl mb-4"></i>
-     <h2 class="text-xl font-semibold mb-2">Ministérios Ativos</h2>
-     <p class="text-3xl font-bold text-gray-900">7</p>
-    </div>
-   </section>
-   <!-- Gráficos -->
-   <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-    <div class="bg-white rounded-lg shadow p-6">
-     <h3 class="text-lg font-semibold mb-4 text-gray-900">
-      Atividades por Ministério
-     </h3>
-     <canvas id="activitiesChart" class="w-full h-64"></canvas>
-    </div>
-    <div class="bg-white rounded-lg shadow p-6">
-     <h3 class="text-lg font-semibold mb-4 text-gray-900">
-      Participação por Ministério
-     </h3>
-     <canvas id="participationChart" class="w-full h-64"></canvas>
-    </div>
-   </section>
-   <!-- Descrição das Atividades -->
-   <section class="bg-white rounded-lg shadow p-6">
-    <h2 class="text-xl font-semibold mb-4 text-gray-900">
-     Descrição das Atividades dos Ministérios
-    </h2>
-    <ul class="list-disc list-inside space-y-2 text-gray-700">
-     <li>
-      <strong>Ministério de Jovens:</strong> Realiza encontros semanais,
-      estudos bíblicos e eventos sociais para fortalecer a fé e a comunhão.
-     </li>
-     <li>
-      <strong>Ministério Infantil:</strong> Promove atividades educativas e
-      recreativas para crianças, incentivando o aprendizado da palavra de
-      Deus.
-     </li>
-     <li>
-      <strong>Ministério de Música:</strong> Responsável pela música nos
-      cultos, ensaios e eventos especiais, envolvendo membros talentosos.
-     </li>
-     <li>
-      <strong>Ministério de Ação Social:</strong> Desenvolve projetos de
-      apoio a pessoas em situação de vulnerabilidade, como doações e
-      acolhimento.
-     </li>
-     <li>
-      <strong>Outros Ministérios:</strong> Incluem ensino, evangelismo,
-      oração e discipulado, cada um com atividades específicas para a
-      congregação.
-     </li>
-    </ul>
-   </section>
-  </main>
-  <!-- Rodapé -->
-  <footer class="bg-white border-t border-gray-300 py-3 mt-8">
-   <div
-    class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-600 text-sm select-none"
-   >
-    © 2025 Ministerio Peniel. Todos os direitos reservados.
-   </div>
-  </footer>
-  <script>
-   const ctxActivities = document
-    .getElementById("activitiesChart")
-    .getContext("2d");
-   const activitiesChart = new Chart(ctxActivities, {
-    type: "bar",
-    data: {
-     labels: [
-      "Jovens",
-      "Crianças",
-      "Música",
-      "Ação Social",
-      "Ensino",
-      "Evangelismo",
-      "Oração",
-     ],
-     datasets: [
-      {
-       label: "Atividades Realizadas",
-       data: [30, 25, 20, 15, 10, 18, 10],
-       backgroundColor: "#4a6dbb",
-       borderRadius: 4,
-      },
-     ],
-    },
-    options: {
-     responsive: true,
-     plugins: {
-      legend: { display: false },
-     },
-     scales: {
-      y: {
-       beginAtZero: true,
-       ticks: { stepSize: 5 },
-      },
-     },
-    },
-   });
+    </nav>
 
-   const ctxParticipation = document
-    .getElementById("participationChart")
-    .getContext("2d");
-   const participationChart = new Chart(ctxParticipation, {
-    type: "doughnut",
-    data: {
-     labels: [
-      "Jovens",
-      "Crianças",
-      "Música",
-      "Ação Social",
-      "Ensino",
-      "Evangelismo",
-      "Oração",
-     ],
-     datasets: [
-      {
-       label: "Participação de Membros",
-       data: [200, 150, 120, 100, 80, 90, 60],
-       backgroundColor: [
-        "#4a6dbb",
-        "#fbbf24",
-        "#34d399",
-        "#f87171",
-        "#a78bfa",
-        "#f59e0b",
-        "#3b82f6",
-       ],
-       hoverOffset: 30,
-      },
-     ],
-    },
-    options: {
-     responsive: true,
-     plugins: {
-      legend: {
-       position: "bottom",
-      },
-     },
-    },
-   });
-  </script>
-  <script src="frontend/src/js/script.js"></script>
- </body>
+    <main class="flex-grow p-8">
+        <div class="max-w-7xl mx-auto">
+            <h1 class="font-bold text-3xl text-gray-900 mb-6">Dashboard de Sociedades Internas</h1>
+
+            <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-xl shadow-md flex items-center space-x-4">
+                    <div class="bg-blue-100 p-3 rounded-full"><i class="fas fa-sitemap fa-2x text-blue-600"></i></div>
+                    <div>
+                        <p class="text-gray-500 font-semibold">Total de Sociedades</p>
+                        <p id="total-sociedades" class="text-3xl font-bold text-gray-800">5</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md flex items-center space-x-4">
+                    <div class="bg-green-100 p-3 rounded-full"><i class="fas fa-users fa-2x text-green-600"></i></div>
+                    <div>
+                        <p class="text-gray-500 font-semibold">Total de Societários</p>
+                        <p id="total-societarios" class="text-3xl font-bold text-gray-800">0</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md flex items-center space-x-4">
+                    <div class="bg-yellow-100 p-3 rounded-full"><i class="fas fa-trophy fa-2x text-yellow-600"></i></div>
+                    <div>
+                        <p class="text-gray-500 font-semibold">Sociedade com Mais Membros</p>
+                        <p id="maior-sociedade" class="text-2xl font-bold text-gray-800">-</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-8">
+                <div class="lg:col-span-3 bg-white p-6 rounded-xl shadow-md">
+                    <h2 class="font-bold text-lg mb-4">Membros por Sociedade</h2>
+                    <canvas id="membrosPorSociedadeChart"></canvas>
+                </div>
+                <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-md">
+                    <h2 class="font-bold text-lg mb-4">Distribuição de Societários</h2>
+                    <canvas id="distribuicaoChart"></canvas>
+                </div>
+            </section>
+
+            <section class="bg-white p-6 rounded-xl shadow-md">
+                <h2 class="font-bold text-lg mb-4">Resumo das Sociedades</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="border-b bg-gray-50 text-sm font-semibold text-gray-600">
+                                <th class="p-3">Sigla</th>
+                                <th class="p-3">Nome</th>
+                                <th class="p-3">Presidente</th>
+                                <th class="p-3 text-center">Nº de Membros</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sociedades-table-body"></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <footer class="bg-white border-t border-gray-300 py-3 mt-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-600 text-sm">© 2025 SGIPP. Todos os direitos reservados.</div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Dados de Exemplo
+            const sampleSociedades = [
+                { id: 1, nome: "Sociedade Auxiliadora Feminina", sigla: "SAF", presidente: "Maria da Silva", membros: 35 },
+                { id: 2, nome: "União Presbiteriana de Homens", sigla: "UPH", presidente: "João Pereira", membros: 28 },
+                { id: 3, nome: "União de Mocidade Presbiteriana", sigla: "UMP", presidente: "Ana Clara", membros: 22 },
+                { id: 4, nome: "União Presbiteriana de Adolescentes", sigla: "UPA", presidente: "Pb. Marcos Cruz", membros: 18 },
+                { id: 5, nome: "União de Crianças Presbiterianas", sigla: "UCP", presidente: "Sofia Ribeiro", membros: 15 },
+            ];
+
+            // --- Cards de Resumo ---
+            const totalSocietarios = sampleSociedades.reduce((sum, s) => sum + s.membros, 0);
+            document.getElementById('total-societarios').textContent = totalSocietarios;
+
+            const maiorSociedade = sampleSociedades.reduce((max, s) => s.membros > max.membros ? s : max, sampleSociedades[0]);
+            document.getElementById('maior-sociedade').textContent = maiorSociedade.sigla;
+
+            // --- Tabela de Resumo ---
+            const tableBody = document.getElementById('sociedades-table-body');
+            sampleSociedades.forEach(s => {
+                tableBody.innerHTML += `
+                    <tr class="border-b hover:bg-gray-50">
+                        <td class="p-3 font-semibold text-gray-800">${s.sigla}</td>
+                        <td class="p-3 text-gray-600">${s.nome}</td>
+                        <td class="p-3 text-gray-600">${s.presidente}</td>
+                        <td class="p-3 text-center font-bold text-gray-800">${s.membros}</td>
+                    </tr>`;
+            });
+
+            // --- Gráfico de Membros por Sociedade ---
+            const ctxMembros = document.getElementById('membrosPorSociedadeChart').getContext('2d');
+            new Chart(ctxMembros, {
+                type: 'bar',
+                data: {
+                    labels: sampleSociedades.map(s => s.sigla),
+                    datasets: [{
+                        label: 'Nº de Membros',
+                        data: sampleSociedades.map(s => s.membros),
+                        backgroundColor: 'rgba(22, 163, 74, 0.7)',
+                    }]
+                },
+                options: { scales: { y: { beginAtZero: true } }, plugins: { legend: { display: false } } }
+            });
+
+            // --- Gráfico de Distribuição ---
+            const ctxDist = document.getElementById('distribuicaoChart').getContext('2d');
+            new Chart(ctxDist, {
+                type: 'doughnut',
+                data: {
+                    labels: sampleSociedades.map(s => s.sigla),
+                    datasets: [{
+                        data: sampleSociedades.map(s => s.membros),
+                        backgroundColor: ['#3b82f6', '#ef4444', '#f97316', '#8b5cf6', '#10b981'],
+                    }]
+                }
+            });
+        });
+
+        function logout() { window.location.href = '/sgi/login.html'; }
+    </script>
+</body>
 </html>

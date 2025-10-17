@@ -2,7 +2,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <title>SGIPP - Dashboard de Membros</title>
+    <title>SGIPP - Dashboard do Ministério Infantil</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
@@ -38,67 +38,54 @@
                            <a href="/sgi/dash/dashclasseebd.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Classes EBD</a>
                            <a href="/sgi/dash/dasheventos.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Eventos</a>
                            <a href="/sgi/dash/dashkids.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Ministério Infantil</a>
-                           <a href="/sgi/dash/dashboard_membros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
                            </div>
                     </div>
                 </div>
-                <div class="flex items-center space-x-4">
-                    <div class="relative group px-3 py-2">
-                        <button class="flex items-center space-x-2 focus:outline-none">
-                            <img alt="Foto do usuário" class="h-8 w-8 rounded-full border-2 border-green-600" src="https://i.pravatar.cc/40" />
-                            <span class="font-semibold text-gray-800 menu-username">Usuário</span>
-                        </button>
-                        <div class="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-20">
-                            <a href="/sgi/perfil.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Perfil</a>
-                            <button onclick="logout()" class="block w-full text-left px-4 py-2 text-red-600 hover:bg-red-500 hover:text-white">Sair</button>
-                        </div>
-                    </div>
                 </div>
-            </div>
         </div>
     </nav>
 
     <main class="flex-grow p-8">
         <div class="max-w-7xl mx-auto">
-            <h1 class="font-bold text-3xl text-gray-900 mb-6">Dashboard de Membros</h1>
+            <h1 class="font-bold text-3xl text-gray-900 mb-6">Dashboard do Ministério Infantil</h1>
 
             <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <div class="bg-white p-6 rounded-xl shadow-md flex items-center space-x-4">
-                    <div class="bg-blue-100 p-3 rounded-full"><i class="fas fa-users fa-2x text-blue-600"></i></div>
+                    <div class="bg-blue-100 p-3 rounded-full"><i class="fas fa-child fa-2x text-blue-600"></i></div>
                     <div>
-                        <p class="text-gray-500 font-semibold">Membros Ativos</p>
-                        <p id="total-membros" class="text-3xl font-bold text-gray-800">0</p>
+                        <p class="text-gray-500 font-semibold">Total de Crianças</p>
+                        <p id="total-criancas" class="text-3xl font-bold text-gray-800">0</p>
                     </div>
                 </div>
                 <div class="bg-white p-6 rounded-xl shadow-md flex items-center space-x-4">
-                    <div class="bg-green-100 p-3 rounded-full"><i class="fas fa-user-plus fa-2x text-green-600"></i></div>
-                    <div>
-                        <p class="text-gray-500 font-semibold">Novos Membros (no ano)</p>
-                        <p id="novos-membros" class="text-3xl font-bold text-gray-800">0</p>
-                    </div>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-md flex items-center space-x-4">
-                    <div class="bg-yellow-100 p-3 rounded-full"><i class="fas fa-birthday-cake fa-2x text-yellow-600"></i></div>
+                    <div class="bg-pink-100 p-3 rounded-full"><i class="fas fa-birthday-cake fa-2x text-pink-600"></i></div>
                     <div>
                         <p class="text-gray-500 font-semibold">Aniversariantes no Mês</p>
-                        <p id="aniversariantes-mes" class="text-3xl font-bold text-gray-800">0</p>
+                        <p id="total-aniversariantes" class="text-3xl font-bold text-gray-800">0</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md flex items-center space-x-4">
+                    <div class="bg-yellow-100 p-3 rounded-full"><i class="fas fa-baby fa-2x text-yellow-600"></i></div>
+                    <div>
+                        <p class="text-gray-500 font-semibold">Média de Idade</p>
+                        <p id="media-idade" class="text-3xl font-bold text-gray-800">0</p>
                     </div>
                 </div>
             </section>
 
-            <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-                <div class="bg-white p-6 rounded-xl shadow-md">
-                    <h2 class="font-bold text-lg mb-4">Membros por Faixa Etária</h2>
-                    <canvas id="faixaEtariaChart"></canvas>
+            <section class="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-8">
+                <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-md">
+                    <h2 class="font-bold text-lg mb-4">Crianças por Turma da EBD</h2>
+                    <canvas id="turmasChart"></canvas>
                 </div>
-                <div class="bg-white p-6 rounded-xl shadow-md">
-                    <h2 class="font-bold text-lg mb-4">Membros por Estado Civil</h2>
-                    <canvas id="estadoCivilChart"></canvas>
+                <div class="lg:col-span-3 bg-white p-6 rounded-xl shadow-md">
+                    <h2 class="font-bold text-lg mb-4">Distribuição por Idade</h2>
+                    <canvas id="idadesChart"></canvas>
                 </div>
             </section>
 
             <section class="bg-white p-6 rounded-xl shadow-md">
-                <h2 class="font-bold text-lg mb-4">Aniversariantes do Mês</h2>
+                <h2 class="font-bold text-lg mb-4">Próximos Aniversariantes do Mês</h2>
                 <div class="overflow-x-auto">
                     <table class="w-full text-left">
                         <thead>
@@ -122,13 +109,14 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Dados de Exemplo
-            const sampleMembers = [
-                { nome: "João da Silva", data_nascimento: "1985-10-20", estado_civil: "Casado(a)", status: "Ativo", profissao_fe: "2010-01-01" },
-                { nome: "Maria Pereira", data_nascimento: "1990-05-15", estado_civil: "Casado(a)", status: "Ativo", profissao_fe: "2012-03-10" },
-                { nome: "Carlos Costa", data_nascimento: "2002-10-02", estado_civil: "Solteiro(a)", status: "Ativo", profissao_fe: "2025-01-15" },
-                { nome: "Ana Clara", data_nascimento: "1965-03-30", estado_civil: "Viúvo(a)", status: "Ativo", profissao_fe: "1990-01-01" },
-                { nome: "José de Alencar", data_nascimento: "1998-10-18", estado_civil: "Solteiro(a)", status: "Ativo", profissao_fe: "2020-01-01" },
-                { nome: "Membro Inativo", data_nascimento: "1970-01-01", estado_civil: "Casado(a)", status: "Inativo", profissao_fe: "2000-01-01" },
+            const sampleKids = [
+                { nome: "Lucas Souza", data_nascimento: "2018-10-20", turma_ebd: "Jardim" },
+                { nome: "Sofia Oliveira", data_nascimento: "2022-01-15", turma_ebd: "Berçário" },
+                { nome: "Pedro Costa", data_nascimento: "2016-11-02", turma_ebd: "Primários" },
+                { nome: "Alice Ferreira", data_nascimento: "2019-10-05", turma_ebd: "Maternal" },
+                { nome: "Miguel Santos", data_nascimento: "2018-08-10", turma_ebd: "Jardim" },
+                { nome: "Laura Martins", data_nascimento: "2023-03-25", turma_ebd: "Berçário" },
+                { nome: "Arthur Alves", data_nascimento: "2014-10-28", turma_ebd: "Juniores" },
             ];
             
             const calculateAge = (birthDate) => {
@@ -141,61 +129,53 @@
             };
 
             // --- Cards de Resumo ---
-            const membrosAtivos = sampleMembers.filter(m => m.status === 'Ativo');
-            document.getElementById('total-membros').textContent = membrosAtivos.length;
-
-            const anoAtual = new Date().getFullYear();
-            const novosMembros = membrosAtivos.filter(m => new Date(m.profissao_fe).getFullYear() === anoAtual);
-            document.getElementById('novos-membros').textContent = novosMembros.length;
-            
-            const mesAtual = new Date().getMonth();
-            const aniversariantesDoMes = membrosAtivos.filter(m => new Date(m.data_nascimento).getMonth() === mesAtual);
-            document.getElementById('aniversariantes-mes').textContent = aniversariantesDoMes.length;
+            document.getElementById('total-criancas').textContent = sampleKids.length;
+            const currentMonth = new Date().getMonth();
+            const aniversariantesDoMes = sampleKids.filter(k => new Date(k.data_nascimento).getMonth() === currentMonth);
+            document.getElementById('total-aniversariantes').textContent = aniversariantesDoMes.length;
+            const totalIdades = sampleKids.reduce((sum, kid) => sum + calculateAge(kid.data_nascimento), 0);
+            document.getElementById('media-idade').textContent = (totalIdades / sampleKids.length).toFixed(1) + ' anos';
 
             // --- Tabela de Aniversariantes ---
             const tableBody = document.getElementById('aniversariantes-table-body');
             aniversariantesDoMes.sort((a,b) => new Date(a.data_nascimento).getDate() - new Date(b.data_nascimento));
-            aniversariantesDoMes.forEach(membro => {
+            aniversariantesDoMes.forEach(kid => {
                 tableBody.innerHTML += `
                     <tr class="border-b hover:bg-gray-50">
-                        <td class="p-3 font-semibold text-gray-800">${membro.nome}</td>
-                        <td class="p-3 text-gray-600">${calculateAge(membro.data_nascimento) + 1} anos</td>
-                        <td class="p-3 text-gray-600">${new Date(membro.data_nascimento).toLocaleDateString('pt-BR', {day: '2-digit', month: '2-digit'})}</td>
+                        <td class="p-3 font-semibold text-gray-800">${kid.nome}</td>
+                        <td class="p-3 text-gray-600">${calculateAge(kid.data_nascimento) + 1} anos</td>
+                        <td class="p-3 text-gray-600">${new Date(kid.data_nascimento).toLocaleDateString('pt-BR', {day: '2-digit', month: '2-digit'})}</td>
                     </tr>`;
             });
 
-            // --- Gráfico de Faixa Etária ---
-            const faixaEtariaData = membrosAtivos.reduce((acc, membro) => {
-                const age = calculateAge(membro.data_nascimento);
-                if (age <= 12) acc['Crianças']++;
-                else if (age <= 18) acc['Adolescentes']++;
-                else if (age <= 30) acc['Jovens']++;
-                else if (age <= 60) acc['Adultos']++;
-                else acc['Idosos']++;
-                return acc;
-            }, { 'Crianças': 0, 'Adolescentes': 0, 'Jovens': 0, 'Adultos': 0, 'Idosos': 0 });
-            const ctxFaixaEtaria = document.getElementById('faixaEtariaChart').getContext('2d');
-            new Chart(ctxFaixaEtaria, {
+            // --- Gráfico de Turmas ---
+            const turmasData = sampleKids.reduce((acc, kid) => { acc[kid.turma_ebd] = (acc[kid.turma_ebd] || 0) + 1; return acc; }, {});
+            const ctxTurmas = document.getElementById('turmasChart').getContext('2d');
+            new Chart(ctxTurmas, {
                 type: 'doughnut',
                 data: {
-                    labels: Object.keys(faixaEtariaData),
-                    datasets: [{ data: Object.values(faixaEtariaData), backgroundColor: ['#3b82f6', '#ef4444', '#f97316', '#8b5cf6', '#10b981'], }]
+                    labels: Object.keys(turmasData),
+                    datasets: [{
+                        data: Object.values(turmasData),
+                        backgroundColor: ['#3b82f6', '#ef4444', '#f97316', '#8b5cf6', '#10b981'],
+                    }]
                 }
             });
 
-            // --- Gráfico de Estado Civil ---
-            const estadoCivilData = membrosAtivos.reduce((acc, membro) => {
-                acc[membro.estado_civil] = (acc[membro.estado_civil] || 0) + 1;
-                return acc;
+            // --- Gráfico de Idades ---
+            const idadesData = sampleKids.reduce((acc, kid) => { 
+                const age = calculateAge(kid.data_nascimento);
+                acc[age] = (acc[age] || 0) + 1; 
+                return acc; 
             }, {});
-            const ctxEstadoCivil = document.getElementById('estadoCivilChart').getContext('2d');
-            new Chart(ctxEstadoCivil, {
+            const ctxIdades = document.getElementById('idadesChart').getContext('2d');
+            new Chart(ctxIdades, {
                 type: 'bar',
                 data: {
-                    labels: Object.keys(estadoCivilData),
+                    labels: Object.keys(idadesData).sort((a,b) => a-b),
                     datasets: [{
-                        label: 'Nº de Membros',
-                        data: Object.values(estadoCivilData),
+                        label: 'Nº de Crianças',
+                        data: Object.values(idadesData),
                         backgroundColor: 'rgba(22, 163, 74, 0.7)',
                     }]
                 },

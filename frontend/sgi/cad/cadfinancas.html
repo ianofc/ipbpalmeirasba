@@ -1,0 +1,200 @@
+<html class="scroll-smooth" lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>SGIPP - Cadastro de Eventos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/css/sgi.css" />
+    <style> body { font-family: "Inter", sans-serif; } </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col text-black">
+    <nav class="bg-white shadow-md border-b border-gray-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center space-x-3">
+                    <a href="/sgi/home.html"><img alt="Logo da IPB Palmeiras" class="h-10 w-10" src="/static/imgs/acs/logo_ipp.png" /></a>
+                    <a href="/sgi/home.html" class="font-semibold text-xl text-gray-800">SGIPP</a>
+                </div>
+                <div class="hidden md:flex space-x-1 items-center">
+                    <div class="relative group px-3 py-2">
+                        <button class="text-gray-700 hover:text-green-600 font-semibold transition">Cadastro</button>
+                        <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            <a href="/sgi/cad/agendas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Agendas</a>
+                            <a href="/sgi/cad/classe_ebd.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Classes EBD</a>
+                            <a href="/sgi/cad/eventos.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Eventos</a>
+                            <a href="/sgi/cad/cadmembros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
+                            <a href="/sgi/cad/cadoficial.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Oficiais</a>
+                            <a href="/sgi/cad/publicacoes.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Publicações</a>
+                            <a href="/sgi/cad/cadsociedades.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Sociedades</a>
+                        </div>
+                    </div>
+                    <div class="relative group px-3 py-2">
+                         <button class="text-gray-700 hover:text-green-600 font-semibold transition">Pesquisa</button>
+                         <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            <a href="/sgi/pesq/agendas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Agendas</a>
+                            <a href="/sgi/pesq/classe_ebd.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Classes EBD</a>
+                            <a href="/sgi/pesq/eventos.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Eventos</a>
+                            <a href="/sgi/pesq/pesqmembros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
+                            <a href="/sgi/pesq/oficiais.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Oficiais</a>
+                            <a href="/sgi/pesq/publicacoes.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Publicações</a>
+                            <a href="/sgi/pesq/sociedades.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Sociedades</a>
+                         </div>
+                    </div>
+                    <div class="relative group px-3 py-2" data-role="pastor,admin">
+                        <button class="text-gray-700 hover:text-green-600 font-semibold transition">Dashboard</button>
+                        <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            <a href="/sgi/dash/agendas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Agendas</a>
+                            <a href="/sgi/dash/classe_ebd.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Classes EBD</a>
+                            <a href="/sgi/dash/eventos.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Eventos</a>
+                            <a href="/sgi/dash/dashboard_membros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
+                            <a href="/sgi/dash/oficiais.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Oficiais</a>
+                            <a href="/sgi/dash/publicacoes.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Publicações</a>
+                            <a href="/sgi/dash/dashboard_sociedades.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Sociedades</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative group px-3 py-2">
+                        <button class="flex items-center space-x-2 focus:outline-none">
+                            <img alt="Foto do usuário" class="h-8 w-8 rounded-full border-2 border-green-600" src="https://i.pravatar.cc/40" />
+                            <span class="font-semibold text-gray-800 menu-username">Usuário</span>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-20">
+                            <a href="/sgi/perfil.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Perfil</a>
+                            <button onclick="logout()" class="block w-full text-left px-4 py-2 text-red-600 hover:bg-red-500 hover:text-white">Sair</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow p-8">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center md:text-left">Módulo Financeiro</h2>
+
+            <div class="bg-white rounded-lg shadow-md">
+                <div class="border-b border-gray-200">
+                    <div class="flex -mb-px px-4 space-x-8">
+                        <button class="tab-btn active text-gray-500 hover:text-green-600 border-b-2 border-transparent py-4 px-1 text-base font-medium" data-tab="receitas">
+                            <i class="fas fa-arrow-down mr-2 text-green-500"></i> Lançar Receita
+                        </button>
+                        <button class="tab-btn text-gray-500 hover:text-red-600 border-b-2 border-transparent py-4 px-1 text-base font-medium" data-tab="despesas">
+                            <i class="fas fa-arrow-up mr-2 text-red-500"></i> Lançar Despesa
+                        </button>
+                    </div>
+                </div>
+
+                <div class="p-8">
+                    <div id="feedback-message" class="hidden p-4 mb-4 text-sm rounded-lg" role="alert"></div>
+
+                    <form id="form-receitas" class="tab-content space-y-6">
+                        <h3 class="text-xl font-semibold text-gray-700">Detalhes da Entrada</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <label class="flex flex-col"><span class="font-semibold mb-1 text-gray-600">Data da Entrada</span><input type="date" name="data_receita" class="border rounded px-3 py-2" required></label>
+                            <label class="flex flex-col"><span class="font-semibold mb-1 text-gray-600">Valor (R$)</span><input type="number" step="0.01" name="valor_receita" class="border rounded px-3 py-2" placeholder="0.00" required></label>
+                            <label class="flex flex-col"><span class="font-semibold mb-1 text-gray-600">Tipo de Receita</span>
+                                <select name="tipo_receita" class="border rounded px-3 py-2">
+                                    <option>Dízimo</option>
+                                    <option>Oferta Geral</option>
+                                    <option>Oferta Especial (Missões)</option>
+                                    <option>Oferta Especial (Construção)</option>
+                                    <option>Outra</option>
+                                </select>
+                            </label>
+                            <label class="flex flex-col"><span class="font-semibold mb-1 text-gray-600">Dizimista / Ofertante (Opcional)</span><input type="text" name="membro_ofertante" list="membros-list" class="border rounded px-3 py-2" placeholder="Buscar membro..."></label>
+                            <datalist id="membros-list"></datalist>
+                             <label class="flex flex-col md:col-span-2"><span class="font-semibold mb-1 text-gray-600">Conta de Destino</span>
+                                <select name="conta_destino" class="border rounded px-3 py-2">
+                                    <option>Caixa da Igreja</option>
+                                    <option>Banco Bradesco</option>
+                                    <option>Outra Conta</option>
+                                </select>
+                            </label>
+                            <label class="flex flex-col md:col-span-2"><span class="font-semibold mb-1 text-gray-600">Observações</span><textarea name="obs_receita" rows="3" class="border rounded px-3 py-2"></textarea></label>
+                        </div>
+                        <div class="flex justify-center mt-6">
+                            <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-8 py-3 rounded shadow-md"><i class="fas fa-save mr-2"></i>Salvar Receita</button>
+                        </div>
+                    </form>
+
+                    <form id="form-despesas" class="tab-content hidden space-y-6">
+                        <h3 class="text-xl font-semibold text-gray-700">Detalhes da Saída</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <label class="flex flex-col"><span class="font-semibold mb-1 text-gray-600">Data da Despesa</span><input type="date" name="data_despesa" class="border rounded px-3 py-2" required></label>
+                            <label class="flex flex-col"><span class="font-semibold mb-1 text-gray-600">Valor (R$)</span><input type="number" step="0.01" name="valor_despesa" class="border rounded px-3 py-2" placeholder="0.00" required></label>
+                             <label class="flex flex-col md:col-span-2"><span class="font-semibold mb-1 text-gray-600">Descrição da Despesa</span><input type="text" name="desc_despesa" class="border rounded px-3 py-2" placeholder="Ex: Compra de material de limpeza" required></label>
+                            <label class="flex flex-col"><span class="font-semibold mb-1 text-gray-600">Categoria da Despesa</span>
+                                <select name="cat_despesa" class="border rounded px-3 py-2">
+                                    <option>Contas de Consumo (Água, Luz, Internet)</option>
+                                    <option>Manutenção e Reparos</option>
+                                    <option>Salários e Prebendas</option>
+                                    <option>Material de Limpeza</option>
+                                    <option>Material de Escritório</option>
+                                    <option>Ação Social</option>
+                                    <option>Evangelismo e Missões</option>
+                                    <option>Outra</option>
+                                </select>
+                            </label>
+                            <label class="flex flex-col"><span class="font-semibold mb-1 text-gray-600">Conta de Origem</span>
+                                <select name="conta_origem" class="border rounded px-3 py-2">
+                                    <option>Caixa da Igreja</option>
+                                    <option>Banco Bradesco</option>
+                                </select>
+                            </label>
+                             <label class="flex flex-col md:col-span-2"><span class="font-semibold mb-1 text-gray-600">Anexar Comprovante (Opcional)</span><input type="file" name="comprovante" class="border rounded px-3 py-2 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gray-50 file:text-gray-700 hover:file:bg-gray-100"></label>
+                        </div>
+                        <div class="flex justify-center mt-6">
+                            <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-semibold px-8 py-3 rounded shadow-md"><i class="fas fa-save mr-2"></i>Salvar Despesa</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-300 py-3 mt-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-600 text-sm">© 2025 SGIPP. Todos os direitos reservados.</div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const contents = document.querySelectorAll('.tab-content');
+            const feedbackDiv = document.getElementById('feedback-message');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    contents.forEach(content => {
+                        if (content.id === `form-${tab.dataset.tab}`) {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            function handleFormSubmit(event) {
+                event.preventDefault();
+                const formId = event.target.id;
+                const type = formId === 'form-receitas' ? 'Receita' : 'Despesa';
+                
+                feedbackDiv.textContent = `Funcionalidade de salvar ${type.toLowerCase()} em desenvolvimento.`;
+                feedbackDiv.className = 'p-4 mb-4 text-sm rounded-lg bg-blue-100 text-blue-700';
+                window.scrollTo(0, 0);
+            }
+            
+            document.getElementById('form-receitas').addEventListener('submit', handleFormSubmit);
+            document.getElementById('form-despesas').addEventListener('submit', handleFormSubmit);
+        });
+
+        function logout() { window.location.href = '/sgi/login.html'; }
+    </script>
+</body>
+</html>

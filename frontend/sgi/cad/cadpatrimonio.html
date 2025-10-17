@@ -73,29 +73,64 @@
 
     <main class="flex-grow p-8">
         <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-md">
-            <h2 class="text-2xl font-bold text-center text-gray-800 mb-2">Cadastro de Classe da Escola Dominical</h2>
-            <p class="text-center text-gray-500 mb-6">Crie uma nova classe e atribua um professor.</p>
+            <h2 class="text-2xl font-bold text-center text-gray-800 mb-2">Cadastro de Patrimônio</h2>
+            <p class="text-center text-gray-500 mb-6">Registre um novo bem ou equipamento da igreja.</p>
 
             <div id="feedback-message" class="hidden p-4 mb-4 text-sm rounded-lg" role="alert"></div>
             
-            <form id="form-cadastro-classe" class="space-y-6">
+            <form id="form-cadastro-patrimonio" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <label class="flex flex-col md:col-span-2">
+                        <span class="font-semibold mb-1 text-gray-600">Nome do Item</span>
+                        <input type="text" name="nome_item" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Ex: Caixa de Som Ativa, Violão, Cadeira de Plástico" required>
+                    </label>
+                    <label class="flex flex-col">
+                        <span class="font-semibold mb-1 text-gray-600">Categoria</span>
+                        <select name="categoria" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                            <option>Eletrônicos</option>
+                            <option>Instrumentos Musicais</option>
+                            <option>Móveis e Utensílios</option>
+                            <option>Imóveis</option>
+                            <option>Veículos</option>
+                            <option>Outros</option>
+                        </select>
+                    </label>
+                    <label class="flex flex-col">
+                        <span class="font-semibold mb-1 text-gray-600">Localização</span>
+                        <input type="text" name="localizacao" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Ex: Templo, Salão Social, Secretaria">
+                    </label>
+                    <label class="flex flex-col">
+                        <span class="font-semibold mb-1 text-gray-600">Data de Aquisição</span>
+                        <input type="date" name="data_aquisicao" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                    </label>
+                    <label class="flex flex-col">
+                        <span class="font-semibold mb-1 text-gray-600">Valor Estimado (R$)</span>
+                        <input type="number" step="0.01" name="valor_estimado" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="0.00">
+                    </label>
+                     <label class="flex flex-col">
+                        <span class="font-semibold mb-1 text-gray-600">Número de Série / Identificador</span>
+                        <input type="text" name="numero_serie" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Se aplicável">
+                    </label>
+                    <label class="flex flex-col">
+                        <span class="font-semibold mb-1 text-gray-600">Status</span>
+                        <select name="status" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                            <option>Em uso</option>
+                            <option>Em manutenção</option>
+                            <option>Armazenado</option>
+                            <option>Baixado (Inutilizável)</option>
+                        </select>
+                    </label>
+                </div>
+
                 <label class="flex flex-col">
-                    <span class="font-semibold mb-1 text-gray-600">Nome da Classe</span>
-                    <input type="text" name="nome_classe" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Ex: Classe de Adultos, Classe de Jovens" required>
+                    <span class="font-semibold mb-1 text-gray-600">Anexar Nota Fiscal / Foto</span>
+                    <input type="file" name="anexo" accept="image/*,.pdf" class="border rounded px-3 py-2 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gray-50 file:text-gray-700 hover:file:bg-gray-100">
                 </label>
                 
-                <label class="flex flex-col">
-                    <span class="font-semibold mb-1 text-gray-600">Professor(a) Responsável</span>
-                    <input type="text" name="professor_nome" list="membros-list" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Digite o nome do membro para buscar...">
-                    <datalist id="membros-list">
-                        </datalist>
-                    <input type="hidden" name="professor_id">
-                </label>
-
                 <div class="flex justify-center mt-6">
                     <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-8 py-3 rounded shadow-md transition duration-300 flex items-center">
                         <i class="fas fa-save mr-2"></i>
-                        <span id="button-text">Salvar Classe</span>
+                        <span id="button-text">Salvar Item</span>
                     </button>
                 </div>
             </form>
@@ -103,21 +138,20 @@
     </main>
 
     <footer class="bg-white border-t border-gray-300 py-3 mt-8">
-        <div class="max-w-7xl mx-auto px-4 text-center text-gray-600 text-sm">
-            © 2025 SGIPP. Todos os direitos reservados.
-        </div>
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-600 text-sm">© 2025 SGIPP. Todos os direitos reservados.</div>
     </footer>
     
     <script>
-        // Script temporário para feedback
+        // Função para logout
         function logout() {
             window.location.href = '/sgi/login.html';
         }
 
-        document.getElementById('form-cadastro-classe').addEventListener('submit', function(event) {
+        // Script temporário para feedback
+        document.getElementById('form-cadastro-patrimonio').addEventListener('submit', function(event) {
             event.preventDefault();
             const feedbackDiv = document.getElementById('feedback-message');
-            feedbackDiv.textContent = 'Funcionalidade de salvar classe em desenvolvimento.';
+            feedbackDiv.textContent = 'Funcionalidade de salvar patrimônio em desenvolvimento.';
             feedbackDiv.className = 'p-4 mb-4 text-sm rounded-lg bg-blue-100 text-blue-700';
             window.scrollTo(0, 0);
         });

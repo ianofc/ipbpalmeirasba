@@ -2,18 +2,20 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <title>SGIPP - Cadastro de Eventos</title>
+    <title>SGIPP - Pesquisa de Sociedades</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/static/css/sgi.css" />
+    <script src="https://unpkg.com/html-to-docx/dist/html-to-docx.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <style> body { font-family: "Inter", sans-serif; } </style>
 </head>
 <body class="bg-gray-100 min-h-screen flex flex-col text-black">
     <nav class="bg-white shadow-md border-b border-gray-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center space-x-3">
+                 <div class="flex items-center space-x-3">
                     <a href="/sgi/home.html"><img alt="Logo da IPB Palmeiras" class="h-10 w-10" src="/static/imgs/acs/logo_ipp.png" /></a>
                     <a href="/sgi/home.html" class="font-semibold text-xl text-gray-800">SGIPP</a>
                 </div>
@@ -45,7 +47,7 @@
                     <div class="relative group px-3 py-2" data-role="pastor,admin">
                         <button class="text-gray-700 hover:text-green-600 font-semibold transition">Dashboard</button>
                         <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
-                            <a href="/sgi/dash/agendas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Agendas</a>
+                           <a href="/sgi/dash/agendas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Agendas</a>
                             <a href="/sgi/dash/classe_ebd.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Classes EBD</a>
                             <a href="/sgi/dash/eventos.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Eventos</a>
                             <a href="/sgi/dash/dashboard_membros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
@@ -73,29 +75,66 @@
 
     <main class="flex-grow p-8">
         <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-md">
-            <h2 class="text-2xl font-bold text-center text-gray-800 mb-2">Cadastro de Classe da Escola Dominical</h2>
-            <p class="text-center text-gray-500 mb-6">Crie uma nova classe e atribua um professor.</p>
+            <h2 class="text-2xl font-bold text-center text-gray-800 mb-2">Cadastro de Crianças</h2>
+            <p class="text-center text-gray-500 mb-6">Registre as informações para o acompanhamento do Ministério Infantil.</p>
 
             <div id="feedback-message" class="hidden p-4 mb-4 text-sm rounded-lg" role="alert"></div>
             
-            <form id="form-cadastro-classe" class="space-y-6">
-                <label class="flex flex-col">
-                    <span class="font-semibold mb-1 text-gray-600">Nome da Classe</span>
-                    <input type="text" name="nome_classe" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Ex: Classe de Adultos, Classe de Jovens" required>
-                </label>
-                
-                <label class="flex flex-col">
-                    <span class="font-semibold mb-1 text-gray-600">Professor(a) Responsável</span>
-                    <input type="text" name="professor_nome" list="membros-list" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Digite o nome do membro para buscar...">
-                    <datalist id="membros-list">
-                        </datalist>
-                    <input type="hidden" name="professor_id">
-                </label>
+            <form id="form-cadastro-crianca" class="space-y-6">
+                <div>
+                    <h3 class="text-lg font-semibold border-b pb-2 mb-4 text-gray-700">Dados da Criança</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <label class="flex flex-col md:col-span-2">
+                            <span class="font-semibold mb-1 text-gray-600">Nome Completo da Criança</span>
+                            <input type="text" name="nome_completo" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500" required>
+                        </label>
+                        <label class="flex flex-col">
+                            <span class="font-semibold mb-1 text-gray-600">Data de Nascimento</span>
+                            <input type="date" name="data_nascimento" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                        </label>
+                        <label class="flex flex-col">
+                            <span class="font-semibold mb-1 text-gray-600">Turma/Classe da EBD</span>
+                            <select name="turma_ebd" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                <option>Berçário (0-2 anos)</option>
+                                <option>Maternal (3-4 anos)</option>
+                                <option>Jardim (5-6 anos)</option>
+                                <option>Primários (7-8 anos)</option>
+                                <option>Juniores (9-10 anos)</option>
+                                <option>Pré-Adolescentes (11-12 anos)</option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
 
+                <div>
+                    <h3 class="text-lg font-semibold border-b pb-2 mb-4 text-gray-700">Pais ou Responsáveis</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                         <label class="flex flex-col">
+                            <span class="font-semibold mb-1 text-gray-600">Responsável 1 (Pai/Mãe)</span>
+                            <input type="text" name="responsavel1_nome" list="membros-list" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Buscar membro cadastrado..." required>
+                            <input type="hidden" name="responsavel1_id">
+                        </label>
+                         <label class="flex flex-col">
+                            <span class="font-semibold mb-1 text-gray-600">Responsável 2 (Opcional)</span>
+                            <input type="text" name="responsavel2_nome" list="membros-list" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Buscar membro cadastrado...">
+                            <input type="hidden" name="responsavel2_id">
+                        </label>
+                        <datalist id="membros-list"></datalist>
+                    </div>
+                </div>
+
+                <div>
+                     <h3 class="text-lg font-semibold border-b pb-2 mb-4 text-gray-700">Informações Importantes</h3>
+                    <label class="flex flex-col">
+                        <span class="font-semibold mb-1 text-gray-600">Alergias, Cuidados Especiais, Observações</span>
+                        <textarea name="observacoes" rows="4" class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Ex: Alergia a lactose, é tímido(a), gosta de desenhar, remédio para asma na bolsa..."></textarea>
+                    </label>
+                </div>
+                
                 <div class="flex justify-center mt-6">
                     <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-8 py-3 rounded shadow-md transition duration-300 flex items-center">
                         <i class="fas fa-save mr-2"></i>
-                        <span id="button-text">Salvar Classe</span>
+                        <span id="button-text">Salvar Criança</span>
                     </button>
                 </div>
             </form>
@@ -103,21 +142,18 @@
     </main>
 
     <footer class="bg-white border-t border-gray-300 py-3 mt-8">
-        <div class="max-w-7xl mx-auto px-4 text-center text-gray-600 text-sm">
-            © 2025 SGIPP. Todos os direitos reservados.
-        </div>
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-600 text-sm">© 2025 SGIPP. Todos os direitos reservados.</div>
     </footer>
     
     <script>
-        // Script temporário para feedback
-        function logout() {
-            window.location.href = '/sgi/login.html';
-        }
+        // Função para logout
+        function logout() { window.location.href = '/sgi/login.html'; }
 
-        document.getElementById('form-cadastro-classe').addEventListener('submit', function(event) {
+        // Script temporário para feedback
+        document.getElementById('form-cadastro-crianca').addEventListener('submit', function(event) {
             event.preventDefault();
             const feedbackDiv = document.getElementById('feedback-message');
-            feedbackDiv.textContent = 'Funcionalidade de salvar classe em desenvolvimento.';
+            feedbackDiv.textContent = 'Funcionalidade de salvar criança em desenvolvimento.';
             feedbackDiv.className = 'p-4 mb-4 text-sm rounded-lg bg-blue-100 text-blue-700';
             window.scrollTo(0, 0);
         });

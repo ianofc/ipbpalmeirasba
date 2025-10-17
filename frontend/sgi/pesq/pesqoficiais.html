@@ -1,383 +1,231 @@
-<html lang="pt-BR" class="scroll-smooth">
- <head>
-  <meta charset="utf-8" />
-  <meta content="width=device-width, initial-scale=1" name="viewport" />
-  <title>Perfil do Obreiro - Peniel Social+</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link
-   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-   rel="stylesheet"
-  />
-  <link
-   href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap"
-   rel="stylesheet"
-  />
-  <style>
-   body {
-    font-family: "Inter", sans-serif;
-   }
-  </style>
- </head>
- <body class="bg-gray-100 min-h-screen flex flex-col text-black">
-  <!-- Navbar -->
-  <nav class="bg-white shadow-md border-b border-gray-300">
-   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between h-16 items-center relative">
-     <div class="flex items-center space-x-3">
-      <img
-       alt="Logo da Peniel, símbolo dourado estilizado com fundo branco"
-       class="h-10 w-10 rounded-full"
-       height="40"
-       src="https://storage.googleapis.com/a1aa/image/34d4e407-1218-4948-0478-f3dcb7d95fcd.jpg"
-       width="40"
-      />
-      <span class="font-semibold text-xl" style="color: var(--color-gold)"
-       >Peniel Social+</span
-      >
-     </div>
-     <div class="hidden md:flex space-x-6 items-center">
-      <button
-       class="text-gray-700 hover:text-[var(--color-gold)] font-semibold transition focus:outline-none"
-       id="btnCadastro"
-      >
-       Cadastro
-      </button>
-      <button
-       class="text-gray-700 hover:text-[var(--color-gold)] font-semibold transition focus:outline-none"
-       id="btnPesquisa"
-      >
-       Pesquisa
-      </button>
-      <button
-       class="text-[var(--color-gold)] font-semibold transition focus:outline-none"
-       id="btnRelatorios"
-      >
-       Relatórios
-      </button>
-     </div>
-     <div class="flex items-center space-x-4">
-      <div class="relative group">
-       <button
-        aria-label="Perfil do usuário"
-        class="flex items-center space-x-2 focus:outline-none"
-        id="user-menu-button"
-       >
-        <img
-         alt="Foto do usuário, rosto sorridente de pessoa jovem com fundo cinza claro"
-         class="rounded-full border-2 border-[var(--color-gold)]"
-         height="32"
-         src="https://storage.googleapis.com/a1aa/image/43fd7a15-3d17-458f-ee09-2793942a0a7c.jpg"
-         width="32"
-        />
-        <span class="font-semibold text-gray-800">João Silva</span>
-        <i class="fas fa-chevron-down text-gray-500"></i>
-       </button>
-       <div
-        class="absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded-md shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-opacity z-20"
-        id="user-menu"
-       >
-        <a
-         class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
-         href="#perfil"
-         >Perfil</a
-        >
-        <a
-         class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
-         href="#configuracoes"
-         >Configurações</a
-        >
-        <a
-         class="block px-4 py-2 text-red-600 hover:bg-red-50 font-semibold"
-         href="#sair"
-         >Sair</a
-        >
-       </div>
-      </div>
-     </div>
-     <div class="md:hidden">
-      <button
-       aria-label="Abrir menu"
-       class="text-gray-700 hover:text-[var(--color-gold)] focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)] rounded"
-       id="mobile-menu-button"
-      >
-       <i class="fas fa-bars fa-lg"></i>
-      </button>
-     </div>
+<html class="scroll-smooth" lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>SGIPP - Pesquisa de Oficiais</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/css/sgi.css" />
+    <style> body { font-family: "Inter", sans-serif; } </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col text-black">
+    <nav class="bg-white shadow-md border-b border-gray-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                 <div class="flex items-center space-x-3">
+                    <a href="/sgi/home.html"><img alt="Logo da IPB Palmeiras" class="h-10 w-10" src="/static/imgs/acs/logo_ipp.png" /></a>
+                    <a href="/sgi/home.html" class="font-semibold text-xl text-gray-800">SGIPP</a>
+                </div>
+                <div class="hidden md:flex space-x-1 items-center">
+                    <div class="relative group px-3 py-2">
+                        <button class="text-gray-700 hover:text-green-600 font-semibold transition">Cadastro</button>
+                        <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            <a href="/sgi/cad/agendas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Agendas</a>
+                            <a href="/sgi/cad/classe_ebd.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Classes EBD</a>
+                            <a href="/sgi/cad/eventos.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Eventos</a>
+                            <a href="/sgi/cad/cadmembros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
+                            <a href="/sgi/cad/cadoficial.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Oficiais</a>
+                            <a href="/sgi/cad/publicacoes.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Publicações</a>
+                            <a href="/sgi/cad/cadsociedades.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Sociedades</a>
+                        </div>
+                    </div>
+                    <div class="relative group px-3 py-2">
+                         <button class="text-gray-700 hover:text-green-600 font-semibold transition">Pesquisa</button>
+                         <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            <a href="/sgi/pesq/agendas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Agendas</a>
+                            <a href="/sgi/pesq/classe_ebd.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Classes EBD</a>
+                            <a href="/sgi/pesq/eventos.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Eventos</a>
+                            <a href="/sgi/pesq/pesqmembros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
+                            <a href="/sgi/pesq/oficiais.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Oficiais</a>
+                            <a href="/sgi/pesq/publicacoes.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Publicações</a>
+                            <a href="/sgi/pesq/sociedades.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Sociedades</a>
+                         </div>
+                    </div>
+                    <div class="relative group px-3 py-2" data-role="pastor,admin">
+                        <button class="text-gray-700 hover:text-green-600 font-semibold transition">Dashboard</button>
+                        <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                           <a href="/sgi/dash/agendas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Agendas</a>
+                            <a href="/sgi/dash/classe_ebd.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Classes EBD</a>
+                            <a href="/sgi/dash/eventos.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Eventos</a>
+                            <a href="/sgi/dash/dashboard_membros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
+                            <a href="/sgi/dash/oficiais.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Oficiais</a>
+                            <a href="/sgi/dash/publicacoes.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Publicações</a>
+                            <a href="/sgi/dash/dashboard_sociedades.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Sociedades</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative group px-3 py-2">
+                        <button class="flex items-center space-x-2 focus:outline-none">
+                            <img alt="Foto do usuário" class="h-8 w-8 rounded-full border-2 border-green-600" src="https://i.pravatar.cc/40" />
+                            <span class="font-semibold text-gray-800 menu-username">Usuário</span>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-20">
+                            <a href="/sgi/perfil.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Perfil</a>
+                            <button onclick="logout()" class="block w-full text-left px-4 py-2 text-red-600 hover:bg-red-500 hover:text-white">Sair</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow p-8">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center md:text-left">Pesquisa de Oficiais</h2>
+
+            <div class="bg-white p-4 rounded-lg shadow-md mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
+                    <input type="text" id="search-input" placeholder="Buscar por nome do oficial..." class="border border-gray-300 rounded-md w-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500">
+                    <select id="cargo-filter" class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-700">
+                        <option value="">Filtrar por Cargo</option>
+                        <option>Presbítero</option>
+                        <option>Diácono</option>
+                    </select>
+                    <select id="status-filter" class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-700">
+                        <option value="">Filtrar por Status</option>
+                        <option>Ativo</option>
+                        <option>Emérito</option>
+                        <option>Inativo</option>
+                    </select>
+                </div>
+                <div class="mt-4 flex flex-wrap gap-2 items-center justify-between">
+                     <button id="btn-add" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded shadow transition flex items-center space-x-2">
+                        <i class="fas fa-plus"></i><span>Novo Oficial</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto bg-white rounded-lg shadow-md">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nome</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cargo</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Início do Mandato</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fim do Mandato</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="oficiais-table-body" class="bg-white divide-y divide-gray-200"></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <div id="edit-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40 flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-xl p-8 max-w-lg w-full">
+            <h3 class="text-xl font-bold text-gray-800 mb-6">Editar Oficial</h3>
+            <form id="edit-form" class="space-y-4">
+                <input type="hidden" name="oficial_id">
+                <div>
+                    <span class="text-gray-700 font-semibold">Nome</span>
+                    <p id="edit-nome" class="mt-1 text-lg font-medium text-gray-900 bg-gray-100 p-2 rounded"></p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <label class="block"><span class="text-gray-700 font-semibold">Cargo</span>
+                        <select name="cargo" class="mt-1 border rounded w-full px-3 py-2"></select>
+                    </label>
+                    <label class="block"><span class="text-gray-700 font-semibold">Status do Ofício</span>
+                        <select name="status_oficio" class="mt-1 border rounded w-full px-3 py-2"></select>
+                    </label>
+                </div>
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <label class="block"><span class="text-gray-700 font-semibold">Início do Mandato</span><input type="date" name="mandato_inicio" class="mt-1 border rounded w-full px-3 py-2"></label>
+                    <label class="block"><span class="text-gray-700 font-semibold">Fim do Mandato</span><input type="date" name="mandato_fim" class="mt-1 border rounded w-full px-3 py-2"></label>
+                 </div>
+                <div class="flex justify-end space-x-4 pt-4">
+                    <button type="button" class="close-modal-btn bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-6 py-2 rounded">Cancelar</button>
+                    <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded">Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
     </div>
-   </div>
-   <div class="hidden md:hidden bg-white border-t border-gray-300" id="mobile-menu">
-    <details class="group border-b border-gray-200">
-     <summary
-      class="px-4 py-3 cursor-pointer select-none text-gray-800 font-semibold hover:bg-[var(--color-gold)] hover:text-white"
-     >
-      Cadastro
-      <i
-       class="fas fa-chevron-down float-right mt-1 text-gray-600 group-open:rotate-180 transition-transform"
-      ></i>
-     </summary>
-     <div class="pl-6 pb-3 space-y-1">
-      <a
-       href="#voluntarios"
-       class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-       >Voluntários</a
-      >
-      <a
-       href="#obreiros"
-       class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-       >Obreiros</a
-      >
-     </div>
-    </details>
-    <details class="group border-b border-gray-200">
-     <summary
-      class="px-4 py-3 cursor-pointer select-none text-gray-800 font-semibold hover:bg-[var(--color-gold)] hover:text-white"
-     >
-      Pesquisa
-      <i
-       class="fas fa-chevron-down float-right mt-1 text-gray-600 group-open:rotate-180 transition-transform"
-      ></i>
-     </summary>
-     <div class="pl-6 pb-3 space-y-1">
-      <a
-       href="#internos"
-       class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-       >Internos</a
-      >
-      <a
-       href="#voluntarios-pesquisa"
-       class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-       >Voluntários</a
-      >
-     </div>
-    </details>
-    <details class="group border-b border-gray-200">
-     <summary
-      class="px-4 py-3 cursor-pointer select-none text-[var(--color-gold)] font-semibold hover:bg-[var(--color-gold)] hover:text-white"
-     >
-      Relatórios
-      <i
-       class="fas fa-chevron-down float-right mt-1 text-gray-600 group-open:rotate-180 transition-transform"
-      ></i>
-     </summary>
-     <div class="pl-6 pb-3 space-y-1">
-      <a
-       href="#dashboard"
-       class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-       >Dashboard Internos</a
-      >
-      <a
-       href="#financeiro"
-       class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-       >Financeiro</a
-      >
-      <a
-       href="#membros"
-       class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-       >Membros</a
-      >
-      <a
-       href="#outros-relatorios"
-       class="block px-4 py-2 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold rounded"
-       >Outros Relatórios</a
-      >
-     </div>
-    </details>
-    <a
-     class="block px-4 py-3 text-gray-800 hover:bg-[var(--color-gold)] hover:text-white font-semibold"
-     href="#perfil"
-     >Perfil</a
-    >
-    <a
-     class="block px-4 py-3 text-gray-800 hover:text-[var(--color-gold)] hover:text-white font-semibold"
-     href="#configuracoes"
-     >Configurações</a
-    >
-    <a
-     class="block px-4 py-3 text-red-600 font-semibold hover:bg-red-50"
-     href="#sair"
-     >Sair</a
-    >
-   </div>
-  </nav>
-  <!-- Conteúdo principal -->
-  <main class="flex-grow max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-   <h1 class="text-3xl font-semibold text-gray-900 mb-8 text-center">
-    Perfil do Obreiro
-   </h1>
-   <section class="bg-white rounded-lg shadow p-8 w-full max-w-full mx-auto">
-    <div class="flex flex-col md:flex-row md:space-x-8 items-center mb-8">
-     <img
-      alt="Foto do obreiro, rosto sorridente de pessoa jovem com fundo cinza claro"
-      src="https://storage.googleapis.com/a1aa/image/43fd7a15-3d17-458f-ee09-2793942a0a7c.jpg"
-      class="rounded-full w-32 h-32 object-cover border-4 border-[var(--color-gold)]"
-     />
-     <div class="mt-4 md:mt-0 text-center md:text-left flex-1">
-      <h2 class="text-2xl font-semibold text-gray-900">João Silva</h2>
-      <p class="text-gray-700 mt-1">Membro desde: 15 de março de 2022</p>
-      <p class="text-gray-700 mt-1">Email: joao.silva@email.com</p>
-      <p class="text-gray-700 mt-1">Telefone: (11) 91234-5678</p>
-      <p class="text-gray-700 mt-1">Função: Obreiro</p>
-      <p class="text-gray-700 mt-1">Departamento: Evangelismo</p>
-     </div>
-    </div>
-    <form class="space-y-6 max-w-3xl mx-auto">
-     <div>
-      <label
-       for="name"
-       class="block text-sm font-semibold text-gray-700 mb-1"
-       >Nome Completo</label
-      >
-      <input
-       type="text"
-       id="name"
-       name="name"
-       value="João Silva"
-       class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-      />
-     </div>
-     <div>
-      <label
-       for="email"
-       class="block text-sm font-semibold text-gray-700 mb-1"
-       >Email</label
-      >
-      <input
-       type="email"
-       id="email"
-       name="email"
-       value="joao.silva@email.com"
-       class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-      />
-     </div>
-     <div>
-      <label
-       for="phone"
-       class="block text-sm font-semibold text-gray-700 mb-1"
-       >Telefone</label
-      >
-      <input
-       type="tel"
-       id="phone"
-       name="phone"
-       value="(11) 91234-5678"
-       class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-      />
-     </div>
-     <div>
-      <label
-       for="address"
-       class="block text-sm font-semibold text-gray-700 mb-1"
-       >Endereço</label
-      >
-      <input
-       type="text"
-       id="address"
-       name="address"
-       value="Rua das Flores, 123, São Paulo, SP"
-       class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-      />
-     </div>
-     <div>
-      <label
-       for="role"
-       class="block text-sm font-semibold text-gray-700 mb-1"
-       >Função</label
-      >
-      <input
-       type="text"
-       id="role"
-       name="role"
-       value="Obreiro"
-       class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-      />
-     </div>
-     <div>
-      <label
-       for="department"
-       class="block text-sm font-semibold text-gray-700 mb-1"
-       >Departamento</label
-      >
-      <input
-       type="text"
-       id="department"
-       name="department"
-       value="Evangelismo"
-       class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-      />
-     </div>
-     <div>
-      <label class="inline-flex items-center space-x-2 cursor-pointer">
-       <input
-        type="checkbox"
-        id="change-password-toggle"
-        class="form-checkbox h-5 w-5 text-[var(--color-gold)]"
-       />
-       <span class="text-gray-700 font-semibold">Deseja mudar a senha?</span>
-      </label>
-     </div>
-     <div id="password-fields" class="space-y-4 hidden">
-      <div>
-       <label
-        for="password"
-        class="block text-sm font-semibold text-gray-700 mb-1"
-        >Nova Senha</label
-       >
-       <input
-        type="password"
-        id="password"
-        name="password"
-        placeholder="Digite sua nova senha"
-        class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-       />
-      </div>
-      <div>
-       <label
-        for="confirm-password"
-        class="block text-sm font-semibold text-gray-700 mb-1"
-        >Confirmar Senha</label
-       >
-       <input
-        type="password"
-        id="confirm-password"
-        name="confirm-password"
-        placeholder="Confirme sua nova senha"
-        class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-gold)]"
-       />
-      </div>
-     </div>
-     <div class="flex justify-center">
-      <button
-       type="submit"
-       class="bg-[var(--color-gold)] text-white font-semibold px-6 py-2 rounded-md hover:bg-yellow-600 transition"
-      >
-       Atualizar Perfil
-      </button>
-     </div>
-    </form>
-   </section>
-  </main>
-  <!-- Rodapé -->
-  <footer class="bg-white border-t border-gray-300 py-3 mt-8">
-   <div
-    class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-600 text-sm select-none"
-   >
-    © 2025 Ministerio Peniel. Todos os direitos reservados.
-   </div>
-  </footer>
-  <script>
-   const toggle = document.getElementById("change-password-toggle");
-   const passwordFields = document.getElementById("password-fields");
-   toggle.addEventListener("change", () => {
-    if (toggle.checked) {
-     passwordFields.classList.remove("hidden");
-    } else {
-     passwordFields.classList.add("hidden");
-     // Clear password inputs when hidden
-     document.getElementById("password").value = "";
-     document.getElementById("confirm-password").value = "";
-    }
-   });
-  </script>
-  <script src="frontend/src/js/script.js"></script>
- </body>
+
+    <footer class="bg-white border-t border-gray-300 py-3 mt-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-600 text-sm">© 2025 SGIPP. Todos os direitos reservados.</div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Dados de Exemplo
+            const sampleOficiais = [
+                { id: 1, nome_completo: "Rev. Josué Almeida", cargo: "Presbítero", mandato_inicio: "2022-01-01", mandato_fim: "2026-12-31", status_oficio: "Ativo" },
+                { id: 2, nome_completo: "Pb. Marcos Cruz", cargo: "Presbítero", mandato_inicio: "2023-01-01", mandato_fim: "2027-12-31", status_oficio: "Ativo" },
+                { id: 3, nome_completo: "Dc. Davi Moreira", cargo: "Diácono", mandato_inicio: "2023-01-01", mandato_fim: "2027-12-31", status_oficio: "Ativo" },
+                { id: 4, nome_completo: "Pb. Antônio Soares", cargo: "Presbítero", mandato_inicio: "2018-01-01", mandato_fim: "2022-12-31", status_oficio: "Emérito" },
+            ];
+
+            const tableBody = document.getElementById('oficiais-table-body');
+            const editModal = document.getElementById('edit-modal');
+            const editForm = document.getElementById('edit-form');
+            
+            function renderTable(data) {
+                tableBody.innerHTML = '';
+                if(data.length === 0) { tableBody.innerHTML = '<tr><td colspan="6" class="text-center py-8 text-gray-500">Nenhum oficial encontrado.</td></tr>'; return; }
+                data.forEach(oficial => {
+                    const row = `
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 font-medium text-gray-900">${oficial.nome_completo}</td>
+                            <td class="px-6 py-4 text-gray-500">${oficial.cargo}</td>
+                            <td class="px-6 py-4 text-gray-500">${new Date(oficial.mandato_inicio).toLocaleDateString('pt-BR')}</td>
+                            <td class="px-6 py-4 text-gray-500">${new Date(oficial.mandato_fim).toLocaleDateString('pt-BR')}</td>
+                            <td class="px-6 py-4"><span class="px-2 inline-flex text-xs font-semibold rounded-full ${oficial.status_oficio === 'Ativo' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}">${oficial.status_oficio}</span></td>
+                            <td class="px-6 py-4 text-right text-sm font-medium space-x-4">
+                                <button data-id="${oficial.id}" class="edit-btn text-green-600 hover:text-green-900" title="Editar"><i class="fas fa-pencil-alt"></i></button>
+                                <button data-id="${oficial.id}" class="delete-btn text-red-600 hover:text-red-900" title="Excluir"><i class="fas fa-trash-alt"></i></button>
+                            </td>
+                        </tr>`;
+                    tableBody.innerHTML += row;
+                });
+            }
+
+            function openEditModal(oficial) {
+                const cargoSelect = editForm.querySelector('[name="cargo"]');
+                const statusSelect = editForm.querySelector('[name="status_oficio"]');
+                
+                if (cargoSelect.options.length <= 1) { ["Presbítero", "Diácono"].forEach(c => cargoSelect.add(new Option(c, c))); }
+                if (statusSelect.options.length <= 1) { ["Ativo", "Emérito", "Inativo"].forEach(s => statusSelect.add(new Option(s, s))); }
+
+                editForm.querySelector('[name="oficial_id"]').value = oficial.id;
+                document.getElementById('edit-nome').textContent = oficial.nome_completo;
+                cargoSelect.value = oficial.cargo;
+                statusSelect.value = oficial.status_oficio;
+                editForm.querySelector('[name="mandato_inicio"]').value = oficial.mandato_inicio;
+                editForm.querySelector('[name="mandato_fim"]').value = oficial.mandato_fim;
+                editModal.classList.remove('hidden');
+            }
+
+            tableBody.addEventListener('click', (e) => {
+                const target = e.target.closest('button');
+                if(!target) return;
+                const id = target.dataset.id;
+                const oficial = sampleOficiais.find(o => o.id == id);
+                if(!oficial) return;
+
+                if (target.classList.contains('edit-btn')) {
+                    openEditModal(oficial);
+                } else if (target.classList.contains('delete-btn')) {
+                    if(confirm(`Tem certeza que deseja remover o ofício de "${oficial.nome_completo}"?`)) {
+                       alert('Função Excluir em desenvolvimento.');
+                    }
+                }
+            });
+
+            document.querySelectorAll('.close-modal-btn').forEach(btn => {
+                btn.addEventListener('click', () => editModal.classList.add('hidden'));
+            });
+            
+            document.getElementById('btn-add').addEventListener('click', () => {
+                window.location.href = '/sgi/cad/cadoficial.html';
+            });
+
+            renderTable(sampleOficiais);
+        });
+
+        function logout() { window.location.href = '/sgi/login.html'; }
+    </script>
+</body>
 </html>

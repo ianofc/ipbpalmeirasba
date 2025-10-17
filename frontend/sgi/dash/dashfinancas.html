@@ -1,0 +1,221 @@
+<html class="scroll-smooth" lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>SGIPP - Pesquisa de Sociedades</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/css/sgi.css" />
+    <script src="https://unpkg.com/html-to-docx/dist/html-to-docx.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <style> body { font-family: "Inter", sans-serif; } </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col text-black">
+    <nav class="bg-white shadow-md border-b border-gray-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                 <div class="flex items-center space-x-3">
+                    <a href="/sgi/home.html"><img alt="Logo da IPB Palmeiras" class="h-10 w-10" src="/static/imgs/acs/logo_ipp.png" /></a>
+                    <a href="/sgi/home.html" class="font-semibold text-xl text-gray-800">SGIPP</a>
+                </div>
+                <div class="hidden md:flex space-x-1 items-center">
+                    <div class="relative group px-3 py-2">
+                        <button class="text-gray-700 hover:text-green-600 font-semibold transition">Cadastro</button>
+                        <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            <a href="/sgi/cad/agendas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Agendas</a>
+                            <a href="/sgi/cad/classe_ebd.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Classes EBD</a>
+                            <a href="/sgi/cad/eventos.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Eventos</a>
+                            <a href="/sgi/cad/cadmembros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
+                            <a href="/sgi/cad/cadoficial.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Oficiais</a>
+                            <a href="/sgi/cad/publicacoes.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Publicações</a>
+                            <a href="/sgi/cad/cadsociedades.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Sociedades</a>
+                        </div>
+                    </div>
+                    <div class="relative group px-3 py-2">
+                         <button class="text-gray-700 hover:text-green-600 font-semibold transition">Pesquisa</button>
+                         <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            <a href="/sgi/pesq/agendas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Agendas</a>
+                            <a href="/sgi/pesq/classe_ebd.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Classes EBD</a>
+                            <a href="/sgi/pesq/eventos.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Eventos</a>
+                            <a href="/sgi/pesq/pesqmembros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
+                            <a href="/sgi/pesq/oficiais.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Oficiais</a>
+                            <a href="/sgi/pesq/publicacoes.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Publicações</a>
+                            <a href="/sgi/pesq/sociedades.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Sociedades</a>
+                         </div>
+                    </div>
+                    <div class="relative group px-3 py-2" data-role="pastor,admin">
+                        <button class="text-gray-700 hover:text-green-600 font-semibold transition">Dashboard</button>
+                        <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                           <a href="/sgi/dash/agendas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Agendas</a>
+                            <a href="/sgi/dash/classe_ebd.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Classes EBD</a>
+                            <a href="/sgi/dash/eventos.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Eventos</a>
+                            <a href="/sgi/dash/dashboard_membros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
+                            <a href="/sgi/dash/oficiais.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Oficiais</a>
+                            <a href="/sgi/dash/publicacoes.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Publicações</a>
+                            <a href="/sgi/dash/dashboard_sociedades.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Sociedades</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative group px-3 py-2">
+                        <button class="flex items-center space-x-2 focus:outline-none">
+                            <img alt="Foto do usuário" class="h-8 w-8 rounded-full border-2 border-green-600" src="https://i.pravatar.cc/40" />
+                            <span class="font-semibold text-gray-800 menu-username">Usuário</span>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-20">
+                            <a href="/sgi/perfil.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Perfil</a>
+                            <button onclick="logout()" class="block w-full text-left px-4 py-2 text-red-600 hover:bg-red-500 hover:text-white">Sair</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
+        <div class="flex flex-col md:flex-row justify-between md:items-center mb-6 gap-4">
+            <h1 class="font-bold text-3xl text-gray-900">Dashboard Financeiro</h1>
+            <div class="flex flex-col md:flex-row items-center gap-3 bg-white p-3 rounded-lg shadow-sm">
+                <div class="flex items-center gap-2">
+                    <label for="start-date" class="text-sm font-semibold text-gray-600">De:</label>
+                    <input type="date" id="start-date" class="border rounded-md px-2 py-1 text-sm">
+                </div>
+                <div class="flex items-center gap-2">
+                    <label for="end-date" class="text-sm font-semibold text-gray-600">Até:</label>
+                    <input type="date" id="end-date" class="border rounded-md px-2 py-1 text-sm">
+                </div>
+                <button class="bg-blue-600 text-white font-semibold rounded-lg px-4 py-2 text-sm flex items-center space-x-2 hover:bg-blue-700 transition">
+                    <i class="fas fa-filter"></i>
+                    <span>Filtrar</span>
+                </button>
+                <button class="bg-gray-700 text-white font-semibold rounded-lg px-4 py-2 text-sm flex items-center space-x-2 hover:bg-gray-800 transition">
+                    <i class="fas fa-file-pdf"></i>
+                    <span>Exportar PDF</span>
+                </button>
+            </div>
+        </div>
+
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-xl shadow-md flex items-center space-x-4">
+                <div class="bg-green-100 p-3 rounded-full"><i class="fas fa-arrow-down fa-2x text-green-600"></i></div>
+                <div>
+                    <p class="text-gray-500 font-semibold">Entradas (Período)</p>
+                    <p class="text-3xl font-bold card-valor-positivo">R$ 7.850,00</p>
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-md flex items-center space-x-4">
+                <div class="bg-red-100 p-3 rounded-full"><i class="fas fa-arrow-up fa-2x text-red-600"></i></div>
+                <div>
+                    <p class="text-gray-500 font-semibold">Saídas (Período)</p>
+                    <p class="text-3xl font-bold card-valor-negativo">R$ 3.120,50</p>
+                </div>
+            </div>
+             <div class="bg-white p-6 rounded-xl shadow-md flex items-center space-x-4">
+                <div class="bg-blue-100 p-3 rounded-full"><i class="fas fa-wallet fa-2x text-blue-600"></i></div>
+                <div>
+                    <p class="text-gray-500 font-semibold">Saldo do Período</p>
+                    <p class="text-3xl font-bold text-blue-800">R$ 4.729,50</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-8">
+            <div class="lg:col-span-3 bg-white p-6 rounded-xl shadow-md">
+                <h2 class="font-bold text-lg mb-4">Balanço (Entradas vs. Saídas)</h2>
+                <canvas id="balancoMensalChart"></canvas>
+            </div>
+            <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-md">
+                <h2 class="font-bold text-lg mb-4">Composição das Despesas</h2>
+                <canvas id="despesasChart"></canvas>
+            </div>
+        </section>
+
+        <section class="bg-white p-6 rounded-xl shadow-md">
+            <h2 class="font-bold text-lg mb-4">Livro Caixa - Lançamentos Recentes</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="border-b bg-gray-50 text-sm font-semibold text-gray-600">
+                            <th class="p-3">Data</th>
+                            <th class="p-3">Descrição</th>
+                            <th class="p-3">Categoria</th>
+                            <th class="p-3 text-right">Valor</th>
+                            <th class="p-3 text-center">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="p-3 text-gray-700">15/10/2025</td>
+                            <td class="p-3 font-semibold text-gray-800">Dízimos e Ofertas - Culto Dominical</td>
+                            <td class="p-3 text-gray-600">Entradas Congregacionais</td>
+                            <td class="p-3 text-right font-bold card-valor-positivo">+ R$ 2.150,00</td>
+                            <td class="p-3 text-center space-x-2">
+                                <button class="text-blue-500 hover:text-blue-700" title="Ver Comprovante"><i class="fas fa-receipt"></i></button>
+                                <button class="text-yellow-500 hover:text-yellow-700" title="Editar"><i class="fas fa-pencil-alt"></i></button>
+                            </td>
+                        </tr>
+                        <tr class="border-b hover:bg-gray-50">
+                            <td class="p-3 text-gray-700">14/10/2025</td>
+                            <td class="p-3 font-semibold text-gray-800">Pagamento Conta de Energia (Coelba)</td>
+                            <td class="p-3 text-gray-600">Despesas Administrativas</td>
+                            <td class="p-3 text-right font-bold card-valor-negativo">- R$ 480,30</td>
+                             <td class="p-3 text-center space-x-2">
+                                <button class="text-blue-500 hover:text-blue-700" title="Ver Comprovante"><i class="fas fa-receipt"></i></button>
+                                <button class="text-yellow-500 hover:text-yellow-700" title="Editar"><i class="fas fa-pencil-alt"></i></button>
+                            </td>
+                        </tr>
+                        </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="bg-white border-t border-gray-300 py-3 mt-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-600 text-sm">
+            © 2025 SGIPP. Todos os direitos reservados.
+        </div>
+    </footer>
+
+    <script>
+        // (O script para gerar os gráficos permanece o mesmo da versão anterior)
+        document.addEventListener('DOMContentLoaded', () => {
+            const username = localStorage.getItem('username') || 'Visitante';
+            document.querySelectorAll('.menu-username').forEach(el => el.textContent = username);
+
+            const ctxBalanço = document.getElementById('balancoMensalChart').getContext('2d');
+            new Chart(ctxBalanço, {
+                type: 'bar',
+                data: {
+                    labels: ['Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro'],
+                    datasets: [{
+                        label: 'Entradas',
+                        data: [5200, 6100, 7050, 6800, 7500, 7850],
+                        backgroundColor: 'rgba(22, 163, 74, 0.7)',
+                    }, {
+                        label: 'Saídas',
+                        data: [2800, 3200, 3500, 2900, 4100, 3120],
+                        backgroundColor: 'rgba(220, 38, 38, 0.7)',
+                    }]
+                },
+                options: { scales: { y: { beginAtZero: true } }, responsive: true }
+            });
+
+            const ctxDespesas = document.getElementById('despesasChart').getContext('2d');
+            new Chart(ctxDespesas, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Administrativas', 'Manutenção', 'Missões', 'Ensino', 'Pessoal'],
+                    datasets: [{
+                        label: 'Despesas do Mês',
+                        data: [1250, 420, 500, 250, 700],
+                        backgroundColor: ['#3b82f6', '#f97316', '#eab308', '#8b5cf6', '#6b7280'],
+                        hoverOffset: 4
+                    }]
+                },
+                options: { responsive: true }
+            });
+        });
+        function logout() { window.location.href = '/sgi/login.html'; }
+    </script>
+</body>
+</html>

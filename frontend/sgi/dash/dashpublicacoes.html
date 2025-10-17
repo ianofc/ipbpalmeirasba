@@ -1,0 +1,195 @@
+<html class="scroll-smooth" lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>SGIPP - Dashboard de Publicações</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/static/css/sgi.css" />
+    <style> body { font-family: "Inter", sans-serif; } </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col text-black">
+    <nav class="bg-white shadow-md border-b border-gray-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                 <div class="flex items-center space-x-3">
+                    <a href="/sgi/home.html"><img alt="Logo da IPB Palmeiras" class="h-10 w-10" src="/static/imgs/acs/logo_ipp.png" /></a>
+                    <a href="/sgi/home.html" class="font-semibold text-xl text-gray-800">SGIPP</a>
+                </div>
+                <div class="hidden md:flex space-x-1 items-center">
+                    <div class="relative group px-3 py-2">
+                        <button class="text-gray-700 hover:text-green-600 font-semibold transition">Cadastro</button>
+                        <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            </div>
+                    </div>
+                    <div class="relative group px-3 py-2">
+                         <button class="text-gray-700 hover:text-green-600 font-semibold transition">Pesquisa</button>
+                         <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            </div>
+                    </div>
+                    <div class="relative group px-3 py-2" data-role="pastor,admin">
+                        <button class="text-gray-700 hover:text-green-600 font-semibold transition">Dashboard</button>
+                        <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                           <a href="/sgi/dash/dashfinancas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Financeiro</a>
+                           <a href="/sgi/dash/dashpatrimonio.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Patrimônio</a>
+                           <a href="/sgi/dash/dashagendas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Agendas</a>
+                           <a href="/sgi/dash/dashclasseebd.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Classes EBD</a>
+                           <a href="/sgi/dash/dasheventos.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Eventos</a>
+                           <a href="/sgi/dash/dashkids.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Ministério Infantil</a>
+                           <a href="/sgi/dash/dashboard_membros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
+                           <a href="/sgi/dash/dashoficiais.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Oficiais</a>
+                           <a href="/sgi/dash/dashpublicacoes.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Publicações</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative group px-3 py-2">
+                        <button class="flex items-center space-x-2 focus:outline-none">
+                            <img alt="Foto do usuário" class="h-8 w-8 rounded-full border-2 border-green-600" src="https://i.pravatar.cc/40" />
+                            <span class="font-semibold text-gray-800 menu-username">Usuário</span>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-20">
+                            <a href="/sgi/perfil.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Perfil</a>
+                            <button onclick="logout()" class="block w-full text-left px-4 py-2 text-red-600 hover:bg-red-500 hover:text-white">Sair</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow p-8">
+        <div class="max-w-7xl mx-auto">
+            <h1 class="font-bold text-3xl text-gray-900 mb-6">Dashboard de Publicações</h1>
+
+            <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-xl shadow-md flex items-center space-x-4">
+                    <div class="bg-blue-100 p-3 rounded-full"><i class="fas fa-file-alt fa-2x text-blue-600"></i></div>
+                    <div>
+                        <p class="text-gray-500 font-semibold">Total de Publicações</p>
+                        <p id="total-publicacoes" class="text-3xl font-bold text-gray-800">0</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md flex items-center space-x-4">
+                    <div class="bg-green-100 p-3 rounded-full"><i class="fas fa-calendar-day fa-2x text-green-600"></i></div>
+                    <div>
+                        <p class="text-gray-500 font-semibold">Publicações no Mês</p>
+                        <p id="publicacoes-mes" class="text-3xl font-bold text-gray-800">0</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md flex items-center space-x-4">
+                    <div class="bg-yellow-100 p-3 rounded-full"><i class="fas fa-star fa-2x text-yellow-600"></i></div>
+                    <div>
+                        <p class="text-gray-500 font-semibold">Tipo Mais Comum</p>
+                        <p id="tipo-comum" class="text-2xl font-bold text-gray-800">-</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-8">
+                <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-md">
+                    <h2 class="font-bold text-lg mb-4">Publicações por Tipo</h2>
+                    <canvas id="tiposChart"></canvas>
+                </div>
+                <div class="lg:col-span-3 bg-white p-6 rounded-xl shadow-md">
+                    <h2 class="font-bold text-lg mb-4">Publicações ao Longo do Ano</h2>
+                    <canvas id="publicacoesPorMesChart"></canvas>
+                </div>
+            </section>
+
+            <section class="bg-white p-6 rounded-xl shadow-md">
+                <h2 class="font-bold text-lg mb-4">Publicações Recentes</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="border-b bg-gray-50 text-sm font-semibold text-gray-600">
+                                <th class="p-3">Título</th>
+                                <th class="p-3">Tipo</th>
+                                <th class="p-3">Autor</th>
+                                <th class="p-3">Data</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentes-table-body"></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <footer class="bg-white border-t border-gray-300 py-3 mt-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-600 text-sm">© 2025 SGIPP. Todos os direitos reservados.</div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Dados de Exemplo
+            const samplePublications = [
+                { id: 1, titulo: "A Perseverança na Fé", tipo: "Sermão", autor: "Rev. Josué", data: "2025-10-12" },
+                { id: 2, titulo: "Devocional Sobre Salmos 23", tipo: "Devocional", autor: "Pb. Marcos Cruz", data: "2025-10-10" },
+                { id: 3, titulo: "Aviso: Reunião do Conselho", tipo: "Aviso", autor: "Secretaria", data: "2025-10-09" },
+                { id: 4, titulo: "Estudo sobre a Trindade", tipo: "Estudo Bíblico", autor: "Rev. Josué", data: "2025-09-28" },
+                { id: 5, titulo: "Alegria da Salvação", tipo: "Sermão", autor: "Rev. Josué", data: "2025-09-21" },
+            ];
+
+            // --- Cards de Resumo ---
+            document.getElementById('total-publicacoes').textContent = samplePublications.length;
+            const currentMonth = new Date().getMonth();
+            const publicacoesMes = samplePublications.filter(p => new Date(p.data).getMonth() === currentMonth).length;
+            document.getElementById('publicacoes-mes').textContent = publicacoesMes;
+
+            const typeCounts = samplePublications.reduce((acc, p) => { acc[p.tipo] = (acc[p.tipo] || 0) + 1; return acc; }, {});
+            const tipoComum = Object.keys(typeCounts).reduce((a, b) => typeCounts[a] > typeCounts[b] ? a : b, '-');
+            document.getElementById('tipo-comum').textContent = tipoComum;
+            
+            // --- Tabela de Recentes ---
+            const tableBody = document.getElementById('recentes-table-body');
+            samplePublications.slice(0, 3).forEach(p => {
+                tableBody.innerHTML += `
+                    <tr class="border-b hover:bg-gray-50">
+                        <td class="p-3 font-semibold text-gray-800">${p.titulo}</td>
+                        <td class="p-3 text-gray-600">${p.tipo}</td>
+                        <td class="p-3 text-gray-600">${p.autor}</td>
+                        <td class="p-3 text-gray-600">${new Date(p.data).toLocaleDateString('pt-BR')}</td>
+                    </tr>`;
+            });
+
+            // --- Gráfico por Tipo ---
+            const ctxTipos = document.getElementById('tiposChart').getContext('2d');
+            new Chart(ctxTipos, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(typeCounts),
+                    datasets: [{
+                        data: Object.values(typeCounts),
+                        backgroundColor: ['#3b82f6', '#10b981', '#f97316', '#8b5cf6', '#ef4444'],
+                    }]
+                }
+            });
+
+            // --- Gráfico por Mês ---
+            const publicacoesPorMes = Array(12).fill(0);
+            samplePublications.forEach(p => { const month = new Date(p.data).getMonth(); publicacoesPorMes[month]++; });
+            const ctxMes = document.getElementById('publicacoesPorMesChart').getContext('2d');
+            new Chart(ctxMes, {
+                type: 'line',
+                data: {
+                    labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+                    datasets: [{
+                        label: 'Nº de Publicações',
+                        data: publicacoesPorMes,
+                        borderColor: 'rgba(22, 163, 74, 1)',
+                        backgroundColor: 'rgba(22, 163, 74, 0.1)',
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                 options: { scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }, plugins: { legend: { display: false } } }
+            });
+        });
+
+        function logout() { window.location.href = '/sgi/login.html'; }
+    </script>
+</body>
+</html>

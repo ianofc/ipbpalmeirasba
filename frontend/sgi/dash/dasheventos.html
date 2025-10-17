@@ -1,0 +1,178 @@
+<html class="scroll-smooth" lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>SGIPP - Dashboard de Eventos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/static/css/sgi.css" />
+    <style> body { font-family: "Inter", sans-serif; } </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col text-black">
+    <nav class="bg-white shadow-md border-b border-gray-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                 <div class="flex items-center space-x-3">
+                    <a href="/sgi/home.html"><img alt="Logo da IPB Palmeiras" class="h-10 w-10" src="/static/imgs/acs/logo_ipp.png" /></a>
+                    <a href="/sgi/home.html" class="font-semibold text-xl text-gray-800">SGIPP</a>
+                </div>
+                <div class="hidden md:flex space-x-1 items-center">
+                    <div class="relative group px-3 py-2">
+                        <button class="text-gray-700 hover:text-green-600 font-semibold transition">Cadastro</button>
+                        <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            </div>
+                    </div>
+                    <div class="relative group px-3 py-2">
+                         <button class="text-gray-700 hover:text-green-600 font-semibold transition">Pesquisa</button>
+                         <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            </div>
+                    </div>
+                    <div class="relative group px-3 py-2" data-role="pastor,admin">
+                        <button class="text-gray-700 hover:text-green-600 font-semibold transition">Dashboard</button>
+                        <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                           <a href="/sgi/dash/dashfinancas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Financeiro</a>
+                           <a href="/sgi/dash/dashpatrimonio.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Patrimônio</a>
+                           <a href="/sgi/dash/dashagendas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Agendas</a>
+                           <a href="/sgi/dash/dashclasseebd.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Classes EBD</a>
+                           <a href="/sgi/dash/dasheventos.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Eventos</a>
+                           </div>
+                    </div>
+                </div>
+                </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow p-8">
+        <div class="max-w-7xl mx-auto">
+            <h1 class="font-bold text-3xl text-gray-900 mb-6">Dashboard de Eventos</h1>
+
+            <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-xl shadow-md flex items-center space-x-4">
+                    <div class="bg-blue-100 p-3 rounded-full"><i class="fas fa-calendar-alt fa-2x text-blue-600"></i></div>
+                    <div>
+                        <p class="text-gray-500 font-semibold">Total de Eventos no Ano</p>
+                        <p id="total-eventos" class="text-3xl font-bold text-gray-800">0</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <p class="text-gray-500 font-semibold">Próximo Evento</p>
+                    <p id="proximo-evento-titulo" class="text-xl font-bold text-gray-800 truncate">Nenhum</p>
+                    <p id="proximo-evento-data" class="text-gray-600 text-sm"></p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <p class="text-gray-500 font-semibold">Departamento Mais Ativo</p>
+                    <p id="depto-ativo" class="text-2xl font-bold text-gray-800">-</p>
+                </div>
+            </section>
+
+            <section class="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-8">
+                <div class="lg:col-span-3 bg-white p-6 rounded-xl shadow-md">
+                    <h2 class="font-bold text-lg mb-4">Eventos por Mês</h2>
+                    <canvas id="eventosPorMesChart"></canvas>
+                </div>
+                <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-md">
+                    <h2 class="font-bold text-lg mb-4">Eventos por Departamento</h2>
+                    <canvas id="eventosPorDeptoChart"></canvas>
+                </div>
+            </section>
+
+            <section class="bg-white p-6 rounded-xl shadow-md">
+                <h2 class="font-bold text-lg mb-4">Próximos Eventos Cadastrados</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="border-b bg-gray-50 text-sm font-semibold text-gray-600">
+                                <th class="p-3">Data</th>
+                                <th class="p-3">Evento</th>
+                                <th class="p-3">Responsável</th>
+                                <th class="p-3">Local</th>
+                            </tr>
+                        </thead>
+                        <tbody id="proximos-eventos-table"></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <footer class="bg-white border-t border-gray-300 py-3 mt-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-600 text-sm">© 2025 SGIPP. Todos os direitos reservados.</div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Dados de Exemplo
+            const sampleEvents = [
+                { id: 1, titulo: "Chá da SAF", data: "2025-10-25T16:00", responsavel: "SAF", local: "Salão Social" },
+                { id: 2, titulo: "Acampadentro da UPA", data: "2025-11-08T18:00", responsavel: "UPA", local: "Templo" },
+                { id: 3, titulo: "Jantar de Casais", data: "2025-11-22T20:00", responsavel: "Conselho", local: "Restaurante" },
+                { id: 4, titulo: "Cantata de Natal", data: "2025-12-20T19:30", responsavel: "Ministério de Louvor", local: "Templo" },
+                { id: 5, titulo: "Vigília da Virada", data: "2025-12-31T22:00", responsavel: "Conselho", local: "Templo" },
+                { id: 6, titulo: "EBF - Escola Bíblica de Férias", data: "2026-01-15T09:00", responsavel: "Ministério Infantil", local: "Salão Social" },
+            ];
+
+            // --- Cards de Resumo ---
+            document.getElementById('total-eventos').textContent = sampleEvents.length;
+            const proximoEvento = sampleEvents.sort((a,b) => new Date(a.data) - new Date(b.data))[0];
+            if(proximoEvento){
+                document.getElementById('proximo-evento-titulo').textContent = proximoEvento.titulo;
+                document.getElementById('proximo-evento-data').textContent = new Date(proximoEvento.data).toLocaleDateString('pt-BR');
+            }
+            const deptoCounts = sampleEvents.reduce((acc, ev) => { acc[ev.responsavel] = (acc[ev.responsavel] || 0) + 1; return acc; }, {});
+            const deptoAtivo = Object.keys(deptoCounts).reduce((a, b) => deptoCounts[a] > deptoCounts[b] ? a : b);
+            document.getElementById('depto-ativo').textContent = deptoAtivo;
+            
+            // --- Tabela de Próximos Eventos ---
+            const tableBody = document.getElementById('proximos-eventos-table');
+            sampleEvents.slice(0, 5).forEach(ev => {
+                tableBody.innerHTML += `
+                    <tr class="border-b hover:bg-gray-50">
+                        <td class="p-3 text-gray-700">${new Date(ev.data).toLocaleDateString('pt-BR')}</td>
+                        <td class="p-3 font-semibold text-gray-800">${ev.titulo}</td>
+                        <td class="p-3 text-gray-600">${ev.responsavel}</td>
+                        <td class="p-3 text-gray-600">${ev.local}</td>
+                    </tr>`;
+            });
+
+            // --- Gráfico de Eventos por Mês ---
+            const eventosPorMes = Array(12).fill(0);
+            sampleEvents.forEach(ev => { const month = new Date(ev.data).getMonth(); eventosPorMes[month]++; });
+            const ctxMes = document.getElementById('eventosPorMesChart').getContext('2d');
+            new Chart(ctxMes, {
+                type: 'line',
+                data: {
+                    labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+                    datasets: [{
+                        label: 'Nº de Eventos',
+                        data: eventosPorMes,
+                        borderColor: 'rgba(22, 163, 74, 1)',
+                        backgroundColor: 'rgba(22, 163, 74, 0.1)',
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: { scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }, plugins: { legend: { display: false } } }
+            });
+
+            // --- Gráfico de Eventos por Departamento ---
+            const ctxDepto = document.getElementById('eventosPorDeptoChart').getContext('2d');
+            new Chart(ctxDepto, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(deptoCounts),
+                    datasets: [{
+                        label: 'Eventos por Depto.',
+                        data: Object.values(deptoCounts),
+                        backgroundColor: ['#3b82f6', '#ef4444', '#f97316', '#8b5cf6', '#10b981'],
+                        hoverOffset: 4
+                    }]
+                }
+            });
+        });
+
+        function logout() { window.location.href = '/sgi/login.html'; }
+    </script>
+</body>
+</html>

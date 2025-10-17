@@ -2,11 +2,13 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <title>SGIPP - Pesquisa de Eventos</title>
+    <title>SGIPP - Pesquisa de Sociedades</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/static/css/sgi.css" />
+    <script src="https://unpkg.com/html-to-docx/dist/html-to-docx.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <style> body { font-family: "Inter", sans-serif; } </style>
 </head>
 <body class="bg-gray-100 min-h-screen flex flex-col text-black">
@@ -73,25 +75,28 @@
 
     <main class="flex-grow p-8">
         <div class="max-w-7xl mx-auto">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center md:text-left">Pesquisa de Eventos</h2>
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center md:text-left">Pesquisa de Patrimônio</h2>
 
             <div class="bg-white p-4 rounded-lg shadow-md mb-6">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
-                    <input type="text" id="search-input" placeholder="Buscar por título do evento..." class="border border-gray-300 rounded-md w-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500">
-                    <select id="responsavel-filter" class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-700">
-                        <option value="">Filtrar por Responsável</option>
-                        <option>Conselho</option>
-                        <option>SAF</option>
-                        <option>UPH</option>
-                        <option>UMP</option>
-                        <option>UPA</option>
-                        <option>UCP</option>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                    <input type="text" id="search-input" placeholder="Buscar por nome do item..." class="md:col-span-2 border border-gray-300 rounded-md w-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500">
+                    <select id="category-filter" class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-700">
+                        <option value="">Filtrar por Categoria</option>
+                        <option>Eletrônicos</option>
+                        <option>Instrumentos Musicais</option>
+                        <option>Móveis e Utensílios</option>
                     </select>
-                    <input type="month" id="month-filter" class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-500">
+                    <select id="status-filter" class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-700">
+                        <option value="">Filtrar por Status</option>
+                        <option>Em uso</option>
+                        <option>Em manutenção</option>
+                        <option>Armazenado</option>
+                        <option>Baixado</option>
+                    </select>
                 </div>
                 <div class="mt-4 flex flex-wrap gap-2 items-center justify-between">
                      <button id="btn-add" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded shadow transition flex items-center space-x-2">
-                        <i class="fas fa-plus"></i><span>Novo Evento</span>
+                        <i class="fas fa-plus"></i><span>Novo Item</span>
                     </button>
                 </div>
             </div>
@@ -100,14 +105,15 @@
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Título do Evento</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data e Hora</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Local</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Responsável</th>
-                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Nome do Item</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Categoria</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Localização</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Data de Aquisição</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Ações</th>
                         </tr>
                     </thead>
-                    <tbody id="eventos-table-body" class="bg-white divide-y divide-gray-200"></tbody>
+                    <tbody id="patrimonio-table-body" class="bg-white divide-y divide-gray-200"></tbody>
                 </table>
             </div>
         </div>
@@ -115,16 +121,15 @@
 
     <div id="edit-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-40 flex items-center justify-center p-4">
         <div class="bg-white rounded-lg shadow-xl p-8 max-w-2xl w-full">
-             <h3 class="text-xl font-bold text-gray-800 mb-6">Editar Evento</h3>
+             <h3 class="text-xl font-bold text-gray-800 mb-6">Editar Item do Patrimônio</h3>
              <form id="edit-form" class="space-y-4">
-                <input type="hidden" name="evento_id">
-                <label class="block"><span class="text-gray-700 font-semibold">Título do Evento</span><input type="text" name="titulo" class="mt-1 border rounded w-full px-3 py-2" required></label>
+                <input type="hidden" name="item_id">
+                <label class="block"><span class="text-gray-700 font-semibold">Nome do Item</span><input type="text" name="nome_item" class="mt-1 border rounded w-full px-3 py-2" required></label>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <label class="block"><span class="text-gray-700 font-semibold">Data e Hora</span><input type="datetime-local" name="data_evento" class="mt-1 border rounded w-full px-3 py-2" required></label>
-                    <label class="block"><span class="text-gray-700 font-semibold">Local</span><input type="text" name="local" class="mt-1 border rounded w-full px-3 py-2"></label>
+                    <label class="block"><span class="text-gray-700 font-semibold">Categoria</span><select name="categoria" class="mt-1 border rounded w-full px-3 py-2"></select></label>
+                    <label class="block"><span class="text-gray-700 font-semibold">Status</span><select name="status" class="mt-1 border rounded w-full px-3 py-2"></select></label>
                 </div>
-                <label class="block"><span class="text-gray-700 font-semibold">Responsável</span><select name="responsavel" class="mt-1 border rounded w-full px-3 py-2"></select></label>
-                <label class="block"><span class="text-gray-700 font-semibold">Descrição</span><textarea name="descricao" rows="4" class="mt-1 border rounded w-full px-3 py-2"></textarea></label>
+                <label class="block"><span class="text-gray-700 font-semibold">Localização</span><input type="text" name="localizacao" class="mt-1 border rounded w-full px-3 py-2"></label>
                 <div class="flex justify-end space-x-4 pt-4">
                     <button type="button" class="close-modal-btn bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-6 py-2 rounded">Cancelar</button>
                     <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded">Salvar Alterações</button>
@@ -140,49 +145,51 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Dados de Exemplo
-            const sampleEvents = [
-                { id: 1, titulo: "Aniversário de Benjamim e Benício", data_evento: "2025-10-18T15:00", local: "Salão Social", responsavel: "Família", descricao: "Festa de 2 anos." },
-                { id: 2, titulo: "Chá da SAF", data_evento: "2025-10-25T16:00", local: "Salão Social", responsavel: "SAF", descricao: "Chá beneficente." },
-                { id: 3, titulo: "Acampadentro da UPA", data_evento: "2025-11-08T18:00", local: "Templo e Salão", responsavel: "UPA", descricao: "Vigília e atividades." },
-                { id: 4, titulo: "Jantar de Casais", data_evento: "2025-11-22T20:00", local: "Restaurante Local", responsavel: "Conselho", descricao: "Palestra com Pr. Convidado." },
+            const sampleData = [
+                { id: 1, nome_item: "Caixa de Som Ativa JBL", categoria: "Eletrônicos", localizacao: "Templo", data_aquisicao: "2023-05-10", status: "Em uso" },
+                { id: 2, nome_item: "Violão Takamine Aço", categoria: "Instrumentos Musicais", localizacao: "Sala de Música", data_aquisicao: "2022-01-15", status: "Em uso" },
+                { id: 3, nome_item: "Mesa de Som Behringer", categoria: "Eletrônicos", localizacao: "Templo", data_aquisicao: "2023-05-10", status: "Em manutenção" },
+                { id: 4, nome_item: "Banco Longo de Madeira (unidade)", categoria: "Móveis e Utensílios", localizacao: "Templo", data_aquisicao: "2015-01-01", status: "Em uso" },
+                { id: 5, nome_item: "Projetor Epson", categoria: "Eletrônicos", localizacao: "Secretaria", data_aquisicao: "2021-11-20", status: "Armazenado" },
             ];
-            
-            const tableBody = document.getElementById('eventos-table-body');
+
+            const tableBody = document.getElementById('patrimonio-table-body');
             const editModal = document.getElementById('edit-modal');
             const editForm = document.getElementById('edit-form');
             
             function renderTable(data) {
                 tableBody.innerHTML = '';
-                if (data.length === 0) { tableBody.innerHTML = '<tr><td colspan="5" class="text-center py-8 text-gray-500">Nenhum evento encontrado.</td></tr>'; return; }
-                data.forEach(evento => {
+                if (data.length === 0) { tableBody.innerHTML = '<tr><td colspan="6" class="text-center py-8 text-gray-500">Nenhum item encontrado.</td></tr>'; return; }
+                data.forEach(item => {
+                    const statusClass = item.status === 'Em uso' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800';
                     const row = `
                         <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4 font-medium text-gray-900">${evento.titulo}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">${new Date(evento.data_evento).toLocaleString('pt-BR', {day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'})}</td>
-                            <td class="px-6 py-4 text-gray-500">${evento.local}</td>
-                            <td class="px-6 py-4"><span class="px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">${evento.responsavel}</span></td>
+                            <td class="px-6 py-4 font-medium text-gray-900">${item.nome_item}</td>
+                            <td class="px-6 py-4 text-gray-500">${item.categoria}</td>
+                            <td class="px-6 py-4 text-gray-500">${item.localizacao}</td>
+                            <td class="px-6 py-4 text-gray-500">${new Date(item.data_aquisicao).toLocaleDateString('pt-BR')}</td>
+                            <td class="px-6 py-4"><span class="px-2 inline-flex text-xs font-semibold rounded-full ${statusClass}">${item.status}</span></td>
                             <td class="px-6 py-4 text-right text-sm font-medium space-x-4">
-                                <button data-id="${evento.id}" class="edit-btn text-green-600 hover:text-green-900" title="Editar"><i class="fas fa-pencil-alt"></i></button>
-                                <button data-id="${evento.id}" class="delete-btn text-red-600 hover:text-red-900" title="Excluir"><i class="fas fa-trash-alt"></i></button>
+                                <button data-id="${item.id}" class="anexo-btn text-blue-600 hover:text-blue-900" title="Ver Anexo"><i class="fas fa-paperclip"></i></button>
+                                <button data-id="${item.id}" class="edit-btn text-green-600 hover:text-green-900" title="Editar"><i class="fas fa-pencil-alt"></i></button>
+                                <button data-id="${item.id}" class="delete-btn text-red-600 hover:text-red-900" title="Excluir"><i class="fas fa-trash-alt"></i></button>
                             </td>
                         </tr>`;
                     tableBody.innerHTML += row;
                 });
             }
 
-            function openEditModal(evento) {
-                const respSelect = editForm.querySelector('[name="responsavel"]');
-                if (respSelect.options.length <= 1) {
-                    const responsaveis = ["Conselho", "SAF", "UPH", "UMP", "UPA", "UCP", "Família", "Outro"];
-                    responsaveis.forEach(r => respSelect.add(new Option(r, r)));
-                }
+            function openEditModal(item) {
+                const catSelect = editForm.querySelector('[name="categoria"]');
+                const statusSelect = editForm.querySelector('[name="status"]');
+                if (catSelect.options.length <= 1) { ["Eletrônicos", "Instrumentos Musicais", "Móveis e Utensílios", "Outros"].forEach(c => catSelect.add(new Option(c, c))); }
+                if (statusSelect.options.length <= 1) { ["Em uso", "Em manutenção", "Armazenado", "Baixado"].forEach(s => statusSelect.add(new Option(s, s))); }
 
-                editForm.querySelector('[name="evento_id"]').value = evento.id;
-                editForm.querySelector('[name="titulo"]').value = evento.titulo;
-                editForm.querySelector('[name="data_evento"]').value = evento.data_evento;
-                editForm.querySelector('[name="local"]').value = evento.local;
-                respSelect.value = evento.responsavel;
-                editForm.querySelector('[name="descricao"]').value = evento.descricao;
+                editForm.querySelector('[name="item_id"]').value = item.id;
+                editForm.querySelector('[name="nome_item"]').value = item.nome_item;
+                catSelect.value = item.categoria;
+                statusSelect.value = item.status;
+                editForm.querySelector('[name="localizacao"]').value = item.localizacao;
                 editModal.classList.remove('hidden');
             }
 
@@ -190,15 +197,17 @@
                 const target = e.target.closest('button');
                 if(!target) return;
                 const id = target.dataset.id;
-                const evento = sampleEvents.find(ev => ev.id == id);
-                if(!evento) return;
+                const item = sampleData.find(i => i.id == id);
+                if(!item) return;
 
                 if (target.classList.contains('edit-btn')) {
-                    openEditModal(evento);
+                    openEditModal(item);
                 } else if (target.classList.contains('delete-btn')) {
-                    if(confirm(`Tem certeza que deseja excluir o evento "${evento.titulo}"?`)) {
+                    if(confirm(`Tem certeza que deseja excluir o item "${item.nome_item}"?`)) {
                        alert('Função Excluir em desenvolvimento.');
                     }
+                } else if (target.classList.contains('anexo-btn')) {
+                    alert('Função "Ver Anexo" em desenvolvimento.');
                 }
             });
 
@@ -207,10 +216,10 @@
             });
             
             document.getElementById('btn-add').addEventListener('click', () => {
-                window.location.href = '/sgi/cad/eventos.html';
+                window.location.href = '/sgi/cad/cadpatrimonio.html';
             });
 
-            renderTable(sampleEvents);
+            renderTable(sampleData);
         });
 
         function logout() { window.location.href = '/sgi/login.html'; }

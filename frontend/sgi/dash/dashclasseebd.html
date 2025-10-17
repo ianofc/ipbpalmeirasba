@@ -1,0 +1,179 @@
+<html class="scroll-smooth" lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>SGIPP - Dashboard de Classes da EBD</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/static/css/sgi.css" />
+    <style> body { font-family: "Inter", sans-serif; } </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col text-black">
+    <nav class="bg-white shadow-md border-b border-gray-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                 <div class="flex items-center space-x-3">
+                    <a href="/sgi/home.html"><img alt="Logo da IPB Palmeiras" class="h-10 w-10" src="/static/imgs/acs/logo_ipp.png" /></a>
+                    <a href="/sgi/home.html" class="font-semibold text-xl text-gray-800">SGIPP</a>
+                </div>
+                <div class="hidden md:flex space-x-1 items-center">
+                    <div class="relative group px-3 py-2">
+                        <button class="text-gray-700 hover:text-green-600 font-semibold transition">Cadastro</button>
+                        <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            </div>
+                    </div>
+                    <div class="relative group px-3 py-2">
+                         <button class="text-gray-700 hover:text-green-600 font-semibold transition">Pesquisa</button>
+                         <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            </div>
+                    </div>
+                    <div class="relative group px-3 py-2" data-role="pastor,admin">
+                        <button class="text-gray-700 hover:text-green-600 font-semibold transition">Dashboard</button>
+                        <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                           <a href="/sgi/dash/dashfinancas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Financeiro</a>
+                           <a href="/sgi/dash/dashpatrimonio.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Patrimônio</a>
+                           <a href="/sgi/dash/dashagendas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Agendas</a>
+                           <a href="/sgi/dash/dashclasseebd.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Classes EBD</a>
+                           </div>
+                    </div>
+                </div>
+                </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow p-8">
+        <div class="max-w-7xl mx-auto">
+            <h1 class="font-bold text-3xl text-gray-900 mb-6">Dashboard da Escola Bíblica Dominical</h1>
+
+            <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-xl shadow-md flex items-center space-x-4">
+                    <div class="bg-blue-100 p-3 rounded-full"><i class="fas fa-user-graduate fa-2x text-blue-600"></i></div>
+                    <div>
+                        <p class="text-gray-500 font-semibold">Total de Alunos</p>
+                        <p id="total-alunos" class="text-3xl font-bold text-gray-800">0</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md flex items-center space-x-4">
+                    <div class="bg-green-100 p-3 rounded-full"><i class="fas fa-chalkboard-teacher fa-2x text-green-600"></i></div>
+                    <div>
+                        <p class="text-gray-500 font-semibold">Total de Classes</p>
+                        <p id="total-classes" class="text-3xl font-bold text-gray-800">0</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md flex items-center space-x-4">
+                    <div class="bg-yellow-100 p-3 rounded-full"><i class="fas fa-users fa-2x text-yellow-600"></i></div>
+                    <div>
+                        <p class="text-gray-500 font-semibold">Média de Alunos / Classe</p>
+                        <p id="media-alunos" class="text-3xl font-bold text-gray-800">0</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-8">
+                <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-md">
+                    <h2 class="font-bold text-lg mb-4">Alunos por Faixa Etária</h2>
+                    <canvas id="faixaEtariaChart"></canvas>
+                </div>
+                <div class="lg:col-span-3 bg-white p-6 rounded-xl shadow-md">
+                    <h2 class="font-bold text-lg mb-4">Alunos por Classe</h2>
+                    <canvas id="alunosPorClasseChart"></canvas>
+                </div>
+            </section>
+
+            <section class="bg-white p-6 rounded-xl shadow-md">
+                <h2 class="font-bold text-lg mb-4">Resumo das Classes</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="border-b bg-gray-50 text-sm font-semibold text-gray-600">
+                                <th class="p-3">Classe</th>
+                                <th class="p-3">Professor(a)</th>
+                                <th class="p-3 text-center">Nº de Alunos</th>
+                            </tr>
+                        </thead>
+                        <tbody id="classes-table-body">
+                           </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <footer class="bg-white border-t border-gray-300 py-3 mt-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-600 text-sm">
+            © 2025 SGIPP. Todos os direitos reservados.
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Dados de Exemplo
+            const sampleClasses = [
+                { id: 1, nome: "Catecúmenos", professor: "Rev. Josué", faixa_etaria: "Jovens", alunos: 12 },
+                { id: 2, nome: "Adultos - Manhã", professor: "Pb. Marcos Cruz", faixa_etaria: "Adultos", alunos: 25 },
+                { id: 3, nome: "Primários", professor: "Maria da Silva", faixa_etaria: "Crianças", alunos: 15 },
+                { id: 4, nome: "Adolescentes", professor: "João Pereira", faixa_etaria: "Adolescentes", alunos: 18 },
+                { id: 5, nome: "Jovens", professor: "Ana Clara", faixa_etaria: "Jovens", alunos: 22 },
+            ];
+
+            // --- Cálculos para os Cards ---
+            const totalAlunos = sampleClasses.reduce((sum, cls) => sum + cls.alunos, 0);
+            const totalClasses = sampleClasses.length;
+            const mediaAlunos = totalClasses > 0 ? (totalAlunos / totalClasses).toFixed(1) : 0;
+
+            document.getElementById('total-alunos').textContent = totalAlunos;
+            document.getElementById('total-classes').textContent = totalClasses;
+            document.getElementById('media-alunos').textContent = mediaAlunos;
+
+            // --- Tabela de Resumo ---
+            const tableBody = document.getElementById('classes-table-body');
+            sampleClasses.forEach(cls => {
+                tableBody.innerHTML += `
+                    <tr class="border-b hover:bg-gray-50">
+                        <td class="p-3 font-semibold text-gray-800">${cls.nome}</td>
+                        <td class="p-3 text-gray-600">${cls.professor}</td>
+                        <td class="p-3 text-center font-bold text-gray-800">${cls.alunos}</td>
+                    </tr>`;
+            });
+
+            // --- Gráfico de Faixa Etária ---
+            const faixaEtariaData = sampleClasses.reduce((acc, cls) => {
+                acc[cls.faixa_etaria] = (acc[cls.faixa_etaria] || 0) + cls.alunos;
+                return acc;
+            }, {});
+            const ctxFaixaEtaria = document.getElementById('faixaEtariaChart').getContext('2d');
+            new Chart(ctxFaixaEtaria, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(faixaEtariaData),
+                    datasets: [{
+                        label: 'Alunos por Faixa Etária',
+                        data: Object.values(faixaEtariaData),
+                        backgroundColor: ['#3b82f6', '#ef4444', '#f97316', '#8b5cf6'],
+                        hoverOffset: 4
+                    }]
+                }
+            });
+
+            // --- Gráfico de Alunos por Classe ---
+            const ctxAlunosClasse = document.getElementById('alunosPorClasseChart').getContext('2d');
+            new Chart(ctxAlunosClasse, {
+                type: 'bar',
+                data: {
+                    labels: sampleClasses.map(cls => cls.nome),
+                    datasets: [{
+                        label: 'Nº de Alunos',
+                        data: sampleClasses.map(cls => cls.alunos),
+                        backgroundColor: 'rgba(22, 163, 74, 0.7)',
+                    }]
+                },
+                options: { scales: { y: { beginAtZero: true, ticks: { stepSize: 5 } } }, plugins: { legend: { display: false } } }
+            });
+        });
+
+        function logout() { window.location.href = '/sgi/login.html'; }
+    </script>
+</body>
+</html>

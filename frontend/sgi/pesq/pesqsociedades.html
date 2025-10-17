@@ -1,0 +1,231 @@
+<html class="scroll-smooth" lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>SGIPP - Pesquisa de Sociedades</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/css/sgi.css" />
+    <script src="https://unpkg.com/html-to-docx/dist/html-to-docx.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <style> body { font-family: "Inter", sans-serif; } </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col text-black">
+    <nav class="bg-white shadow-md border-b border-gray-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                 <div class="flex items-center space-x-3">
+                    <a href="/sgi/home.html"><img alt="Logo da IPB Palmeiras" class="h-10 w-10" src="/static/imgs/acs/logo_ipp.png" /></a>
+                    <a href="/sgi/home.html" class="font-semibold text-xl text-gray-800">SGIPP</a>
+                </div>
+                <div class="hidden md:flex space-x-1 items-center">
+                    <div class="relative group px-3 py-2">
+                        <button class="text-gray-700 hover:text-green-600 font-semibold transition">Cadastro</button>
+                        <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            <a href="/sgi/cad/agendas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Agendas</a>
+                            <a href="/sgi/cad/classe_ebd.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Classes EBD</a>
+                            <a href="/sgi/cad/eventos.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Eventos</a>
+                            <a href="/sgi/cad/cadmembros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
+                            <a href="/sgi/cad/cadoficial.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Oficiais</a>
+                            <a href="/sgi/cad/publicacoes.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Publicações</a>
+                            <a href="/sgi/cad/cadsociedades.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Sociedades</a>
+                        </div>
+                    </div>
+                    <div class="relative group px-3 py-2">
+                         <button class="text-gray-700 hover:text-green-600 font-semibold transition">Pesquisa</button>
+                         <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                            <a href="/sgi/pesq/agendas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Agendas</a>
+                            <a href="/sgi/pesq/classe_ebd.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Classes EBD</a>
+                            <a href="/sgi/pesq/eventos.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Eventos</a>
+                            <a href="/sgi/pesq/pesqmembros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
+                            <a href="/sgi/pesq/oficiais.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Oficiais</a>
+                            <a href="/sgi/pesq/publicacoes.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Publicações</a>
+                            <a href="/sgi/pesq/sociedades.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Sociedades</a>
+                         </div>
+                    </div>
+                    <div class="relative group px-3 py-2" data-role="pastor,admin">
+                        <button class="text-gray-700 hover:text-green-600 font-semibold transition">Dashboard</button>
+                        <div class="absolute left-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-30">
+                           <a href="/sgi/dash/agendas.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Agendas</a>
+                            <a href="/sgi/dash/classe_ebd.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Classes EBD</a>
+                            <a href="/sgi/dash/eventos.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Eventos</a>
+                            <a href="/sgi/dash/dashboard_membros.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Membros</a>
+                            <a href="/sgi/dash/oficiais.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Oficiais</a>
+                            <a href="/sgi/dash/publicacoes.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Publicações</a>
+                            <a href="/sgi/dash/dashboard_sociedades.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Sociedades</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative group px-3 py-2">
+                        <button class="flex items-center space-x-2 focus:outline-none">
+                            <img alt="Foto do usuário" class="h-8 w-8 rounded-full border-2 border-green-600" src="https://i.pravatar.cc/40" />
+                            <span class="font-semibold text-gray-800 menu-username">Usuário</span>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-20">
+                            <a href="/sgi/perfil.html" class="block px-4 py-2 text-gray-800 hover:bg-green-600 hover:text-white">Perfil</a>
+                            <button onclick="logout()" class="block w-full text-left px-4 py-2 text-red-600 hover:bg-red-500 hover:text-white">Sair</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow p-8">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center md:text-left">Gestão de Sociedades Internas</h2>
+
+            <div class="bg-white p-4 rounded-lg shadow-md mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
+                    <input type="text" id="search-input" placeholder="Buscar por nome da sociedade..." class="border border-gray-300 rounded-md w-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500">
+                    <select id="sociedade-filter" class="w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-700">
+                        <option value="">Filtrar por Sociedade</option>
+                        <option>SAF</option>
+                        <option>UPH</option>
+                        <option>UMP</option>
+                        <option>UPA</option>
+                        <option>UCP</option>
+                    </select>
+                </div>
+                <div class="mt-4 flex flex-wrap gap-2 items-center justify-between">
+                     <button id="btn-add" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded shadow transition flex items-center space-x-2">
+                        <i class="fas fa-edit"></i><span>Gerenciar Diretorias</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto bg-white rounded-lg shadow-md">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nome da Sociedade</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sigla</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Presidente</th>
+                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Nº de Membros</th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sociedades-table-body" class="bg-white divide-y divide-gray-200"></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <div id="membros-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-xl p-8 max-w-2xl w-full">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">Membros da <span id="membros-modal-title" class="text-green-600"></span></h3>
+            <div class="mb-4">
+                <label class="font-semibold text-gray-600">Adicionar Membro</label>
+                <div class="flex items-center gap-2 mt-1">
+                    <input type="text" id="add-membro-search" list="all-membros-list" placeholder="Buscar membro para adicionar..." class="flex-grow border rounded px-3 py-2">
+                    <datalist id="all-membros-list"></datalist>
+                    <button id="add-membro-btn" class="bg-green-600 text-white px-4 py-2 rounded"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+            <div id="membros-list" class="space-y-2 max-h-60 overflow-y-auto border p-2 rounded"></div>
+            <div class="flex justify-end mt-6 space-x-4">
+                <button type="button" id="save-list-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded flex items-center space-x-2">
+                    <i class="fas fa-file-download"></i><span>Salvar Lista</span>
+                </button>
+                <button type="button" class="close-modal-btn bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-6 py-2 rounded">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-white border-t border-gray-300 py-3 mt-8">
+        <div class="max-w-7xl mx-auto px-4 text-center text-gray-600 text-sm">© 2025 SGIPP. Todos os direitos reservados.</div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Dados de Exemplo
+            const sampleSociedades = [
+                { id: 1, nome: "Sociedade Auxiliadora Feminina", sigla: "SAF", presidente: "Maria da Silva", membros: 35 },
+                { id: 2, nome: "União Presbiteriana de Homens", sigla: "UPH", presidente: "João Pereira", membros: 28 },
+                { id: 3, nome: "União de Mocidade Presbiteriana", sigla: "UMP", presidente: "Ana Clara", membros: 22 },
+                { id: 4, nome: "União Presbiteriana de Adolescentes", sigla: "UPA", presidente: "Pb. Marcos Cruz", membros: 18 },
+                { id: 5, nome: "União de Crianças Presbiterianas", sigla: "UCP", presidente: "Sofia Ribeiro", membros: 15 },
+            ];
+            const sampleMembros = [ { id: 1, nome: 'Membro Teste 1' }, { id: 2, nome: 'Membro Teste 2' }];
+            
+            const tableBody = document.getElementById('sociedades-table-body');
+            const membrosModal = document.getElementById('membros-modal');
+            const saveListBtn = document.getElementById('save-list-btn');
+
+            function renderTable(data) {
+                tableBody.innerHTML = '';
+                if(data.length === 0) { tableBody.innerHTML = '<tr><td colspan="5" class="text-center py-8 text-gray-500">Nenhuma sociedade encontrada.</td></tr>'; return; }
+                data.forEach(sociedade => {
+                    const row = `
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 font-medium text-gray-900">${sociedade.nome}</td>
+                            <td class="px-6 py-4"><span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">${sociedade.sigla}</span></td>
+                            <td class="px-6 py-4 text-gray-500">${sociedade.presidente}</td>
+                            <td class="px-6 py-4 text-center text-gray-500">${sociedade.membros}</td>
+                            <td class="px-6 py-4 text-right text-sm font-medium space-x-4">
+                                <button data-id="${sociedade.id}" class="membros-btn text-blue-600 hover:text-blue-900" title="Ver Membros"><i class="fas fa-users"></i></button>
+                                <button data-id="${sociedade.id}" class="edit-btn text-green-600 hover:text-green-900" title="Editar Diretoria"><i class="fas fa-pencil-alt"></i></button>
+                                <button data-id="${sociedade.id}" class="delete-btn text-red-600 hover:text-red-900" title="Excluir (Funcionalidade Desativada)"><i class="fas fa-trash-alt"></i></button>
+                            </td>
+                        </tr>`;
+                    tableBody.innerHTML += row;
+                });
+            }
+
+            function openMembrosModal(sociedade) {
+                document.getElementById('membros-modal-title').textContent = sociedade.sigla;
+                const membrosList = document.getElementById('membros-list');
+                membrosList.innerHTML = sampleMembros.map(membro => `
+                    <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                        <span>${membro.nome}</span>
+                        <button class="text-red-500 text-xs hover:text-red-700" title="Remover Membro"><i class="fas fa-times-circle"></i></button>
+                    </div>`).join('');
+                membrosModal.classList.remove('hidden');
+            }
+
+            tableBody.addEventListener('click', (e) => {
+                const target = e.target.closest('button');
+                if(!target) return;
+                const id = target.dataset.id;
+                const sociedade = sampleSociedades.find(s => s.id == id);
+                if(!sociedade) return;
+
+                if (target.classList.contains('edit-btn')) {
+                    window.location.href = '/sgi/cad/cadsociedades.html'; // Redireciona para a página de gestão
+                } else if (target.classList.contains('membros-btn')) {
+                    openMembrosModal(sociedade);
+                }
+            });
+            
+            document.querySelectorAll('.close-modal-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => e.target.closest('.fixed').classList.add('hidden'));
+            });
+
+            saveListBtn.addEventListener('click', async () => {
+                const societyName = document.getElementById('membros-modal-title').textContent;
+                const memberNodes = document.querySelectorAll('#membros-list span');
+                let memberListHTML = `<h1>Lista de Membros</h1><h2>${societyName}</h2><ol>`;
+                memberNodes.forEach(node => {
+                    memberListHTML += `<li>${node.textContent}</li>`;
+                });
+                memberListHTML += '</ol>';
+
+                try {
+                    const fileBuffer = await htmlToDocx.asBlob(memberListHTML);
+                    saveAs(fileBuffer, `Lista de Membros - ${societyName}.docx`);
+                } catch (error) {
+                    alert("Não foi possível gerar o documento.");
+                }
+            });
+
+            document.getElementById('btn-add').addEventListener('click', () => { window.location.href = '/sgi/cad/cadsociedades.html'; });
+            
+            renderTable(sampleSociedades);
+        });
+
+        function logout() { window.location.href = '/sgi/login.html'; }
+    </script>
+</body>
+</html>
