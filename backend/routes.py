@@ -65,15 +65,15 @@ def register_routes(app):
     @app.route('/')
     @track_visitors
     def index():
-        return render_template('index.html')
+        return render_template('svm/index.html')
 
     @app.route('/downloads.html')
     def downloads():
-        return render_template('downloads.html')
+        return render_template('svm/downloads.html')
 
     @app.route('/history.html')
     def history():
-        return render_template('history.html')
+        return render_template('svm/history.html')
         
     # ROTA ADICIONADA PARA A PÁGINA DA BÍBLIA
     @app.route('/bible.html')
