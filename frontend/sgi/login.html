@@ -1,40 +1,79 @@
+<!DOCTYPE html>
 <html lang="pt-BR">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1" name="viewport"/>
-  <title>SGI - Login - IPB Palmeiras</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&amp;display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="/static/css/sgi.css"/>
- </head>
- <body class="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-gradient-to-r from-[#363636] to-[#1C1C1C]">
-  <div class="max-w-5xl w-full shadow-lg flex rounded-lg overflow-hidden relative z-10 flex-col md:flex-row">
-   <div class="w-full md:w-1/2 bg-yellow-600 flex flex-col items-center justify-center p-12 space-y-6 text-center">
-    <h2 class="text-white text-3xl md:text-4xl font-extrabold tracking-widest">BEM-VINDO</h2>
-    <p class="text-white font-light text-sm md:text-base tracking-wider">
-     Sistema de Gestão da Igreja Presbiteriana de Palmeiras
-    </p>
-    <form class="w-full max-w-sm flex flex-col space-y-4">
-     <input class="w-full bg-yellow-700 placeholder-white text-white px-4 py-3 rounded-full border-2 border-transparent focus:border-white focus:outline-none" placeholder="USUÁRIO" type="text"/>
-     <input class="w-full bg-yellow-700 placeholder-white text-white px-4 py-3 rounded-full border-2 border-transparent focus:border-white focus:outline-none" placeholder="SENHA" type="password"/>
-     <div class="flex justify-between text-xs md:text-sm text-white font-normal tracking-wide">
-      <label class="flex items-center space-x-2">
-       <input class="w-4 h-4 border border-white rounded-sm bg-yellow-600 checked:bg-white checked:border-yellow-600" type="checkbox"/>
-       <span>Lembrar</span>
-      </label>
-      <a class="hover:underline text-white" href="#">Esqueceu a senha?</a>
-     </div>
-     <button id="btnLogin" class="w-full bg-white py-3 rounded-full text-yellow-600 font-extrabold tracking-widest hover:bg-gray-200 transition" type="submit">
-      ENTRAR
-     </button>
-     <a href="/sgi/cad/cadmembros.html" id="btnCadastro" class="w-full bg-yellow-800 py-3 rounded-full text-white font-extrabold tracking-widest hover:bg-yellow-900 transition block text-center">
-        CADASTRAR
-     </a>
-    </form>
-   </div>
-   <div class="w-full md:w-1/2 bg-black flex items-center justify-center p-12">
-    <img alt="Logo da IPB Palmeiras" class="h-48" loading="lazy" src="/static/imgs/acs/logo_ipp.png"/>
-   </div>
-  </div>
- </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGI Login - IPB Palmeiras</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/sgi.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(90deg, #1E4620 0%, #2A9D8F 100%);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <div class="flex flex-col md:flex-row w-full max-w-4xl min-h-[550px] overflow-hidden">
+        
+        <div class="w-full md:w-1/2 flex flex-col items-center justify-center text-center p-10 md:p-12 space-y-8">
+            <img src="/static/imgs/acs/logo_ipp.png" alt="Logo IPB Palmeiras" class="max-w-[250px] drop-shadow-lg">
+            <div class="text-white">
+                <h1 class="text-4xl font-bold tracking-wider">BEM-VINDO</h1>
+                <p class="mt-2 text-lg opacity-80">Sistema de Gestão da Igreja</p>
+            </div>
+        </div>
+
+        <div class="w-full md:w-1/2 bg-white flex items-center justify-center p-10 md:p-12 rounded-r-lg">
+            <div class="w-full max-w-sm">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800">Acessar Minha Conta</h2>
+                </div>
+                
+                <form id="login-form" class="space-y-5">
+                    
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+                            <i class="fas fa-user"></i>
+                        </span>
+                        <input type="text" placeholder="Seu Usuário ou E-mail" name="username" autocomplete="off" class="w-full bg-gray-100 border-2 border-transparent rounded-lg py-3 pl-12 pr-4 focus:outline-none focus:border-green-500 transition-all">
+                    </div>
+                    
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                        <input type="password" placeholder="Sua Senha" name="password" autocomplete="off" class="w-full bg-gray-100 border-2 border-transparent rounded-lg py-3 pl-12 pr-4 focus:outline-none focus:border-green-500 transition-all">
+                    </div>
+
+                    <div class="flex items-center justify-between text-sm">
+                        <label class="flex items-center space-x-2 text-gray-600 cursor-pointer">
+                            <input type="checkbox" class="w-4 h-4 rounded text-green-600 focus:ring-green-500">
+                            <span>Lembrar-me</span>
+                        </label>
+                        <a href="#" class="font-medium text-green-600 hover:text-green-800 transition-colors">Esqueceu a senha?</a>
+                    </div>
+
+                    <div class="d-grid pt-4">
+                        <button type="submit" id="btnLogin" class="w-full bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 transition-all transform hover:scale-105 shadow-lg">
+                            ENTRAR
+                        </button>
+                    </div>
+
+                    <div class="text-center mt-6">
+                        <p class="text-sm text-gray-500">
+                            Precisa de ajuda?
+                            <a href="https://wa.me/5575998242400" target="_blank" class="font-bold text-green-600 hover:underline">Fale com o Suporte</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</body>
 </html>
