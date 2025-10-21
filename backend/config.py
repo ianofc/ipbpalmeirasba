@@ -28,3 +28,9 @@ class Config:
     # Usando o __file__ para garantir que o caminho seja relativo à localização do config.py
     DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
     VISITORS_DB = os.path.join(DATA_DIR, 'visitors.db')
+
+    # --- ADIÇÕES PARA O BANCO DE DADOS ---
+    # Carrega a URL do banco de dados a partir da variável de ambiente (definida no .env)
+    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
+    # Desativa um recurso do SQLAlchemy que não usaremos e consome memória
+    SQLALCHEMY_TRACK_MODIFICATIONS = False

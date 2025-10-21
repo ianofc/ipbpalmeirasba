@@ -1,4 +1,4 @@
-from flask import jsonify, render_template, send_from_directory, send_file
+from flask import jsonify, render_template, send_from_directory, send_file, request
 from functools import wraps
 from werkzeug.utils import secure_filename
 from PIL import Image
@@ -75,10 +75,150 @@ def register_routes(app):
     def history():
         return render_template('svm/history.html')
         
-    # ROTA ADICIONADA PARA A PÁGINA DA BÍBLIA
+    # ROTA ADICIONADA PARA A PÁGINA DA BÍBLIA (Rota corrigida)
     @app.route('/bible.html')
     def bible():
-        return render_template('bible.html')
+        # Corrigido para apontar para o diretório 'svm'
+        return render_template('svm/bible.html')
+
+    # --- ROTAS SGI (Sistema de Gestão) - NOVAS ROTAS ADICIONADAS ---
+
+    @app.route('/sgi/home.html')
+    def sgi_home():
+        return render_template('sgi/home.html')
+
+    @app.route('/sgi/login.html')
+    def sgi_login():
+        return render_template('sgi/login.html')
+
+    # Rotas SGI/CAD
+    @app.route('/sgi/cad/cadagendas.html')
+    def sgi_cad_agendas():
+        return render_template('sgi/cad/cadagendas.html')
+
+    @app.route('/sgi/cad/cadclasseebd.html')
+    def sgi_cad_classeebd():
+        return render_template('sgi/cad/cadclasseebd.html')
+
+    @app.route('/sgi/cad/cadeventos.html')
+    def sgi_cad_eventos():
+        return render_template('sgi/cad/cadeventos.html')
+
+    @app.route('/sgi/cad/cadfinancas.html')
+    def sgi_cad_financas():
+        return render_template('sgi/cad/cadfinancas.html')
+
+    @app.route('/sgi/cad/cadkids.html')
+    def sgi_cad_kids():
+        return render_template('sgi/cad/cadkids.html')
+
+    @app.route('/sgi/cad/cadmembros.html')
+    def sgi_cad_membros():
+        return render_template('sgi/cad/cadmembros.html')
+
+    @app.route('/sgi/cad/cadoficiais.html')
+    def sgi_cad_oficiais():
+        return render_template('sgi/cad/cadoficiais.html')
+
+    @app.route('/sgi/cad/cadpatrimonio.html')
+    def sgi_cad_patrimonio():
+        return render_template('sgi/cad/cadpatrimonio.html')
+
+    @app.route('/sgi/cad/cadpublicacoes.html')
+    def sgi_cad_publicacoes():
+        return render_template('sgi/cad/cadpublicacoes.html')
+
+    @app.route('/sgi/cad/cadsociedades.html')
+    def sgi_cad_sociedades():
+        return render_template('sgi/cad/cadsociedades.html')
+
+    # Rotas SGI/DASH
+    @app.route('/sgi/dash/dashagendas.html')
+    def sgi_dash_agendas():
+        return render_template('sgi/dash/dashagendas.html')
+
+    @app.route('/sgi/dash/dashclasseebd.html')
+    def sgi_dash_classeebd():
+        return render_template('sgi/dash/dashclasseebd.html')
+
+    @app.route('/sgi/dash/dasheventos.html')
+    def sgi_dash_eventos():
+        return render_template('sgi/dash/dasheventos.html')
+
+    @app.route('/sgi/dash/dashfinancas.html')
+    def sgi_dash_financas():
+        return render_template('sgi/dash/dashfinancas.html')
+
+    @app.route('/sgi/dash/dashkids.html')
+    def sgi_dash_kids():
+        return render_template('sgi/dash/dashkids.html')
+
+    @app.route('/sgi/dash/dashmembros.html')
+    def sgi_dash_membros():
+        return render_template('sgi/dash/dashmembros.html')
+
+    @app.route('/sgi/dash/dashoficiais.html')
+    def sgi_dash_oficiais():
+        return render_template('sgi/dash/dashoficiais.html')
+
+    @app.route('/sgi/dash/dashpatrimonio.html')
+    def sgi_dash_patrimonio():
+        return render_template('sgi/dash/dashpatrimonio.html')
+
+    @app.route('/sgi/dash/dashpublicacoes.html')
+    def sgi_dash_publicacoes():
+        return render_template('sgi/dash/dashpublicacoes.html')
+
+    @app.route('/sgi/dash/dashsociedades.html')
+    def sgi_dash_sociedades():
+        return render_template('sgi/dash/dashsociedades.html')
+
+    # Rotas SGI/PESQ
+    @app.route('/sgi/pesq/pesqagendas.html')
+    def sgi_pesq_agendas():
+        return render_template('sgi/pesq/pesqagendas.html')
+
+    @app.route('/sgi/pesq/pesqclasseebd.html')
+    def sgi_pesq_classeebd():
+        return render_template('sgi/pesq/pesqclasseebd.html')
+
+    @app.route('/sgi/pesq/pesqeventos.html')
+    def sgi_pesq_eventos():
+        return render_template('sgi/pesq/pesqeventos.html')
+
+    @app.route('/sgi/pesq/pesqfinancas.html')
+    def sgi_pesq_financas():
+        return render_template('sgi/pesq/pesqfinancas.html')
+
+    @app.route('/sgi/pesq/pesqkids.html')
+    def sgi_pesq_kids():
+        return render_template('sgi/pesq/pesqkids.html')
+
+    @app.route('/sgi/pesq/pesqmembros.html')
+    def sgi_pesq_membros():
+        return render_template('sgi/pesq/pesqmembros.html')
+
+    @app.route('/sgi/pesq/pesqoficiais.html')
+    def sgi_pesq_oficiais():
+        return render_template('sgi/pesq/pesqoficiais.html')
+
+    @app.route('/sgi/pesq/pesqpatrimonio.html')
+    def sgi_pesq_patrimonio():
+        return render_template('sgi/pesq/pesqpatrimonio.html')
+
+    @app.route('/sgi/pesq/pesqpublicacoes.html')
+    def sgi_pesq_publicacoes():
+        return render_template('sgi/pesq/pesqpublicacoes.html')
+
+    @app.route('/sgi/pesq/pesqsociedades.html')
+    def sgi_pesq_sociedades():
+        return render_template('sgi/pesq/pesqsociedades.html')
+
+    # Rotas SGI/USER
+    @app.route('/sgi/user/perfuser.html')
+    def sgi_user_perfuser():
+        return render_template('sgi/user/perfuser.html')
+
 
     # --- ROTAS DE API (CORRIGIDAS E FINALIZADAS) ---
 
@@ -244,5 +384,3 @@ def register_routes(app):
             db.session.rollback()
             logger.error(f"Erro ao cadastrar oficial: {e}")
             return jsonify({'success': False, 'message': 'Erro interno ao salvar o oficial.'}), 500
-
-   
