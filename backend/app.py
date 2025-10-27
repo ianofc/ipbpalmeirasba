@@ -1,17 +1,19 @@
+import os
+from dotenv import load_dotenv
+
+# --- CARREGUE O .ENV (MUITO IMPORTANTE!) ---
+# Isso deve ser feito ANTES de importar qualquer outro módulo seu (como Config)
+# para garantir que as variáveis de ambiente estejam prontas.
+env_path = os.path.join(os.path.dirname(__file__), '..', '.env')
+load_dotenv(env_path)
+
+# --- Agora, importe o restante ---
 from flask import Flask, render_template
 from flask_cors import CORS
 from routes import register_routes
-from config import Config
-import os
-# --- IMPORTS NOVOS ---
-from dotenv import load_dotenv
-from models import db # Importe o 'db' do seu models.py
+from config import Config  # Agora o Config vai ler a variável carregada
+from models import db     # Importe o 'db' do seu models.py
 
-# --- CARREGUE O .ENV ---
-# Encontre o arquivo .env na pasta raiz (um nível acima do 'backend')
-# Isso deve ser feito ANTES de criar o app, para que a Config leia as variáveis.
-env_path = os.path.join(os.path.dirname(__file__), '..', '.env')
-load_dotenv(env_path)
 
 def create_app():
     # Cria app Flask

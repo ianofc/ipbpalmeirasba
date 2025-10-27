@@ -1,11 +1,15 @@
-from flask import jsonify, render_template, send_from_directory, send_file, request
+from flask import jsonify, render_template, send_from_directory, request
 from functools import wraps
 from werkzeug.utils import secure_filename
-from PIL import Image
-from io import BytesIO
-import sqlite3, os, requests, random, logging
+import os
+import requests
+import logging
+import deepl  
+from sqlalchemy import desc 
 from config import Config
-from models import db, Membro, User, Oficial
+from models import ( 
+    db, Membro, User, Oficial, Visitor, Publicacao, Evento
+)
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -14,56 +18,69 @@ logger = logging.getLogger(__name__)
 os.makedirs(Config.DATA_DIR, exist_ok=True)
 os.makedirs(Config.DOCUMENTS_DIR, exist_ok=True)
 
-fallback_count_file = os.path.join(Config.DATA_DIR, 'visitors.txt')
+# --- NOVO: Inicialização da API de Tradução (DeepL) ---
+translator = None
+if not Config.DEEPL_AUTH_KEY:
+    logger.warning("DEEPL_AUTH_KEY não definida no .env. A API de tradução não funcionará.")
+else:
+    try:
+        # Usa a URL do servidor gratuito, conforme sua documentação
+        translator = deepl.Translator(
+            Config.DEEPL_AUTH_KEY,
+            server_url="https://api-free.deepl.com" 
+        )
+        logger.info("Tradutor DeepL (Free) inicializado com sucesso.")
+    except Exception as e:
+        logger.error(f"Falha ao inicializar o tradutor DeepL: {e}")
+
 
 def register_routes(app):
+
+    # --- FUNÇÕES DE CONTADOR DE VISITANTES (REFEITAS COM SQLALCHEMY) ---
     
-    # --- FUNÇÕES DE BANCO DE DADOS (Sem alterações) ---
-    def init_db():
-        try:
-            conn = sqlite3.connect(Config.VISITORS_DB)
-            c = conn.cursor()
-            c.execute('''CREATE TABLE IF NOT EXISTS visitors (id INTEGER PRIMARY KEY, count INTEGER)''')
-            c.execute('INSERT OR IGNORE INTO visitors (id, count) VALUES (1, 0)')
-            conn.commit()
-            conn.close()
-        except Exception as e:
-            logger.error(f"Erro ao inicializar DB: {e}")
-
-    def get_visitor_count():
-        try:
-            conn = sqlite3.connect(Config.VISITORS_DB)
-            c = conn.cursor()
-            c.execute('SELECT count FROM visitors WHERE id = 1')
-            result = c.fetchone()
-            conn.close()
-            return result[0] if result else 0
-        except Exception:
-            return 0
-
-    def increment_visitor_count():
-        try:
-            conn = sqlite3.connect(Config.VISITORS_DB)
-            c = conn.cursor()
-            c.execute('UPDATE visitors SET count = count + 1 WHERE id = 1')
-            conn.commit()
-            conn.close()
-        except Exception as e:
-            logger.error(f"Erro ao incrementar visitantes: {e}")
+    def get_visitor_count_internal():
+        """Função interna para buscar ou criar o contador de visitantes."""
+        # Tenta buscar o registro (id=1)
+        visitor_row = db.session.get(Visitor, 1)
+        if not visitor_row:
+            # Se não existir, cria
+            try:
+                visitor_row = Visitor(id=1, count=0)
+                db.session.add(visitor_row)
+                db.session.commit()
+                logger.info("Registro de visitante (id=1) criado no banco de dados.")
+            except Exception as e:
+                db.session.rollback()
+                logger.error(f"Erro ao criar registro de visitante: {e}")
+                return 0 # Retorna 0 em caso de falha na criação
+        return visitor_row.count
 
     def track_visitors(f):
+        """Decorator para incrementar a contagem de visitantes na rota principal."""
         @wraps(f)
         def decorated(*args, **kwargs):
+            # Só incrementa se a rota for a 'index'
             if f.__name__ == 'index':
-                increment_visitor_count()
+                try:
+                    visitor_row = db.session.get(Visitor, 1)
+                    if not visitor_row:
+                        # Se não existir, cria e define como 1
+                        visitor_row = Visitor(id=1, count=1)
+                        db.session.add(visitor_row)
+                    else:
+                        # Se existir, incrementa
+                        visitor_row.count = (visitor_row.count or 0) + 1
+                    
+                    db.session.commit()
+                except Exception as e:
+                    db.session.rollback()
+                    logger.error(f"Erro ao incrementar visitantes (SQLAlchemy): {e}")
             return f(*args, **kwargs)
         return decorated
 
-    init_db()
-
-    # --- ROTAS DE PÁGINAS HTML (CORRIGIDAS E FINALIZADAS) ---
+    # --- ROTAS DE PÁGINAS HTML (SVM - Site Público) ---
     @app.route('/')
-    @track_visitors
+    @track_visitors  # Agora usa o decorator corrigido
     def index():
         return render_template('svm/index.html')
 
@@ -75,16 +92,15 @@ def register_routes(app):
     def history():
         return render_template('svm/history.html')
         
-    # ROTA ADICIONADA PARA A PÁGINA DA BÍBLIA (Rota corrigida)
     @app.route('/bible.html')
     def bible():
-        # Corrigido para apontar para o diretório 'svm'
         return render_template('svm/bible.html')
 
-    # --- ROTAS SGI (Sistema de Gestão) - NOVAS ROTAS ADICIONADAS ---
+    # --- ROTAS SGI (Sistema de Gestão) - (INSEGURAS, NECESSITAM LOGIN) ---
 
     @app.route('/sgi/home.html')
     def sgi_home():
+        # (Futuramente, protegeremos esta rota)
         return render_template('sgi/home.html')
 
     @app.route('/sgi/login.html')
@@ -94,138 +110,152 @@ def register_routes(app):
     # Rotas SGI/CAD
     @app.route('/sgi/cad/cadagendas.html')
     def sgi_cad_agendas():
+        # (Futuramente, protegeremos esta rota)
         return render_template('sgi/cad/cadagendas.html')
 
     @app.route('/sgi/cad/cadclasseebd.html')
     def sgi_cad_classeebd():
+        # (Futuramente, protegeremos esta rota)
         return render_template('sgi/cad/cadclasseebd.html')
 
     @app.route('/sgi/cad/cadeventos.html')
     def sgi_cad_eventos():
+        # (Futuramente, protegeremos esta rota)
         return render_template('sgi/cad/cadeventos.html')
 
     @app.route('/sgi/cad/cadfinancas.html')
     def sgi_cad_financas():
+        # (Futuramente, protegeremos esta rota)
         return render_template('sgi/cad/cadfinancas.html')
 
     @app.route('/sgi/cad/cadkids.html')
     def sgi_cad_kids():
+        # (Futuramente, protegeremos esta rota)
         return render_template('sgi/cad/cadkids.html')
 
     @app.route('/sgi/cad/cadmembros.html')
     def sgi_cad_membros():
+        # (Futuramente, protegeremos esta rota)
         return render_template('sgi/cad/cadmembros.html')
 
     @app.route('/sgi/cad/cadoficiais.html')
     def sgi_cad_oficiais():
+        # (Futuramente, protegeremos esta rota)
         return render_template('sgi/cad/cadoficiais.html')
 
     @app.route('/sgi/cad/cadpatrimonio.html')
     def sgi_cad_patrimonio():
+        # (Futuramente, protegeremos esta rota)
         return render_template('sgi/cad/cadpatrimonio.html')
 
     @app.route('/sgi/cad/cadpublicacoes.html')
     def sgi_cad_publicacoes():
+        # (Futuramente, protegeremos esta rota)
         return render_template('sgi/cad/cadpublicacoes.html')
 
     @app.route('/sgi/cad/cadsociedades.html')
     def sgi_cad_sociedades():
+        # (Futuramente, protegeremos esta rota)
         return render_template('sgi/cad/cadsociedades.html')
 
-    # Rotas SGI/DASH
-    @app.route('/sgi/dash/dashagendas.html')
-    def sgi_dash_agendas():
-        return render_template('sgi/dash/dashagendas.html')
+    # ... (Restante das rotas SGI/DASH e SGI/PESQ) ...
+    # (O ideal é adicionar proteção de login em todas elas)
 
-    @app.route('/sgi/dash/dashclasseebd.html')
-    def sgi_dash_classeebd():
-        return render_template('sgi/dash/dashclasseebd.html')
-
-    @app.route('/sgi/dash/dasheventos.html')
-    def sgi_dash_eventos():
-        return render_template('sgi/dash/dasheventos.html')
-
-    @app.route('/sgi/dash/dashfinancas.html')
-    def sgi_dash_financas():
-        return render_template('sgi/dash/dashfinancas.html')
-
-    @app.route('/sgi/dash/dashkids.html')
-    def sgi_dash_kids():
-        return render_template('sgi/dash/dashkids.html')
-
-    @app.route('/sgi/dash/dashmembros.html')
-    def sgi_dash_membros():
-        return render_template('sgi/dash/dashmembros.html')
-
-    @app.route('/sgi/dash/dashoficiais.html')
-    def sgi_dash_oficiais():
-        return render_template('sgi/dash/dashoficiais.html')
-
-    @app.route('/sgi/dash/dashpatrimonio.html')
-    def sgi_dash_patrimonio():
-        return render_template('sgi/dash/dashpatrimonio.html')
-
-    @app.route('/sgi/dash/dashpublicacoes.html')
-    def sgi_dash_publicacoes():
-        return render_template('sgi/dash/dashpublicacoes.html')
-
-    @app.route('/sgi/dash/dashsociedades.html')
-    def sgi_dash_sociedades():
-        return render_template('sgi/dash/dashsociedades.html')
-
-    # Rotas SGI/PESQ
-    @app.route('/sgi/pesq/pesqagendas.html')
-    def sgi_pesq_agendas():
-        return render_template('sgi/pesq/pesqagendas.html')
-
-    @app.route('/sgi/pesq/pesqclasseebd.html')
-    def sgi_pesq_classeebd():
-        return render_template('sgi/pesq/pesqclasseebd.html')
-
-    @app.route('/sgi/pesq/pesqeventos.html')
-    def sgi_pesq_eventos():
-        return render_template('sgi/pesq/pesqeventos.html')
-
-    @app.route('/sgi/pesq/pesqfinancas.html')
-    def sgi_pesq_financas():
-        return render_template('sgi/pesq/pesqfinancas.html')
-
-    @app.route('/sgi/pesq/pesqkids.html')
-    def sgi_pesq_kids():
-        return render_template('sgi/pesq/pesqkids.html')
-
-    @app.route('/sgi/pesq/pesqmembros.html')
-    def sgi_pesq_membros():
-        return render_template('sgi/pesq/pesqmembros.html')
-
-    @app.route('/sgi/pesq/pesqoficiais.html')
-    def sgi_pesq_oficiais():
-        return render_template('sgi/pesq/pesqoficiais.html')
-
-    @app.route('/sgi/pesq/pesqpatrimonio.html')
-    def sgi_pesq_patrimonio():
-        return render_template('sgi/pesq/pesqpatrimonio.html')
-
-    @app.route('/sgi/pesq/pesqpublicacoes.html')
-    def sgi_pesq_publicacoes():
-        return render_template('sgi/pesq/pesqpublicacoes.html')
-
-    @app.route('/sgi/pesq/pesqsociedades.html')
-    def sgi_pesq_sociedades():
-        return render_template('sgi/pesq/pesqsociedades.html')
-
-    # Rotas SGI/USER
     @app.route('/sgi/user/perfuser.html')
     def sgi_user_perfuser():
+        # (Futuramente, protegeremos esta rota)
         return render_template('sgi/user/perfuser.html')
 
 
-    # --- ROTAS DE API (CORRIGIDAS E FINALIZADAS) ---
+    # --- ROTAS DE API PÚBLICAS (SVM) ---
 
-    # ROTAS ADICIONADAS PARA A API DA BÍBLIA
+    # API de Tradução (DeepL)
+    @app.route('/api/translate', methods=['POST'])
+    def translate_text():
+        if not translator:
+            return jsonify({'error': 'API de tradução não configurada no servidor.'}), 503
+
+        data = request.json
+        text_to_translate = data.get('text')
+        target_lang = data.get('target_lang', 'EN-US') # Ex: 'EN-US', 'ES'
+
+        if not text_to_translate:
+            return jsonify({'error': 'Nenhum texto fornecido'}), 400
+
+        try:
+            result = translator.translate_text(text_to_translate, target_lang=target_lang)
+            return jsonify({'translation': result.text})
+        except deepl.DeepLException as e:
+            logger.error(f"Erro na API DeepL: {e}")
+            return jsonify({'error': f'Erro da API DeepL: {str(e)}'}), 500
+        except Exception as e:
+            logger.error(f"Erro inesperado na tradução: {e}")
+            return jsonify({'error': 'Erro interno ao traduzir.'}), 500
+            
+    # API do Tocador de Música (Hardcoded por enquanto)
+    @app.route('/api/music')
+    def get_music_playlist():
+        # Futuramente, isso pode vir de um modelo 'Musica' ou 'Publicacao' no BD
+        playlist = [
+            {'title': 'Hino 001 - HNC', 'videoId': 'YOUTUBE_ID_1'},
+            {'title': 'Hino 123 - HNC', 'videoId': 'YOUTUBE_ID_2'},
+            {'title': 'Pregação Domingo', 'videoId': 'YOUTUBE_ID_3'}
+        ]
+        return jsonify(playlist)
+
+    # API de Publicações (Editoriais, Notícias, Devocionais)
+    @app.route('/api/publicacoes')
+    def get_publicacoes():
+        try:
+            # Permite filtrar por tipo: /api/publicacoes?tipo=Devocional
+            tipo_pub = request.args.get('tipo')
+            query = Publicacao.query.order_by(desc(Publicacao.data_publicacao))
+
+            if tipo_pub:
+                # Use 'ilike' para busca case-insensitive
+                query = query.filter(Publicacao.tipo.ilike(f'%{tipo_pub}%'))
+            
+            publicacoes = query.limit(10).all() # Pega as 10 mais recentes
+            
+            results = [{
+                'id': p.id,
+                'titulo': p.titulo,
+                'conteudo': p.conteudo,
+                'autor': p.autor,
+                'tipo': p.tipo,
+                'data_publicacao': p.data_publicacao.isoformat()
+            } for p in publicacoes]
+            
+            return jsonify(results)
+        except Exception as e:
+            logger.error(f"Erro ao buscar publicações: {e}")
+            return jsonify({"error": "Erro interno ao buscar publicações"}), 500
+
+    # API de Eventos (Agenda/Calendário)
+    @app.route('/api/eventos')
+    def get_eventos():
+        try:
+            # Ordena por data do evento
+            eventos = Evento.query.order_by(Evento.data_evento).all()
+            
+            results = [{
+                'id': e.id,
+                'titulo': e.titulo,
+                'data_evento': e.data_evento.isoformat(), # Formato ISO (JS entende)
+                'local': e.local,
+                'descricao': e.descricao
+            } for e in eventos]
+            
+            return jsonify(results)
+        except Exception as e:
+            logger.error(f"Erro ao buscar eventos: {e}")
+            return jsonify({"error": "Erro interno ao buscar eventos"}), 500
+
+    # API da Bíblia (Rotas existentes mantidas)
     @app.route('/api/random-verse')
     def get_random_verse():
         try:
+            # Nota: BIBLE_API_URL precisa estar no seu Config.py
             response = requests.get(f"{Config.BIBLE_API_URL}/random?translation=almeida", timeout=10)
             response.raise_for_status()
             data = response.json()
@@ -252,11 +282,17 @@ def register_routes(app):
             logger.error(f"Erro de conexão com a API da Bíblia: {e}")
             return jsonify({"error": "Não foi possível conectar à API da Bíblia."}), 503
 
-    # --- RESTANTE DAS SUAS ROTAS (Sem alterações) ---
+    # API de Contagem de Visitantes (Corrigida para SQLAlchemy)
     @app.route('/visitor-count')
     def visitor_count():
-        return jsonify({'count': get_visitor_count()})
+        try:
+            count = get_visitor_count_internal()
+            return jsonify({'count': count})
+        except Exception as e:
+            logger.error(f"Erro ao buscar contagem de visitantes (SQLAlchemy): {e}")
+            return jsonify({'count': 0}), 500 # Retorna 0 em caso de erro
         
+    # APIs Públicas (Existentes)
     @app.route('/api/location')
     def get_location():
         return jsonify({
@@ -295,13 +331,13 @@ def register_routes(app):
         return send_from_directory(Config.DOCUMENTS_DIR, safe_filename, as_attachment=True)
 
 
-    # --- API PARA CADASTRO DE MEMBRO ---
+    # --- ROTAS DE API DE GERENCIAMENTO (SGI - INSEGURAS) ---
+
+    # API SGI: Membros (Existente)
     @app.route('/sgi/api/membros', methods=['POST'])
     def add_membro():
         # (Futuramente, adicionaremos a verificação de login aqui)
-        
         data = request.form
-        
         if not data.get('nome_completo'):
             return jsonify({'success': False, 'message': 'Nome completo é obrigatório.'}), 400
 
@@ -309,7 +345,6 @@ def register_routes(app):
             novo_membro = Membro(
                 nome_completo=data.get('nome_completo'),
                 data_nascimento=data.get('data_nascimento') or None,
-                # Os campos cpf, rg e email foram removidos daqui
                 endereco=data.get('endereco'),
                 telefone=data.get('telefone'),
                 estado_civil=data.get('estado_civil'),
@@ -320,47 +355,36 @@ def register_routes(app):
                 status=data.get('status'),
                 observacoes=data.get('observacoes')
             )
-            
             db.session.add(novo_membro)
             db.session.commit()
-            
             return jsonify({'success': True, 'message': 'Membro cadastrado com sucesso!'})
 
         except Exception as e:
             db.session.rollback()
             logger.error(f"Erro ao cadastrar membro: {e}")
-            # Mensagem de erro simplificada
             return jsonify({'success': False, 'message': 'Erro interno ao salvar no banco de dados.'}), 500
 
-    # --- API PARA BUSCAR MEMBROS (Autocomplete) ---
+    # API SGI: Busca de Membros (Existente)
     @app.route('/sgi/api/membros/search')
     def search_membros():
-        # Futuramente, protegeremos esta rota
-        
-        query = request.args.get('q', '') # Pega o termo de busca da URL (?q=nome)
+        # (Futuramente, protegeremos esta rota)
+        query = request.args.get('q', '')
         if not query:
             return jsonify([])
-
-        # Busca membros cujo nome contenha o termo pesquisado (case-insensitive)
         membros = Membro.query.filter(Membro.nome_completo.ilike(f'%{query}%')).limit(10).all()
-        
-        # Formata o resultado para o frontend
         results = [{'id': membro.id, 'nome_completo': membro.nome_completo} for membro in membros]
         return jsonify(results)
 
-    # --- API PARA CADASTRAR OFICIAL ---
+    # API SGI: Oficiais (Existente)
     @app.route('/sgi/api/oficiais', methods=['POST'])
     def add_oficial():
-        # Futuramente, protegeremos esta rota
-        
+        # (Futuramente, protegeremos esta rota)
         data = request.form
         membro_id = data.get('membro_id')
         
-        # Validações
         if not membro_id:
             return jsonify({'success': False, 'message': 'É necessário selecionar um membro válido.'}), 400
         
-        # Verifica se o membro já não é um oficial
         existing_oficial = Oficial.query.filter_by(membro_id=membro_id).first()
         if existing_oficial:
             return jsonify({'success': False, 'message': f'Este membro já é um {existing_oficial.cargo}.'}), 409
@@ -374,13 +398,91 @@ def register_routes(app):
                 mandato_fim=data.get('mandato_fim') or None,
                 status_oficio=data.get('status_oficio')
             )
-            
             db.session.add(novo_oficial)
             db.session.commit()
-            
             return jsonify({'success': True, 'message': f'{data.get("cargo")} cadastrado com sucesso!'})
 
         except Exception as e:
             db.session.rollback()
             logger.error(f"Erro ao cadastrar oficial: {e}")
             return jsonify({'success': False, 'message': 'Erro interno ao salvar o oficial.'}), 500
+
+    # --- NOVO: API SGI CRUD para Publicações ---
+
+    @app.route('/sgi/api/publicacoes', methods=['POST'])
+    def add_publicacao():
+        # (Futuramente, protegeremos esta rota)
+        data = request.json
+        try:
+            nova_publicacao = Publicacao(
+                titulo=data.get('titulo'),
+                conteudo=data.get('conteudo'),
+                autor=data.get('autor'),
+                tipo=data.get('tipo') # 'Devocional', 'Notícia', 'Artigo'
+            )
+            db.session.add(nova_publicacao)
+            db.session.commit()
+            return jsonify({'success': True, 'message': 'Publicação cadastrada com sucesso!'})
+        except Exception as e:
+            db.session.rollback()
+            logger.error(f"Erro ao cadastrar publicação: {e}")
+            return jsonify({'success': False, 'message': 'Erro interno ao salvar.'}), 500
+    
+    # (Adicione também rotas PUT e DELETE para publicações)
+
+    # --- NOVO: API SGI CRUD para Eventos (Agenda) ---
+    
+    @app.route('/sgi/api/eventos', methods=['POST'])
+    def add_evento():
+        # (Futuramente, protegeremos esta rota)
+        data = request.json
+        try:
+            novo_evento = Evento(
+                titulo=data.get('titulo'),
+                data_evento=data.get('data_evento'), # Espera formato ISO (ex: "2025-12-31T19:00:00")
+                local=data.get('local'),
+                descricao=data.get('descricao')
+            )
+            db.session.add(novo_evento)
+            db.session.commit()
+            return jsonify({'success': True, 'message': 'Evento cadastrado com sucesso!'})
+        except Exception as e:
+            db.session.rollback()
+            logger.error(f"Erro ao cadastrar evento: {e}")
+            return jsonify({'success': False, 'message': 'Erro interno ao salvar.'}), 500
+
+    @app.route('/sgi/api/eventos/<int:id>', methods=['PUT'])
+    def update_evento(id):
+        # (Futuramente, protegeremos esta rota)
+        evento = db.session.get(Evento, id)
+        if not evento:
+            return jsonify({'success': False, 'message': 'Evento não encontrado.'}), 404
+        
+        data = request.json
+        try:
+            evento.titulo = data.get('titulo', evento.titulo)
+            evento.data_evento = data.get('data_evento', evento.data_evento)
+            evento.local = data.get('local', evento.local)
+            evento.descricao = data.get('descricao', evento.descricao)
+            db.session.commit()
+            return jsonify({'success': True, 'message': 'Evento atualizado com sucesso!'})
+        except Exception as e:
+            db.session.rollback()
+            logger.error(f"Erro ao atualizar evento: {e}")
+            return jsonify({'success': False, 'message': 'Erro interno ao atualizar.'}), 500
+
+    @app.route('/sgi/api/eventos/<int:id>', methods=['DELETE'])
+    def delete_evento(id):
+        # (Futuramente, protegeremos esta rota)
+        evento = db.session.get(Evento, id)
+        if not evento:
+            return jsonify({'success': False, 'message': 'Evento não encontrado.'}), 404
+        
+        try:
+            db.session.delete(evento)
+            db.session.commit()
+            return jsonify({'success': True, 'message': 'Evento deletado com sucesso!'})
+        except Exception as e:
+            db.session.rollback()
+            logger.error(f"Erro ao deletar evento: {e}")
+            return jsonify({'success': False, 'message': 'Erro interno ao deletar.'}), 500

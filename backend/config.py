@@ -34,3 +34,8 @@ class Config:
     SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
     # Desativa um recurso do SQLAlchemy que não usaremos e consome memória
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    # --- API DeepL ---
+    DEEPL_AUTH_KEY = os.environ.get('DEEPL_AUTH_KEY')
+    # A documentação do plano gratuito exige esta URL específica
+    DEEPL_SERVER_URL = "https://api-free.deepl.com"
